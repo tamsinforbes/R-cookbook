@@ -1,17 +1,64 @@
-# Vector basics {#variables}
-
 ```{r include=FALSE}
-# Every file must contain at least one R chunk due to the linting process.
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
 ```
 
-## Coercion
+# Vector basics {#variables}
+
+## Vector types
 There are four main atomic vector types that you are likely to come across
 when using R^[technically there are more, see 
-https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors]; logical (`TRUE` or 
-`FALSE`), double (`1.5`), integer (`1L, 2L`)^[without the post-fix `L`, the 
-value would be stored as a double], and character (`"Awesome"`).
+https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors]; **logical** (`TRUE` 
+or `FALSE`), *double* (`3.142`), *integer* (`2L`) and *character* (`"awesome"`)
 
-Converting between the vector types is done using the `as.character`, 
+```{r}
+v1 <- TRUE
+typeof(v1)
+v1 <- FALSE
+typeof(v1)
+
+v2 <- 1.5
+typeof(v2)
+v2 <- 1
+typeof(v2)
+
+# integer values must be followed by an L to be stored as integers
+v3 <- 2
+typeof(v3)
+v3 <- 2L
+typeof(v3)
+
+v4 <- "Awesome"
+typeof(v4)
+
+```
+
+As well as the atomic vector types you will often encounter two other vector
+types; **factor** and **Date**.  
+
+Factor vectors are used to represent categorical data.  They are actually
+integer vectors with two additional attributes, levels and class.  At this
+stage it is not worth worrying to much about what attribute are just understand
+that, for factors, the levels attribute gives the possible categories and 
+combined with the integer values works much like a lookup table.  The `class` 
+attribute is just "factor".
+
+
+```{r}
+ratings <- factor(c("good", "bad", "bad", "amazing"))
+typeof(ratings)
+attributes(ratings)
+```
+
+Date vectors are just double vectors with an additional class attribute set as
+"Date"
+
+**NOT FINISHED**
+
+## Coercion
+
+### Conversion between atomic vector types
+
+Converting between the atomic vector types is done using the `as.character`, 
 `as.integer`, `as.logical` and `as.double` functions.
 
 ```{r}
@@ -38,9 +85,19 @@ typeof(c(3L, TRUE))
 typeof(TRUE)
 ```
 
+### Conversions with factors
+**NOT FINISHED**
+
 ## Factors
+Unfortunately factors can be tricky to work with and their behaviour is not
+always obvious.  Below we illustrate a couple of gotchas^[See chapter 8.2 of the 
+R Inferno for a more detailed discussion of interesting factor behaviour]
+
+**NOT FINISHED**
 
 ## Dates
+
+**NOT FINISHED**
 
 ## Rounding
 For rounding numerical values we have the function `round(x, digits = 0)`.  
@@ -67,17 +124,16 @@ To implement what we consider normal rounding we can install use the `janitor`
 package and the function `round_half_up`
 
 ```{r, warning=FALSE}
-# install.packages("janitor") # (if not already installed)
 library(janitor)
 janitor::round_half_up(c(-1.5, -0.5, 0.5, 1.5, 2.5, 3.5, 4.5))
 ```
 
 If we do not have access to the package (or do not want to depend on the 
 package) then we can implement^[see [stackoverflow](https://stackoverflow.com/questions/12688717/round-up-from-5/12688836#12688836)
-discussion for the implementation] the function directly
+discussion for a discussion of the implementation]
 
 ```{r}
-round_half_up <- function(x, digits = 0) {
+round_half_up_v2 <- function(x, digits = 0) {
   posneg <- sign(x)
   z <- abs(x) * 10 ^ digits
   z <- z + 0.5
@@ -85,5 +141,7 @@ round_half_up <- function(x, digits = 0) {
   z <- z / 10 ^ digits
   z * posneg
 }
+
+round_half_up_v2(c(-1.5, -0.5, 0.5, 1.5, 2.5, 3.5, 4.5))
 ```
 
