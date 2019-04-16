@@ -1,6 +1,6 @@
 --- 
 title: "DfT Introduction to R"
-author: "Will Bowditch" #Add names as chapters are added!
+author: "List of authors" #Add names as chapters are added!
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: 
