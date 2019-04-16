@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 4 Handling Variables | DfT Introduction to R</title>
+  <title>Chapter 4 Vector basics | DfT Introduction to R</title>
   <meta name="description" content="An introduction to working with R at the Department for Transport">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 4 Handling Variables | DfT Introduction to R" />
+  <meta property="og:title" content="Chapter 4 Vector basics | DfT Introduction to R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="departmentfortransport/R-cookbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Handling Variables | DfT Introduction to R" />
+  <meta name="twitter:title" content="Chapter 4 Vector basics | DfT Introduction to R" />
   
   <meta name="twitter:description" content="An introduction to working with R at the Department for Transport" />
   
@@ -132,7 +132,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>3</b> Data Importing/Exporting and interaction with other programmes</a></li>
-<li class="chapter" data-level="4" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>4</b> Handling Variables</a></li>
+<li class="chapter" data-level="4" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>4</b> Vector basics</a><ul>
+<li class="chapter" data-level="4.1" data-path="variables.html"><a href="variables.html#coercion"><i class="fa fa-check"></i><b>4.1</b> Coercion</a></li>
+<li class="chapter" data-level="4.2" data-path="variables.html"><a href="variables.html#factors"><i class="fa fa-check"></i><b>4.2</b> Factors</a></li>
+<li class="chapter" data-level="4.3" data-path="variables.html"><a href="variables.html#dates"><i class="fa fa-check"></i><b>4.3</b> Dates</a></li>
+<li class="chapter" data-level="4.4" data-path="variables.html"><a href="variables.html#rounding"><i class="fa fa-check"></i><b>4.4</b> Rounding</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>5</b> Table/Data Frame manipulation</a></li>
 <li class="chapter" data-level="6" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>6</b> Plotting and Data Visualisations</a></li>
 <li class="chapter" data-level="7" data-path="stats.html"><a href="stats.html"><i class="fa fa-check"></i><b>7</b> Statistical analysis</a></li>
@@ -155,9 +160,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="variables" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Handling Variables</h1>
-<p>This chapter is for code examples of handling variables.</p>
+<h1><span class="header-section-number">Chapter 4</span> Vector basics</h1>
+<div id="coercion" class="section level2">
+<h2><span class="header-section-number">4.1</span> Coercion</h2>
+<p>There are four main atomic vector types that you are likely to come across
+when using R<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>; logical (<code>TRUE</code> or
+<code>FALSE</code>), double (<code>1.5</code>), integer (<code>1L, 2L</code>)<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, and character (<code>"Awesome"</code>).</p>
+<p>Converting between the vector types is done using the <code>as.character</code>,
+<code>as.integer</code>, <code>as.logical</code> and <code>as.double</code> functions.</p>
+<pre class="sourceCode r"><code class="sourceCode r">value &lt;-<span class="st"> </span><span class="fl">1.5</span>
+<span class="kw">as.integer</span>(value)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.character</span>(value)</code></pre>
+<pre><code>## [1] &quot;1.5&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.logical</span>(value)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>Where it is not possible to convert a value you will get a warning message</p>
+<pre class="sourceCode r"><code class="sourceCode r">value &lt;-<span class="st"> &quot;z&quot;</span>
+<span class="kw">as.integer</span>(value)</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>When combining different vector types, coercion will obey the following
+hierarchy: character, double, integer, logical.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="st">&quot;pop&quot;</span>, <span class="ot">TRUE</span>))</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="ot">TRUE</span>))</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">c</span>(3L, <span class="ot">TRUE</span>))</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</code></pre>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+</div>
+<div id="factors" class="section level2">
+<h2><span class="header-section-number">4.2</span> Factors</h2>
+</div>
+<div id="dates" class="section level2">
+<h2><span class="header-section-number">4.3</span> Dates</h2>
+</div>
+<div id="rounding" class="section level2">
+<h2><span class="header-section-number">4.4</span> Rounding</h2>
+<p>For rounding numerical values we have the function <code>round(x, digits = 0)</code>.<br />
+This rounds the value of the first argument to the specified number of decimal
+places (default 0).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</code></pre>
+<pre><code>## [1] -2  0  0  2  2  4  4</code></pre>
+<p>This probably looks different to what you were expecting as at school we were
+generally taught that when rounding a 5 we go up if a positive value and down if
+a negative value. R, however, implements a different standard. We can see this
+by looking at the documentation (<code>?round</code>)</p>
+<blockquote>
+<p>Note that for rounding off a 5, the IEC 60559 standard (see also ‘IEEE 754’)
+is expected to be used, <em>‘go to the even digit’</em>. Therefore <code>round(0.5)</code> is <code>0</code>
+and <code>round(-1.5)</code> is <code>-2</code>. However, this is dependent on OS services and on
+representation error (since e.g. <code>0.15</code> is not represented exactly, the
+rounding rule applies to the represented number and not to the printed number,
+and so <code>round(0.15, 1)</code> could be either <code>0.1</code> or <code>0.2</code>).</p>
+</blockquote>
+<p>To implement what we consider normal rounding we can install use the <code>janitor</code>
+package and the function <code>round_half_up</code></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;janitor&quot;) # (if not already installed)</span>
+<span class="kw">library</span>(janitor)
+janitor<span class="op">::</span><span class="kw">round_half_up</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</code></pre>
+<pre><code>## [1] -2 -1  1  2  3  4  5</code></pre>
+<p>If we do not have access to the package (or do not want to depend on the
+package) then we can implement<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> the function directly</p>
+<pre class="sourceCode r"><code class="sourceCode r">round_half_up &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">digits =</span> <span class="dv">0</span>) {
+  posneg &lt;-<span class="st"> </span><span class="kw">sign</span>(x)
+  z &lt;-<span class="st"> </span><span class="kw">abs</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits
+  z &lt;-<span class="st"> </span>z <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span>
+  z &lt;-<span class="st"> </span><span class="kw">trunc</span>(z)
+  z &lt;-<span class="st"> </span>z <span class="op">/</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits
+  z <span class="op">*</span><span class="st"> </span>posneg
+}</code></pre>
 
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>technically there are more, see
+<a href="https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors" class="uri">https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors</a><a href="variables.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>without the post-fix <code>L</code>, the
+value would be stored as a double<a href="variables.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>see <a href="https://stackoverflow.com/questions/12688717/round-up-from-5/12688836#12688836">stackoverflow</a>
+discussion for the implementation<a href="variables.html#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
