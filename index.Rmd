@@ -12,7 +12,7 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: departmentfortransport/ds-processes
+github-repo: departmentfortransport/R-cookbook
 description: "An introduction to working with R at the Department for Transport"
 
 ---
