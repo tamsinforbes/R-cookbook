@@ -25,7 +25,7 @@
 <meta name="author" content="List of authors">
 
 
-<meta name="date" content="2019-04-16">
+<meta name="date" content="2019-04-17">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -133,7 +133,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>3</b> Data Importing/Exporting and interaction with other programmes</a></li>
 <li class="chapter" data-level="4" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>4</b> Handling Variables</a></li>
-<li class="chapter" data-level="5" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>5</b> Table/Data Frame manipulation</a></li>
+<li class="chapter" data-level="5" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>5</b> Table/Data Frame manipulation</a><ul>
+<li class="chapter" data-level="5.1" data-path="tables.html"><a href="tables.html#pivot-and-reshape-tables"><i class="fa fa-check"></i><b>5.1</b> Pivot and reshape tables</a></li>
+<li class="chapter" data-level="5.2" data-path="tables.html"><a href="tables.html#dropping-and-selecting-columns"><i class="fa fa-check"></i><b>5.2</b> Dropping and selecting columns</a></li>
+<li class="chapter" data-level="5.3" data-path="tables.html"><a href="tables.html#filtering-data"><i class="fa fa-check"></i><b>5.3</b> Filtering data</a></li>
+<li class="chapter" data-level="5.4" data-path="tables.html"><a href="tables.html#get-counts-of-data"><i class="fa fa-check"></i><b>5.4</b> Get counts of data</a></li>
+<li class="chapter" data-level="5.5" data-path="tables.html"><a href="tables.html#combine-tables"><i class="fa fa-check"></i><b>5.5</b> Combine tables</a></li>
+<li class="chapter" data-level="5.6" data-path="tables.html"><a href="tables.html#joining-tables"><i class="fa fa-check"></i><b>5.6</b> Joining tables</a></li>
+<li class="chapter" data-level="5.7" data-path="tables.html"><a href="tables.html#select-specific-columns-in-a-join"><i class="fa fa-check"></i><b>5.7</b> Select specific columns in a join</a></li>
+<li class="chapter" data-level="5.8" data-path="tables.html"><a href="tables.html#sum-rows-or-columns"><i class="fa fa-check"></i><b>5.8</b> Sum rows or columns</a></li>
+<li class="chapter" data-level="5.9" data-path="tables.html"><a href="tables.html#replace-nas-or-other-values"><i class="fa fa-check"></i><b>5.9</b> Replace NAs or other values</a></li>
+<li class="chapter" data-level="5.10" data-path="tables.html"><a href="tables.html#creating-new-variables"><i class="fa fa-check"></i><b>5.10</b> Creating new variables</a></li>
+<li class="chapter" data-level="5.11" data-path="tables.html"><a href="tables.html#summarising-data"><i class="fa fa-check"></i><b>5.11</b> Summarising data</a></li>
+<li class="chapter" data-level="5.12" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>5.12</b> Look up tables</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>6</b> Plotting and Data Visualisations</a></li>
 <li class="chapter" data-level="7" data-path="stats.html"><a href="stats.html"><i class="fa fa-check"></i><b>7</b> Statistical analysis</a></li>
 <li class="chapter" data-level="8" data-path="advanced.html"><a href="advanced.html"><i class="fa fa-check"></i><b>8</b> Advanced</a></li>
@@ -156,8 +169,1277 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="tables" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Table/Data Frame manipulation</h1>
-<p>This chapter is for code examples of manipulation and transforming tables.</p>
+<p>This chapter provides an overview of code examples for table or data frame manipulation.</p>
+<p>One of the main things you will have to do in any R project or RAP project will be manipulating the data that you are using in order to get it into the format you require.</p>
+<p>One of the main packages used to manipulate data is the dplyr package which we recommend and use throughout this book.</p>
+<p>Dplyr is built to work with <strong>tidy data</strong>. To find out more about tidy data please look at the following link <a href="https://r4ds.had.co.nz/tidy-data.html" class="uri">https://r4ds.had.co.nz/tidy-data.html</a> but the general principles are:</p>
+<ol style="list-style-type: decimal">
+<li>Each variables must have its own column</li>
+<li>Each observation must have its own row</li>
+<li>Each value must have its own cell</li>
+</ol>
+<div id="pivot-and-reshape-tables" class="section level2">
+<h2><span class="header-section-number">5.1</span> Pivot and reshape tables</h2>
+<p>There will be two examples for pivoting tables provided:</p>
+<ul>
+<li>The tidyr package uses the gather/spread functions and is often used to create tidy data</li>
+<li>The reshape2 package is also a useful package to pivot tables and has added functionality such as providing totals of columns etc.</li>
+</ul>
+<p>We want to have the day of the week variable running along the top so each daoy of the week is its own table.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-5">Table 5.1: </span>Number of road accidents by accident severity and weekday</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">300</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">205</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">187</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">233</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">220</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">250</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">281</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">3009</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2948</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3230</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">3227</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">3246</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">3649</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">3225</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">11668</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">14783</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">16065</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">15859</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">16331</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">17346</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">13720</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tidyr package</strong></p>
+<p>Using the tidyr package, gather and spread functions can be used to pivot the table views:</p>
+<ul>
+<li><p><strong>gather</strong> makes wide data longer i.e. variables running along the top can be “gathered” into rows running down.</p></li>
+<li><p><strong>spread</strong> makes long data wider i.e. one variable can be spread and run along the top with each value being a variable.</p></li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using tidyr package</span>
+<span class="kw">library</span>(tidyr)
+road_accidents_weekdays &lt;-<span class="st"> </span>road_accidents_small <span class="op">%&gt;%</span>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">spread</span>(Day_of_Week, n)</code></pre>
+<p>With the spread function above you need to first specify the variable you want to spread, in this case Day_of_Week, and then the variable that will be used to populate the columns (n).</p>
+<table>
+<caption><span id="tab:unnamed-chunk-7">Table 5.2: </span>Number of road accidents by accident severity and weekday, tidyr::spread</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">300</td>
+<td align="right">205</td>
+<td align="right">187</td>
+<td align="right">233</td>
+<td align="right">220</td>
+<td align="right">250</td>
+<td align="right">281</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">3009</td>
+<td align="right">2948</td>
+<td align="right">3230</td>
+<td align="right">3227</td>
+<td align="right">3246</td>
+<td align="right">3649</td>
+<td align="right">3225</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">11668</td>
+<td align="right">14783</td>
+<td align="right">16065</td>
+<td align="right">15859</td>
+<td align="right">16331</td>
+<td align="right">17346</td>
+<td align="right">13720</td>
+</tr>
+</tbody>
+</table>
+<p>The opposite can also be done using the gather function: GET HELP ON THIS</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using tidyr package</span>
+<span class="kw">library</span>(tidyr)
+road_accidents_gather &lt;-<span class="st"> </span>road_accidents_weekdays <span class="op">%&gt;%</span>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(Accident_Severity, n, <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)</code></pre>
+<p><strong>Reshape2 package</strong></p>
+<p>Again, this has two functions which can be used to pivot tables:</p>
+<ul>
+<li><p><strong>melt</strong> makes wide data longer</p></li>
+<li><p><strong>dcast</strong> makes long data wider</p></li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using reshape2 package</span>
+<span class="kw">library</span>(reshape2)
+road_accidents_weekdays2 &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">dcast</span>(road_accidents_small, Accident_Severity <span class="op">~</span><span class="st"> </span>Day_of_Week,
+                                            <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>)</code></pre>
+<p>With the dcast function above you need to first specify the variable(s) you want in long format (multiple variables seperated by “+”), in this case Accident_Severity, and then the wide format variable(s) are put after the tilda (again multiple seperated by “+”). The value.var argument specifices which column will be used to populate the new columns, in this case it is n.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-10">Table 5.3: </span>Number of road accidents by accident severity and weekday, reshape2::dcast</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">300</td>
+<td align="right">205</td>
+<td align="right">187</td>
+<td align="right">233</td>
+<td align="right">220</td>
+<td align="right">250</td>
+<td align="right">281</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">3009</td>
+<td align="right">2948</td>
+<td align="right">3230</td>
+<td align="right">3227</td>
+<td align="right">3246</td>
+<td align="right">3649</td>
+<td align="right">3225</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">11668</td>
+<td align="right">14783</td>
+<td align="right">16065</td>
+<td align="right">15859</td>
+<td align="right">16331</td>
+<td align="right">17346</td>
+<td align="right">13720</td>
+</tr>
+</tbody>
+</table>
+<p>If you want to create sums and totals of the tables this can also be done using reshape2. For example, taking the original table, we want to pivot it and sum each severity to get the total number of accidents per day.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using reshape2 package</span>
+<span class="kw">library</span>(reshape2)
+road_accidents_weekdays3 &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">dcast</span>(road_accidents_small, Accident_Severity <span class="op">~</span><span class="st"> </span>Day_of_Week,
+                                            <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>, sum, <span class="dt">margins =</span> <span class="st">&quot;Accident_Severity&quot;</span>)</code></pre>
+<p>In this example, we use the margins argument to specify what we want to combine to create totals. So we want to add all the accident severity figures up for each weekday. Before using margin you need to specify how the margins are calculated, in this case we want a sum. Alternative options are to calculate the length, i.e. the number of rows.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-12">Table 5.4: </span>Number of road accidents by accident severity and weekday plus totals, reshape2::dcast</caption>
+<thead>
+<tr class="header">
+<th align="left">Accident_Severity</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">300</td>
+<td align="right">205</td>
+<td align="right">187</td>
+<td align="right">233</td>
+<td align="right">220</td>
+<td align="right">250</td>
+<td align="right">281</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="right">3009</td>
+<td align="right">2948</td>
+<td align="right">3230</td>
+<td align="right">3227</td>
+<td align="right">3246</td>
+<td align="right">3649</td>
+<td align="right">3225</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="right">11668</td>
+<td align="right">14783</td>
+<td align="right">16065</td>
+<td align="right">15859</td>
+<td align="right">16331</td>
+<td align="right">17346</td>
+<td align="right">13720</td>
+</tr>
+<tr class="even">
+<td align="left">(all)</td>
+<td align="right">14977</td>
+<td align="right">17936</td>
+<td align="right">19482</td>
+<td align="right">19319</td>
+<td align="right">19797</td>
+<td align="right">21245</td>
+<td align="right">17226</td>
+</tr>
+</tbody>
+</table>
+<p>The opposite can also be done using the melt function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using reshape2 package</span>
+<span class="kw">library</span>(reshape2)
+road_accidents_melt &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">melt</span>(road_accidents_weekdays2, <span class="dt">id.vars =</span> <span class="st">&quot;Accident_Severity&quot;</span>,
+                                      <span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>),
+                                      <span class="dt">variable.name =</span> <span class="st">&quot;Day_of_Week&quot;</span>, <span class="dt">value.name =</span> <span class="st">&quot;n&quot;</span>)</code></pre>
+<p>For the melt function you need to specify:</p>
+<p>id.vars = “variables to be kept as columns”</p>
+<p>measure.vars = c(“variables to be created as one column”)</p>
+<p>variable.name = “name of created column using the measure.vars”</p>
+<p>value.name = “name of value column”</p>
+<table>
+<caption><span id="tab:unnamed-chunk-14">Table 5.5: </span>Number of road accidents by accident severity and weekday, reshape2::melt</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="left">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">1</td>
+<td align="right">300</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">1</td>
+<td align="right">3009</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">1</td>
+<td align="right">11668</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">2</td>
+<td align="right">205</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">2</td>
+<td align="right">2948</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">2</td>
+<td align="right">14783</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="dropping-and-selecting-columns" class="section level2">
+<h2><span class="header-section-number">5.2</span> Dropping and selecting columns</h2>
+<p>Use the dplyr select function to both select and drop columns.</p>
+<p><strong>Select columns</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r">road_accidents_<span class="dv">4</span>_cols &lt;-<span class="st"> </span>road_accidents <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(acc_index, Accident_Severity, Date, Police_Force)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-16">Table 5.6: </span>Four columns from road accidents 2017</caption>
+<thead>
+<tr class="header">
+<th align="left">acc_index</th>
+<th align="right">Accident_Severity</th>
+<th align="left">Date</th>
+<th align="right">Police_Force</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2017010001708</td>
+<td align="right">1</td>
+<td align="left">2017-08-05</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009342</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009344</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009348</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009350</td>
+<td align="right">2</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009351</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Drop columns</strong></p>
+<p>Note that to drop columns the difference is putting a “-” in front of the variable name.</p>
+<pre class="sourceCode r"><code class="sourceCode r">road_accidents_<span class="dv">3</span>_cols &lt;-<span class="st"> </span>road_accidents_<span class="dv">4</span>_cols <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Police_Force)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-18">Table 5.7: </span>Three columns from road accidents 2017</caption>
+<thead>
+<tr class="header">
+<th align="left">acc_index</th>
+<th align="right">Accident_Severity</th>
+<th align="left">Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2017010001708</td>
+<td align="right">1</td>
+<td align="left">2017-08-05</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009342</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009344</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009348</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009350</td>
+<td align="right">2</td>
+<td align="left">2017-01-01</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009351</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="filtering-data" class="section level2">
+<h2><span class="header-section-number">5.3</span> Filtering data</h2>
+<p>Use the dplyr filter function to filter data.</p>
+<p>This example filters the data for slight severity accidents (accident severity 3).</p>
+<pre class="sourceCode r"><code class="sourceCode r">road_accidents_slight &lt;-<span class="st"> </span>road_accidents_<span class="dv">4</span>_cols <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Accident_Severity <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-20">Table 5.8: </span>Slight severity road accidents 2017</caption>
+<thead>
+<tr class="header">
+<th align="left">acc_index</th>
+<th align="right">Accident_Severity</th>
+<th align="left">Date</th>
+<th align="right">Police_Force</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2017010009342</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009344</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009348</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009351</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009353</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009354</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>To filter multiple conditions:</p>
+<p>And operator</p>
+<pre class="sourceCode r"><code class="sourceCode r">road_accidents_filter &lt;-<span class="st"> </span>road_accidents_<span class="dv">4</span>_cols <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Accident_Severity <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>Police_Force <span class="op">==</span><span class="st"> </span><span class="dv">4</span>)</code></pre>
+<p>Or operator</p>
+<pre class="sourceCode r"><code class="sourceCode r">road_accidents_filter2 &lt;-<span class="st"> </span>road_accidents_<span class="dv">4</span>_cols <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Accident_Severity <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>Accident_Severity <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</code></pre>
+<p><strong>Note: filtering with characters must be wrapped in “quotations” e.g:</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r">road_accidents_filter3 &lt;-<span class="st"> </span>road_accidents <span class="op">%&gt;%</span>
+dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="st">`</span><span class="dt">Local_Authority_(Highway)</span><span class="st">`</span> <span class="op">==</span><span class="st"> &quot;E09000010&quot;</span>)</code></pre>
+<p>Also note that in the above example the variable is quoted in back ticks (`). This is because some variable names confuse R due to brackets and numbers and need to be wrapped in back ticks so R knows that everything inside the back ticks is a variable name.</p>
+</div>
+<div id="get-counts-of-data" class="section level2">
+<h2><span class="header-section-number">5.4</span> Get counts of data</h2>
+<p>To get counts for groups of data, the dplyr tally function can be used in conjunction with the dplyr group by function. This groups the data into the required groups and then tallys how many records are in each group.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create grouped data set with counts</span>
+road_accidents_small &lt;-<span class="st"> </span>road_accidents <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(Accident_Severity, Day_of_Week) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">tally</span>()</code></pre>
+<p>The above example creates groups by accident severity and weekday and counts how many accidents are in each group (one row equals one accident therefore the tally is counting accidents).</p>
+<table>
+<caption><span id="tab:unnamed-chunk-25">Table 5.9: </span>Road accidents 2017 by accident severity and weekday</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">300</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">205</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">187</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">233</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">220</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">250</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="combine-tables" class="section level2">
+<h2><span class="header-section-number">5.5</span> Combine tables</h2>
+<p>When combining data from two tables there are two ways to do this in R:</p>
+<ul>
+<li>Bind the tables by basically either appending the tables on the rows or columns</li>
+<li>Join the tables using the dplyr version of SQL joins</li>
+</ul>
+<p><strong>Binding tables</strong></p>
+<p>Binding tables is mainly done to append tables by creating more rows, however tables can also be binded by adding more columns. Although it is recommended to use the dplyr join functions to combine columns (see 5.6).</p>
+<p>Here are three tables, one shows data for accident severity of 1, one for accident severity of 2, and one for accident severity of 3.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-27">Table 5.10: </span>Number of fatal road accidents in 2017, by weekday</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">300</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">205</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">187</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">233</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">220</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">250</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">281</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:unnamed-chunk-27">Table 5.10: </span>Number of serious injury road accidents in 2017, by weekday</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">3009</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2948</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3230</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">3227</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">3246</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">3649</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">3225</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:unnamed-chunk-27">Table 5.10: </span>Number of slight injury road accidents in 2017, by weekday</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">11668</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">14783</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">16065</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">15859</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">16331</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">17346</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">13720</td>
+</tr>
+</tbody>
+</table>
+<p>To combine these tables we can use the bind_rows function from the dplyr package. Use bind_rows when you want to append the tables underneath one another to make one longer table, i.e. you want to add more rows.</p>
+<p><strong>Ensure that the column names for each table are exactly the same in each table.</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine tables using bind_rows</span>
+<span class="kw">library</span>(dplyr)
 
+all_accidents &lt;-<span class="st"> </span>accidents_<span class="dv">1</span> <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">bind_rows</span>(accidents_<span class="dv">2</span>, accidents_<span class="dv">3</span>)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-29">Table 5.11: </span>Road accident data 2017, bind_rows</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">300</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">205</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">187</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">233</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">220</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">250</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">281</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">3009</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2948</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3230</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">3227</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">3246</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">3649</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">3225</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">11668</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">14783</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">16065</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">15859</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">16331</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">17346</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">13720</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="joining-tables" class="section level2">
+<h2><span class="header-section-number">5.6</span> Joining tables</h2>
+<p>Joins in R can be done using dplyr. This is generally to combine columns of data from two tables:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine tables using left join</span>
+<span class="kw">library</span>(dplyr)
+
+all_accidents_cols_join &lt;-<span class="st"> </span>road_acc_<span class="dv">1</span> <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">left_join</span>(road_acc_<span class="dv">2</span>, <span class="dt">by =</span> <span class="st">&quot;acc_index&quot;</span>)</code></pre>
+<p>This uses the same principles as SQL, by specifying what the tables should be joined on using the <strong>by =</strong> argument.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-32">Table 5.12: </span>Road accident data 2017, left join</caption>
+<thead>
+<tr class="header">
+<th align="left">acc_index</th>
+<th align="right">Police_Force</th>
+<th align="right">Accident_Severity</th>
+<th align="left">Date</th>
+<th align="right">Day_of_Week</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2017010001708</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">2017-08-05</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009342</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009344</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009348</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009350</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009351</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>Dplyr has all the usual SQL joins for example, inner_join, full_join, right_join. All of these are used in the same way as the left join example above.</p>
+<p>Another useful join for data manipulation is an anti_join. This provides all the data that is not in the joined table. For example, the below snapshot of a table displays road accident totals broken down by accident severity and weekday:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">300</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">205</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">187</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">233</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">220</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">250</td>
+</tr>
+</tbody>
+</table>
+<p>I am interested in creating two sub-groups of this data, a table for all accidents on a Monday (weekday 2), and all other accidents.</p>
+<p>First, I get the Monday data using the dplyr filter function (see 5.3).</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">205</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2948</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">14783</td>
+</tr>
+</tbody>
+</table>
+<p>Then, I can use an anti-join to create a table which has all of the data that is not in the above table:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create table of all rows not in the joined table</span>
+<span class="kw">library</span>(dplyr)
+
+all_accidents_not_monday &lt;-<span class="st"> </span>road_accidents_small <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">anti_join</span>(accidents_monday, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;Accident_Severity&quot;</span>, <span class="st">&quot;Day_of_Week&quot;</span>))</code></pre>
+<p>The above code takes the initial table we want to get our data from (road_accidents_small) and anti joins accidents_monday. This says, “get all the rows from road_accidents_small that are not in accidents_monday”. Again, note the need to specify what the join rows would be joined and compared by.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-37">Table 5.13: </span>Road accident data 2017 not on a Monday by accident severity</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">300</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">187</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">233</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">220</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">250</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">281</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">3009</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3230</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">3227</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">3246</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">3649</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">3225</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">11668</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">16065</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">15859</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">16331</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">17346</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">13720</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="select-specific-columns-in-a-join" class="section level2">
+<h2><span class="header-section-number">5.7</span> Select specific columns in a join</h2>
+<p>Doing a join with dplyr will join all colummns from both tables, however sometimes not all columns from each table are needed.</p>
+<p>Let’s look at some previous tables again:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-38">Table 5.14: </span>Police force and accident severity information for accidents</caption>
+<thead>
+<tr class="header">
+<th align="left">acc_index</th>
+<th align="right">Police_Force</th>
+<th align="right">Accident_Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2017010001708</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009342</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009344</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009348</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009350</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009351</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:unnamed-chunk-38">Table 5.14: </span>Date and weekday information for accidents</caption>
+<thead>
+<tr class="header">
+<th align="left">acc_index</th>
+<th align="left">Date</th>
+<th align="right">Day_of_Week</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2017010001708</td>
+<td align="left">2017-08-05</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009342</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009344</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009348</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009350</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009351</td>
+<td align="left">2017-01-01</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s say we want acc_index and Police_Force from the first table, and Date from the second table.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># select specific columns from each table and left join</span>
+<span class="kw">library</span>(dplyr)
+
+road_acc_<span class="dv">3</span> &lt;-<span class="st"> </span>road_acc_<span class="dv">1</span> <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(acc_index, Police_Force) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">left_join</span>(<span class="kw">select</span>(road_acc_<span class="dv">2</span>, acc_index, Date), <span class="dt">by =</span> <span class="st">&quot;acc_index&quot;</span>)</code></pre>
+<p>The above code takes the first table and uses the select statement to select the required columns from the first table.</p>
+<p>Then within the left_join command, to select the data from the second table, you again add the select statement.</p>
+<p><strong>Note: you will need to select the joining variable in both tables but this will only appear once</strong></p>
+<table>
+<caption><span id="tab:unnamed-chunk-40">Table 5.15: </span>Police force and Date information for specific accidents</caption>
+<thead>
+<tr class="header">
+<th align="left">acc_index</th>
+<th align="right">Police_Force</th>
+<th align="left">Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2017010001708</td>
+<td align="right">1</td>
+<td align="left">2017-08-05</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009342</td>
+<td align="right">1</td>
+<td align="left">2017-01-01</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009344</td>
+<td align="right">1</td>
+<td align="left">2017-01-01</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009348</td>
+<td align="right">1</td>
+<td align="left">2017-01-01</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010009350</td>
+<td align="right">1</td>
+<td align="left">2017-01-01</td>
+</tr>
+<tr class="even">
+<td align="left">2017010009351</td>
+<td align="right">1</td>
+<td align="left">2017-01-01</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sum-rows-or-columns" class="section level2">
+<h2><span class="header-section-number">5.8</span> Sum rows or columns</h2>
+</div>
+<div id="replace-nas-or-other-values" class="section level2">
+<h2><span class="header-section-number">5.9</span> Replace NAs or other values</h2>
+</div>
+<div id="creating-new-variables" class="section level2">
+<h2><span class="header-section-number">5.10</span> Creating new variables</h2>
+</div>
+<div id="summarising-data" class="section level2">
+<h2><span class="header-section-number">5.11</span> Summarising data</h2>
+</div>
+<div id="look-up-tables" class="section level2">
+<h2><span class="header-section-number">5.12</span> Look up tables</h2>
+
+</div>
 </div>
             </section>
 
