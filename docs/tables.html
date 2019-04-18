@@ -25,7 +25,7 @@
 <meta name="author" content="List of authors">
 
 
-<meta name="date" content="2019-04-17">
+<meta name="date" content="2019-04-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -141,7 +141,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="tables.html"><a href="tables.html#combine-tables"><i class="fa fa-check"></i><b>5.5</b> Combine tables</a></li>
 <li class="chapter" data-level="5.6" data-path="tables.html"><a href="tables.html#joining-tables"><i class="fa fa-check"></i><b>5.6</b> Joining tables</a></li>
 <li class="chapter" data-level="5.7" data-path="tables.html"><a href="tables.html#select-specific-columns-in-a-join"><i class="fa fa-check"></i><b>5.7</b> Select specific columns in a join</a></li>
-<li class="chapter" data-level="5.8" data-path="tables.html"><a href="tables.html#sum-rows-or-columns"><i class="fa fa-check"></i><b>5.8</b> Sum rows or columns</a></li>
+<li class="chapter" data-level="5.8" data-path="tables.html"><a href="tables.html#sum-rows-or-columns"><i class="fa fa-check"></i><b>5.8</b> Sum rows or columns</a><ul>
+<li class="chapter" data-level="5.8.1" data-path="tables.html"><a href="tables.html#sum-rows"><i class="fa fa-check"></i><b>5.8.1</b> Sum rows</a></li>
+<li class="chapter" data-level="5.8.2" data-path="tables.html"><a href="tables.html#sum-columns"><i class="fa fa-check"></i><b>5.8.2</b> Sum columns</a></li>
+</ul></li>
 <li class="chapter" data-level="5.9" data-path="tables.html"><a href="tables.html#replace-nas-or-other-values"><i class="fa fa-check"></i><b>5.9</b> Replace NAs or other values</a></li>
 <li class="chapter" data-level="5.10" data-path="tables.html"><a href="tables.html#creating-new-variables"><i class="fa fa-check"></i><b>5.10</b> Creating new variables</a></li>
 <li class="chapter" data-level="5.11" data-path="tables.html"><a href="tables.html#summarising-data"><i class="fa fa-check"></i><b>5.11</b> Summarising data</a></li>
@@ -172,6 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This chapter provides an overview of code examples for table or data frame manipulation.</p>
 <p>One of the main things you will have to do in any R project or RAP project will be manipulating the data that you are using in order to get it into the format you require.</p>
 <p>One of the main packages used to manipulate data is the dplyr package which we recommend and use throughout this book.</p>
+<p><strong>Dplyr code functions can be combined and layered using the pipe operator <code>%&gt;%</code>.</strong></p>
 <p>Dplyr is built to work with <strong>tidy data</strong>. To find out more about tidy data please look at the following link <a href="https://r4ds.had.co.nz/tidy-data.html" class="uri">https://r4ds.had.co.nz/tidy-data.html</a> but the general principles are:</p>
 <ol style="list-style-type: decimal">
 <li>Each variables must have its own column</li>
@@ -185,7 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The tidyr package uses the gather/spread functions and is often used to create tidy data</li>
 <li>The reshape2 package is also a useful package to pivot tables and has added functionality such as providing totals of columns etc.</li>
 </ul>
-<p>We want to have the day of the week variable running along the top so each daoy of the week is its own table.</p>
+<p>We want to have the day of the week variable running along the top so each day of the week is its own table.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-5">Table 5.1: </span>Number of road accidents by accident severity and weekday</caption>
 <thead>
@@ -225,81 +229,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">1</td>
 <td align="right">6</td>
 <td align="right">250</td>
-</tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">7</td>
-<td align="right">281</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">3009</td>
-</tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2948</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">3230</td>
-</tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">4</td>
-<td align="right">3227</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">5</td>
-<td align="right">3246</td>
-</tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">6</td>
-<td align="right">3649</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">7</td>
-<td align="right">3225</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">11668</td>
-</tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">14783</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">16065</td>
-</tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">4</td>
-<td align="right">15859</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">5</td>
-<td align="right">16331</td>
-</tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">6</td>
-<td align="right">17346</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">7</td>
-<td align="right">13720</td>
 </tr>
 </tbody>
 </table>
@@ -1285,7 +1214,7 @@ all_accidents_not_monday &lt;-<span class="st"> </span>road_accidents_small <spa
 </div>
 <div id="select-specific-columns-in-a-join" class="section level2">
 <h2><span class="header-section-number">5.7</span> Select specific columns in a join</h2>
-<p>Doing a join with dplyr will join all colummns from both tables, however sometimes not all columns from each table are needed.</p>
+<p>Doing a join with dplyr will join all columns from both tables, however sometimes not all columns from each table are needed.</p>
 <p>Let’s look at some previous tables again:</p>
 <table>
 <caption><span id="tab:unnamed-chunk-38">Table 5.14: </span>Police force and accident severity information for accidents</caption>
@@ -1426,6 +1355,190 @@ road_acc_<span class="dv">3</span> &lt;-<span class="st"> </span>road_acc_<span 
 </div>
 <div id="sum-rows-or-columns" class="section level2">
 <h2><span class="header-section-number">5.8</span> Sum rows or columns</h2>
+<p>These solutions use the base R functions rather than dplyr.</p>
+<div id="sum-rows" class="section level3">
+<h3><span class="header-section-number">5.8.1</span> Sum rows</h3>
+<p>To sum across a row:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sum across a row </span>
+road_accidents_weekdays<span class="op">$</span>rowsum &lt;-<span class="st"> </span><span class="kw">rowSums</span>(road_accidents_weekdays, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-42">Table 5.16: </span>Road accidents 2017 by accident severity and weekday</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+<th align="right">rowsum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">300</td>
+<td align="right">205</td>
+<td align="right">187</td>
+<td align="right">233</td>
+<td align="right">220</td>
+<td align="right">250</td>
+<td align="right">281</td>
+<td align="right">1677</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">3009</td>
+<td align="right">2948</td>
+<td align="right">3230</td>
+<td align="right">3227</td>
+<td align="right">3246</td>
+<td align="right">3649</td>
+<td align="right">3225</td>
+<td align="right">22536</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">11668</td>
+<td align="right">14783</td>
+<td align="right">16065</td>
+<td align="right">15859</td>
+<td align="right">16331</td>
+<td align="right">17346</td>
+<td align="right">13720</td>
+<td align="right">105775</td>
+</tr>
+</tbody>
+</table>
+<p>To sum across specific rows:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sum across specific rows </span>
+road_accidents_weekdays<span class="op">$</span>alldays &lt;-<span class="st"> </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span> <span class="op">+</span><span class="st"> </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">2</span><span class="st">`</span><span class="op">+</span>
+<span class="st">                                    </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">3</span><span class="st">`</span><span class="op">+</span><span class="st"> </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">4</span><span class="st">`</span><span class="op">+</span>
+<span class="st">                                    </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">5</span><span class="st">`</span><span class="op">+</span><span class="st"> </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">6</span><span class="st">`</span><span class="op">+</span>
+<span class="st">                                    </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">7</span><span class="st">`</span></code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-44">Table 5.17: </span>Road accidents 2017 by accident severity and weekday</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+<th align="right">alldays</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">300</td>
+<td align="right">205</td>
+<td align="right">187</td>
+<td align="right">233</td>
+<td align="right">220</td>
+<td align="right">250</td>
+<td align="right">281</td>
+<td align="right">1676</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">3009</td>
+<td align="right">2948</td>
+<td align="right">3230</td>
+<td align="right">3227</td>
+<td align="right">3246</td>
+<td align="right">3649</td>
+<td align="right">3225</td>
+<td align="right">22534</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">11668</td>
+<td align="right">14783</td>
+<td align="right">16065</td>
+<td align="right">15859</td>
+<td align="right">16331</td>
+<td align="right">17346</td>
+<td align="right">13720</td>
+<td align="right">105772</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sum-columns" class="section level3">
+<h3><span class="header-section-number">5.8.2</span> Sum columns</h3>
+<p>To sum columns to get totals of each column, <strong><em>note this will appear as a console output not in a data object</em></strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sum columns</span>
+<span class="kw">colSums</span>(road_accidents_weekdays, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </code></pre>
+<p>To get the totals of each column as a row in the data:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span> (janitor)
+<span class="co"># create total column</span>
+road_accidents_weekdays &lt;-<span class="st"> </span>road_accidents_weekdays <span class="op">%&gt;%</span>
+<span class="st">  </span>janitor<span class="op">::</span><span class="kw">adorn_totals</span>(<span class="st">&quot;row&quot;</span>)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-47">Table 5.18: </span>Road accidents 2017 by accident severity and weekday</caption>
+<thead>
+<tr class="header">
+<th align="left">Accident_Severity</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">300</td>
+<td align="right">205</td>
+<td align="right">187</td>
+<td align="right">233</td>
+<td align="right">220</td>
+<td align="right">250</td>
+<td align="right">281</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="right">3009</td>
+<td align="right">2948</td>
+<td align="right">3230</td>
+<td align="right">3227</td>
+<td align="right">3246</td>
+<td align="right">3649</td>
+<td align="right">3225</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="right">11668</td>
+<td align="right">14783</td>
+<td align="right">16065</td>
+<td align="right">15859</td>
+<td align="right">16331</td>
+<td align="right">17346</td>
+<td align="right">13720</td>
+</tr>
+<tr class="even">
+<td align="left">Total</td>
+<td align="right">14977</td>
+<td align="right">17936</td>
+<td align="right">19482</td>
+<td align="right">19319</td>
+<td align="right">19797</td>
+<td align="right">21245</td>
+<td align="right">17226</td>
+</tr>
+</tbody>
+</table>
+<p>Reshape2 can also be used to get column totals when pivoting a table (See 5.1).</p>
+</div>
 </div>
 <div id="replace-nas-or-other-values" class="section level2">
 <h2><span class="header-section-number">5.9</span> Replace NAs or other values</h2>

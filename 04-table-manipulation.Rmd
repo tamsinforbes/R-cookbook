@@ -18,6 +18,8 @@ One of the main things you will have to do in any R project or RAP project will 
 
 One of the main packages used to manipulate data is the dplyr package which we recommend and use throughout this book. 
 
+**Dplyr code functions can be combined and layered using the pipe operator `%>%`.**
+
 Dplyr is built to work with **tidy data**. To find out more about tidy data please look at the following link https://r4ds.had.co.nz/tidy-data.html but the general principles are:
 
 1. Each variables must have its own column
@@ -421,6 +423,63 @@ knitr::kable(road_acc_3, caption = "Police force and Date information for specif
 ```
 
 ## Sum rows or columns
+These solutions use the base R functions rather than dplyr.
+
+### Sum rows
+
+To sum across a row:
+
+```{r}
+# sum across a row 
+road_accidents_weekdays$rowsum <- rowSums(road_accidents_weekdays, na.rm = TRUE) 
+```
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(road_accidents_weekdays, caption = "Road accidents 2017 by accident severity and weekday")
+```
+
+To sum across specific rows:
+
+```{r}
+# sum across specific rows 
+road_accidents_weekdays$alldays <- road_accidents_weekdays$`1` + road_accidents_weekdays$`2`+
+                                    road_accidents_weekdays$`3`+ road_accidents_weekdays$`4`+
+                                    road_accidents_weekdays$`5`+ road_accidents_weekdays$`6`+
+                                    road_accidents_weekdays$`7`
+```
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(road_accidents_weekdays[,-9], caption = "Road accidents 2017 by accident severity and weekday")
+```
+
+### Sum columns
+ 
+To sum columns to get totals of each column, ***note this will appear as a console output not in a data object***:
+
+```{r, eval = FALSE}
+# sum columns
+colSums(road_accidents_weekdays, na.rm = TRUE) 
+```
+
+
+To get the totals of each column as a row in the data:
+
+```{r}
+library (janitor)
+# create total column
+road_accidents_weekdays <- road_accidents_weekdays %>%
+  janitor::adorn_totals("row")
+```
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(road_accidents_weekdays[,-9:-10], caption = "Road accidents 2017 by accident severity and weekday")
+```
+
+
+Reshape2 can also be used to get column totals when pivoting a table (See 5.1).
 
 ## Replace NAs or other values
 
