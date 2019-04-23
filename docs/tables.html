@@ -25,7 +25,7 @@
 <meta name="author" content="List of authors">
 
 
-<meta name="date" content="2019-04-18">
+<meta name="date" content="2019-04-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -172,10 +172,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="tables" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Table/Data Frame manipulation</h1>
-<p>This chapter provides an overview of code examples for table or data frame manipulation.</p>
+<p>This chapter provides an overview of code examples for table or data frame manipulation (a tidyverse data frame is referred to as a tibble).</p>
 <p>One of the main things you will have to do in any R project or RAP project will be manipulating the data that you are using in order to get it into the format you require.</p>
-<p>One of the main packages used to manipulate data is the dplyr package which we recommend and use throughout this book.</p>
-<p><strong>Dplyr code functions can be combined and layered using the pipe operator <code>%&gt;%</code>.</strong></p>
+<p>One of the main packages used to manipulate data is the dplyr package which we recommend and use throughout this book. The dplyr package (and others e.g. tidyr) are all part of the tidyverse. The tidyverse is a group of packages developed by Hadley Wickham and others and are all designed to work with each other. See <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a> for more info.</p>
+<p><strong>Tidyverse packages and functions can be combined and layered using the pipe operator <code>%&gt;%</code>.</strong></p>
 <p>Dplyr is built to work with <strong>tidy data</strong>. To find out more about tidy data please look at the following link <a href="https://r4ds.had.co.nz/tidy-data.html" class="uri">https://r4ds.had.co.nz/tidy-data.html</a> but the general principles are:</p>
 <ol style="list-style-type: decimal">
 <li>Each variables must have its own column</li>
@@ -189,7 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The tidyr package uses the gather/spread functions and is often used to create tidy data</li>
 <li>The reshape2 package is also a useful package to pivot tables and has added functionality such as providing totals of columns etc.</li>
 </ul>
-<p>We want to have the day of the week variable running along the top so each day of the week is its own table.</p>
+<p>We want to have the day of the week variable running along the top so each day of the week is its own column.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-5">Table 5.1: </span>Number of road accidents by accident severity and weekday</caption>
 <thead>
@@ -305,7 +305,7 @@ road_accidents_gather &lt;-<span class="st"> </span>road_accidents_weekdays <spa
 <span class="kw">library</span>(reshape2)
 road_accidents_weekdays2 &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">dcast</span>(road_accidents_small, Accident_Severity <span class="op">~</span><span class="st"> </span>Day_of_Week,
                                             <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>)</code></pre>
-<p>With the dcast function above you need to first specify the variable(s) you want in long format (multiple variables seperated by “+”), in this case Accident_Severity, and then the wide format variable(s) are put after the tilda (again multiple seperated by “+”). The value.var argument specifices which column will be used to populate the new columns, in this case it is n.</p>
+<p>With the dcast function above, after stating the name of the data frame, you need to specify the variable(s) you want in long format (multiple variables seperated by “+”), in this case Accident_Severity, and then the wide format variable(s) are put after the tilda (again multiple seperated by “+”). The value.var argument specifies which column will be used to populate the new columns, in this case it is n.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-10">Table 5.3: </span>Number of road accidents by accident severity and weekday, reshape2::dcast</caption>
 <thead>
@@ -975,62 +975,6 @@ all_accidents &lt;-<span class="st"> </span>accidents_<span class="dv">1</span> 
 all_accidents_cols_join &lt;-<span class="st"> </span>road_acc_<span class="dv">1</span> <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">left_join</span>(road_acc_<span class="dv">2</span>, <span class="dt">by =</span> <span class="st">&quot;acc_index&quot;</span>)</code></pre>
 <p>This uses the same principles as SQL, by specifying what the tables should be joined on using the <strong>by =</strong> argument.</p>
-<table>
-<caption><span id="tab:unnamed-chunk-32">Table 5.12: </span>Road accident data 2017, left join</caption>
-<thead>
-<tr class="header">
-<th align="left">acc_index</th>
-<th align="right">Police_Force</th>
-<th align="right">Accident_Severity</th>
-<th align="left">Date</th>
-<th align="right">Day_of_Week</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">2017010001708</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">2017-08-05</td>
-<td align="right">7</td>
-</tr>
-<tr class="even">
-<td align="left">2017010009342</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">2017010009344</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">2017010009348</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">2017010009350</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">2017010009351</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
-</tr>
-</tbody>
-</table>
 <p>Dplyr has all the usual SQL joins for example, inner_join, full_join, right_join. All of these are used in the same way as the left join example above.</p>
 <p>Another useful join for data manipulation is an anti_join. This provides all the data that is not in the joined table. For example, the below snapshot of a table displays road accident totals broken down by accident severity and weekday:</p>
 <table>
@@ -1110,7 +1054,7 @@ all_accidents_not_monday &lt;-<span class="st"> </span>road_accidents_small <spa
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">anti_join</span>(accidents_monday, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;Accident_Severity&quot;</span>, <span class="st">&quot;Day_of_Week&quot;</span>))</code></pre>
 <p>The above code takes the initial table we want to get our data from (road_accidents_small) and anti joins accidents_monday. This says, “get all the rows from road_accidents_small that are not in accidents_monday”. Again, note the need to specify what the join rows would be joined and compared by.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-37">Table 5.13: </span>Road accident data 2017 not on a Monday by accident severity</caption>
+<caption><span id="tab:unnamed-chunk-36">Table 5.12: </span>Road accident data 2017 not on a Monday by accident severity</caption>
 <thead>
 <tr class="header">
 <th align="right">Accident_Severity</th>
@@ -1217,7 +1161,7 @@ all_accidents_not_monday &lt;-<span class="st"> </span>road_accidents_small <spa
 <p>Doing a join with dplyr will join all columns from both tables, however sometimes not all columns from each table are needed.</p>
 <p>Let’s look at some previous tables again:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-38">Table 5.14: </span>Police force and accident severity information for accidents</caption>
+<caption><span id="tab:unnamed-chunk-37">Table 5.13: </span>Police force and accident severity information for accidents</caption>
 <thead>
 <tr class="header">
 <th align="left">acc_index</th>
@@ -1259,7 +1203,7 @@ all_accidents_not_monday &lt;-<span class="st"> </span>road_accidents_small <spa
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-38">Table 5.14: </span>Date and weekday information for accidents</caption>
+<caption><span id="tab:unnamed-chunk-37">Table 5.13: </span>Date and weekday information for accidents</caption>
 <thead>
 <tr class="header">
 <th align="left">acc_index</th>
@@ -1311,7 +1255,7 @@ road_acc_<span class="dv">3</span> &lt;-<span class="st"> </span>road_acc_<span 
 <p>Then within the left_join command, to select the data from the second table, you again add the select statement.</p>
 <p><strong>Note: you will need to select the joining variable in both tables but this will only appear once</strong></p>
 <table>
-<caption><span id="tab:unnamed-chunk-40">Table 5.15: </span>Police force and Date information for specific accidents</caption>
+<caption><span id="tab:unnamed-chunk-39">Table 5.14: </span>Police force and Date information for specific accidents</caption>
 <thead>
 <tr class="header">
 <th align="left">acc_index</th>
@@ -1362,7 +1306,7 @@ road_acc_<span class="dv">3</span> &lt;-<span class="st"> </span>road_acc_<span 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sum across a row </span>
 road_accidents_weekdays<span class="op">$</span>rowsum &lt;-<span class="st"> </span><span class="kw">rowSums</span>(road_accidents_weekdays, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-42">Table 5.16: </span>Road accidents 2017 by accident severity and weekday</caption>
+<caption><span id="tab:unnamed-chunk-41">Table 5.15: </span>Road accidents 2017 by accident severity and weekday</caption>
 <thead>
 <tr class="header">
 <th align="right">Accident_Severity</th>
@@ -1419,7 +1363,7 @@ road_accidents_weekdays<span class="op">$</span>alldays &lt;-<span class="st"> <
 <span class="st">                                    </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">5</span><span class="st">`</span><span class="op">+</span><span class="st"> </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">6</span><span class="st">`</span><span class="op">+</span>
 <span class="st">                                    </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">7</span><span class="st">`</span></code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-44">Table 5.17: </span>Road accidents 2017 by accident severity and weekday</caption>
+<caption><span id="tab:unnamed-chunk-43">Table 5.16: </span>Road accidents 2017 by accident severity and weekday</caption>
 <thead>
 <tr class="header">
 <th align="right">Accident_Severity</th>
@@ -1481,7 +1425,7 @@ road_accidents_weekdays<span class="op">$</span>alldays &lt;-<span class="st"> <
 road_accidents_weekdays &lt;-<span class="st"> </span>road_accidents_weekdays <span class="op">%&gt;%</span>
 <span class="st">  </span>janitor<span class="op">::</span><span class="kw">adorn_totals</span>(<span class="st">&quot;row&quot;</span>)</code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-47">Table 5.18: </span>Road accidents 2017 by accident severity and weekday</caption>
+<caption><span id="tab:unnamed-chunk-46">Table 5.17: </span>Road accidents 2017 by accident severity and weekday</caption>
 <thead>
 <tr class="header">
 <th align="left">Accident_Severity</th>
@@ -1542,6 +1486,30 @@ road_accidents_weekdays &lt;-<span class="st"> </span>road_accidents_weekdays <s
 </div>
 <div id="replace-nas-or-other-values" class="section level2">
 <h2><span class="header-section-number">5.9</span> Replace NAs or other values</h2>
+<p>To replace all NAs in one column (Junction Control column) with a specific value:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span> (tidyr)
+<span class="co"># replace all NAs with value -1</span>
+road_accidents_na<span class="op">$</span>Junction_Control &lt;-<span class="st"> </span>road_accidents_na<span class="op">$</span>Junction_Control <span class="op">%&gt;%</span>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">replace_na</span>(<span class="op">-</span><span class="dv">1</span>)</code></pre>
+<p><strong>Note: To replace NA with a character the character replacement must be wrapped in “quotations”</strong></p>
+<p>To replace all NAs in a data frame or tibble:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># replace all NAs with value -1</span>
+road_accidents_na &lt;-<span class="st"> </span>road_accidents_na <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">replace</span>(<span class="kw">is.na</span>(.), <span class="dv">-1</span>)</code></pre>
+<p>To replace values with NA, specify what value you want to be replaced with NA using the na_if function:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create nas</span>
+road_accidents_na &lt;-<span class="st"> </span>road_accidents_na <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">na_if</span>(<span class="op">-</span><span class="dv">1</span>)</code></pre>
+<p><strong>Note: to only create NAs in a specific column specify the column name in a similar manner to the first example in this section.</strong></p>
+<p>To replace values:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># replace 1st_road_class </span>
+road_accidents_na &lt;-<span class="st"> </span>road_accidents_na <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span> =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">case_when</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">~</span><span class="st"> &quot;A Road&quot;</span>,
+                                      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span>)))</code></pre>
+<p>The case_when function is similar to using CASE WHEN in SQL.</p>
+<p>The TRUE argument indicates that if the values aren’t included in the case_when then they should be whatever is after the tilda (~) i.e. the equivalent of the ELSE statement in SQL.</p>
+<p>The “as.character” parameter says that everything that isn’t 3 should be kept as it is, this could be replaced by an arbitrary character or value e.g. “Other”. This would make everything that is not a 3, coded as “Other”.</p>
+<p>You can have multiple case_when arguments for multiple values, they just need to be seperated with a comma. Multiple case_when statements for different variables can be layered using the pipe operator <code>%&gt;%</code>.</p>
 </div>
 <div id="creating-new-variables" class="section level2">
 <h2><span class="header-section-number">5.10</span> Creating new variables</h2>

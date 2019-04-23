@@ -12,19 +12,21 @@ road_accidents <- readr::read_rds("data/road_accidents_2017.RDS")
 ```
 
 
-This chapter provides an overview of code examples for table or data frame manipulation.
+This chapter provides an overview of code examples for table or data frame manipulation (a tidyverse data frame is referred to as a tibble).
 
 One of the main things you will have to do in any R project or RAP project will be manipulating the data that you are using in order to get it into the format you require.
 
-One of the main packages used to manipulate data is the dplyr package which we recommend and use throughout this book. 
+One of the main packages used to manipulate data is the dplyr package which we recommend and use throughout this book. The dplyr package (and others e.g. tidyr) are all part of the tidyverse. The tidyverse is a group of packages developed by Hadley Wickham and others and are all designed to work with each other. See https://www.tidyverse.org/ for more info.
 
-**Dplyr code functions can be combined and layered using the pipe operator `%>%`.**
+**Tidyverse packages and functions can be combined and layered using the pipe operator `%>%`.**
 
 Dplyr is built to work with **tidy data**. To find out more about tidy data please look at the following link https://r4ds.had.co.nz/tidy-data.html but the general principles are:
 
 1. Each variables must have its own column
 2. Each observation must have its own row
 3. Each value must have its own cell
+
+
 
 ## Pivot and reshape tables
 
@@ -34,7 +36,7 @@ There will be two examples for pivoting tables provided:
 * The reshape2 package is also a useful package to pivot tables and has added functionality such as providing totals of columns etc.
 
 
-We want to have the day of the week variable running along the top so each day of the week is its own table.
+We want to have the day of the week variable running along the top so each day of the week is its own column.
 
 ```{r, echo = FALSE, results='asis'}
 # Create smaller dataset for example
@@ -103,7 +105,7 @@ road_accidents_weekdays2 <- reshape2::dcast(road_accidents_small, Accident_Sever
   
 ```
 
-With the dcast function above you need to first specify the variable(s) you want in long format (multiple variables seperated by "+"), in this case Accident_Severity, and then the wide format variable(s) are put after the tilda (again multiple seperated by "+"). The value.var argument specifices which column will be used to populate the new columns, in this case it is n.
+With the dcast function above, after stating the name of the data frame, you need to specify the variable(s) you want in long format (multiple variables seperated by "+"), in this case Accident_Severity, and then the wide format variable(s) are put after the tilda (again multiple seperated by "+"). The value.var argument specifies which column will be used to populate the new columns, in this case it is n.
 
 ```{r, echo = FALSE, results='asis'}
 
@@ -334,12 +336,6 @@ all_accidents_cols_join <- road_acc_1 %>%
 
 This uses the same principles as SQL, by specifying what the tables should be joined on using the **by =** argument. 
 
-```{r, echo = FALSE, results='asis'}
-
-knitr::kable(all_accidents_cols_join, caption = "Road accident data 2017, left join")
-
-```
-
 
 Dplyr has all the usual SQL joins for example, inner_join, full_join, right_join. All of these are used in the same way as the left join example above.
 
@@ -482,6 +478,75 @@ knitr::kable(road_accidents_weekdays[,-9:-10], caption = "Road accidents 2017 by
 Reshape2 can also be used to get column totals when pivoting a table (See 5.1).
 
 ## Replace NAs or other values
+
+```{r, include = FALSE}
+# Create dataset for example with nas (need to change -1 value to na as this is how NAs are represented in the road accident open data)
+
+# create nas
+road_accidents_na <- road_accidents %>%
+  dplyr::na_if(-1)
+
+# get smaller data set for example
+road_accidents_na <- road_accidents_na %>%
+  head(n = 7) %>%
+  dplyr::select(acc_index, `1st_Road_Class`, `2nd_Road_Class`, Junction_Control)
+
+```
+
+To replace all NAs in one column (Junction Control column) with a specific value:
+
+```{r}
+library (tidyr)
+# replace all NAs with value -1
+road_accidents_na$Junction_Control <- road_accidents_na$Junction_Control %>%
+  tidyr::replace_na(-1)
+
+```
+
+**Note: To replace NA with a character the character replacement must be wrapped in "quotations"**
+
+To replace all NAs in a data frame or tibble:
+
+```{r}
+
+# replace all NAs with value -1
+road_accidents_na <- road_accidents_na %>%
+  replace(is.na(.), -1)
+  
+
+```
+
+To replace values with NA, specify what value you want to be replaced with NA using the na_if function:
+
+```{r}
+
+# create nas
+road_accidents_na <- road_accidents_na %>%
+  dplyr::na_if(-1)
+  
+
+```
+**Note: to only create NAs in a specific column specify the column name in a similar manner to the first example in this section.**
+
+To replace values:
+```{r}
+
+# replace 1st_road_class 
+road_accidents_na <- road_accidents_na %>%
+  dplyr::mutate(`1st_Road_Class` = dplyr::case_when(`1st_Road_Class` == 3 ~ "A Road",
+                                      TRUE ~ as.character(`1st_Road_Class`)))
+  
+
+```
+
+The case_when function is similar to using CASE WHEN in SQL. 
+
+The TRUE argument indicates that if the values aren't included in the case_when then they should be whatever is after the tilda (~)  i.e. the equivalent of the ELSE statement in SQL.
+
+The "as.character" parameter says that everything that isn't 3 should be kept as it is, this could be replaced by an arbitrary character or value e.g. "Other". This would make everything that is not a 3, coded as "Other". 
+
+You can have multiple case_when arguments for multiple values, they just need to be seperated with a comma. Multiple case_when statements for different variables can be layered using the pipe operator `%>%`.
+
 
 
 ## Creating new variables
