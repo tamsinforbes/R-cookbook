@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 4 Handling Variables | DfT Introduction to R</title>
+  <title>Chapter 4 Vector basics | DfT Introduction to R</title>
   <meta name="description" content="An introduction to working with R at the Department for Transport">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 4 Handling Variables | DfT Introduction to R" />
+  <meta property="og:title" content="Chapter 4 Vector basics | DfT Introduction to R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="departmentfortransport/R-cookbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Handling Variables | DfT Introduction to R" />
+  <meta name="twitter:title" content="Chapter 4 Vector basics | DfT Introduction to R" />
   
   <meta name="twitter:description" content="An introduction to working with R at the Department for Transport" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="List of authors">
 
 
-<meta name="date" content="2019-04-16">
+<meta name="date" content="2019-05-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -132,7 +132,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>3</b> Data Importing/Exporting and interaction with other programmes</a></li>
-<li class="chapter" data-level="4" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>4</b> Handling Variables</a></li>
+<li class="chapter" data-level="4" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>4</b> Vector basics</a><ul>
+<li class="chapter" data-level="4.1" data-path="variables.html"><a href="variables.html#vector-types"><i class="fa fa-check"></i><b>4.1</b> Vector types</a></li>
+<li class="chapter" data-level="4.2" data-path="variables.html"><a href="variables.html#coercion"><i class="fa fa-check"></i><b>4.2</b> Coercion</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="variables.html"><a href="variables.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>4.2.1</b> Conversion between atomic vector types</a></li>
+<li class="chapter" data-level="4.2.2" data-path="variables.html"><a href="variables.html#conversions-with-factors"><i class="fa fa-check"></i><b>4.2.2</b> Conversions with factors</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="variables.html"><a href="variables.html#working-with-dates"><i class="fa fa-check"></i><b>4.3</b> Working with dates</a></li>
+<li class="chapter" data-level="4.4" data-path="variables.html"><a href="variables.html#working-with-factors"><i class="fa fa-check"></i><b>4.4</b> Working with factors</a></li>
+<li class="chapter" data-level="4.5" data-path="variables.html"><a href="variables.html#rounding"><i class="fa fa-check"></i><b>4.5</b> Rounding</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>5</b> Table/Data Frame manipulation</a></li>
 <li class="chapter" data-level="6" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>6</b> Plotting and Data Visualisations</a></li>
 <li class="chapter" data-level="7" data-path="stats.html"><a href="stats.html"><i class="fa fa-check"></i><b>7</b> Statistical analysis</a></li>
@@ -155,9 +164,192 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="variables" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Handling Variables</h1>
-<p>This chapter is for code examples of handling variables.</p>
+<h1><span class="header-section-number">Chapter 4</span> Vector basics</h1>
+<div id="vector-types" class="section level2">
+<h2><span class="header-section-number">4.1</span> Vector types</h2>
+<p>There are four main atomic vector types that you are likely to come across
+when using R<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>; <strong>logical</strong> (<code>TRUE</code>
+or <code>FALSE</code>), <em>double</em> (<code>3.142</code>), <em>integer</em> (<code>2L</code>) and <em>character</em> (<code>"awesome"</code>)</p>
+<pre class="sourceCode r"><code class="sourceCode r">v1 &lt;-<span class="st"> </span><span class="ot">TRUE</span>
+<span class="kw">typeof</span>(v1)
+<span class="co">#&gt; [1] &quot;logical&quot;</span>
+v1 &lt;-<span class="st"> </span><span class="ot">FALSE</span>
+<span class="kw">typeof</span>(v1)
+<span class="co">#&gt; [1] &quot;logical&quot;</span>
 
+v2 &lt;-<span class="st"> </span><span class="fl">1.5</span>
+<span class="kw">typeof</span>(v2)
+<span class="co">#&gt; [1] &quot;double&quot;</span>
+v2 &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="kw">typeof</span>(v2)
+<span class="co">#&gt; [1] &quot;double&quot;</span>
+
+<span class="co"># integer values must be followed by an L to be stored as integers</span>
+v3 &lt;-<span class="st"> </span><span class="dv">2</span>
+<span class="kw">typeof</span>(v3)
+<span class="co">#&gt; [1] &quot;double&quot;</span>
+v3 &lt;-<span class="st"> </span>2L
+<span class="kw">typeof</span>(v3)
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+
+v4 &lt;-<span class="st"> &quot;Awesome&quot;</span>
+<span class="kw">typeof</span>(v4)
+<span class="co">#&gt; [1] &quot;character&quot;</span></code></pre>
+<p>As well as the atomic vector types you will often encounter two other vector
+types; <strong>factor</strong> and <strong>Date</strong>.</p>
+<p>Factor vectors are used to represent categorical data. They are actually
+integer vectors with two additional attributes, levels and class. At this
+stage it is not worth worrying to much about what attribute are just understand
+that, for factors, the levels attribute gives the possible categories and
+combined with the integer values works much like a lookup table. The <code>class</code>
+attribute is just “factor”.</p>
+<pre class="sourceCode r"><code class="sourceCode r">ratings &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;amazing&quot;</span>))
+<span class="kw">typeof</span>(ratings)
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="kw">attributes</span>(ratings)
+<span class="co">#&gt; $levels</span>
+<span class="co">#&gt; [1] &quot;amazing&quot; &quot;bad&quot;     &quot;good&quot;   </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;factor&quot;</span></code></pre>
+<p>Date vectors are just double vectors with an additional class attribute set as
+“Date”.</p>
+<p><strong>Note - The following borrows directly from Hadley’s Advanced R site
+so we need to attribute appropriately and use correct licence</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r">today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()
+<span class="kw">typeof</span>(today)
+<span class="co">#&gt; [1] &quot;double&quot;</span>
+<span class="kw">attributes</span>(today)
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;Date&quot;</span></code></pre>
+<p>The value of the double (which can be seen by stripping the class), represents
+the number of days since “1970-01-01”<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1970-02-01&quot;</span>)
+<span class="kw">unclass</span>(date)
+<span class="co">#&gt; [1] 31</span></code></pre>
+</div>
+<div id="coercion" class="section level2">
+<h2><span class="header-section-number">4.2</span> Coercion</h2>
+<div id="conversion-between-atomic-vector-types" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Conversion between atomic vector types</h3>
+<p>Converting between the atomic vector types is done using the <code>as.character</code>,
+<code>as.integer</code>, <code>as.logical</code> and <code>as.double</code> functions.</p>
+<pre class="sourceCode r"><code class="sourceCode r">value &lt;-<span class="st"> </span><span class="fl">1.5</span>
+<span class="kw">as.integer</span>(value)
+<span class="co">#&gt; [1] 1</span>
+<span class="kw">as.character</span>(value)
+<span class="co">#&gt; [1] &quot;1.5&quot;</span>
+<span class="kw">as.logical</span>(value)
+<span class="co">#&gt; [1] TRUE</span></code></pre>
+<p>Where it is not possible to convert a value you will get a warning message</p>
+<pre class="sourceCode r"><code class="sourceCode r">value &lt;-<span class="st"> &quot;z&quot;</span>
+<span class="kw">as.integer</span>(value)
+<span class="co">#&gt; Warning: NAs introduced by coercion</span>
+<span class="co">#&gt; [1] NA</span></code></pre>
+<p>When combining different vector types, coercion will obey the following
+hierarchy: character, double, integer, logical.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="st">&quot;pop&quot;</span>, <span class="ot">TRUE</span>))
+<span class="co">#&gt; [1] &quot;character&quot;</span>
+<span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="ot">TRUE</span>))
+<span class="co">#&gt; [1] &quot;double&quot;</span>
+<span class="kw">typeof</span>(<span class="kw">c</span>(3L, <span class="ot">TRUE</span>))
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="kw">typeof</span>(<span class="ot">TRUE</span>)
+<span class="co">#&gt; [1] &quot;logical&quot;</span></code></pre>
+</div>
+<div id="conversions-with-factors" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Conversions with factors</h3>
+<p>Unfortunately factors can be tricky to work with and their behaviour is not
+always obvious. Below we illustrate a couple of things to bear in mind when
+working with them. Firstly concatenating factors may not work as intended:</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_factor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;bob&quot;</span>, <span class="st">&quot;george&quot;</span>, <span class="st">&quot;bob&quot;</span>))
+my_vector &lt;-<span class="st"> </span><span class="kw">c</span>(my_factor, my_factor)
+my_vector
+<span class="co">#&gt; [1] 1 2 1 1 2 1</span></code></pre>
+<p>instead we would first need to convert to a character vector</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">as.character</span>(my_factor), <span class="kw">as.character</span>(my_factor))
+my_vector_<span class="dv">2</span>
+<span class="co">#&gt; [1] &quot;bob&quot;    &quot;george&quot; &quot;bob&quot;    &quot;bob&quot;    &quot;george&quot; &quot;bob&quot;</span></code></pre>
+<p>Secondly, we may sometimes find a numeric vector is being stored as a factor:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/factor_example.csv&quot;</span>)
+my_vector &lt;-<span class="st"> </span>df[[<span class="dv">2</span>]]
+<span class="kw">typeof</span>(my_vector)
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+my_vector
+<span class="co">#&gt; [1] #N/A #N/A 1    2    3    1    #N/A #N/A #N/A</span>
+<span class="co">#&gt; Levels: #N/A 1 2 3</span></code></pre>
+<p>to transform this to a numeric variable we can proceed as follows</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">levels</span>(my_vector)[my_vector])
+<span class="co">#&gt; Warning: NAs introduced by coercion</span>
+<span class="kw">typeof</span>(my_vector_<span class="dv">2</span>)
+<span class="co">#&gt; [1] &quot;double&quot;</span>
+my_vector_<span class="dv">2</span>
+<span class="co">#&gt; [1] NA NA  1  2  3  1 NA NA NA</span></code></pre>
+</div>
+</div>
+<div id="working-with-dates" class="section level2">
+<h2><span class="header-section-number">4.3</span> Working with dates</h2>
+<p><strong>NOT FINISHED - need to write about <code>lubridate</code></strong></p>
+</div>
+<div id="working-with-factors" class="section level2">
+<h2><span class="header-section-number">4.4</span> Working with factors</h2>
+<p><strong>NOT FINISHED - need to write about <code>forcats</code></strong></p>
+</div>
+<div id="rounding" class="section level2">
+<h2><span class="header-section-number">4.5</span> Rounding</h2>
+<p>For rounding numerical values we have the function <code>round(x, digits = 0)</code>.<br />
+This rounds the value of the first argument to the specified number of decimal
+places (default 0).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))
+<span class="co">#&gt; [1] -2  0  0  2  2  4  4</span></code></pre>
+<p>This probably looks different to what you were expecting as at school we were
+generally taught that when rounding a 5 we go up if a positive value and down if
+a negative value. R, however, implements a different standard. We can see this
+by looking at the documentation (<code>?round</code>)</p>
+<blockquote>
+<p>Note that for rounding off a 5, the IEC 60559 standard (see also ‘IEEE 754’)
+is expected to be used, <em>‘go to the even digit’</em>. Therefore <code>round(0.5)</code> is <code>0</code>
+and <code>round(-1.5)</code> is <code>-2</code>. However, this is dependent on OS services and on
+representation error (since e.g. <code>0.15</code> is not represented exactly, the
+rounding rule applies to the represented number and not to the printed number,
+and so <code>round(0.15, 1)</code> could be either <code>0.1</code> or <code>0.2</code>).</p>
+</blockquote>
+<p>To implement what we consider normal rounding we can install use the <code>janitor</code>
+package and the function <code>round_half_up</code></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: &#39;janitor&#39;</span>
+<span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     chisq.test, fisher.test</span>
+janitor<span class="op">::</span><span class="kw">round_half_up</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))
+<span class="co">#&gt; [1] -2 -1  1  2  3  4  5</span></code></pre>
+<p>If we do not have access to the package (or do not want to depend on the
+package) then we can implement<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<pre class="sourceCode r"><code class="sourceCode r">round_half_up_v2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">digits =</span> <span class="dv">0</span>) {
+  posneg &lt;-<span class="st"> </span><span class="kw">sign</span>(x)
+  z &lt;-<span class="st"> </span><span class="kw">abs</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits
+  z &lt;-<span class="st"> </span>z <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span>
+  z &lt;-<span class="st"> </span><span class="kw">trunc</span>(z)
+  z &lt;-<span class="st"> </span>z <span class="op">/</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits
+  z <span class="op">*</span><span class="st"> </span>posneg
+}
+
+<span class="kw">round_half_up_v2</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))
+<span class="co">#&gt; [1] -2 -1  1  2  3  4  5</span></code></pre>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>technically there are more, see
+<a href="https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors" class="uri">https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors</a><a href="variables.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>This special date is known as the Unix
+Epoch<a href="variables.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>see <a href="https://stackoverflow.com/questions/12688717/round-up-from-5/12688836#12688836">stackoverflow</a>
+discussion for a discussion of the implementation<a href="variables.html#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
