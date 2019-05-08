@@ -132,7 +132,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>3</b> Data Importing/Exporting and interaction with other programmes</a></li>
-<li class="chapter" data-level="4" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>4</b> Handling Variables</a></li>
+<li class="chapter" data-level="4" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>4</b> Vector basics</a><ul>
+<li class="chapter" data-level="4.1" data-path="variables.html"><a href="variables.html#vector-types"><i class="fa fa-check"></i><b>4.1</b> Vector types</a></li>
+<li class="chapter" data-level="4.2" data-path="variables.html"><a href="variables.html#coercion"><i class="fa fa-check"></i><b>4.2</b> Coercion</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="variables.html"><a href="variables.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>4.2.1</b> Conversion between atomic vector types</a></li>
+<li class="chapter" data-level="4.2.2" data-path="variables.html"><a href="variables.html#conversions-with-factors"><i class="fa fa-check"></i><b>4.2.2</b> Conversions with factors</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="variables.html"><a href="variables.html#working-with-dates"><i class="fa fa-check"></i><b>4.3</b> Working with dates</a></li>
+<li class="chapter" data-level="4.4" data-path="variables.html"><a href="variables.html#working-with-factors"><i class="fa fa-check"></i><b>4.4</b> Working with factors</a></li>
+<li class="chapter" data-level="4.5" data-path="variables.html"><a href="variables.html#rounding"><i class="fa fa-check"></i><b>4.5</b> Rounding</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>5</b> Table/Data Frame manipulation</a><ul>
 <li class="chapter" data-level="5.1" data-path="tables.html"><a href="tables.html#pivot-and-reshape-tables"><i class="fa fa-check"></i><b>5.1</b> Pivot and reshape tables</a></li>
 <li class="chapter" data-level="5.2" data-path="tables.html"><a href="tables.html#dropping-and-selecting-columns"><i class="fa fa-check"></i><b>5.2</b> Dropping and selecting columns</a></li>
@@ -191,44 +200,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>We want to have the day of the week variable running along the top so each day of the week is its own column.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-5">Table 5.1: </span>Number of road accidents by accident severity and weekday</caption>
+<caption>
+<span id="tab:unnamed-chunk-23">Table 5.1: </span>Number of road accidents by accident severity and weekday
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">Day_of_Week</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+Day_of_Week
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">300</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">205</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+205
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">187</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+187
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">233</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+233
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">220</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+220
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">250</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+250
+</td>
 </tr>
 </tbody>
 </table>
@@ -241,52 +294,119 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using tidyr package</span>
 <span class="kw">library</span>(tidyr)
 road_accidents_weekdays &lt;-<span class="st"> </span>road_accidents_small <span class="op">%&gt;%</span>
-<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">spread</span>(Day_of_Week, n)</code></pre>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">spread</span>(Day_of_Week, n)
+  </code></pre>
 <p>With the spread function above you need to first specify the variable you want to spread, in this case Day_of_Week, and then the variable that will be used to populate the columns (n).</p>
 <table>
-<caption><span id="tab:unnamed-chunk-7">Table 5.2: </span>Number of road accidents by accident severity and weekday, tidyr::spread</caption>
+<caption>
+<span id="tab:unnamed-chunk-25">Table 5.2: </span>Number of road accidents by accident severity and weekday, tidyr::spread
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">1</th>
-<th align="right">2</th>
-<th align="right">3</th>
-<th align="right">4</th>
-<th align="right">5</th>
-<th align="right">6</th>
-<th align="right">7</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+1
+</th>
+<th style="text-align:right;">
+2
+</th>
+<th style="text-align:right;">
+3
+</th>
+<th style="text-align:right;">
+4
+</th>
+<th style="text-align:right;">
+5
+</th>
+<th style="text-align:right;">
+6
+</th>
+<th style="text-align:right;">
+7
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">300</td>
-<td align="right">205</td>
-<td align="right">187</td>
-<td align="right">233</td>
-<td align="right">220</td>
-<td align="right">250</td>
-<td align="right">281</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
+<td style="text-align:right;">
+205
+</td>
+<td style="text-align:right;">
+187
+</td>
+<td style="text-align:right;">
+233
+</td>
+<td style="text-align:right;">
+220
+</td>
+<td style="text-align:right;">
+250
+</td>
+<td style="text-align:right;">
+281
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">3009</td>
-<td align="right">2948</td>
-<td align="right">3230</td>
-<td align="right">3227</td>
-<td align="right">3246</td>
-<td align="right">3649</td>
-<td align="right">3225</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3009
+</td>
+<td style="text-align:right;">
+2948
+</td>
+<td style="text-align:right;">
+3230
+</td>
+<td style="text-align:right;">
+3227
+</td>
+<td style="text-align:right;">
+3246
+</td>
+<td style="text-align:right;">
+3649
+</td>
+<td style="text-align:right;">
+3225
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">11668</td>
-<td align="right">14783</td>
-<td align="right">16065</td>
-<td align="right">15859</td>
-<td align="right">16331</td>
-<td align="right">17346</td>
-<td align="right">13720</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+11668
+</td>
+<td style="text-align:right;">
+14783
+</td>
+<td style="text-align:right;">
+16065
+</td>
+<td style="text-align:right;">
+15859
+</td>
+<td style="text-align:right;">
+16331
+</td>
+<td style="text-align:right;">
+17346
+</td>
+<td style="text-align:right;">
+13720
+</td>
 </tr>
 </tbody>
 </table>
@@ -294,7 +414,8 @@ road_accidents_weekdays &lt;-<span class="st"> </span>road_accidents_small <span
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using tidyr package</span>
 <span class="kw">library</span>(tidyr)
 road_accidents_gather &lt;-<span class="st"> </span>road_accidents_weekdays <span class="op">%&gt;%</span>
-<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(Accident_Severity, n, <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)</code></pre>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(Accident_Severity, n, <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)
+  </code></pre>
 <p><strong>Reshape2 package</strong></p>
 <p>Again, this has two functions which can be used to pivot tables:</p>
 <ul>
@@ -304,52 +425,119 @@ road_accidents_gather &lt;-<span class="st"> </span>road_accidents_weekdays <spa
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using reshape2 package</span>
 <span class="kw">library</span>(reshape2)
 road_accidents_weekdays2 &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">dcast</span>(road_accidents_small, Accident_Severity <span class="op">~</span><span class="st"> </span>Day_of_Week,
-                                            <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>)</code></pre>
+                                            <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>)
+  </code></pre>
 <p>With the dcast function above, after stating the name of the data frame, you need to specify the variable(s) you want in long format (multiple variables seperated by “+”), in this case Accident_Severity, and then the wide format variable(s) are put after the tilda (again multiple seperated by “+”). The value.var argument specifies which column will be used to populate the new columns, in this case it is n.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-10">Table 5.3: </span>Number of road accidents by accident severity and weekday, reshape2::dcast</caption>
+<caption>
+<span id="tab:unnamed-chunk-28">Table 5.3: </span>Number of road accidents by accident severity and weekday, reshape2::dcast
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">1</th>
-<th align="right">2</th>
-<th align="right">3</th>
-<th align="right">4</th>
-<th align="right">5</th>
-<th align="right">6</th>
-<th align="right">7</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+1
+</th>
+<th style="text-align:right;">
+2
+</th>
+<th style="text-align:right;">
+3
+</th>
+<th style="text-align:right;">
+4
+</th>
+<th style="text-align:right;">
+5
+</th>
+<th style="text-align:right;">
+6
+</th>
+<th style="text-align:right;">
+7
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">300</td>
-<td align="right">205</td>
-<td align="right">187</td>
-<td align="right">233</td>
-<td align="right">220</td>
-<td align="right">250</td>
-<td align="right">281</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
+<td style="text-align:right;">
+205
+</td>
+<td style="text-align:right;">
+187
+</td>
+<td style="text-align:right;">
+233
+</td>
+<td style="text-align:right;">
+220
+</td>
+<td style="text-align:right;">
+250
+</td>
+<td style="text-align:right;">
+281
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">3009</td>
-<td align="right">2948</td>
-<td align="right">3230</td>
-<td align="right">3227</td>
-<td align="right">3246</td>
-<td align="right">3649</td>
-<td align="right">3225</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3009
+</td>
+<td style="text-align:right;">
+2948
+</td>
+<td style="text-align:right;">
+3230
+</td>
+<td style="text-align:right;">
+3227
+</td>
+<td style="text-align:right;">
+3246
+</td>
+<td style="text-align:right;">
+3649
+</td>
+<td style="text-align:right;">
+3225
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">11668</td>
-<td align="right">14783</td>
-<td align="right">16065</td>
-<td align="right">15859</td>
-<td align="right">16331</td>
-<td align="right">17346</td>
-<td align="right">13720</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+11668
+</td>
+<td style="text-align:right;">
+14783
+</td>
+<td style="text-align:right;">
+16065
+</td>
+<td style="text-align:right;">
+15859
+</td>
+<td style="text-align:right;">
+16331
+</td>
+<td style="text-align:right;">
+17346
+</td>
+<td style="text-align:right;">
+13720
+</td>
 </tr>
 </tbody>
 </table>
@@ -357,62 +545,145 @@ road_accidents_weekdays2 &lt;-<span class="st"> </span>reshape2<span class="op">
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using reshape2 package</span>
 <span class="kw">library</span>(reshape2)
 road_accidents_weekdays3 &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">dcast</span>(road_accidents_small, Accident_Severity <span class="op">~</span><span class="st"> </span>Day_of_Week,
-                                            <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>, sum, <span class="dt">margins =</span> <span class="st">&quot;Accident_Severity&quot;</span>)</code></pre>
+                                            <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>, sum, <span class="dt">margins =</span> <span class="st">&quot;Accident_Severity&quot;</span>)
+  </code></pre>
 <p>In this example, we use the margins argument to specify what we want to combine to create totals. So we want to add all the accident severity figures up for each weekday. Before using margin you need to specify how the margins are calculated, in this case we want a sum. Alternative options are to calculate the length, i.e. the number of rows.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-12">Table 5.4: </span>Number of road accidents by accident severity and weekday plus totals, reshape2::dcast</caption>
+<caption>
+<span id="tab:unnamed-chunk-30">Table 5.4: </span>Number of road accidents by accident severity and weekday plus totals, reshape2::dcast
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Accident_Severity</th>
-<th align="right">1</th>
-<th align="right">2</th>
-<th align="right">3</th>
-<th align="right">4</th>
-<th align="right">5</th>
-<th align="right">6</th>
-<th align="right">7</th>
+<tr>
+<th style="text-align:left;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+1
+</th>
+<th style="text-align:right;">
+2
+</th>
+<th style="text-align:right;">
+3
+</th>
+<th style="text-align:right;">
+4
+</th>
+<th style="text-align:right;">
+5
+</th>
+<th style="text-align:right;">
+6
+</th>
+<th style="text-align:right;">
+7
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="right">300</td>
-<td align="right">205</td>
-<td align="right">187</td>
-<td align="right">233</td>
-<td align="right">220</td>
-<td align="right">250</td>
-<td align="right">281</td>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
+<td style="text-align:right;">
+205
+</td>
+<td style="text-align:right;">
+187
+</td>
+<td style="text-align:right;">
+233
+</td>
+<td style="text-align:right;">
+220
+</td>
+<td style="text-align:right;">
+250
+</td>
+<td style="text-align:right;">
+281
+</td>
 </tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="right">3009</td>
-<td align="right">2948</td>
-<td align="right">3230</td>
-<td align="right">3227</td>
-<td align="right">3246</td>
-<td align="right">3649</td>
-<td align="right">3225</td>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+3009
+</td>
+<td style="text-align:right;">
+2948
+</td>
+<td style="text-align:right;">
+3230
+</td>
+<td style="text-align:right;">
+3227
+</td>
+<td style="text-align:right;">
+3246
+</td>
+<td style="text-align:right;">
+3649
+</td>
+<td style="text-align:right;">
+3225
+</td>
 </tr>
-<tr class="odd">
-<td align="left">3</td>
-<td align="right">11668</td>
-<td align="right">14783</td>
-<td align="right">16065</td>
-<td align="right">15859</td>
-<td align="right">16331</td>
-<td align="right">17346</td>
-<td align="right">13720</td>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+11668
+</td>
+<td style="text-align:right;">
+14783
+</td>
+<td style="text-align:right;">
+16065
+</td>
+<td style="text-align:right;">
+15859
+</td>
+<td style="text-align:right;">
+16331
+</td>
+<td style="text-align:right;">
+17346
+</td>
+<td style="text-align:right;">
+13720
+</td>
 </tr>
-<tr class="even">
-<td align="left">(all)</td>
-<td align="right">14977</td>
-<td align="right">17936</td>
-<td align="right">19482</td>
-<td align="right">19319</td>
-<td align="right">19797</td>
-<td align="right">21245</td>
-<td align="right">17226</td>
+<tr>
+<td style="text-align:left;">
+(all)
+</td>
+<td style="text-align:right;">
+14977
+</td>
+<td style="text-align:right;">
+17936
+</td>
+<td style="text-align:right;">
+19482
+</td>
+<td style="text-align:right;">
+19319
+</td>
+<td style="text-align:right;">
+19797
+</td>
+<td style="text-align:right;">
+21245
+</td>
+<td style="text-align:right;">
+17226
+</td>
 </tr>
 </tbody>
 </table>
@@ -421,51 +692,96 @@ road_accidents_weekdays3 &lt;-<span class="st"> </span>reshape2<span class="op">
 <span class="kw">library</span>(reshape2)
 road_accidents_melt &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">melt</span>(road_accidents_weekdays2, <span class="dt">id.vars =</span> <span class="st">&quot;Accident_Severity&quot;</span>,
                                       <span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>),
-                                      <span class="dt">variable.name =</span> <span class="st">&quot;Day_of_Week&quot;</span>, <span class="dt">value.name =</span> <span class="st">&quot;n&quot;</span>)</code></pre>
+                                      <span class="dt">variable.name =</span> <span class="st">&quot;Day_of_Week&quot;</span>, <span class="dt">value.name =</span> <span class="st">&quot;n&quot;</span>)
+  </code></pre>
 <p>For the melt function you need to specify:</p>
 <p>id.vars = “variables to be kept as columns”</p>
 <p>measure.vars = c(“variables to be created as one column”)</p>
 <p>variable.name = “name of created column using the measure.vars”</p>
 <p>value.name = “name of value column”</p>
 <table>
-<caption><span id="tab:unnamed-chunk-14">Table 5.5: </span>Number of road accidents by accident severity and weekday, reshape2::melt</caption>
+<caption>
+<span id="tab:unnamed-chunk-32">Table 5.5: </span>Number of road accidents by accident severity and weekday, reshape2::melt
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="left">Day_of_Week</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:left;">
+Day_of_Week
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="left">1</td>
-<td align="right">300</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="left">1</td>
-<td align="right">3009</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+3009
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="left">1</td>
-<td align="right">11668</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+11668
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="left">2</td>
-<td align="right">205</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+205
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="left">2</td>
-<td align="right">2948</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+2948
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="left">2</td>
-<td align="right">14783</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+14783
+</td>
 </tr>
 </tbody>
 </table>
@@ -477,51 +793,109 @@ road_accidents_melt &lt;-<span class="st"> </span>reshape2<span class="op">::</s
 <pre class="sourceCode r"><code class="sourceCode r">road_accidents_<span class="dv">4</span>_cols &lt;-<span class="st"> </span>road_accidents <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(acc_index, Accident_Severity, Date, Police_Force)</code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-16">Table 5.6: </span>Four columns from road accidents 2017</caption>
+<caption>
+<span id="tab:unnamed-chunk-34">Table 5.6: </span>Four columns from road accidents 2017
+</caption>
 <thead>
-<tr class="header">
-<th align="left">acc_index</th>
-<th align="right">Accident_Severity</th>
-<th align="left">Date</th>
-<th align="right">Police_Force</th>
+<tr>
+<th style="text-align:left;">
+acc_index
+</th>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:right;">
+Police_Force
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">2017010001708</td>
-<td align="right">1</td>
-<td align="left">2017-08-05</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010001708
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-08-05
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009342</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009342
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009344</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009344
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009348</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009348
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009350</td>
-<td align="right">2</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009350
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009351</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009351
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
 </tbody>
 </table>
@@ -530,44 +904,88 @@ road_accidents_melt &lt;-<span class="st"> </span>reshape2<span class="op">::</s
 <pre class="sourceCode r"><code class="sourceCode r">road_accidents_<span class="dv">3</span>_cols &lt;-<span class="st"> </span>road_accidents_<span class="dv">4</span>_cols <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Police_Force)</code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-18">Table 5.7: </span>Three columns from road accidents 2017</caption>
+<caption>
+<span id="tab:unnamed-chunk-36">Table 5.7: </span>Three columns from road accidents 2017
+</caption>
 <thead>
-<tr class="header">
-<th align="left">acc_index</th>
-<th align="right">Accident_Severity</th>
-<th align="left">Date</th>
+<tr>
+<th style="text-align:left;">
+acc_index
+</th>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:left;">
+Date
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">2017010001708</td>
-<td align="right">1</td>
-<td align="left">2017-08-05</td>
+<tr>
+<td style="text-align:left;">
+2017010001708
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-08-05
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009342</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
+<tr>
+<td style="text-align:left;">
+2017010009342
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009344</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
+<tr>
+<td style="text-align:left;">
+2017010009344
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009348</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
+<tr>
+<td style="text-align:left;">
+2017010009348
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009350</td>
-<td align="right">2</td>
-<td align="left">2017-01-01</td>
+<tr>
+<td style="text-align:left;">
+2017010009350
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009351</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
+<tr>
+<td style="text-align:left;">
+2017010009351
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
 </tr>
 </tbody>
 </table>
@@ -579,51 +997,109 @@ road_accidents_melt &lt;-<span class="st"> </span>reshape2<span class="op">::</s
 <pre class="sourceCode r"><code class="sourceCode r">road_accidents_slight &lt;-<span class="st"> </span>road_accidents_<span class="dv">4</span>_cols <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Accident_Severity <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)</code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-20">Table 5.8: </span>Slight severity road accidents 2017</caption>
+<caption>
+<span id="tab:unnamed-chunk-38">Table 5.8: </span>Slight severity road accidents 2017
+</caption>
 <thead>
-<tr class="header">
-<th align="left">acc_index</th>
-<th align="right">Accident_Severity</th>
-<th align="left">Date</th>
-<th align="right">Police_Force</th>
+<tr>
+<th style="text-align:left;">
+acc_index
+</th>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:right;">
+Police_Force
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">2017010009342</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009342
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009344</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009344
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009348</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009348
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009351</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009351
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009353</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009353
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009354</td>
-<td align="right">3</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009354
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
 </tbody>
 </table>
@@ -648,44 +1124,88 @@ road_accidents_small &lt;-<span class="st"> </span>road_accidents <span class="o
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">tally</span>()</code></pre>
 <p>The above example creates groups by accident severity and weekday and counts how many accidents are in each group (one row equals one accident therefore the tally is counting accidents).</p>
 <table>
-<caption><span id="tab:unnamed-chunk-25">Table 5.9: </span>Road accidents 2017 by accident severity and weekday</caption>
+<caption>
+<span id="tab:unnamed-chunk-43">Table 5.9: </span>Road accidents 2017 by accident severity and weekday
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">Day_of_Week</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+Day_of_Week
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">300</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">205</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+205
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">187</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+187
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">233</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+233
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">220</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+220
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">250</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+250
+</td>
 </tr>
 </tbody>
 </table>
@@ -701,143 +1221,293 @@ road_accidents_small &lt;-<span class="st"> </span>road_accidents <span class="o
 <p>Binding tables is mainly done to append tables by creating more rows, however tables can also be binded by adding more columns. Although it is recommended to use the dplyr join functions to combine columns (see 5.6).</p>
 <p>Here are three tables, one shows data for accident severity of 1, one for accident severity of 2, and one for accident severity of 3.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-27">Table 5.10: </span>Number of fatal road accidents in 2017, by weekday</caption>
+<caption>
+<span id="tab:unnamed-chunk-45">Table 5.10: </span>Number of fatal road accidents in 2017, by weekday
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">Day_of_Week</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+Day_of_Week
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">300</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">205</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+205
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">187</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+187
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">233</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+233
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">220</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+220
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">250</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+250
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">7</td>
-<td align="right">281</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+281
+</td>
 </tr>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-27">Table 5.10: </span>Number of serious injury road accidents in 2017, by weekday</caption>
+<caption>
+<span id="tab:unnamed-chunk-45">Table 5.10: </span>Number of serious injury road accidents in 2017, by weekday
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">Day_of_Week</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+Day_of_Week
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">3009</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3009
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2948</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2948
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">3230</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3230
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">4</td>
-<td align="right">3227</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3227
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">5</td>
-<td align="right">3246</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3246
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">6</td>
-<td align="right">3649</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+3649
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">7</td>
-<td align="right">3225</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+3225
+</td>
 </tr>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-27">Table 5.10: </span>Number of slight injury road accidents in 2017, by weekday</caption>
+<caption>
+<span id="tab:unnamed-chunk-45">Table 5.10: </span>Number of slight injury road accidents in 2017, by weekday
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">Day_of_Week</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+Day_of_Week
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">11668</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+11668
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">14783</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+14783
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">16065</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+16065
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">4</td>
-<td align="right">15859</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+15859
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">5</td>
-<td align="right">16331</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+16331
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">6</td>
-<td align="right">17346</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+17346
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">7</td>
-<td align="right">13720</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+13720
+</td>
 </tr>
 </tbody>
 </table>
@@ -847,121 +1517,256 @@ road_accidents_small &lt;-<span class="st"> </span>road_accidents <span class="o
 <span class="kw">library</span>(dplyr)
 
 all_accidents &lt;-<span class="st"> </span>accidents_<span class="dv">1</span> <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">bind_rows</span>(accidents_<span class="dv">2</span>, accidents_<span class="dv">3</span>)</code></pre>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">bind_rows</span>(accidents_<span class="dv">2</span>, accidents_<span class="dv">3</span>)
+  </code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-29">Table 5.11: </span>Road accident data 2017, bind_rows</caption>
+<caption>
+<span id="tab:unnamed-chunk-47">Table 5.11: </span>Road accident data 2017, bind_rows
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">Day_of_Week</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+Day_of_Week
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">300</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">205</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+205
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">187</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+187
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">233</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+233
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">220</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+220
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">250</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+250
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">7</td>
-<td align="right">281</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+281
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">3009</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3009
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2948</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2948
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">3230</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3230
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">4</td>
-<td align="right">3227</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3227
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">5</td>
-<td align="right">3246</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3246
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">6</td>
-<td align="right">3649</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+3649
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">7</td>
-<td align="right">3225</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+3225
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">11668</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+11668
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">14783</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+14783
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">16065</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+16065
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">4</td>
-<td align="right">15859</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+15859
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">5</td>
-<td align="right">16331</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+16331
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">6</td>
-<td align="right">17346</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+17346
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">7</td>
-<td align="right">13720</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+13720
+</td>
 </tr>
 </tbody>
 </table>
@@ -979,42 +1784,84 @@ all_accidents_cols_join &lt;-<span class="st"> </span>road_acc_<span class="dv">
 <p>Another useful join for data manipulation is an anti_join. This provides all the data that is not in the joined table. For example, the below snapshot of a table displays road accident totals broken down by accident severity and weekday:</p>
 <table>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">Day_of_Week</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+Day_of_Week
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">300</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">205</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+205
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">187</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+187
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">233</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+233
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">220</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+220
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">250</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+250
+</td>
 </tr>
 </tbody>
 </table>
@@ -1022,27 +1869,51 @@ all_accidents_cols_join &lt;-<span class="st"> </span>road_acc_<span class="dv">
 <p>First, I get the Monday data using the dplyr filter function (see 5.3).</p>
 <table>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">Day_of_Week</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+Day_of_Week
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">205</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+205
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2948</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2948
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">14783</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+14783
+</td>
 </tr>
 </tbody>
 </table>
@@ -1054,104 +1925,220 @@ all_accidents_not_monday &lt;-<span class="st"> </span>road_accidents_small <spa
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">anti_join</span>(accidents_monday, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;Accident_Severity&quot;</span>, <span class="st">&quot;Day_of_Week&quot;</span>))</code></pre>
 <p>The above code takes the initial table we want to get our data from (road_accidents_small) and anti joins accidents_monday. This says, “get all the rows from road_accidents_small that are not in accidents_monday”. Again, note the need to specify what the join rows would be joined and compared by.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-36">Table 5.12: </span>Road accident data 2017 not on a Monday by accident severity</caption>
+<caption>
+<span id="tab:unnamed-chunk-54">Table 5.12: </span>Road accident data 2017 not on a Monday by accident severity
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">Day_of_Week</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+Day_of_Week
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">300</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">187</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+187
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">233</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+233
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">220</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+220
+</td>
 </tr>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">250</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+250
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">7</td>
-<td align="right">281</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+281
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">3009</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3009
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">3230</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3230
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">4</td>
-<td align="right">3227</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3227
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">5</td>
-<td align="right">3246</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3246
+</td>
 </tr>
-<tr class="odd">
-<td align="right">2</td>
-<td align="right">6</td>
-<td align="right">3649</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+3649
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">7</td>
-<td align="right">3225</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+3225
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">11668</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+11668
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">16065</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+16065
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">4</td>
-<td align="right">15859</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+15859
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">5</td>
-<td align="right">16331</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+16331
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">6</td>
-<td align="right">17346</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+17346
+</td>
 </tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="right">7</td>
-<td align="right">13720</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+13720
+</td>
 </tr>
 </tbody>
 </table>
@@ -1161,86 +2148,174 @@ all_accidents_not_monday &lt;-<span class="st"> </span>road_accidents_small <spa
 <p>Doing a join with dplyr will join all columns from both tables, however sometimes not all columns from each table are needed.</p>
 <p>Let’s look at some previous tables again:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-37">Table 5.13: </span>Police force and accident severity information for accidents</caption>
+<caption>
+<span id="tab:unnamed-chunk-55">Table 5.13: </span>Police force and accident severity information for accidents
+</caption>
 <thead>
-<tr class="header">
-<th align="left">acc_index</th>
-<th align="right">Police_Force</th>
-<th align="right">Accident_Severity</th>
+<tr>
+<th style="text-align:left;">
+acc_index
+</th>
+<th style="text-align:right;">
+Police_Force
+</th>
+<th style="text-align:right;">
+Accident_Severity
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">2017010001708</td>
-<td align="right">1</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010001708
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009342</td>
-<td align="right">1</td>
-<td align="right">3</td>
+<tr>
+<td style="text-align:left;">
+2017010009342
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009344</td>
-<td align="right">1</td>
-<td align="right">3</td>
+<tr>
+<td style="text-align:left;">
+2017010009344
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009348</td>
-<td align="right">1</td>
-<td align="right">3</td>
+<tr>
+<td style="text-align:left;">
+2017010009348
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009350</td>
-<td align="right">1</td>
-<td align="right">2</td>
+<tr>
+<td style="text-align:left;">
+2017010009350
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009351</td>
-<td align="right">1</td>
-<td align="right">3</td>
+<tr>
+<td style="text-align:left;">
+2017010009351
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
 </tr>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-37">Table 5.13: </span>Date and weekday information for accidents</caption>
+<caption>
+<span id="tab:unnamed-chunk-55">Table 5.13: </span>Date and weekday information for accidents
+</caption>
 <thead>
-<tr class="header">
-<th align="left">acc_index</th>
-<th align="left">Date</th>
-<th align="right">Day_of_Week</th>
+<tr>
+<th style="text-align:left;">
+acc_index
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:right;">
+Day_of_Week
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">2017010001708</td>
-<td align="left">2017-08-05</td>
-<td align="right">7</td>
+<tr>
+<td style="text-align:left;">
+2017010001708
+</td>
+<td style="text-align:left;">
+2017-08-05
+</td>
+<td style="text-align:right;">
+7
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009342</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009342
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009344</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009344
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009348</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009348
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009350</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009350
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009351</td>
-<td align="left">2017-01-01</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+2017010009351
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
 </tbody>
 </table>
@@ -1255,44 +2330,88 @@ road_acc_<span class="dv">3</span> &lt;-<span class="st"> </span>road_acc_<span 
 <p>Then within the left_join command, to select the data from the second table, you again add the select statement.</p>
 <p><strong>Note: you will need to select the joining variable in both tables but this will only appear once</strong></p>
 <table>
-<caption><span id="tab:unnamed-chunk-39">Table 5.14: </span>Police force and Date information for specific accidents</caption>
+<caption>
+<span id="tab:unnamed-chunk-57">Table 5.14: </span>Police force and Date information for specific accidents
+</caption>
 <thead>
-<tr class="header">
-<th align="left">acc_index</th>
-<th align="right">Police_Force</th>
-<th align="left">Date</th>
+<tr>
+<th style="text-align:left;">
+acc_index
+</th>
+<th style="text-align:right;">
+Police_Force
+</th>
+<th style="text-align:left;">
+Date
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">2017010001708</td>
-<td align="right">1</td>
-<td align="left">2017-08-05</td>
+<tr>
+<td style="text-align:left;">
+2017010001708
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-08-05
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009342</td>
-<td align="right">1</td>
-<td align="left">2017-01-01</td>
+<tr>
+<td style="text-align:left;">
+2017010009342
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009344</td>
-<td align="right">1</td>
-<td align="left">2017-01-01</td>
+<tr>
+<td style="text-align:left;">
+2017010009344
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009348</td>
-<td align="right">1</td>
-<td align="left">2017-01-01</td>
+<tr>
+<td style="text-align:left;">
+2017010009348
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
 </tr>
-<tr class="odd">
-<td align="left">2017010009350</td>
-<td align="right">1</td>
-<td align="left">2017-01-01</td>
+<tr>
+<td style="text-align:left;">
+2017010009350
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
 </tr>
-<tr class="even">
-<td align="left">2017010009351</td>
-<td align="right">1</td>
-<td align="left">2017-01-01</td>
+<tr>
+<td style="text-align:left;">
+2017010009351
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-01-01
+</td>
 </tr>
 </tbody>
 </table>
@@ -1306,53 +2425,127 @@ road_acc_<span class="dv">3</span> &lt;-<span class="st"> </span>road_acc_<span 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sum across a row </span>
 road_accidents_weekdays<span class="op">$</span>rowsum &lt;-<span class="st"> </span><span class="kw">rowSums</span>(road_accidents_weekdays, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-41">Table 5.15: </span>Road accidents 2017 by accident severity and weekday</caption>
+<caption>
+<span id="tab:unnamed-chunk-59">Table 5.15: </span>Road accidents 2017 by accident severity and weekday
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">1</th>
-<th align="right">2</th>
-<th align="right">3</th>
-<th align="right">4</th>
-<th align="right">5</th>
-<th align="right">6</th>
-<th align="right">7</th>
-<th align="right">rowsum</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+1
+</th>
+<th style="text-align:right;">
+2
+</th>
+<th style="text-align:right;">
+3
+</th>
+<th style="text-align:right;">
+4
+</th>
+<th style="text-align:right;">
+5
+</th>
+<th style="text-align:right;">
+6
+</th>
+<th style="text-align:right;">
+7
+</th>
+<th style="text-align:right;">
+rowsum
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">300</td>
-<td align="right">205</td>
-<td align="right">187</td>
-<td align="right">233</td>
-<td align="right">220</td>
-<td align="right">250</td>
-<td align="right">281</td>
-<td align="right">1677</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
+<td style="text-align:right;">
+205
+</td>
+<td style="text-align:right;">
+187
+</td>
+<td style="text-align:right;">
+233
+</td>
+<td style="text-align:right;">
+220
+</td>
+<td style="text-align:right;">
+250
+</td>
+<td style="text-align:right;">
+281
+</td>
+<td style="text-align:right;">
+1677
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">3009</td>
-<td align="right">2948</td>
-<td align="right">3230</td>
-<td align="right">3227</td>
-<td align="right">3246</td>
-<td align="right">3649</td>
-<td align="right">3225</td>
-<td align="right">22536</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3009
+</td>
+<td style="text-align:right;">
+2948
+</td>
+<td style="text-align:right;">
+3230
+</td>
+<td style="text-align:right;">
+3227
+</td>
+<td style="text-align:right;">
+3246
+</td>
+<td style="text-align:right;">
+3649
+</td>
+<td style="text-align:right;">
+3225
+</td>
+<td style="text-align:right;">
+22536
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">11668</td>
-<td align="right">14783</td>
-<td align="right">16065</td>
-<td align="right">15859</td>
-<td align="right">16331</td>
-<td align="right">17346</td>
-<td align="right">13720</td>
-<td align="right">105775</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+11668
+</td>
+<td style="text-align:right;">
+14783
+</td>
+<td style="text-align:right;">
+16065
+</td>
+<td style="text-align:right;">
+15859
+</td>
+<td style="text-align:right;">
+16331
+</td>
+<td style="text-align:right;">
+17346
+</td>
+<td style="text-align:right;">
+13720
+</td>
+<td style="text-align:right;">
+105775
+</td>
 </tr>
 </tbody>
 </table>
@@ -1363,53 +2556,127 @@ road_accidents_weekdays<span class="op">$</span>alldays &lt;-<span class="st"> <
 <span class="st">                                    </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">5</span><span class="st">`</span><span class="op">+</span><span class="st"> </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">6</span><span class="st">`</span><span class="op">+</span>
 <span class="st">                                    </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">7</span><span class="st">`</span></code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-43">Table 5.16: </span>Road accidents 2017 by accident severity and weekday</caption>
+<caption>
+<span id="tab:unnamed-chunk-61">Table 5.16: </span>Road accidents 2017 by accident severity and weekday
+</caption>
 <thead>
-<tr class="header">
-<th align="right">Accident_Severity</th>
-<th align="right">1</th>
-<th align="right">2</th>
-<th align="right">3</th>
-<th align="right">4</th>
-<th align="right">5</th>
-<th align="right">6</th>
-<th align="right">7</th>
-<th align="right">alldays</th>
+<tr>
+<th style="text-align:right;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+1
+</th>
+<th style="text-align:right;">
+2
+</th>
+<th style="text-align:right;">
+3
+</th>
+<th style="text-align:right;">
+4
+</th>
+<th style="text-align:right;">
+5
+</th>
+<th style="text-align:right;">
+6
+</th>
+<th style="text-align:right;">
+7
+</th>
+<th style="text-align:right;">
+alldays
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">300</td>
-<td align="right">205</td>
-<td align="right">187</td>
-<td align="right">233</td>
-<td align="right">220</td>
-<td align="right">250</td>
-<td align="right">281</td>
-<td align="right">1676</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
+<td style="text-align:right;">
+205
+</td>
+<td style="text-align:right;">
+187
+</td>
+<td style="text-align:right;">
+233
+</td>
+<td style="text-align:right;">
+220
+</td>
+<td style="text-align:right;">
+250
+</td>
+<td style="text-align:right;">
+281
+</td>
+<td style="text-align:right;">
+1676
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">3009</td>
-<td align="right">2948</td>
-<td align="right">3230</td>
-<td align="right">3227</td>
-<td align="right">3246</td>
-<td align="right">3649</td>
-<td align="right">3225</td>
-<td align="right">22534</td>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3009
+</td>
+<td style="text-align:right;">
+2948
+</td>
+<td style="text-align:right;">
+3230
+</td>
+<td style="text-align:right;">
+3227
+</td>
+<td style="text-align:right;">
+3246
+</td>
+<td style="text-align:right;">
+3649
+</td>
+<td style="text-align:right;">
+3225
+</td>
+<td style="text-align:right;">
+22534
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">11668</td>
-<td align="right">14783</td>
-<td align="right">16065</td>
-<td align="right">15859</td>
-<td align="right">16331</td>
-<td align="right">17346</td>
-<td align="right">13720</td>
-<td align="right">105772</td>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+11668
+</td>
+<td style="text-align:right;">
+14783
+</td>
+<td style="text-align:right;">
+16065
+</td>
+<td style="text-align:right;">
+15859
+</td>
+<td style="text-align:right;">
+16331
+</td>
+<td style="text-align:right;">
+17346
+</td>
+<td style="text-align:right;">
+13720
+</td>
+<td style="text-align:right;">
+105772
+</td>
 </tr>
 </tbody>
 </table>
@@ -1425,59 +2692,141 @@ road_accidents_weekdays<span class="op">$</span>alldays &lt;-<span class="st"> <
 road_accidents_weekdays &lt;-<span class="st"> </span>road_accidents_weekdays <span class="op">%&gt;%</span>
 <span class="st">  </span>janitor<span class="op">::</span><span class="kw">adorn_totals</span>(<span class="st">&quot;row&quot;</span>)</code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-46">Table 5.17: </span>Road accidents 2017 by accident severity and weekday</caption>
+<caption>
+<span id="tab:unnamed-chunk-64">Table 5.17: </span>Road accidents 2017 by accident severity and weekday
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Accident_Severity</th>
-<th align="right">1</th>
-<th align="right">2</th>
-<th align="right">3</th>
-<th align="right">4</th>
-<th align="right">5</th>
-<th align="right">6</th>
-<th align="right">7</th>
+<tr>
+<th style="text-align:left;">
+Accident_Severity
+</th>
+<th style="text-align:right;">
+1
+</th>
+<th style="text-align:right;">
+2
+</th>
+<th style="text-align:right;">
+3
+</th>
+<th style="text-align:right;">
+4
+</th>
+<th style="text-align:right;">
+5
+</th>
+<th style="text-align:right;">
+6
+</th>
+<th style="text-align:right;">
+7
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="right">300</td>
-<td align="right">205</td>
-<td align="right">187</td>
-<td align="right">233</td>
-<td align="right">220</td>
-<td align="right">250</td>
-<td align="right">281</td>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
+<td style="text-align:right;">
+205
+</td>
+<td style="text-align:right;">
+187
+</td>
+<td style="text-align:right;">
+233
+</td>
+<td style="text-align:right;">
+220
+</td>
+<td style="text-align:right;">
+250
+</td>
+<td style="text-align:right;">
+281
+</td>
 </tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="right">3009</td>
-<td align="right">2948</td>
-<td align="right">3230</td>
-<td align="right">3227</td>
-<td align="right">3246</td>
-<td align="right">3649</td>
-<td align="right">3225</td>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+3009
+</td>
+<td style="text-align:right;">
+2948
+</td>
+<td style="text-align:right;">
+3230
+</td>
+<td style="text-align:right;">
+3227
+</td>
+<td style="text-align:right;">
+3246
+</td>
+<td style="text-align:right;">
+3649
+</td>
+<td style="text-align:right;">
+3225
+</td>
 </tr>
-<tr class="odd">
-<td align="left">3</td>
-<td align="right">11668</td>
-<td align="right">14783</td>
-<td align="right">16065</td>
-<td align="right">15859</td>
-<td align="right">16331</td>
-<td align="right">17346</td>
-<td align="right">13720</td>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+11668
+</td>
+<td style="text-align:right;">
+14783
+</td>
+<td style="text-align:right;">
+16065
+</td>
+<td style="text-align:right;">
+15859
+</td>
+<td style="text-align:right;">
+16331
+</td>
+<td style="text-align:right;">
+17346
+</td>
+<td style="text-align:right;">
+13720
+</td>
 </tr>
-<tr class="even">
-<td align="left">Total</td>
-<td align="right">14977</td>
-<td align="right">17936</td>
-<td align="right">19482</td>
-<td align="right">19319</td>
-<td align="right">19797</td>
-<td align="right">21245</td>
-<td align="right">17226</td>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+14977
+</td>
+<td style="text-align:right;">
+17936
+</td>
+<td style="text-align:right;">
+19482
+</td>
+<td style="text-align:right;">
+19319
+</td>
+<td style="text-align:right;">
+19797
+</td>
+<td style="text-align:right;">
+21245
+</td>
+<td style="text-align:right;">
+17226
+</td>
 </tr>
 </tbody>
 </table>
@@ -1493,19 +2842,25 @@ road_accidents_na<span class="op">$</span>Junction_Control &lt;-<span class="st"
 <span class="st">  </span>tidyr<span class="op">::</span><span class="kw">replace_na</span>(<span class="op">-</span><span class="dv">1</span>)</code></pre>
 <p><strong>Note: To replace NA with a character the character replacement must be wrapped in “quotations”</strong></p>
 <p>To replace all NAs in a data frame or tibble:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># replace all NAs with value -1</span>
+<pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># replace all NAs with value -1</span>
 road_accidents_na &lt;-<span class="st"> </span>road_accidents_na <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">replace</span>(<span class="kw">is.na</span>(.), <span class="dv">-1</span>)</code></pre>
+<span class="st">  </span><span class="kw">replace</span>(<span class="kw">is.na</span>(.), <span class="dv">-1</span>)
+  </code></pre>
 <p>To replace values with NA, specify what value you want to be replaced with NA using the na_if function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create nas</span>
+<pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># create nas</span>
 road_accidents_na &lt;-<span class="st"> </span>road_accidents_na <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">na_if</span>(<span class="op">-</span><span class="dv">1</span>)</code></pre>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">na_if</span>(<span class="op">-</span><span class="dv">1</span>)
+  </code></pre>
 <p><strong>Note: to only create NAs in a specific column specify the column name in a similar manner to the first example in this section.</strong></p>
 <p>To replace values:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># replace 1st_road_class </span>
+<pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># replace 1st_road_class </span>
 road_accidents_na &lt;-<span class="st"> </span>road_accidents_na <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span> =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">case_when</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">~</span><span class="st"> &quot;A Road&quot;</span>,
-                                      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span>)))</code></pre>
+                                      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span>)))
+  </code></pre>
 <p>The case_when function is similar to using CASE WHEN in SQL.</p>
 <p>The TRUE argument indicates that if the values aren’t included in the case_when then they should be whatever is after the tilda (~) i.e. the equivalent of the ELSE statement in SQL.</p>
 <p>The “as.character” parameter says that everything that isn’t 3 should be kept as it is, this could be replaced by an arbitrary character or value e.g. “Other”. This would make everything that is not a 3, coded as “Other”.</p>
