@@ -25,7 +25,7 @@
 <meta name="author" content="List of authors">
 
 
-<meta name="date" content="2019-04-16">
+<meta name="date" content="2019-05-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -138,8 +138,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="variables.html"><a href="variables.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>4.2.1</b> Conversion between atomic vector types</a></li>
 <li class="chapter" data-level="4.2.2" data-path="variables.html"><a href="variables.html#conversions-with-factors"><i class="fa fa-check"></i><b>4.2.2</b> Conversions with factors</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="variables.html"><a href="variables.html#factors"><i class="fa fa-check"></i><b>4.3</b> Factors</a></li>
-<li class="chapter" data-level="4.4" data-path="variables.html"><a href="variables.html#dates"><i class="fa fa-check"></i><b>4.4</b> Dates</a></li>
+<li class="chapter" data-level="4.3" data-path="variables.html"><a href="variables.html#working-with-dates"><i class="fa fa-check"></i><b>4.3</b> Working with dates</a></li>
+<li class="chapter" data-level="4.4" data-path="variables.html"><a href="variables.html#working-with-factors"><i class="fa fa-check"></i><b>4.4</b> Working with factors</a></li>
 <li class="chapter" data-level="4.5" data-path="variables.html"><a href="variables.html#rounding"><i class="fa fa-check"></i><b>4.5</b> Rounding</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>5</b> Table/Data Frame manipulation</a></li>
@@ -213,8 +213,20 @@ attribute is just “factor”.</p>
 <span class="co">#&gt; $class</span>
 <span class="co">#&gt; [1] &quot;factor&quot;</span></code></pre>
 <p>Date vectors are just double vectors with an additional class attribute set as
-“Date”</p>
-<p><strong>NOT FINISHED</strong></p>
+“Date”.</p>
+<p><strong>Note - The following borrows directly from Hadley’s Advanced R site
+so we need to attribute appropriately and use correct licence</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r">today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()
+<span class="kw">typeof</span>(today)
+<span class="co">#&gt; [1] &quot;double&quot;</span>
+<span class="kw">attributes</span>(today)
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;Date&quot;</span></code></pre>
+<p>The value of the double (which can be seen by stripping the class), represents
+the number of days since “1970-01-01”<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1970-02-01&quot;</span>)
+<span class="kw">unclass</span>(date)
+<span class="co">#&gt; [1] 31</span></code></pre>
 </div>
 <div id="coercion" class="section level2">
 <h2><span class="header-section-number">4.2</span> Coercion</h2>
@@ -247,18 +259,41 @@ hierarchy: character, double, integer, logical.</p>
 </div>
 <div id="conversions-with-factors" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Conversions with factors</h3>
-<p><strong>NOT FINISHED</strong></p>
-</div>
-</div>
-<div id="factors" class="section level2">
-<h2><span class="header-section-number">4.3</span> Factors</h2>
 <p>Unfortunately factors can be tricky to work with and their behaviour is not
-always obvious. Below we illustrate a couple of gotchas<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<p><strong>NOT FINISHED</strong></p>
+always obvious. Below we illustrate a couple of things to bear in mind when
+working with them. Firstly concatenating factors may not work as intended:</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_factor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;bob&quot;</span>, <span class="st">&quot;george&quot;</span>, <span class="st">&quot;bob&quot;</span>))
+my_vector &lt;-<span class="st"> </span><span class="kw">c</span>(my_factor, my_factor)
+my_vector
+<span class="co">#&gt; [1] 1 2 1 1 2 1</span></code></pre>
+<p>instead we would first need to convert to a character vector</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">as.character</span>(my_factor), <span class="kw">as.character</span>(my_factor))
+my_vector_<span class="dv">2</span>
+<span class="co">#&gt; [1] &quot;bob&quot;    &quot;george&quot; &quot;bob&quot;    &quot;bob&quot;    &quot;george&quot; &quot;bob&quot;</span></code></pre>
+<p>Secondly, we may sometimes find a numeric vector is being stored as a factor:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/factor_example.csv&quot;</span>)
+my_vector &lt;-<span class="st"> </span>df[[<span class="dv">2</span>]]
+<span class="kw">typeof</span>(my_vector)
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+my_vector
+<span class="co">#&gt; [1] #N/A #N/A 1    2    3    1    #N/A #N/A #N/A</span>
+<span class="co">#&gt; Levels: #N/A 1 2 3</span></code></pre>
+<p>to transform this to a numeric variable we can proceed as follows</p>
+<pre class="sourceCode r"><code class="sourceCode r">my_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">levels</span>(my_vector)[my_vector])
+<span class="co">#&gt; Warning: NAs introduced by coercion</span>
+<span class="kw">typeof</span>(my_vector_<span class="dv">2</span>)
+<span class="co">#&gt; [1] &quot;double&quot;</span>
+my_vector_<span class="dv">2</span>
+<span class="co">#&gt; [1] NA NA  1  2  3  1 NA NA NA</span></code></pre>
 </div>
-<div id="dates" class="section level2">
-<h2><span class="header-section-number">4.4</span> Dates</h2>
-<p><strong>NOT FINISHED</strong></p>
+</div>
+<div id="working-with-dates" class="section level2">
+<h2><span class="header-section-number">4.3</span> Working with dates</h2>
+<p><strong>NOT FINISHED - need to write about <code>lubridate</code></strong></p>
+</div>
+<div id="working-with-factors" class="section level2">
+<h2><span class="header-section-number">4.4</span> Working with factors</h2>
+<p><strong>NOT FINISHED - need to write about <code>forcats</code></strong></p>
 </div>
 <div id="rounding" class="section level2">
 <h2><span class="header-section-number">4.5</span> Rounding</h2>
@@ -282,6 +317,11 @@ and so <code>round(0.15, 1)</code> could be either <code>0.1</code> or <code>0.2
 <p>To implement what we consider normal rounding we can install use the <code>janitor</code>
 package and the function <code>round_half_up</code></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: &#39;janitor&#39;</span>
+<span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     chisq.test, fisher.test</span>
 janitor<span class="op">::</span><span class="kw">round_half_up</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))
 <span class="co">#&gt; [1] -2 -1  1  2  3  4  5</span></code></pre>
 <p>If we do not have access to the package (or do not want to depend on the
@@ -305,8 +345,8 @@ package) then we can implement<a href="#fn3" class="footnote-ref" id="fnref3"><s
 <ol start="1">
 <li id="fn1"><p>technically there are more, see
 <a href="https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors" class="uri">https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors</a><a href="variables.html#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>See chapter 8.2 of the
-R Inferno for a more detailed discussion of interesting factor behaviour<a href="variables.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>This special date is known as the Unix
+Epoch<a href="variables.html#fnref2" class="footnote-back">↩</a></p></li>
 <li id="fn3"><p>see <a href="https://stackoverflow.com/questions/12688717/round-up-from-5/12688836#12688836">stackoverflow</a>
 discussion for a discussion of the implementation<a href="variables.html#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
