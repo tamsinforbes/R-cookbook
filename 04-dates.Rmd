@@ -1,0 +1,6 @@
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
+```
+
+# Working with dates {#dates}
+**NOT FINISHED - need to write about `lubridate`**

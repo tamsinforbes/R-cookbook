@@ -1,0 +1,41 @@
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
+```
+
+# Working with factors {#factors}
+
+Working with factors can be tricky to both the new and the experience `R` user
+as their behaviour is not always intuitive.  We can illustrate this with a 
+couple of examples.  Firstly concatenating factors may not work as intended:
+
+```{r}
+my_factor <- factor(c("bob", "george", "bob"))
+my_vector <- c(my_factor, my_factor)
+my_vector
+```
+
+instead we would first need to convert to a character vector
+
+```{r}
+my_vector_2 <- c(as.character(my_factor), as.character(my_factor))
+my_vector_2
+```
+
+Secondly, we may sometimes find a numeric vector is being stored as a factor:
+
+```{r}
+df <- read.csv("data/factor_example.csv")
+my_vector <- df[[2]]
+typeof(my_vector)
+my_vector
+```
+
+to transform this to a numeric variable we can proceed as follows
+```{r}
+my_vector_2 <- as.numeric(levels(my_vector)[my_vector])
+typeof(my_vector_2)
+my_vector_2
+```
+
+To alleviate some of these issues it is useful to use the `forcats` package
+**NOT FINISHED - need to write about `forcats`**
