@@ -9,5 +9,4 @@ Imports: rmarkdown,
   DBI,
   bigrquery,
   reshape2,
-  xlsx,
   janitor
