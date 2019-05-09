@@ -2,4 +2,5 @@
 .RData
 .Rproj.user
 travis_guide.txt
-deploy*
+deploy_key
+deploy_key.pub
