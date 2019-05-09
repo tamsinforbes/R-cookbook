@@ -21,7 +21,7 @@ then
   cd book-output
   git rm -rf *
   # Copy the new book and commit!
-  cp -r ../site/docs/* ./
+  cp -r ../_book/* ./
   git add --all *
   git commit -m "Travis built book"
   git push -q origin gh-pages
