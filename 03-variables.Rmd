@@ -8,7 +8,7 @@ knitr::opts_chunk$set(collapse=TRUE, comment="#>")
 There are four main atomic vector types that you are likely to come across
 when using R^[technically there are more, see 
 https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors]; **logical** (`TRUE` 
-or `FALSE`), *double* (`3.142`), *integer* (`2L`) and *character* (`"awesome"`)
+or `FALSE`), *double* (`3.142`), *integer* (`2L`) and *character* (`"Awesome"`)
 
 ```{r}
 v1 <- TRUE
