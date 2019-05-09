@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 7 Plotting and Data Visualisations | DfT R Cookbook</title>
+  <title>Chapter 2 The basics | DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 7 Plotting and Data Visualisations | DfT R Cookbook" />
+  <meta property="og:title" content="Chapter 2 The basics | DfT R Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="departmentfortransport/R-cookbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Plotting and Data Visualisations | DfT R Cookbook" />
+  <meta name="twitter:title" content="Chapter 2 The basics | DfT R Cookbook" />
   
   <meta name="twitter:description" content="Guidance and code examples for R usage for DfT and beyond" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="factors.html">
-<link rel="next" href="tidbits.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="data-import.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -195,65 +195,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="plots" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Plotting and Data Visualisations</h1>
-<p>This chapter is for code examples of plotting and visualising data.</p>
-<p>Plotting in Base R</p>
-<p>First read in data and summarise it so we’re ready to plot:</p>
-<pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(readxl)
+<div id="basics" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> The basics</h1>
+<p><strong>TO BE COMPLETED</strong></p>
+<div id="vectors" class="section level2">
+<h2><span class="header-section-number">2.1</span> Vectors</h2>
+<div id="vector-types" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Types</h3>
+<p>There are four main atomic vector types that you are likely to come across
+when using R<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>; <strong>logical</strong> (<code>TRUE</code>
+or <code>FALSE</code>), <em>double</em> (<code>3.142</code>), <em>integer</em> (<code>2L</code>) and <em>character</em> (<code>&quot;Awesome&quot;</code>)</p>
+<pre class="sourceCode r"><code class="sourceCode r">v1 &lt;-<span class="st"> </span><span class="ot">TRUE</span>
+<span class="kw">typeof</span>(v1)</code></pre>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">v1 &lt;-<span class="st"> </span><span class="ot">FALSE</span>
+<span class="kw">typeof</span>(v1)</code></pre>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">v2 &lt;-<span class="st"> </span><span class="fl">1.5</span>
+<span class="kw">typeof</span>(v2)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">v2 &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="kw">typeof</span>(v2)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># integer values must be followed by an L to be stored as integers</span>
+v3 &lt;-<span class="st"> </span><span class="dv">2</span>
+<span class="kw">typeof</span>(v3)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">v3 &lt;-<span class="st"> </span>2L
+<span class="kw">typeof</span>(v3)</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">v4 &lt;-<span class="st"> &quot;Awesome&quot;</span>
+<span class="kw">typeof</span>(v4)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>As well as the atomic vector types you will often encounter two other vector
+types; <strong>factor</strong> and <strong>Date</strong>.</p>
+<p>Factor vectors are used to represent categorical data. They are actually
+integer vectors with two additional attributes, levels and class. At this
+stage it is not worth worrying to much about what attribute are just understand
+that, for factors, the levels attribute gives the possible categories and
+combined with the integer values works much like a lookup table. The <code>class</code>
+attribute is just “factor”.</p>
+<pre class="sourceCode r"><code class="sourceCode r">ratings &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;amazing&quot;</span>))
+<span class="kw">typeof</span>(ratings)</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(ratings)</code></pre>
+<pre><code>## $levels
+## [1] &quot;amazing&quot; &quot;bad&quot;     &quot;good&quot;   
+## 
+## $class
+## [1] &quot;factor&quot;</code></pre>
+<p>Date vectors are just double vectors with an additional class attribute set as
+“Date”.</p>
+<p><strong>Note - The following borrows directly from Hadley’s Advanced R site
+so we need to attribute appropriately and use correct licence</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r">today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()
+<span class="kw">typeof</span>(today)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(today)</code></pre>
+<pre><code>## $class
+## [1] &quot;Date&quot;</code></pre>
+<p>The value of the double (which can be seen by stripping the class), represents
+the number of days since “1970-01-01”<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1970-02-01&quot;</span>)
+<span class="kw">unclass</span>(date)</code></pre>
+<pre><code>## [1] 31</code></pre>
+</div>
+<div id="conversion-between-atomic-vector-types" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Conversion between atomic vector types</h3>
+<p>Converting between the atomic vector types is done using the <code>as.character</code>,
+<code>as.integer</code>, <code>as.logical</code> and <code>as.double</code> functions.</p>
+<pre class="sourceCode r"><code class="sourceCode r">value &lt;-<span class="st"> </span><span class="fl">1.5</span>
+<span class="kw">as.integer</span>(value)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.character</span>(value)</code></pre>
+<pre><code>## [1] &quot;1.5&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.logical</span>(value)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>Where it is not possible to convert a value you will get a warning message</p>
+<pre class="sourceCode r"><code class="sourceCode r">value &lt;-<span class="st"> &quot;z&quot;</span>
+<span class="kw">as.integer</span>(value)</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>When combining different vector types, coercion will obey the following
+hierarchy: character, double, integer, logical.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="st">&quot;pop&quot;</span>, <span class="ot">TRUE</span>))</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="ot">TRUE</span>))</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">c</span>(3L, <span class="ot">TRUE</span>))</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</code></pre>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
 
-port &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/port0499.xlsx&quot;</span>)
-
-total_tonnage &lt;-<span class="st"> </span>port <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total =</span> <span class="kw">sum</span>(tonnage))
-
-average_tonnage &lt;-<span class="st"> </span>port <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(polu_majorport) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_tonnage =</span> <span class="kw">mean</span>(tonnage)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">5</span>, <span class="dt">wt =</span> avg_tonnage) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(avg_tonnage))</code></pre>
-<p>Line chart with Base R</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(total_tonnage<span class="op">$</span>year, total_tonnage<span class="op">$</span>total,
-     <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>,
-     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>,
-     <span class="dt">lwd =</span> <span class="dv">3</span>,
-     <span class="dt">xlab =</span> <span class="st">&quot;Year&quot;</span>,
-     <span class="dt">ylab =</span> <span class="st">&quot;Tonnage&quot;</span>,
-     <span class="dt">main =</span> <span class="st">&quot;Total Tonnage 2000 - 2017&quot;</span>)</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
-<p>Bar plot with Base R</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">barplot</span>(average_tonnage<span class="op">$</span>avg_tonnage,
-        <span class="dt">width =</span> <span class="dv">2</span>,
-        <span class="dt">names.arg =</span> <span class="kw">c</span>(<span class="st">&quot;Glensanda&quot;</span>, <span class="st">&quot;Sullom Voe&quot;</span>, <span class="st">&quot;Dover&quot;</span>,
-                      <span class="st">&quot;Milford Haven&quot;</span>, <span class="st">&quot;Rivers Hull &amp; Humber&quot;</span>),
-        <span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>,
-        <span class="dt">xlab =</span> <span class="st">&quot;Major Port&quot;</span>,
-        <span class="dt">ylab =</span> <span class="st">&quot;Tonnage&quot;</span>,
-        <span class="dt">main =</span> <span class="st">&quot;Average Tonnage by Major Port (top 5) 2000 - 2017&quot;</span>)</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
-<p>Plotting with ggplot2</p>
-<p>Line chart</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> total_tonnage) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> total), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Tonnage&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Total Tonnage 2000 - 2017&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">2000</span>, <span class="dv">2017</span>, <span class="dv">2</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_classic</span>()</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
-<p>Bar chart</p>
-
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>technically there are more, see
+<a href="https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors" class="uri">https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors</a><a href="basics.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>This special date is known as the Unix
+Epoch<a href="basics.html#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="factors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="tidbits.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-import.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

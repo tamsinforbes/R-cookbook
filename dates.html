@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 7 Statistical analysis | DfT R Cookbook</title>
+  <title>Chapter 5 Working with dates | DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 7 Statistical analysis | DfT R Cookbook" />
+  <meta property="og:title" content="Chapter 5 Working with dates | DfT R Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="departmentfortransport/R-cookbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Statistical analysis | DfT R Cookbook" />
+  <meta name="twitter:title" content="Chapter 5 Working with dates | DfT R Cookbook" />
   
   <meta name="twitter:description" content="Guidance and code examples for R usage for DfT and beyond" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="plots.html">
-<link rel="next" href="advanced.html">
+<link rel="prev" href="tables.html">
+<link rel="next" href="factors.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -132,7 +132,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#coding-standards"><i class="fa fa-check"></i><b>1.1</b> Coding standards</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#adding-to-the-book"><i class="fa fa-check"></i><b>1.2</b> Adding to the book</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> The basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#vectors"><i class="fa fa-check"></i><b>2.1</b> Vectors</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="basics.html"><a href="basics.html#vector-types"><i class="fa fa-check"></i><b>2.1.1</b> Types</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basics.html"><a href="basics.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>2.1.2</b> Conversion between atomic vector types</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>3</b> Data Importing/Exporting and interaction with other programmes</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-import.html"><a href="data-import.html#libraries"><i class="fa fa-check"></i><b>3.1</b> Libraries</a></li>
 <li class="chapter" data-level="3.2" data-path="data-import.html"><a href="data-import.html#navigating-folders"><i class="fa fa-check"></i><b>3.2</b> Navigating folders</a><ul>
@@ -150,36 +155,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.2" data-path="data-import.html"><a href="data-import.html#gcp"><i class="fa fa-check"></i><b>3.4.2</b> GCP</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>4</b> Vector basics</a><ul>
-<li class="chapter" data-level="4.1" data-path="variables.html"><a href="variables.html#vector-types"><i class="fa fa-check"></i><b>4.1</b> Vector types</a></li>
-<li class="chapter" data-level="4.2" data-path="variables.html"><a href="variables.html#coercion"><i class="fa fa-check"></i><b>4.2</b> Coercion</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="variables.html"><a href="variables.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>4.2.1</b> Conversion between atomic vector types</a></li>
-<li class="chapter" data-level="4.2.2" data-path="variables.html"><a href="variables.html#conversions-with-factors"><i class="fa fa-check"></i><b>4.2.2</b> Conversions with factors</a></li>
+<li class="chapter" data-level="4" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>4</b> Table/Data Frame manipulation</a><ul>
+<li class="chapter" data-level="4.1" data-path="tables.html"><a href="tables.html#pivot-and-reshape-tables"><i class="fa fa-check"></i><b>4.1</b> Pivot and reshape tables</a></li>
+<li class="chapter" data-level="4.2" data-path="tables.html"><a href="tables.html#dropping-and-selecting-columns"><i class="fa fa-check"></i><b>4.2</b> Dropping and selecting columns</a></li>
+<li class="chapter" data-level="4.3" data-path="tables.html"><a href="tables.html#filtering-data"><i class="fa fa-check"></i><b>4.3</b> Filtering data</a></li>
+<li class="chapter" data-level="4.4" data-path="tables.html"><a href="tables.html#get-counts-of-data"><i class="fa fa-check"></i><b>4.4</b> Get counts of data</a></li>
+<li class="chapter" data-level="4.5" data-path="tables.html"><a href="tables.html#combine-tables"><i class="fa fa-check"></i><b>4.5</b> Combine tables</a></li>
+<li class="chapter" data-level="4.6" data-path="tables.html"><a href="tables.html#joining-tables"><i class="fa fa-check"></i><b>4.6</b> Joining tables</a></li>
+<li class="chapter" data-level="4.7" data-path="tables.html"><a href="tables.html#select-specific-columns-in-a-join"><i class="fa fa-check"></i><b>4.7</b> Select specific columns in a join</a></li>
+<li class="chapter" data-level="4.8" data-path="tables.html"><a href="tables.html#sum-rows-or-columns"><i class="fa fa-check"></i><b>4.8</b> Sum rows or columns</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="tables.html"><a href="tables.html#sum-rows"><i class="fa fa-check"></i><b>4.8.1</b> Sum rows</a></li>
+<li class="chapter" data-level="4.8.2" data-path="tables.html"><a href="tables.html#sum-columns"><i class="fa fa-check"></i><b>4.8.2</b> Sum columns</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="variables.html"><a href="variables.html#working-with-dates"><i class="fa fa-check"></i><b>4.3</b> Working with dates</a></li>
-<li class="chapter" data-level="4.4" data-path="variables.html"><a href="variables.html#working-with-factors"><i class="fa fa-check"></i><b>4.4</b> Working with factors</a></li>
-<li class="chapter" data-level="4.5" data-path="variables.html"><a href="variables.html#rounding"><i class="fa fa-check"></i><b>4.5</b> Rounding</a></li>
+<li class="chapter" data-level="4.9" data-path="tables.html"><a href="tables.html#replace-nas-or-other-values"><i class="fa fa-check"></i><b>4.9</b> Replace NAs or other values</a></li>
+<li class="chapter" data-level="4.10" data-path="tables.html"><a href="tables.html#creating-new-variables"><i class="fa fa-check"></i><b>4.10</b> Creating new variables</a></li>
+<li class="chapter" data-level="4.11" data-path="tables.html"><a href="tables.html#summarising-data"><i class="fa fa-check"></i><b>4.11</b> Summarising data</a></li>
+<li class="chapter" data-level="4.12" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>4.12</b> Look up tables</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>5</b> Table/Data Frame manipulation</a><ul>
-<li class="chapter" data-level="5.1" data-path="tables.html"><a href="tables.html#pivot-and-reshape-tables"><i class="fa fa-check"></i><b>5.1</b> Pivot and reshape tables</a></li>
-<li class="chapter" data-level="5.2" data-path="tables.html"><a href="tables.html#dropping-and-selecting-columns"><i class="fa fa-check"></i><b>5.2</b> Dropping and selecting columns</a></li>
-<li class="chapter" data-level="5.3" data-path="tables.html"><a href="tables.html#filtering-data"><i class="fa fa-check"></i><b>5.3</b> Filtering data</a></li>
-<li class="chapter" data-level="5.4" data-path="tables.html"><a href="tables.html#get-counts-of-data"><i class="fa fa-check"></i><b>5.4</b> Get counts of data</a></li>
-<li class="chapter" data-level="5.5" data-path="tables.html"><a href="tables.html#combine-tables"><i class="fa fa-check"></i><b>5.5</b> Combine tables</a></li>
-<li class="chapter" data-level="5.6" data-path="tables.html"><a href="tables.html#joining-tables"><i class="fa fa-check"></i><b>5.6</b> Joining tables</a></li>
-<li class="chapter" data-level="5.7" data-path="tables.html"><a href="tables.html#select-specific-columns-in-a-join"><i class="fa fa-check"></i><b>5.7</b> Select specific columns in a join</a></li>
-<li class="chapter" data-level="5.8" data-path="tables.html"><a href="tables.html#sum-rows-or-columns"><i class="fa fa-check"></i><b>5.8</b> Sum rows or columns</a><ul>
-<li class="chapter" data-level="5.8.1" data-path="tables.html"><a href="tables.html#sum-rows"><i class="fa fa-check"></i><b>5.8.1</b> Sum rows</a></li>
-<li class="chapter" data-level="5.8.2" data-path="tables.html"><a href="tables.html#sum-columns"><i class="fa fa-check"></i><b>5.8.2</b> Sum columns</a></li>
+<li class="chapter" data-level="5" data-path="dates.html"><a href="dates.html"><i class="fa fa-check"></i><b>5</b> Working with dates</a></li>
+<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a></li>
+<li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a></li>
+<li class="chapter" data-level="8" data-path="tidbits.html"><a href="tidbits.html"><i class="fa fa-check"></i><b>8</b> Interesting tidbits</a><ul>
+<li class="chapter" data-level="8.1" data-path="tidbits.html"><a href="tidbits.html#rounding"><i class="fa fa-check"></i><b>8.1</b> Rounding</a></li>
 </ul></li>
-<li class="chapter" data-level="5.9" data-path="tables.html"><a href="tables.html#replace-nas-or-other-values"><i class="fa fa-check"></i><b>5.9</b> Replace NAs or other values</a></li>
-<li class="chapter" data-level="5.10" data-path="tables.html"><a href="tables.html#creating-new-variables"><i class="fa fa-check"></i><b>5.10</b> Creating new variables</a></li>
-<li class="chapter" data-level="5.11" data-path="tables.html"><a href="tables.html#summarising-data"><i class="fa fa-check"></i><b>5.11</b> Summarising data</a></li>
-<li class="chapter" data-level="5.12" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>5.12</b> Look up tables</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>6</b> Plotting and Data Visualisations</a></li>
-<li class="chapter" data-level="7" data-path="stats.html"><a href="stats.html"><i class="fa fa-check"></i><b>7</b> Statistical analysis</a></li>
-<li class="chapter" data-level="8" data-path="advanced.html"><a href="advanced.html"><i class="fa fa-check"></i><b>8</b> Advanced</a></li>
 </ul>
 
       </nav>
@@ -197,9 +195,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="stats" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Statistical analysis</h1>
-<p>This chapter is for code examples of statistical analysis.</p>
+<div id="dates" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Working with dates</h1>
+<p><strong>NOT FINISHED - need to write about <code>lubridate</code></strong></p>
 
 </div>
             </section>
@@ -207,8 +205,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="plots.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="advanced.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="factors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

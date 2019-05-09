@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 5 Table/Data Frame manipulation | DfT R Cookbook</title>
+  <title>Chapter 4 Table/Data Frame manipulation | DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 5 Table/Data Frame manipulation | DfT R Cookbook" />
+  <meta property="og:title" content="Chapter 4 Table/Data Frame manipulation | DfT R Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="departmentfortransport/R-cookbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Table/Data Frame manipulation | DfT R Cookbook" />
+  <meta name="twitter:title" content="Chapter 4 Table/Data Frame manipulation | DfT R Cookbook" />
   
   <meta name="twitter:description" content="Guidance and code examples for R usage for DfT and beyond" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="variables.html">
-<link rel="next" href="plots.html">
+<link rel="prev" href="data-import.html">
+<link rel="next" href="dates.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -132,7 +132,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#coding-standards"><i class="fa fa-check"></i><b>1.1</b> Coding standards</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#adding-to-the-book"><i class="fa fa-check"></i><b>1.2</b> Adding to the book</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> The basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#vectors"><i class="fa fa-check"></i><b>2.1</b> Vectors</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="basics.html"><a href="basics.html#vector-types"><i class="fa fa-check"></i><b>2.1.1</b> Types</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basics.html"><a href="basics.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>2.1.2</b> Conversion between atomic vector types</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>3</b> Data Importing/Exporting and interaction with other programmes</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-import.html"><a href="data-import.html#libraries"><i class="fa fa-check"></i><b>3.1</b> Libraries</a></li>
 <li class="chapter" data-level="3.2" data-path="data-import.html"><a href="data-import.html#navigating-folders"><i class="fa fa-check"></i><b>3.2</b> Navigating folders</a><ul>
@@ -150,36 +155,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.2" data-path="data-import.html"><a href="data-import.html#gcp"><i class="fa fa-check"></i><b>3.4.2</b> GCP</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>4</b> Vector basics</a><ul>
-<li class="chapter" data-level="4.1" data-path="variables.html"><a href="variables.html#vector-types"><i class="fa fa-check"></i><b>4.1</b> Vector types</a></li>
-<li class="chapter" data-level="4.2" data-path="variables.html"><a href="variables.html#coercion"><i class="fa fa-check"></i><b>4.2</b> Coercion</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="variables.html"><a href="variables.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>4.2.1</b> Conversion between atomic vector types</a></li>
-<li class="chapter" data-level="4.2.2" data-path="variables.html"><a href="variables.html#conversions-with-factors"><i class="fa fa-check"></i><b>4.2.2</b> Conversions with factors</a></li>
+<li class="chapter" data-level="4" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>4</b> Table/Data Frame manipulation</a><ul>
+<li class="chapter" data-level="4.1" data-path="tables.html"><a href="tables.html#pivot-and-reshape-tables"><i class="fa fa-check"></i><b>4.1</b> Pivot and reshape tables</a></li>
+<li class="chapter" data-level="4.2" data-path="tables.html"><a href="tables.html#dropping-and-selecting-columns"><i class="fa fa-check"></i><b>4.2</b> Dropping and selecting columns</a></li>
+<li class="chapter" data-level="4.3" data-path="tables.html"><a href="tables.html#filtering-data"><i class="fa fa-check"></i><b>4.3</b> Filtering data</a></li>
+<li class="chapter" data-level="4.4" data-path="tables.html"><a href="tables.html#get-counts-of-data"><i class="fa fa-check"></i><b>4.4</b> Get counts of data</a></li>
+<li class="chapter" data-level="4.5" data-path="tables.html"><a href="tables.html#combine-tables"><i class="fa fa-check"></i><b>4.5</b> Combine tables</a></li>
+<li class="chapter" data-level="4.6" data-path="tables.html"><a href="tables.html#joining-tables"><i class="fa fa-check"></i><b>4.6</b> Joining tables</a></li>
+<li class="chapter" data-level="4.7" data-path="tables.html"><a href="tables.html#select-specific-columns-in-a-join"><i class="fa fa-check"></i><b>4.7</b> Select specific columns in a join</a></li>
+<li class="chapter" data-level="4.8" data-path="tables.html"><a href="tables.html#sum-rows-or-columns"><i class="fa fa-check"></i><b>4.8</b> Sum rows or columns</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="tables.html"><a href="tables.html#sum-rows"><i class="fa fa-check"></i><b>4.8.1</b> Sum rows</a></li>
+<li class="chapter" data-level="4.8.2" data-path="tables.html"><a href="tables.html#sum-columns"><i class="fa fa-check"></i><b>4.8.2</b> Sum columns</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="variables.html"><a href="variables.html#working-with-dates"><i class="fa fa-check"></i><b>4.3</b> Working with dates</a></li>
-<li class="chapter" data-level="4.4" data-path="variables.html"><a href="variables.html#working-with-factors"><i class="fa fa-check"></i><b>4.4</b> Working with factors</a></li>
-<li class="chapter" data-level="4.5" data-path="variables.html"><a href="variables.html#rounding"><i class="fa fa-check"></i><b>4.5</b> Rounding</a></li>
+<li class="chapter" data-level="4.9" data-path="tables.html"><a href="tables.html#replace-nas-or-other-values"><i class="fa fa-check"></i><b>4.9</b> Replace NAs or other values</a></li>
+<li class="chapter" data-level="4.10" data-path="tables.html"><a href="tables.html#creating-new-variables"><i class="fa fa-check"></i><b>4.10</b> Creating new variables</a></li>
+<li class="chapter" data-level="4.11" data-path="tables.html"><a href="tables.html#summarising-data"><i class="fa fa-check"></i><b>4.11</b> Summarising data</a></li>
+<li class="chapter" data-level="4.12" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>4.12</b> Look up tables</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>5</b> Table/Data Frame manipulation</a><ul>
-<li class="chapter" data-level="5.1" data-path="tables.html"><a href="tables.html#pivot-and-reshape-tables"><i class="fa fa-check"></i><b>5.1</b> Pivot and reshape tables</a></li>
-<li class="chapter" data-level="5.2" data-path="tables.html"><a href="tables.html#dropping-and-selecting-columns"><i class="fa fa-check"></i><b>5.2</b> Dropping and selecting columns</a></li>
-<li class="chapter" data-level="5.3" data-path="tables.html"><a href="tables.html#filtering-data"><i class="fa fa-check"></i><b>5.3</b> Filtering data</a></li>
-<li class="chapter" data-level="5.4" data-path="tables.html"><a href="tables.html#get-counts-of-data"><i class="fa fa-check"></i><b>5.4</b> Get counts of data</a></li>
-<li class="chapter" data-level="5.5" data-path="tables.html"><a href="tables.html#combine-tables"><i class="fa fa-check"></i><b>5.5</b> Combine tables</a></li>
-<li class="chapter" data-level="5.6" data-path="tables.html"><a href="tables.html#joining-tables"><i class="fa fa-check"></i><b>5.6</b> Joining tables</a></li>
-<li class="chapter" data-level="5.7" data-path="tables.html"><a href="tables.html#select-specific-columns-in-a-join"><i class="fa fa-check"></i><b>5.7</b> Select specific columns in a join</a></li>
-<li class="chapter" data-level="5.8" data-path="tables.html"><a href="tables.html#sum-rows-or-columns"><i class="fa fa-check"></i><b>5.8</b> Sum rows or columns</a><ul>
-<li class="chapter" data-level="5.8.1" data-path="tables.html"><a href="tables.html#sum-rows"><i class="fa fa-check"></i><b>5.8.1</b> Sum rows</a></li>
-<li class="chapter" data-level="5.8.2" data-path="tables.html"><a href="tables.html#sum-columns"><i class="fa fa-check"></i><b>5.8.2</b> Sum columns</a></li>
+<li class="chapter" data-level="5" data-path="dates.html"><a href="dates.html"><i class="fa fa-check"></i><b>5</b> Working with dates</a></li>
+<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a></li>
+<li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a></li>
+<li class="chapter" data-level="8" data-path="tidbits.html"><a href="tidbits.html"><i class="fa fa-check"></i><b>8</b> Interesting tidbits</a><ul>
+<li class="chapter" data-level="8.1" data-path="tidbits.html"><a href="tidbits.html#rounding"><i class="fa fa-check"></i><b>8.1</b> Rounding</a></li>
 </ul></li>
-<li class="chapter" data-level="5.9" data-path="tables.html"><a href="tables.html#replace-nas-or-other-values"><i class="fa fa-check"></i><b>5.9</b> Replace NAs or other values</a></li>
-<li class="chapter" data-level="5.10" data-path="tables.html"><a href="tables.html#creating-new-variables"><i class="fa fa-check"></i><b>5.10</b> Creating new variables</a></li>
-<li class="chapter" data-level="5.11" data-path="tables.html"><a href="tables.html#summarising-data"><i class="fa fa-check"></i><b>5.11</b> Summarising data</a></li>
-<li class="chapter" data-level="5.12" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>5.12</b> Look up tables</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>6</b> Plotting and Data Visualisations</a></li>
-<li class="chapter" data-level="7" data-path="stats.html"><a href="stats.html"><i class="fa fa-check"></i><b>7</b> Statistical analysis</a></li>
-<li class="chapter" data-level="8" data-path="advanced.html"><a href="advanced.html"><i class="fa fa-check"></i><b>8</b> Advanced</a></li>
 </ul>
 
       </nav>
@@ -198,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="tables" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Table/Data Frame manipulation</h1>
+<h1><span class="header-section-number">Chapter 4</span> Table/Data Frame manipulation</h1>
 <p>This chapter provides an overview of code examples for table or data frame manipulation (a tidyverse data frame is referred to as a tibble).</p>
 <p>One of the main things you will have to do in any R project or RAP project will be manipulating the data that you are using in order to get it into the format you require.</p>
 <p>One of the main packages used to manipulate data is the dplyr package which we recommend and use throughout this book. The dplyr package (and others e.g. tidyr) are all part of the tidyverse. The tidyverse is a group of packages developed by Hadley Wickham and others and are all designed to work with each other. See <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a> for more info.</p>
@@ -210,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Each value must have its own cell</li>
 </ol>
 <div id="pivot-and-reshape-tables" class="section level2">
-<h2><span class="header-section-number">5.1</span> Pivot and reshape tables</h2>
+<h2><span class="header-section-number">4.1</span> Pivot and reshape tables</h2>
 <p>There will be two examples for pivoting tables provided:</p>
 <ul>
 <li>The tidyr package uses the gather/spread functions and is often used to create tidy data</li>
@@ -219,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We want to have the day of the week variable running along the top so each day of the week is its own column.</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-37">Table 5.1: </span>Number of road accidents by accident severity and weekday
+<span id="tab:unnamed-chunk-29">Table 4.1: </span>Number of road accidents by accident severity and weekday
 </caption>
 <thead>
 <tr>
@@ -312,12 +310,11 @@ n
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using tidyr package</span>
 <span class="kw">library</span>(tidyr)
 road_accidents_weekdays &lt;-<span class="st"> </span>road_accidents_small <span class="op">%&gt;%</span>
-<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">spread</span>(Day_of_Week, n)
-  </code></pre>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">spread</span>(Day_of_Week, n)</code></pre>
 <p>With the spread function above you need to first specify the variable you want to spread, in this case Day_of_Week, and then the variable that will be used to populate the columns (n).</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-39">Table 5.2: </span>Number of road accidents by accident severity and weekday, tidyr::spread
+<span id="tab:unnamed-chunk-31">Table 4.2: </span>Number of road accidents by accident severity and weekday, tidyr::spread
 </caption>
 <thead>
 <tr>
@@ -432,8 +429,7 @@ Accident_Severity
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using tidyr package</span>
 <span class="kw">library</span>(tidyr)
 road_accidents_gather &lt;-<span class="st"> </span>road_accidents_weekdays <span class="op">%&gt;%</span>
-<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(Accident_Severity, n, <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)
-  </code></pre>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(Accident_Severity, n, <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)</code></pre>
 <p><strong>Reshape2 package</strong></p>
 <p>Again, this has two functions which can be used to pivot tables:</p>
 <ul>
@@ -443,12 +439,11 @@ road_accidents_gather &lt;-<span class="st"> </span>road_accidents_weekdays <spa
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using reshape2 package</span>
 <span class="kw">library</span>(reshape2)
 road_accidents_weekdays2 &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">dcast</span>(road_accidents_small, Accident_Severity <span class="op">~</span><span class="st"> </span>Day_of_Week,
-                                            <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>)
-  </code></pre>
+                                            <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>)</code></pre>
 <p>With the dcast function above, after stating the name of the data frame, you need to specify the variable(s) you want in long format (multiple variables seperated by “+”), in this case Accident_Severity, and then the wide format variable(s) are put after the tilda (again multiple seperated by “+”). The value.var argument specifies which column will be used to populate the new columns, in this case it is n.</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-42">Table 5.3: </span>Number of road accidents by accident severity and weekday, reshape2::dcast
+<span id="tab:unnamed-chunk-34">Table 4.3: </span>Number of road accidents by accident severity and weekday, reshape2::dcast
 </caption>
 <thead>
 <tr>
@@ -563,12 +558,11 @@ Accident_Severity
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pivot table using reshape2 package</span>
 <span class="kw">library</span>(reshape2)
 road_accidents_weekdays3 &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">dcast</span>(road_accidents_small, Accident_Severity <span class="op">~</span><span class="st"> </span>Day_of_Week,
-                                            <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>, sum, <span class="dt">margins =</span> <span class="st">&quot;Accident_Severity&quot;</span>)
-  </code></pre>
+                                            <span class="dt">value.var =</span> <span class="st">&quot;n&quot;</span>, sum, <span class="dt">margins =</span> <span class="st">&quot;Accident_Severity&quot;</span>)</code></pre>
 <p>In this example, we use the margins argument to specify what we want to combine to create totals. So we want to add all the accident severity figures up for each weekday. Before using margin you need to specify how the margins are calculated, in this case we want a sum. Alternative options are to calculate the length, i.e. the number of rows.</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-44">Table 5.4: </span>Number of road accidents by accident severity and weekday plus totals, reshape2::dcast
+<span id="tab:unnamed-chunk-36">Table 4.4: </span>Number of road accidents by accident severity and weekday plus totals, reshape2::dcast
 </caption>
 <thead>
 <tr>
@@ -710,8 +704,7 @@ Accident_Severity
 <span class="kw">library</span>(reshape2)
 road_accidents_melt &lt;-<span class="st"> </span>reshape2<span class="op">::</span><span class="kw">melt</span>(road_accidents_weekdays2, <span class="dt">id.vars =</span> <span class="st">&quot;Accident_Severity&quot;</span>,
                                       <span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>),
-                                      <span class="dt">variable.name =</span> <span class="st">&quot;Day_of_Week&quot;</span>, <span class="dt">value.name =</span> <span class="st">&quot;n&quot;</span>)
-  </code></pre>
+                                      <span class="dt">variable.name =</span> <span class="st">&quot;Day_of_Week&quot;</span>, <span class="dt">value.name =</span> <span class="st">&quot;n&quot;</span>)</code></pre>
 <p>For the melt function you need to specify:</p>
 <p>id.vars = “variables to be kept as columns”</p>
 <p>measure.vars = c(“variables to be created as one column”)</p>
@@ -719,7 +712,7 @@ road_accidents_melt &lt;-<span class="st"> </span>reshape2<span class="op">::</s
 <p>value.name = “name of value column”</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-46">Table 5.5: </span>Number of road accidents by accident severity and weekday, reshape2::melt
+<span id="tab:unnamed-chunk-38">Table 4.5: </span>Number of road accidents by accident severity and weekday, reshape2::melt
 </caption>
 <thead>
 <tr>
@@ -805,14 +798,14 @@ n
 </table>
 </div>
 <div id="dropping-and-selecting-columns" class="section level2">
-<h2><span class="header-section-number">5.2</span> Dropping and selecting columns</h2>
+<h2><span class="header-section-number">4.2</span> Dropping and selecting columns</h2>
 <p>Use the dplyr select function to both select and drop columns.</p>
 <p><strong>Select columns</strong></p>
 <pre class="sourceCode r"><code class="sourceCode r">road_accidents_<span class="dv">4</span>_cols &lt;-<span class="st"> </span>road_accidents <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(acc_index, Accident_Severity, Date, Police_Force)</code></pre>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-48">Table 5.6: </span>Four columns from road accidents 2017
+<span id="tab:unnamed-chunk-40">Table 4.6: </span>Four columns from road accidents 2017
 </caption>
 <thead>
 <tr>
@@ -923,7 +916,7 @@ Police_Force
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Police_Force)</code></pre>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-50">Table 5.7: </span>Three columns from road accidents 2017
+<span id="tab:unnamed-chunk-42">Table 4.7: </span>Three columns from road accidents 2017
 </caption>
 <thead>
 <tr>
@@ -1009,14 +1002,14 @@ Date
 </table>
 </div>
 <div id="filtering-data" class="section level2">
-<h2><span class="header-section-number">5.3</span> Filtering data</h2>
+<h2><span class="header-section-number">4.3</span> Filtering data</h2>
 <p>Use the dplyr filter function to filter data.</p>
 <p>This example filters the data for slight severity accidents (accident severity 3).</p>
 <pre class="sourceCode r"><code class="sourceCode r">road_accidents_slight &lt;-<span class="st"> </span>road_accidents_<span class="dv">4</span>_cols <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Accident_Severity <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)</code></pre>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-52">Table 5.8: </span>Slight severity road accidents 2017
+<span id="tab:unnamed-chunk-44">Table 4.8: </span>Slight severity road accidents 2017
 </caption>
 <thead>
 <tr>
@@ -1134,7 +1127,7 @@ dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="st">`
 <p>Also note that in the above example the variable is quoted in back ticks (`). This is because some variable names confuse R due to brackets and numbers and need to be wrapped in back ticks so R knows that everything inside the back ticks is a variable name.</p>
 </div>
 <div id="get-counts-of-data" class="section level2">
-<h2><span class="header-section-number">5.4</span> Get counts of data</h2>
+<h2><span class="header-section-number">4.4</span> Get counts of data</h2>
 <p>To get counts for groups of data, the dplyr tally function can be used in conjunction with the dplyr group by function. This groups the data into the required groups and then tallys how many records are in each group.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create grouped data set with counts</span>
 road_accidents_small &lt;-<span class="st"> </span>road_accidents <span class="op">%&gt;%</span>
@@ -1143,7 +1136,7 @@ road_accidents_small &lt;-<span class="st"> </span>road_accidents <span class="o
 <p>The above example creates groups by accident severity and weekday and counts how many accidents are in each group (one row equals one accident therefore the tally is counting accidents).</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-57">Table 5.9: </span>Road accidents 2017 by accident severity and weekday
+<span id="tab:unnamed-chunk-49">Table 4.9: </span>Road accidents 2017 by accident severity and weekday
 </caption>
 <thead>
 <tr>
@@ -1229,7 +1222,7 @@ n
 </table>
 </div>
 <div id="combine-tables" class="section level2">
-<h2><span class="header-section-number">5.5</span> Combine tables</h2>
+<h2><span class="header-section-number">4.5</span> Combine tables</h2>
 <p>When combining data from two tables there are two ways to do this in R:</p>
 <ul>
 <li>Bind the tables by basically either appending the tables on the rows or columns</li>
@@ -1240,7 +1233,7 @@ n
 <p>Here are three tables, one shows data for accident severity of 1, one for accident severity of 2, and one for accident severity of 3.</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-59">Table 5.10: </span>Number of fatal road accidents in 2017, by weekday
+<span id="tab:unnamed-chunk-51">Table 4.10: </span>Number of fatal road accidents in 2017, by weekday
 </caption>
 <thead>
 <tr>
@@ -1337,7 +1330,7 @@ n
 </table>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-59">Table 5.10: </span>Number of serious injury road accidents in 2017, by weekday
+<span id="tab:unnamed-chunk-51">Table 4.10: </span>Number of serious injury road accidents in 2017, by weekday
 </caption>
 <thead>
 <tr>
@@ -1434,7 +1427,7 @@ n
 </table>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-59">Table 5.10: </span>Number of slight injury road accidents in 2017, by weekday
+<span id="tab:unnamed-chunk-51">Table 4.10: </span>Number of slight injury road accidents in 2017, by weekday
 </caption>
 <thead>
 <tr>
@@ -1535,11 +1528,10 @@ n
 <span class="kw">library</span>(dplyr)
 
 all_accidents &lt;-<span class="st"> </span>accidents_<span class="dv">1</span> <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">bind_rows</span>(accidents_<span class="dv">2</span>, accidents_<span class="dv">3</span>)
-  </code></pre>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">bind_rows</span>(accidents_<span class="dv">2</span>, accidents_<span class="dv">3</span>)</code></pre>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-61">Table 5.11: </span>Road accident data 2017, bind_rows
+<span id="tab:unnamed-chunk-53">Table 4.11: </span>Road accident data 2017, bind_rows
 </caption>
 <thead>
 <tr>
@@ -1790,7 +1782,7 @@ n
 </table>
 </div>
 <div id="joining-tables" class="section level2">
-<h2><span class="header-section-number">5.6</span> Joining tables</h2>
+<h2><span class="header-section-number">4.6</span> Joining tables</h2>
 <p>Joins in R can be done using dplyr. This is generally to combine columns of data from two tables:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine tables using left join</span>
 <span class="kw">library</span>(dplyr)
@@ -1944,7 +1936,7 @@ all_accidents_not_monday &lt;-<span class="st"> </span>road_accidents_small <spa
 <p>The above code takes the initial table we want to get our data from (road_accidents_small) and anti joins accidents_monday. This says, “get all the rows from road_accidents_small that are not in accidents_monday”. Again, note the need to specify what the join rows would be joined and compared by.</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-68">Table 5.12: </span>Road accident data 2017 not on a Monday by accident severity
+<span id="tab:unnamed-chunk-60">Table 4.12: </span>Road accident data 2017 not on a Monday by accident severity
 </caption>
 <thead>
 <tr>
@@ -2162,12 +2154,12 @@ n
 </table>
 </div>
 <div id="select-specific-columns-in-a-join" class="section level2">
-<h2><span class="header-section-number">5.7</span> Select specific columns in a join</h2>
+<h2><span class="header-section-number">4.7</span> Select specific columns in a join</h2>
 <p>Doing a join with dplyr will join all columns from both tables, however sometimes not all columns from each table are needed.</p>
 <p>Let’s look at some previous tables again:</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-69">Table 5.13: </span>Police force and accident severity information for accidents
+<span id="tab:unnamed-chunk-61">Table 4.13: </span>Police force and accident severity information for accidents
 </caption>
 <thead>
 <tr>
@@ -2253,7 +2245,7 @@ Accident_Severity
 </table>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-69">Table 5.13: </span>Date and weekday information for accidents
+<span id="tab:unnamed-chunk-61">Table 4.13: </span>Date and weekday information for accidents
 </caption>
 <thead>
 <tr>
@@ -2349,7 +2341,7 @@ road_acc_<span class="dv">3</span> &lt;-<span class="st"> </span>road_acc_<span 
 <p><strong>Note: you will need to select the joining variable in both tables but this will only appear once</strong></p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-71">Table 5.14: </span>Police force and Date information for specific accidents
+<span id="tab:unnamed-chunk-63">Table 4.14: </span>Police force and Date information for specific accidents
 </caption>
 <thead>
 <tr>
@@ -2435,16 +2427,16 @@ Date
 </table>
 </div>
 <div id="sum-rows-or-columns" class="section level2">
-<h2><span class="header-section-number">5.8</span> Sum rows or columns</h2>
+<h2><span class="header-section-number">4.8</span> Sum rows or columns</h2>
 <p>These solutions use the base R functions rather than dplyr.</p>
 <div id="sum-rows" class="section level3">
-<h3><span class="header-section-number">5.8.1</span> Sum rows</h3>
+<h3><span class="header-section-number">4.8.1</span> Sum rows</h3>
 <p>To sum across a row:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sum across a row </span>
 road_accidents_weekdays<span class="op">$</span>rowsum &lt;-<span class="st"> </span><span class="kw">rowSums</span>(road_accidents_weekdays, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </code></pre>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-73">Table 5.15: </span>Road accidents 2017 by accident severity and weekday
+<span id="tab:unnamed-chunk-65">Table 4.15: </span>Road accidents 2017 by accident severity and weekday
 </caption>
 <thead>
 <tr>
@@ -2575,7 +2567,7 @@ road_accidents_weekdays<span class="op">$</span>alldays &lt;-<span class="st"> <
 <span class="st">                                    </span>road_accidents_weekdays<span class="op">$</span><span class="st">`</span><span class="dt">7</span><span class="st">`</span></code></pre>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-75">Table 5.16: </span>Road accidents 2017 by accident severity and weekday
+<span id="tab:unnamed-chunk-67">Table 4.16: </span>Road accidents 2017 by accident severity and weekday
 </caption>
 <thead>
 <tr>
@@ -2700,18 +2692,23 @@ alldays
 </table>
 </div>
 <div id="sum-columns" class="section level3">
-<h3><span class="header-section-number">5.8.2</span> Sum columns</h3>
+<h3><span class="header-section-number">4.8.2</span> Sum columns</h3>
 <p>To sum columns to get totals of each column, <strong><em>note this will appear as a console output not in a data object</em></strong>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sum columns</span>
 <span class="kw">colSums</span>(road_accidents_weekdays, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) </code></pre>
 <p>To get the totals of each column as a row in the data:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span> (janitor)
-<span class="co"># create total column</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span> (janitor)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;janitor&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     chisq.test, fisher.test</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create total column</span>
 road_accidents_weekdays &lt;-<span class="st"> </span>road_accidents_weekdays <span class="op">%&gt;%</span>
 <span class="st">  </span>janitor<span class="op">::</span><span class="kw">adorn_totals</span>(<span class="st">&quot;row&quot;</span>)</code></pre>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-78">Table 5.17: </span>Road accidents 2017 by accident severity and weekday
+<span id="tab:unnamed-chunk-70">Table 4.17: </span>Road accidents 2017 by accident severity and weekday
 </caption>
 <thead>
 <tr>
@@ -2852,7 +2849,7 @@ Total
 </div>
 </div>
 <div id="replace-nas-or-other-values" class="section level2">
-<h2><span class="header-section-number">5.9</span> Replace NAs or other values</h2>
+<h2><span class="header-section-number">4.9</span> Replace NAs or other values</h2>
 <p>To replace all NAs in one column (Junction Control column) with a specific value:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span> (tidyr)
 <span class="co"># replace all NAs with value -1</span>
@@ -2860,38 +2857,32 @@ road_accidents_na<span class="op">$</span>Junction_Control &lt;-<span class="st"
 <span class="st">  </span>tidyr<span class="op">::</span><span class="kw">replace_na</span>(<span class="op">-</span><span class="dv">1</span>)</code></pre>
 <p><strong>Note: To replace NA with a character the character replacement must be wrapped in “quotations”</strong></p>
 <p>To replace all NAs in a data frame or tibble:</p>
-<pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># replace all NAs with value -1</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># replace all NAs with value -1</span>
 road_accidents_na &lt;-<span class="st"> </span>road_accidents_na <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">replace</span>(<span class="kw">is.na</span>(.), <span class="dv">-1</span>)
-  </code></pre>
+<span class="st">  </span><span class="kw">replace</span>(<span class="kw">is.na</span>(.), <span class="dv">-1</span>)</code></pre>
 <p>To replace values with NA, specify what value you want to be replaced with NA using the na_if function:</p>
-<pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># create nas</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create nas</span>
 road_accidents_na &lt;-<span class="st"> </span>road_accidents_na <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">na_if</span>(<span class="op">-</span><span class="dv">1</span>)
-  </code></pre>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">na_if</span>(<span class="op">-</span><span class="dv">1</span>)</code></pre>
 <p><strong>Note: to only create NAs in a specific column specify the column name in a similar manner to the first example in this section.</strong></p>
 <p>To replace values:</p>
-<pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># replace 1st_road_class </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># replace 1st_road_class </span>
 road_accidents_na &lt;-<span class="st"> </span>road_accidents_na <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span> =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">case_when</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">~</span><span class="st"> &quot;A Road&quot;</span>,
-                                      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span>)))
-  </code></pre>
+                                      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(<span class="st">`</span><span class="dt">1st_Road_Class</span><span class="st">`</span>)))</code></pre>
 <p>The case_when function is similar to using CASE WHEN in SQL.</p>
 <p>The TRUE argument indicates that if the values aren’t included in the case_when then they should be whatever is after the tilda (~) i.e. the equivalent of the ELSE statement in SQL.</p>
 <p>The “as.character” parameter says that everything that isn’t 3 should be kept as it is, this could be replaced by an arbitrary character or value e.g. “Other”. This would make everything that is not a 3, coded as “Other”.</p>
 <p>You can have multiple case_when arguments for multiple values, they just need to be seperated with a comma. Multiple case_when statements for different variables can be layered using the pipe operator <code>%&gt;%</code>.</p>
 </div>
 <div id="creating-new-variables" class="section level2">
-<h2><span class="header-section-number">5.10</span> Creating new variables</h2>
+<h2><span class="header-section-number">4.10</span> Creating new variables</h2>
 </div>
 <div id="summarising-data" class="section level2">
-<h2><span class="header-section-number">5.11</span> Summarising data</h2>
+<h2><span class="header-section-number">4.11</span> Summarising data</h2>
 </div>
 <div id="look-up-tables" class="section level2">
-<h2><span class="header-section-number">5.12</span> Look up tables</h2>
+<h2><span class="header-section-number">4.12</span> Look up tables</h2>
 
 </div>
 </div>
@@ -2900,8 +2891,8 @@ road_accidents_na &lt;-<span class="st"> </span>road_accidents_na <span class="o
           </div>
         </div>
       </div>
-<a href="variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="plots.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-import.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dates.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
