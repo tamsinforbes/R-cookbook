@@ -6,4 +6,64 @@ This chapter is for code examples of plotting and visualising data.
 ```{r include=FALSE}
 # Every file must contain at least one R chunk due to the linting process.
 ```
-P
+Plotting in Base R
+
+First read in data and summarise it so we're ready to plot:
+```{r}
+
+library(tidyverse)
+library(readxl)
+
+port <- read_excel("data/port0499.xlsx")
+
+total_tonnage <- port %>%
+  group_by(year) %>%
+  summarise(total = sum(tonnage))
+
+average_tonnage <- port %>%
+  group_by(polu_majorport) %>%
+  summarise(avg_tonnage = mean(tonnage)) %>%
+  top_n(5, wt = avg_tonnage) %>%
+  arrange(desc(avg_tonnage))
+
+```
+Line chart with Base R
+
+```{r}
+plot(total_tonnage$year, total_tonnage$total,
+     type = "l",
+     col = "red",
+     lwd = 3,
+     xlab = "Year",
+     ylab = "Tonnage",
+     main = "Total Tonnage 2000 - 2017")
+```
+
+Bar plot with Base R
+
+```{r}
+barplot(average_tonnage$avg_tonnage,
+        width = 2,
+        names.arg = c("Glensanda", "Sullom Voe", "Dover",
+                      "Milford Haven", "Rivers Hull & Humber"),
+        col = "lightblue",
+        xlab = "Major Port",
+        ylab = "Tonnage",
+        main = "Average Tonnage by Major Port (top 5) 2000 - 2017")
+```
+
+Plotting with ggplot2
+
+Line chart
+
+```{r}
+ggplot(data = total_tonnage) +
+  geom_line(aes(x = year, y = total), col = "red", size = 1.5) +
+  xlab("Year") +
+  ylab("Tonnage") +
+  ggtitle("Total Tonnage 2000 - 2017") +
+  scale_x_continuous(breaks = seq(2000, 2017, 2)) +
+  theme_classic()
+```
+
+Bar chart
