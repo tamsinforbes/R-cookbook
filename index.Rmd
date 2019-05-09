@@ -1,5 +1,5 @@
 --- 
-title: "DfT R Cookbook - test run"
+title: "DfT R Cookbook"
 author: "Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
