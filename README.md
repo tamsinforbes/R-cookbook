@@ -11,7 +11,7 @@ https://departmentfortransport.github.io/R-cookbook/
 3. Add/edit content in the `.Rmd` files. 
 4. Create a pull request, get someone to review the content, and merge into master (merging into master will trigger the book website to be updated automatically).  Please do not include built files in your pull request.
 
-## Using additional packages
+### Using additional packages
 
 If you wish to use a package not already loaded within the book then please add it to the imports section of the `DESCRIPTION` file.
 
