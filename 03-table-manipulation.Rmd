@@ -5,6 +5,7 @@ library(dplyr)
 library(readr)
 library(reshape2)
 library(tidyr)
+library(janitor)
 
 # Read in required data using public data.gov extract
 road_accidents <- readr::read_rds("data/road_accidents_2017.RDS")
@@ -238,6 +239,49 @@ dplyr::filter(`Local_Authority_(Highway)` == "E09000010")
 ```
 Also note that in the above example the variable is quoted in back ticks (`). This is because some variable names confuse R due to brackets and numbers and need to be wrapped in back ticks so R knows that everything inside the back ticks is a variable name.
 
+## Group data 
+
+Use the dplyr group_by function to group data. This works in a similar manner to "GROUP BY" in SQL.
+
+The below example groups the data by accident severity and weekday, and creates totals for each group using the "tally" function.
+
+```{r}
+# Create grouped data set with counts
+road_accidents_small <- road_accidents %>%
+  dplyr::group_by(Accident_Severity, Day_of_Week) %>%
+  dplyr::tally()
+```
+
+```{r, echo = FALSE, results='asis'}
+knitr::kable(head(road_accidents_small),
+caption = "Road accidents 2017 by accident severity and weekday")
+```
+
+## Order data
+
+Use the dplyr arrange function to order data. This works in a similar manner to "ORDER BY" in SQL.
+
+This example orders the data by date and number of casualties.
+
+```{r include=FALSE}
+road_acc_7 <- road_accidents %>%
+  dplyr::sample_n(7)
+
+```
+
+
+```{r}
+# Order data by date and number of casualties
+road_accidents_ordered <- road_acc_7 %>%
+  dplyr::select(acc_index, Accident_Severity, Police_Force, Number_of_Casualties, Date) %>%
+  dplyr::arrange(Date, Number_of_Casualties)
+  
+```
+
+```{r, echo = FALSE, results='asis'}
+knitr::kable(head(road_accidents_ordered),
+caption = "Road accidents 2017 ordered by date and number of casualties")
+```
 
 ## Get counts of data
 
@@ -463,7 +507,6 @@ colSums(road_accidents_weekdays, na.rm = TRUE)
 To get the totals of each column as a row in the data:
 
 ```{r}
-library (janitor)
 # create total column
 road_accidents_weekdays <- road_accidents_weekdays %>%
   janitor::adorn_totals("row")
@@ -546,6 +589,43 @@ The TRUE argument indicates that if the values aren't included in the case_when 
 The "as.character" parameter says that everything that isn't 3 should be kept as it is, this could be replaced by an arbitrary character or value e.g. "Other". This would make everything that is not a 3, coded as "Other". 
 
 You can have multiple case_when arguments for multiple values, they just need to be seperated with a comma. Multiple case_when statements for different variables can be layered using the pipe operator `%>%`.
+
+
+## Reordering rows/columns
+
+### Reordering rows
+
+Rows can be reordered by certain variables using the dplyr arrange function with examples in the **Order data** sub-chapter. This will order the data in ascending order by the variables quoted. To order rows in descending order the ``desc()`` command can be used within the arrange function.
+
+```{r}
+# Order data by date and number of casualties
+road_accidents_ordered_desc <- road_acc_7 %>%
+  dplyr::select(acc_index, Accident_Severity, Police_Force, Number_of_Casualties, Date) %>%
+  dplyr::arrange(desc(Date), Number_of_Casualties)
+```
+
+
+```{r, echo = FALSE, results='asis'}
+knitr::kable(head(road_accidents_ordered_desc),
+caption = "Road accidents 2017 ordered by date (descending) and number of casualties")
+```
+
+### Reordering columns
+
+Use the dplyr select statement to reorder columns, where the order of the variables quoted represents the order of the columns in the table.
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(head(road_accidents_4_cols),
+caption = "Four columns from road accidents 2017")
+```
+
+To reorder this table we do:
+
+```{r}
+table_reordered <- road_accidents_4_cols %>%
+  dplyr::select(Accident_Severity, Date, acc_index, Police_Force)
+```
 
 
 
