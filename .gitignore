@@ -4,7 +4,7 @@
 travis_guide.txt
 deploy_key
 deploy_key.pub
-.html
+*.html
 placeholder.Rcheck/
 placeholder*.tar.gz
 placeholder*.tgz
