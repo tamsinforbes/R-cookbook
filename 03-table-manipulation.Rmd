@@ -631,6 +631,23 @@ table_reordered <- road_accidents_4_cols %>%
 
 ## Creating new variables
 
+The dplyr mutate function can be used to create new variables based on current variables or other additional information. 
+
+For example, to create a new variable which is speed limit in km:
+
+```{r}
+road_acc_km <- road_acc_7 %>%
+  dplyr::mutate(speed_km = Speed_limit * 1.6)
+
+```
+
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(head(road_acc_km <- dplyr::select(road_acc_km, acc_index, Police_Force, Speed_limit, speed_km)),
+caption = "Road accidents by km/h")
+```
+
 ## Summarising data
 
 ## Look up tables
