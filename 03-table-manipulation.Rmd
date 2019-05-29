@@ -650,4 +650,51 @@ caption = "Road accidents by km/h")
 
 ## Summarising data
 
+The dplyr summarise function can be used to summarise data (mean, median, sd, min, max, n_distinct). See https://dplyr.tidyverse.org/reference/summarise.html for more examples.
+
+For example, to get the mean number of accidents for each weekday:
+
+```{r, echo = FALSE, results='asis'}
+knitr::kable(head(road_accidents_small),
+caption = "Road accidents 2017, by severity and weekday")
+```
+
+The group by function is used with the summarise function to specify what groups the mean will be applied to, in this case weekday. 
+
+```{r}
+road_acc_mean <- road_accidents_small %>%
+  dplyr::group_by(Day_of_Week) %>%
+  dplyr::summarise(mean = mean(n))
+
+```
+
+```{r, echo = FALSE, results='asis'}
+knitr::kable(head(road_acc_mean),
+caption = "Mean number of accidents in 2017, by weekday")
+```
+
+
 ## Look up tables
+
+Aside from importing a seperate lookup data file into R, named vectors can be used as lookup tables.
+
+For example, to assign accident severity values with labels, named vectors can be used (**note: numbers must also be in quotation marks**):
+
+```{r}
+lookup_severity <- c("1" = "Fatal", "2" = "Serious", "3" = "Slight")
+```
+
+To convert the data and create a label variable (**note: the Accident_Severity variable values can be replaced with the lookup values by changing the name of the variable on the left to Accident_Severity**):
+
+```{r}
+road_accidents_small$Accident_Severity_label <- lookup_severity[road_accidents_small$Accident_Severity]
+```
+
+```{r, echo = FALSE, results='asis'}
+knitr::kable(head(road_accidents_small),
+caption = "Road accidents 2017, by severity and weekday")
+```
+
+
+
+

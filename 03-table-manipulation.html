@@ -918,46 +918,46 @@ road_accidents_ordered &lt;- road_acc_7 %&gt;%
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">2017110184248</td>
+<td align="left">2017530187722</td>
 <td align="right">2</td>
-<td align="right">11</td>
-<td align="right">2</td>
-<td align="left">2017-05-06</td>
+<td align="right">53</td>
+<td align="right">5</td>
+<td align="left">2017-06-03</td>
 </tr>
 <tr class="even">
-<td align="left">2017450213333</td>
+<td align="left">2017010047088</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">2017-07-07</td>
+</tr>
+<tr class="odd">
+<td align="left">2017430293464</td>
+<td align="right">3</td>
+<td align="right">43</td>
+<td align="right">1</td>
+<td align="left">2017-09-27</td>
+</tr>
+<tr class="even">
+<td align="left">2017450239070</td>
 <td align="right">3</td>
 <td align="right">45</td>
 <td align="right">1</td>
-<td align="left">2017-08-18</td>
+<td align="left">2017-11-14</td>
 </tr>
 <tr class="odd">
-<td align="left">2017941700524</td>
+<td align="left">2017200243090</td>
 <td align="right">3</td>
-<td align="right">94</td>
-<td align="right">1</td>
-<td align="left">2017-08-27</td>
+<td align="right">20</td>
+<td align="right">2</td>
+<td align="left">2017-11-17</td>
 </tr>
 <tr class="even">
-<td align="left">2017621701296</td>
+<td align="left">2017010076441</td>
 <td align="right">3</td>
-<td align="right">62</td>
 <td align="right">1</td>
-<td align="left">2017-09-06</td>
-</tr>
-<tr class="odd">
-<td align="left">2017420222569</td>
-<td align="right">3</td>
-<td align="right">42</td>
-<td align="right">2</td>
-<td align="left">2017-09-23</td>
-</tr>
-<tr class="even">
-<td align="left">2017551701590</td>
-<td align="right">3</td>
-<td align="right">55</td>
-<td align="right">2</td>
-<td align="left">2017-10-05</td>
+<td align="right">7</td>
+<td align="left">2017-12-09</td>
 </tr>
 </tbody>
 </table>
@@ -1855,46 +1855,46 @@ road_accidents_ordered_desc &lt;- road_acc_7 %&gt;%
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">2017010076571</td>
+<td align="left">2017210260991</td>
+<td align="right">3</td>
+<td align="right">21</td>
+<td align="right">1</td>
+<td align="left">2017-12-29</td>
+</tr>
+<tr class="even">
+<td align="left">2017010076441</td>
 <td align="right">3</td>
 <td align="right">1</td>
-<td align="right">5</td>
+<td align="right">7</td>
 <td align="left">2017-12-09</td>
 </tr>
-<tr class="even">
-<td align="left">2017551701590</td>
-<td align="right">3</td>
-<td align="right">55</td>
-<td align="right">2</td>
-<td align="left">2017-10-05</td>
-</tr>
 <tr class="odd">
-<td align="left">2017420222569</td>
+<td align="left">2017200243090</td>
 <td align="right">3</td>
-<td align="right">42</td>
+<td align="right">20</td>
 <td align="right">2</td>
-<td align="left">2017-09-23</td>
+<td align="left">2017-11-17</td>
 </tr>
 <tr class="even">
-<td align="left">2017621701296</td>
-<td align="right">3</td>
-<td align="right">62</td>
-<td align="right">1</td>
-<td align="left">2017-09-06</td>
-</tr>
-<tr class="odd">
-<td align="left">2017941700524</td>
-<td align="right">3</td>
-<td align="right">94</td>
-<td align="right">1</td>
-<td align="left">2017-08-27</td>
-</tr>
-<tr class="even">
-<td align="left">2017450213333</td>
+<td align="left">2017450239070</td>
 <td align="right">3</td>
 <td align="right">45</td>
 <td align="right">1</td>
-<td align="left">2017-08-18</td>
+<td align="left">2017-11-14</td>
+</tr>
+<tr class="odd">
+<td align="left">2017430293464</td>
+<td align="right">3</td>
+<td align="right">43</td>
+<td align="right">1</td>
+<td align="left">2017-09-27</td>
+</tr>
+<tr class="even">
+<td align="left">2017010047088</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">2017-07-07</td>
 </tr>
 </tbody>
 </table>
@@ -1958,12 +1958,202 @@ road_accidents_ordered_desc &lt;- road_acc_7 %&gt;%
 </div>
 <div id="creating-new-variables" class="section level2">
 <h2>Creating new variables</h2>
+<p>The dplyr mutate function can be used to create new variables based on current variables or other additional information.</p>
+<p>For example, to create a new variable which is speed limit in km:</p>
+<pre class="r"><code>road_acc_km &lt;- road_acc_7 %&gt;%
+  dplyr::mutate(speed_km = Speed_limit * 1.6)</code></pre>
+<table>
+<caption>Road accidents by km/h</caption>
+<thead>
+<tr class="header">
+<th align="left">acc_index</th>
+<th align="right">Police_Force</th>
+<th align="right">Speed_limit</th>
+<th align="right">speed_km</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2017010047088</td>
+<td align="right">1</td>
+<td align="right">20</td>
+<td align="right">32</td>
+</tr>
+<tr class="even">
+<td align="left">2017530187722</td>
+<td align="right">53</td>
+<td align="right">50</td>
+<td align="right">80</td>
+</tr>
+<tr class="odd">
+<td align="left">2017010076441</td>
+<td align="right">1</td>
+<td align="right">30</td>
+<td align="right">48</td>
+</tr>
+<tr class="even">
+<td align="left">2017430293464</td>
+<td align="right">43</td>
+<td align="right">70</td>
+<td align="right">112</td>
+</tr>
+<tr class="odd">
+<td align="left">2017200243090</td>
+<td align="right">20</td>
+<td align="right">40</td>
+<td align="right">64</td>
+</tr>
+<tr class="even">
+<td align="left">2017450239070</td>
+<td align="right">45</td>
+<td align="right">50</td>
+<td align="right">80</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="summarising-data" class="section level2">
 <h2>Summarising data</h2>
+<p>The dplyr summarise function can be used to summarise data (mean, median, sd, min, max, n_distinct). See <a href="https://dplyr.tidyverse.org/reference/summarise.html" class="uri">https://dplyr.tidyverse.org/reference/summarise.html</a> for more examples.</p>
+<p>For example, to get the mean number of accidents for each weekday:</p>
+<table>
+<caption>Road accidents 2017, by severity and weekday</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">300</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">205</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">187</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">233</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">220</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">250</td>
+</tr>
+</tbody>
+</table>
+<p>The group by function is used with the summarise function to specify what groups the mean will be applied to, in this case weekday.</p>
+<pre class="r"><code>road_acc_mean &lt;- road_accidents_small %&gt;%
+  dplyr::group_by(Day_of_Week) %&gt;%
+  dplyr::summarise(mean = mean(n))</code></pre>
+<table>
+<caption>Mean number of accidents in 2017, by weekday</caption>
+<thead>
+<tr class="header">
+<th align="right">Day_of_Week</th>
+<th align="right">mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">4992.333</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">5978.667</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">6494.000</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">6439.667</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">6599.000</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">7081.667</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="look-up-tables" class="section level2">
 <h2>Look up tables</h2>
+<p>Aside from importing a seperate lookup data file into R, named vectors can be used as lookup tables.</p>
+<p>For example, to assign accident severity values with labels, named vectors can be used (<strong>note: even numbers must be in quotation marks</strong>):</p>
+<pre class="r"><code>lookup_severity &lt;- c(&quot;1&quot; = &quot;Fatal&quot;, &quot;2&quot; = &quot;Serious&quot;, &quot;3&quot; = &quot;Slight&quot;)</code></pre>
+<p>To convert the data and create a label variable (<strong>note: the Accident_Severity variable values can be replaced with the lookup values by changing the name of the variable on the left to Accident_Severity</strong>):</p>
+<pre class="r"><code>road_accidents_small$Accident_Severity_label &lt;- lookup_severity[road_accidents_small$Accident_Severity]</code></pre>
+<table>
+<caption>Road accidents 2017, by severity and weekday</caption>
+<thead>
+<tr class="header">
+<th align="right">Accident_Severity</th>
+<th align="right">Day_of_Week</th>
+<th align="right">n</th>
+<th align="left">Accident_Severity_label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">300</td>
+<td align="left">Fatal</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">205</td>
+<td align="left">Fatal</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">187</td>
+<td align="left">Fatal</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">233</td>
+<td align="left">Fatal</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">220</td>
+<td align="left">Fatal</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">250</td>
+<td align="left">Fatal</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
