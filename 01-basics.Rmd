@@ -36,16 +36,17 @@ v4 <- "Awesome"
 typeof(v4)
 ```
 
-As well as the atomic vector types you will often encounter two other vector
-types; **factor** and **Date**.  
+As well as the atomic vector types you will often encounter three other vector
+types; **factors**, **Dates** and **Date-times**.  Here we will briefly discuss
+factors and dates leaving further discussion of Date-times to chapter 
+\@ref(dates).
 
 Factor vectors are used to represent categorical data.  They are actually
 integer vectors with two additional attributes, levels and class.  At this
-stage it is not worth worrying to much about what attribute are just understand
-that, for factors, the levels attribute gives the possible categories and 
-combined with the integer values works much like a lookup table.  The `class` 
-attribute is just "factor".
-
+stage it is not worth worrying to much about what attribute are.  For the moment
+just understand that, for factors, the levels attribute gives the possible 
+categories and, combined with the integer values, works much like a lookup 
+table.  The `class` attribute is just "factor".
 
 ```{r}
 ratings <- factor(c("good", "bad", "bad", "amazing"))
