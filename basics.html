@@ -24,7 +24,7 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
 
 
-<meta name="date" content="2019-05-29" />
+<meta name="date" content="2019-06-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -232,14 +232,16 @@ v3 &lt;-<span class="st"> </span><span class="dv">2</span>
 <pre class="sourceCode r"><code class="sourceCode r">v4 &lt;-<span class="st"> &quot;Awesome&quot;</span>
 <span class="kw">typeof</span>(v4)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<p>As well as the atomic vector types you will often encounter two other vector
-types; <strong>factor</strong> and <strong>Date</strong>.</p>
+<p>As well as the atomic vector types you will often encounter three other vector
+types; <strong>factors</strong>, <strong>Dates</strong> and <strong>Date-times</strong>. Here we will briefly discuss
+factors and dates leaving further discussion of Date-times to chapter
+<a href="dates.html#dates">5</a>.</p>
 <p>Factor vectors are used to represent categorical data. They are actually
 integer vectors with two additional attributes, levels and class. At this
-stage it is not worth worrying to much about what attribute are just understand
-that, for factors, the levels attribute gives the possible categories and
-combined with the integer values works much like a lookup table. The <code>class</code>
-attribute is just “factor”.</p>
+stage it is not worth worrying to much about what attribute are. For the moment
+just understand that, for factors, the levels attribute gives the possible
+categories and, combined with the integer values, works much like a lookup
+table. The <code>class</code> attribute is just “factor”.</p>
 <pre class="sourceCode r"><code class="sourceCode r">ratings &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;amazing&quot;</span>))
 <span class="kw">typeof</span>(ratings)</code></pre>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
