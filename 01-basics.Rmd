@@ -37,8 +37,8 @@ typeof(v4)
 ```
 
 As well as the atomic vector types you will often encounter three other vector
-types; **factors**, **Dates** and **Date-times**.  Here we will briefly discuss
-factors and dates leaving further discussion of Date-times to chapter 
+types; **factors**, **dates** and **date-times**.  Here we will briefly discuss
+factors and dates, leaving further discussion of date-times to chapter 
 \@ref(dates).
 
 Factor vectors are used to represent categorical data.  They are actually
