@@ -1,3 +1,4 @@
+.DS_Store
 .Rhistory
 .RData
 .Rproj.user
@@ -8,3 +9,5 @@ deploy_key.pub
 placeholder.Rcheck/
 placeholder*.tar.gz
 placeholder*.tgz
+_book/
+_bookdown_files/

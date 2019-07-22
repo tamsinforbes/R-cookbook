@@ -4,38 +4,177 @@ knitr::opts_chunk$set(collapse=TRUE, comment="#>")
 
 # Working with factors {#factors}
 
-Working with factors can be tricky to both the new and the experience `R` user
-as their behaviour is not always intuitive.  We can illustrate this with a 
-couple of examples.  Firstly concatenating factors may not work as intended:
+## Common uses
+Within the department there are three main ways you are likely to make use of 
+factors:
 
+* Tabulation of data (in particular when you want to illustrate zero occurences
+of a particular value)
+* Ordering of data for output (e.g. bars in a graph)
+* Statistical models (e.g. in conjunction with `contrasts` when encoding 
+categorical data in formulae)
+
+### Tabulation of data
 ```{r}
-my_factor <- factor(c("bob", "george", "bob"))
-my_vector <- c(my_factor, my_factor)
-my_vector
+# define a simple character vector
+vehicles_observed <- c("car", "car", "bus", "car")
+class(vehicles_observed)
+table(vehicles_observed)
+
+# convert to factor with possible levels
+possible_vehicles <- c("car", "bus", "motorbike", "bicycle")
+vehicles_observed <- factor(vehicles_observed, levels = possible_vehicles)
+class(vehicles_observed)
+table(vehicles_observed)
 ```
 
-instead we would first need to convert to a character vector
-
+### Ordering of data for output
 ```{r}
-my_vector_2 <- c(as.character(my_factor), as.character(my_factor))
-my_vector_2
+# example 1
+vehicles_observed <- c("car", "car", "bus", "car")
+possible_vehicles <- c("car", "bus", "motorbike", "bicycle")
+vehicles_observed <- factor(vehicles_observed, levels = possible_vehicles)
+table(vehicles_observed)
+
+possible_vehicles <- c("bicycle", "bus", "car", "motorbike")
+vehicles_observed <- factor(vehicles_observed, levels = possible_vehicles)
+table(vehicles_observed)
+
+# example 2
+df <- iris[sample(1:nrow(iris), 100), ]
+ggplot(df, aes(Species)) + geom_bar()
+
+df$Species <- factor(df$Species, levels = c("versicolor", "virginica", "setosa"))
+ggplot(df, aes(Species)) + geom_bar()
 ```
 
-Secondly, we may sometimes find a numeric vector is being stored as a factor:
+### Statistical models
+When building a regression model, R will automatically encode your independent 
+character variables using `contr.treatment` contrasts.  This means that each 
+level of the vector is contrasted with a baseline level (by default the first
+level once the vector has been converted to a factor).  If you want to change 
+the baseline level or use a different encoding methodology then you need to 
+work with factors.  To illustrate this we use the `Titanic` dataset.
 
 ```{r}
-df <- read.csv("data/factor_example.csv")
-my_vector <- df[[2]]
-typeof(my_vector)
-my_vector
+# load data and convert to one observation per row
+data("Titanic")
+df <- as.data.frame(Titanic)
+df <- df[rep(1:nrow(df), df[ ,5]), -5]
+rownames(df) <- NULL
+head(df)
+
+# For this example we convert all variables to characters
+df[] <- lapply(df, as.character)
+
+# save to temporary folder
+filename <- tempfile(fileext = ".csv")
+write.csv(df, filename, row.names = FALSE)
+
+# reload data with stringsAsFactors = FALSE
+new_df <- read.csv(filename, stringsAsFactors = FALSE)
+str(new_df)
+```
+
+First lets see what happens if we try and build a logistic regression model for
+survivals but using our newly loaded dataframe
+
+```{r, error = TRUE}
+model_1 <- glm(Survived ~ ., family = binomial, data = new_df)
+```
+
+This errors due to the **Survived** variable being a character vector.  Let's 
+convert it to a factor.
+
+```{r}
+new_df$Survived <- factor(new_df$Survived)
+model_2 <- glm(Survived ~ ., family = binomial, data = new_df)
+summary(model_2)
+```
+
+This works, but the baseline case for **Class** is `1st`.  What if we wanted it
+to be `3rd`.  We would first need to convert the variable to a factor and choose
+the appropriate level as a baseline
+
+```{r}
+new_df$Class <- factor(new_df$Class)
+levels(new_df$Class)
+contrasts(new_df$Class) <- contr.treatment(levels(new_df$Class), 3)
+model_3 <- glm(Survived ~ ., family = binomial, data = new_df)
+```
+
+## Other things to know about factors
+Working with factors can be tricky to both the new, and the experienced `R` 
+user.  This is as their behaviour is not always intuitive.  Below we illustrate
+three common areas of confusion
+
+### Renaming factor levels
+```{r, error=TRUE}
+my_factor <- factor(c("Dog", "Cat", "Hippo", "Hippo", "Monkey", "Hippo"))
+my_factor
+
+# change Hippo to Giraffe
+## DO NOT DO THIS
+my_factor[my_factor == "Hippo"] <- "Giraffe"
+my_factor
+
+## reset factor
+my_factor <- factor(c("Dog", "Cat", "Hippo", "Hippo", "Monkey", "Hippo"))
+
+# change Hippo to Giraffe
+## DO THIS
+levels(my_factor)[levels(my_factor) == "Hippo"] <- "Giraffe"
+my_factor
+```
+
+### Combining factors does not result in a factor
+```{r}
+names_1 <- factor(c("jon", "george", "bobby"))
+names_2 <- factor(c("laura", "claire", "laura"))
+c(names_1, names_2)
+
+# if you want concatenation of factors to give a factor than the help page for
+# c() suggest the following method is used:
+c.factor <- function(..., recursive=TRUE) unlist(list(...), recursive=recursive)
+c(names_1, names_2)
+
+# if you only wanted the result to be a character vector then you could also use
+c(as.character(names_1), as.character(names_2))
+```
+
+```{r, echo=FALSE}
+# stop it messing up later code
+rm(c.factor)
+```
+
+### Numeric vectors that have been read as factors
+Sometimes we find a numeric vector is being stored as a factor
+(a common occurence when reading a csv from Excel with #N/A values)
+
+```{r}
+# example data set
+pseudo_excel_csv <- data.frame(names = c("jon", "laura", "ivy", "george"),
+                               ages = c(20, 22, "#N/A", "#N/A"))
+# save to temporary file
+filename <- tempfile(fileext = ".csv")
+write.csv(pseudo_excel_csv, filename, row.names = FALSE)
+
+# reload data
+df <- read.csv(filename)
+str(df)
 ```
 
 to transform this to a numeric variable we can proceed as follows
 ```{r}
-my_vector_2 <- as.numeric(levels(my_vector)[my_vector])
-typeof(my_vector_2)
-my_vector_2
+df$ages <- as.numeric(levels(df$ages)[df$ages])
+str(df)
 ```
 
-To alleviate some of these issues it is useful to use the `forcats` package
-**NOT FINISHED - need to write about `forcats`**
+## Helpful packages
+If you find yourself having to manipulate factors often, then it may be worth
+spending some time with the tidyverse package 
+(forcats)[https://forcats.tidyverse.org].  This was designed to make working
+with factors simpler.  There are many tutorials available online but a good 
+place to start is the official 
+(vignette)[https://forcats.tidyverse.org/articles/forcats.html].
+
