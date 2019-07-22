@@ -451,7 +451,34 @@ the appropriate level as a baseline</p>
 <a class="sourceLine" id="cb99-2" data-line-number="2"><span class="kw">levels</span>(new_df<span class="op">$</span>Class)</a>
 <a class="sourceLine" id="cb99-3" data-line-number="3"><span class="co">#&gt; [1] &quot;1st&quot;  &quot;2nd&quot;  &quot;3rd&quot;  &quot;Crew&quot;</span></a>
 <a class="sourceLine" id="cb99-4" data-line-number="4"><span class="kw">contrasts</span>(new_df<span class="op">$</span>Class) &lt;-<span class="st"> </span><span class="kw">contr.treatment</span>(<span class="kw">levels</span>(new_df<span class="op">$</span>Class), <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb99-5" data-line-number="5">model_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>., <span class="dt">family =</span> binomial, <span class="dt">data =</span> new_df)</a></code></pre></div>
+<a class="sourceLine" id="cb99-5" data-line-number="5">model_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>., <span class="dt">family =</span> binomial, <span class="dt">data =</span> new_df)</a>
+<a class="sourceLine" id="cb99-6" data-line-number="6"><span class="kw">summary</span>(model_<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb99-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb99-8" data-line-number="8"><span class="co">#&gt; Call:</span></a>
+<a class="sourceLine" id="cb99-9" data-line-number="9"><span class="co">#&gt; glm(formula = Survived ~ ., family = binomial, data = new_df)</span></a>
+<a class="sourceLine" id="cb99-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb99-11" data-line-number="11"><span class="co">#&gt; Deviance Residuals: </span></a>
+<a class="sourceLine" id="cb99-12" data-line-number="12"><span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span></a>
+<a class="sourceLine" id="cb99-13" data-line-number="13"><span class="co">#&gt; -2.0812  -0.7149  -0.6656   0.6858   2.1278  </span></a>
+<a class="sourceLine" id="cb99-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb99-15" data-line-number="15"><span class="co">#&gt; Coefficients:</span></a>
+<a class="sourceLine" id="cb99-16" data-line-number="16"><span class="co">#&gt;             Estimate Std. Error z value Pr(&gt;|z|)    </span></a>
+<a class="sourceLine" id="cb99-17" data-line-number="17"><span class="co">#&gt; (Intercept)   0.2661     0.1293   2.058   0.0396 *  </span></a>
+<a class="sourceLine" id="cb99-18" data-line-number="18"><span class="co">#&gt; Class1st      1.7778     0.1716  10.362  &lt; 2e-16 ***</span></a>
+<a class="sourceLine" id="cb99-19" data-line-number="19"><span class="co">#&gt; Class2nd      0.7597     0.1764   4.308 1.65e-05 ***</span></a>
+<a class="sourceLine" id="cb99-20" data-line-number="20"><span class="co">#&gt; ClassCrew     0.9201     0.1486   6.192 5.93e-10 ***</span></a>
+<a class="sourceLine" id="cb99-21" data-line-number="21"><span class="co">#&gt; SexMale      -2.4201     0.1404 -17.236  &lt; 2e-16 ***</span></a>
+<a class="sourceLine" id="cb99-22" data-line-number="22"><span class="co">#&gt; AgeChild      1.0615     0.2440   4.350 1.36e-05 ***</span></a>
+<a class="sourceLine" id="cb99-23" data-line-number="23"><span class="co">#&gt; ---</span></a>
+<a class="sourceLine" id="cb99-24" data-line-number="24"><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></a>
+<a class="sourceLine" id="cb99-25" data-line-number="25"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb99-26" data-line-number="26"><span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span></a>
+<a class="sourceLine" id="cb99-27" data-line-number="27"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb99-28" data-line-number="28"><span class="co">#&gt;     Null deviance: 2769.5  on 2200  degrees of freedom</span></a>
+<a class="sourceLine" id="cb99-29" data-line-number="29"><span class="co">#&gt; Residual deviance: 2210.1  on 2195  degrees of freedom</span></a>
+<a class="sourceLine" id="cb99-30" data-line-number="30"><span class="co">#&gt; AIC: 2222.1</span></a>
+<a class="sourceLine" id="cb99-31" data-line-number="31"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb99-32" data-line-number="32"><span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></a></code></pre></div>
 </div>
 </div>
 <div id="other-things-to-know-about-factors" class="section level2">
