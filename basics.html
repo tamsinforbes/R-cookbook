@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 The basics | DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 The basics | DfT R Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
 
 
-<meta name="date" content="2019-06-17" />
+<meta name="date" content="2019-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,7 +55,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -178,7 +177,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.15" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>4.15</b> Look up tables</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dates.html"><a href="dates.html"><i class="fa fa-check"></i><b>5</b> Working with dates</a></li>
-<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a></li>
+<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a><ul>
+<li class="chapter" data-level="6.1" data-path="factors.html"><a href="factors.html#common-uses"><i class="fa fa-check"></i><b>6.1</b> Common uses</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="factors.html"><a href="factors.html#tabulation-of-data"><i class="fa fa-check"></i><b>6.1.1</b> Tabulation of data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="factors.html"><a href="factors.html#ordering-of-data-for-output"><i class="fa fa-check"></i><b>6.1.2</b> Ordering of data for output</a></li>
+<li class="chapter" data-level="6.1.3" data-path="factors.html"><a href="factors.html#statistical-models"><i class="fa fa-check"></i><b>6.1.3</b> Statistical models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="factors.html"><a href="factors.html#other-things-to-know-about-factors"><i class="fa fa-check"></i><b>6.2</b> Other things to know about factors</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="factors.html"><a href="factors.html#renaming-factor-levels"><i class="fa fa-check"></i><b>6.2.1</b> Renaming factor levels</a></li>
+<li class="chapter" data-level="6.2.2" data-path="factors.html"><a href="factors.html#combining-factors-does-not-result-in-a-factor"><i class="fa fa-check"></i><b>6.2.2</b> Combining factors does not result in a factor</a></li>
+<li class="chapter" data-level="6.2.3" data-path="factors.html"><a href="factors.html#numeric-vectors-that-have-been-read-as-factors"><i class="fa fa-check"></i><b>6.2.3</b> Numeric vectors that have been read as factors</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="factors.html"><a href="factors.html#helpful-packages"><i class="fa fa-check"></i><b>6.3</b> Helpful packages</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a></li>
 <li class="chapter" data-level="8" data-path="tidbits.html"><a href="tidbits.html"><i class="fa fa-check"></i><b>8</b> Interesting tidbits</a><ul>
 <li class="chapter" data-level="8.1" data-path="tidbits.html"><a href="tidbits.html#rounding"><i class="fa fa-check"></i><b>8.1</b> Rounding</a></li>
@@ -210,27 +221,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are four main atomic vector types that you are likely to come across
 when using R<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>; <strong>logical</strong> (<code>TRUE</code>
 or <code>FALSE</code>), <em>double</em> (<code>3.142</code>), <em>integer</em> (<code>2L</code>) and <em>character</em> (<code>&quot;Awesome&quot;</code>)</p>
-<pre class="sourceCode r"><code class="sourceCode r">v1 &lt;-<span class="st"> </span><span class="ot">TRUE</span>
-<span class="kw">typeof</span>(v1)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">v1 &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">typeof</span>(v1)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">v1 &lt;-<span class="st"> </span><span class="ot">FALSE</span>
-<span class="kw">typeof</span>(v1)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">v1 &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">typeof</span>(v1)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">v2 &lt;-<span class="st"> </span><span class="fl">1.5</span>
-<span class="kw">typeof</span>(v2)</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">v2 &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">typeof</span>(v2)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">v2 &lt;-<span class="st"> </span><span class="dv">1</span>
-<span class="kw">typeof</span>(v2)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">v2 &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">typeof</span>(v2)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># integer values must be followed by an L to be stored as integers</span>
-v3 &lt;-<span class="st"> </span><span class="dv">2</span>
-<span class="kw">typeof</span>(v3)</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># integer values must be followed by an L to be stored as integers</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">v3 &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">typeof</span>(v3)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">v3 &lt;-<span class="st"> </span>2L
-<span class="kw">typeof</span>(v3)</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">v3 &lt;-<span class="st"> </span>2L</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">typeof</span>(v3)</a></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">v4 &lt;-<span class="st"> &quot;Awesome&quot;</span>
-<span class="kw">typeof</span>(v4)</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">v4 &lt;-<span class="st"> &quot;Awesome&quot;</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">typeof</span>(v4)</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>As well as the atomic vector types you will often encounter three other vector
 types; <strong>factors</strong>, <strong>dates</strong> and <strong>date-times</strong>. Here we will briefly discuss
@@ -242,10 +253,10 @@ stage it is not worth worrying to much about what attribute are. For the moment
 just understand that, for factors, the levels attribute gives the possible
 categories and, combined with the integer values, works much like a lookup
 table. The <code>class</code> attribute is just “factor”.</p>
-<pre class="sourceCode r"><code class="sourceCode r">ratings &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;amazing&quot;</span>))
-<span class="kw">typeof</span>(ratings)</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">ratings &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;amazing&quot;</span>))</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">typeof</span>(ratings)</a></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(ratings)</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">attributes</span>(ratings)</a></code></pre></div>
 <pre><code>## $levels
 ## [1] &quot;amazing&quot; &quot;bad&quot;     &quot;good&quot;   
 ## 
@@ -255,43 +266,43 @@ table. The <code>class</code> attribute is just “factor”.</p>
 “Date”.</p>
 <p><strong>Note - The following borrows directly from Hadley’s Advanced R site
 so we need to attribute appropriately and use correct licence</strong></p>
-<pre class="sourceCode r"><code class="sourceCode r">today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()
-<span class="kw">typeof</span>(today)</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">typeof</span>(today)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(today)</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">attributes</span>(today)</a></code></pre></div>
 <pre><code>## $class
 ## [1] &quot;Date&quot;</code></pre>
 <p>The value of the double (which can be seen by stripping the class), represents
 the number of days since “1970-01-01”<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1970-02-01&quot;</span>)
-<span class="kw">unclass</span>(date)</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1970-02-01&quot;</span>)</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">unclass</span>(date)</a></code></pre></div>
 <pre><code>## [1] 31</code></pre>
 </div>
 <div id="conversion-between-atomic-vector-types" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Conversion between atomic vector types</h3>
 <p>Converting between the atomic vector types is done using the <code>as.character</code>,
 <code>as.integer</code>, <code>as.logical</code> and <code>as.double</code> functions.</p>
-<pre class="sourceCode r"><code class="sourceCode r">value &lt;-<span class="st"> </span><span class="fl">1.5</span>
-<span class="kw">as.integer</span>(value)</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">value &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">as.integer</span>(value)</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.character</span>(value)</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">as.character</span>(value)</a></code></pre></div>
 <pre><code>## [1] &quot;1.5&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.logical</span>(value)</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">as.logical</span>(value)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Where it is not possible to convert a value you will get a warning message</p>
-<pre class="sourceCode r"><code class="sourceCode r">value &lt;-<span class="st"> &quot;z&quot;</span>
-<span class="kw">as.integer</span>(value)</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">value &lt;-<span class="st"> &quot;z&quot;</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">as.integer</span>(value)</a></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1] NA</code></pre>
 <p>When combining different vector types, coercion will obey the following
 hierarchy: character, double, integer, logical.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="st">&quot;pop&quot;</span>, <span class="ot">TRUE</span>))</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="st">&quot;pop&quot;</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="ot">TRUE</span>))</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">c</span>(3L, <span class="ot">TRUE</span>))</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(3L, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
 
 </div>

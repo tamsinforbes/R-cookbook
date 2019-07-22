@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Data Importing/Exporting and interaction with other programmes | DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Data Importing/Exporting and interaction with other programmes | DfT R Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
 
 
-<meta name="date" content="2019-06-17" />
+<meta name="date" content="2019-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,7 +55,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -178,7 +177,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.15" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>4.15</b> Look up tables</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dates.html"><a href="dates.html"><i class="fa fa-check"></i><b>5</b> Working with dates</a></li>
-<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a></li>
+<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a><ul>
+<li class="chapter" data-level="6.1" data-path="factors.html"><a href="factors.html#common-uses"><i class="fa fa-check"></i><b>6.1</b> Common uses</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="factors.html"><a href="factors.html#tabulation-of-data"><i class="fa fa-check"></i><b>6.1.1</b> Tabulation of data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="factors.html"><a href="factors.html#ordering-of-data-for-output"><i class="fa fa-check"></i><b>6.1.2</b> Ordering of data for output</a></li>
+<li class="chapter" data-level="6.1.3" data-path="factors.html"><a href="factors.html#statistical-models"><i class="fa fa-check"></i><b>6.1.3</b> Statistical models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="factors.html"><a href="factors.html#other-things-to-know-about-factors"><i class="fa fa-check"></i><b>6.2</b> Other things to know about factors</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="factors.html"><a href="factors.html#renaming-factor-levels"><i class="fa fa-check"></i><b>6.2.1</b> Renaming factor levels</a></li>
+<li class="chapter" data-level="6.2.2" data-path="factors.html"><a href="factors.html#combining-factors-does-not-result-in-a-factor"><i class="fa fa-check"></i><b>6.2.2</b> Combining factors does not result in a factor</a></li>
+<li class="chapter" data-level="6.2.3" data-path="factors.html"><a href="factors.html#numeric-vectors-that-have-been-read-as-factors"><i class="fa fa-check"></i><b>6.2.3</b> Numeric vectors that have been read as factors</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="factors.html"><a href="factors.html#helpful-packages"><i class="fa fa-check"></i><b>6.3</b> Helpful packages</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a></li>
 <li class="chapter" data-level="8" data-path="tidbits.html"><a href="tidbits.html"><i class="fa fa-check"></i><b>8</b> Interesting tidbits</a><ul>
 <li class="chapter" data-level="8.1" data-path="tidbits.html"><a href="tidbits.html#rounding"><i class="fa fa-check"></i><b>8.1</b> Rounding</a></li>
@@ -205,11 +216,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This chapter is for code examples of data importing/exporting and interactions with other programmes and databases.</p>
 <div id="libraries" class="section level2">
 <h2><span class="header-section-number">3.1</span> Libraries</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(DBI)
-<span class="kw">library</span>(dbplyr)
-<span class="kw">library</span>(haven)
-<span class="kw">library</span>(bigrquery)</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">library</span>(DBI)</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3"><span class="kw">library</span>(dbplyr)</a>
+<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="kw">library</span>(haven)</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="kw">library</span>(bigrquery)</a></code></pre></div>
 </div>
 <div id="navigating-folders" class="section level2">
 <h2><span class="header-section-number">3.2</span> Navigating folders</h2>
@@ -217,18 +228,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="down" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Down</h3>
 <p>To navigate down folders use <code>/</code>. The path given below saves the file <strong>my_df.csv</strong> in the <strong>data</strong> folder, which itself is inside the <strong>monthly_work</strong> folder</p>
-<pre class="sourceCode r"><code class="sourceCode r">readr<span class="op">::</span><span class="kw">write_csv</span>(
-  <span class="dt">x =</span> my_dataframe
-  , <span class="dt">path =</span> <span class="st">&quot;monthly_work/data/my_df.csv&quot;</span>
-)</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">readr<span class="op">::</span><span class="kw">write_csv</span>(</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">  <span class="dt">x =</span> my_dataframe</a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">  , <span class="dt">path =</span> <span class="st">&quot;monthly_work/data/my_df.csv&quot;</span></a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">)</a></code></pre></div>
 </div>
 <div id="up" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Up</h3>
 <p>To go up a folder use <code>../</code>. In particular you may need to do this when running Rmarkdown files. Rmarkdown files use their location as the working directory. If you have created an <strong>R</strong> folder, say, to stash all your scripts in, and a <strong>data</strong> folder to stash your data files in, then you will need to go up, before going down…</p>
 <p>The path below goes up one folder, then into the <strong>data</strong> folder, where the <strong>lookup_table.csv</strong> is located.</p>
-<pre class="sourceCode r"><code class="sourceCode r">lookup_table &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(
-  <span class="dt">file =</span> <span class="st">&quot;../data/lookup_table.csv&quot;</span>
-)</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">lookup_table &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">  <span class="dt">file =</span> <span class="st">&quot;../data/lookup_table.csv&quot;</span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">)</a></code></pre></div>
 </div>
 </div>
 <div id="working-with-files-in-r" class="section level2">
@@ -237,19 +248,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="rds" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> .rds</h3>
 <p>.rds is R’s native file format, any object you create in R can be saved as a .rds file. The functions <code>readRDS</code> and <code>saveRDS</code> are base R functions.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">saveRDS</span>(
-  <span class="dt">object =</span> my_model <span class="co">#specify the R object you want to save</span>
-  , <span class="dt">file =</span> <span class="st">&quot;2019_0418_my_model.rds&quot;</span> <span class="co">#give it a name, don&#39;t forget the file extension</span>
-)</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">saveRDS</span>(</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">  <span class="dt">object =</span> my_model <span class="co">#specify the R object you want to save</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">  , <span class="dt">file =</span> <span class="st">&quot;2019_0418_my_model.rds&quot;</span> <span class="co">#give it a name, don&#39;t forget the file extension</span></a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">)</a></code></pre></div>
 </div>
 <div id="csv" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> .csv</h3>
 <p>We use the functions <code>read_csv</code> and <code>write_csv</code> from the <code>readr</code> package (which is part of the <code>tidyverse</code>). These are a little bit <em>cleverer</em> than their base counterparts, however, this cleverness can catch you out.</p>
 <p>The file <strong>messy_pokemon_data.csv</strong> contains pokemon go captures data which has been deliberately messed up a bit. <code>read_csv</code> imputes the column specification from the first 1000 rows, which is fine if your first 1000 rows are representative of the data type. If not then subsequent data that can’t be coerced into the imputed data type will be replaced with NA.</p>
 <p>Looking at the column specification below notice that <code>read_csv</code> has recognised <strong>time_first_capture</strong> as a time type, but not <strong>date_first_capture</strong> as date type. Given the information that <strong>combat_power</strong> should be numeric we can see that something is also amiss here as <code>read_csv</code> has guessed character type for this column.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pokemon &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(
-  <span class="dt">file =</span> <span class="st">&quot;data/messy_pokemon_data.csv&quot;</span>
-)</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">pokemon &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">  <span class="dt">file =</span> <span class="st">&quot;data/messy_pokemon_data.csv&quot;</span></a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">)</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   species = col_character(),
@@ -265,10 +276,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   time_first_capture = col_time(format = &quot;&quot;)
 ## )</code></pre>
 <p>Let’s have a quick look at some data from these columns</p>
-<pre class="sourceCode r"><code class="sourceCode r">pokemon <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(species, combat_power, date_first_capture, time_first_capture) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(<span class="kw">desc</span>(combat_power)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">head</span>()</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">pokemon <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(species, combat_power, date_first_capture, time_first_capture) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb50-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(<span class="kw">desc</span>(combat_power)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
 <div class="kable-table">
 
 <table>
@@ -379,10 +390,10 @@ P518
 <p>The pokemon dataset has less than 1000 rows so <code>read_csv</code> has ‘seen’ the letters mixed in with some of the numbers in the <strong>combat_power</strong> column. It has guessed at character type because everything in the column can be coerced to character type.</p>
 <p>What if there are more than 1000 rows? For example, say you have a numeric column, but there are some letters prefixed to the numbers in some of the post-row-1000 rows. These values are still meaningful to you, and with some data wrangling you can extract the actual numbers. Unfortunately <code>read_csv</code> has guessed at type double based on the first 1000 rows and since character type cannot be coerced into double, these values will be replaced with <code>NA</code>. If you have messy data like this the best thing to do is to force <code>read_csv</code> to read in as character type to preserve all values as they appear, you can then sort out the mess yourself.</p>
 <p>You can specify the column data type using the <code>col_types</code> argument. Below I have used a compact string of abbreviations to specify the column types, see the help at <code>?read_csv</code> or the <code>readr</code> vignette for the full list. You can see I got many parsing failures, which I can access with <code>problems()</code>. This is a data frame of the values that <code>read_csv</code> was unable to coerce into the type I specified, and so has replaced with NA.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pokemon &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(
-  <span class="dt">file =</span> <span class="st">&quot;data/messy_pokemon_data.csv&quot;</span>
-  , <span class="dt">col_types =</span> <span class="st">&quot;cdddcdcccDt&quot;</span>
-)</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">pokemon &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">  <span class="dt">file =</span> <span class="st">&quot;data/messy_pokemon_data.csv&quot;</span></a>
+<a class="sourceLine" id="cb51-3" data-line-number="3">  , <span class="dt">col_types =</span> <span class="st">&quot;cdddcdcccDt&quot;</span></a>
+<a class="sourceLine" id="cb51-4" data-line-number="4">)</a></code></pre></div>
 <pre><code>## Warning: 723 parsing failures.
 ## row                col   expected           actual                          file
 ##   1 date_first_capture date like  31 May 1977      &#39;data/messy_pokemon_data.csv&#39;
@@ -392,10 +403,10 @@ P518
 ##   5 date_first_capture date like  06 August 1952   &#39;data/messy_pokemon_data.csv&#39;
 ## ... .................. .......... ................ .............................
 ## See problems(...) for more details.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># c = character, d = double, D = Date, t = time</span></code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># c = character, d = double, D = Date, t = time</span></a></code></pre></div>
 <p>Let’s take a look at the problems.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">problems</span>(pokemon) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">head</span>()</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">problems</span>(pokemon) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
 <div class="kable-table">
 
 <table>
@@ -525,9 +536,9 @@ date like
 </table>
 </div>
 <p>And since I know that there are problems with <strong>combat_power</strong> let’s take a look there.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">problems</span>(pokemon) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(col <span class="op">==</span><span class="st"> &quot;combat_power&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">head</span>()</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">problems</span>(pokemon) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(col <span class="op">==</span><span class="st"> &quot;combat_power&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
 <div class="kable-table">
 
 <table>
@@ -672,11 +683,11 @@ P542
 <div id="a-single-worksheet-in-a-single-workbook" class="section level4">
 <h4><span class="header-section-number">3.3.3.1</span> A single worksheet in a single workbook</h4>
 <p>The simplest combination, you are interested in one rectangular datset in a particular worksheet in one workbook. Leaving the defaults works nicely on this dataset, though perhaps “units” needs some investigating.</p>
-<pre class="sourceCode r"><code class="sourceCode r">data_from_xl &lt;-<span class="st"> </span>readxl<span class="op">::</span><span class="kw">read_excel</span>(
-  <span class="dt">path =</span> <span class="st">&quot;data/port0499.xlsx&quot;</span>
-)
-
-tibble<span class="op">::</span><span class="kw">glimpse</span>(data_from_xl)</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">data_from_xl &lt;-<span class="st"> </span>readxl<span class="op">::</span><span class="kw">read_excel</span>(</a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">  <span class="dt">path =</span> <span class="st">&quot;data/port0499.xlsx&quot;</span></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">)</a>
+<a class="sourceLine" id="cb56-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb56-5" data-line-number="5">tibble<span class="op">::</span><span class="kw">glimpse</span>(data_from_xl)</a></code></pre></div>
 <pre><code>## Observations: 43,981
 ## Variables: 9
 ## $ year              &lt;dbl&gt; 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000…
@@ -689,14 +700,14 @@ tibble<span class="op">::</span><span class="kw">glimpse</span>(data_from_xl)</c
 ## $ tonnage           &lt;dbl&gt; 1.1531772, 2.4061025, 3.6645449, 108.7710819, …
 ## $ units             &lt;dbl&gt; 0.0000000, 0.0000000, 0.0000000, 0.0000000, 0.…</code></pre>
 <p>Let’s set a few of the other arguments, run <code>?read_excel</code> in the console to see the full list.</p>
-<pre class="sourceCode r"><code class="sourceCode r">data_from_xl &lt;-<span class="st"> </span>readxl<span class="op">::</span><span class="kw">read_excel</span>(
-  <span class="dt">path =</span> <span class="st">&quot;data/port0499.xlsx&quot;</span>
-  , <span class="dt">sheet =</span> <span class="dv">1</span> <span class="co">#number or name of sheet, default is first sheet</span>
-  , <span class="dt">col_names =</span> <span class="ot">TRUE</span> <span class="co">#default</span>
-  , <span class="dt">col_types =</span> <span class="st">&quot;text&quot;</span> <span class="co">#a single type will recycle to all columns, specify each using character vector of the same length eg c(&quot;numeric&quot;, &quot;text&quot;, ...)</span>
-)
-
-tibble<span class="op">::</span><span class="kw">glimpse</span>(data_from_xl)</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">data_from_xl &lt;-<span class="st"> </span>readxl<span class="op">::</span><span class="kw">read_excel</span>(</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2">  <span class="dt">path =</span> <span class="st">&quot;data/port0499.xlsx&quot;</span></a>
+<a class="sourceLine" id="cb58-3" data-line-number="3">  , <span class="dt">sheet =</span> <span class="dv">1</span> <span class="co">#number or name of sheet, default is first sheet</span></a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">  , <span class="dt">col_names =</span> <span class="ot">TRUE</span> <span class="co">#default</span></a>
+<a class="sourceLine" id="cb58-5" data-line-number="5">  , <span class="dt">col_types =</span> <span class="st">&quot;text&quot;</span> <span class="co">#a single type will recycle to all columns, specify each using character vector of the same length eg c(&quot;numeric&quot;, &quot;text&quot;, ...)</span></a>
+<a class="sourceLine" id="cb58-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb58-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb58-8" data-line-number="8">tibble<span class="op">::</span><span class="kw">glimpse</span>(data_from_xl)</a></code></pre></div>
 <pre><code>## Observations: 43,981
 ## Variables: 9
 ## $ year              &lt;chr&gt; &quot;2000&quot;, &quot;2000&quot;, &quot;2000&quot;, &quot;2000&quot;, &quot;2000&quot;, &quot;2000&quot;…

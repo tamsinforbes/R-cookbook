@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Interesting tidbits | DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Interesting tidbits | DfT R Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
 
 
-<meta name="date" content="2019-06-17" />
+<meta name="date" content="2019-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,7 +55,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -178,7 +177,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.15" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>4.15</b> Look up tables</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dates.html"><a href="dates.html"><i class="fa fa-check"></i><b>5</b> Working with dates</a></li>
-<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a></li>
+<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a><ul>
+<li class="chapter" data-level="6.1" data-path="factors.html"><a href="factors.html#common-uses"><i class="fa fa-check"></i><b>6.1</b> Common uses</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="factors.html"><a href="factors.html#tabulation-of-data"><i class="fa fa-check"></i><b>6.1.1</b> Tabulation of data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="factors.html"><a href="factors.html#ordering-of-data-for-output"><i class="fa fa-check"></i><b>6.1.2</b> Ordering of data for output</a></li>
+<li class="chapter" data-level="6.1.3" data-path="factors.html"><a href="factors.html#statistical-models"><i class="fa fa-check"></i><b>6.1.3</b> Statistical models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="factors.html"><a href="factors.html#other-things-to-know-about-factors"><i class="fa fa-check"></i><b>6.2</b> Other things to know about factors</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="factors.html"><a href="factors.html#renaming-factor-levels"><i class="fa fa-check"></i><b>6.2.1</b> Renaming factor levels</a></li>
+<li class="chapter" data-level="6.2.2" data-path="factors.html"><a href="factors.html#combining-factors-does-not-result-in-a-factor"><i class="fa fa-check"></i><b>6.2.2</b> Combining factors does not result in a factor</a></li>
+<li class="chapter" data-level="6.2.3" data-path="factors.html"><a href="factors.html#numeric-vectors-that-have-been-read-as-factors"><i class="fa fa-check"></i><b>6.2.3</b> Numeric vectors that have been read as factors</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="factors.html"><a href="factors.html#helpful-packages"><i class="fa fa-check"></i><b>6.3</b> Helpful packages</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a></li>
 <li class="chapter" data-level="8" data-path="tidbits.html"><a href="tidbits.html"><i class="fa fa-check"></i><b>8</b> Interesting tidbits</a><ul>
 <li class="chapter" data-level="8.1" data-path="tidbits.html"><a href="tidbits.html#rounding"><i class="fa fa-check"></i><b>8.1</b> Rounding</a></li>
@@ -207,8 +218,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For rounding numerical values we have the function <code>round(x, digits = 0)</code>.<br />
 This rounds the value of the first argument to the specified number of decimal
 places (default 0).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))
-<span class="co">#&gt; [1] -2  0  0  2  2  4  4</span></code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="kw">round</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</a>
+<a class="sourceLine" id="cb108-2" data-line-number="2"><span class="co">#&gt; [1] -2  0  0  2  2  4  4</span></a></code></pre></div>
 <p>This probably looks different to what you were expecting as at school we were
 generally taught that when rounding a 5 we go up if a positive value and down if
 a negative value. R, however, implements a different standard. We can see this
@@ -223,22 +234,22 @@ and so <code>round(0.15, 1)</code> could be either <code>0.1</code> or <code>0.2
 </blockquote>
 <p>To implement what we consider normal rounding we can install use the <code>janitor</code>
 package and the function <code>round_half_up</code></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(janitor)
-janitor<span class="op">::</span><span class="kw">round_half_up</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))
-<span class="co">#&gt; [1] -2 -1  1  2  3  4  5</span></code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="kw">library</span>(janitor)</a>
+<a class="sourceLine" id="cb109-2" data-line-number="2">janitor<span class="op">::</span><span class="kw">round_half_up</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</a>
+<a class="sourceLine" id="cb109-3" data-line-number="3"><span class="co">#&gt; [1] -2 -1  1  2  3  4  5</span></a></code></pre></div>
 <p>If we do not have access to the package (or do not want to depend on the
 package) then we can implement<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<pre class="sourceCode r"><code class="sourceCode r">round_half_up_v2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">digits =</span> <span class="dv">0</span>) {
-  posneg &lt;-<span class="st"> </span><span class="kw">sign</span>(x)
-  z &lt;-<span class="st"> </span><span class="kw">abs</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits
-  z &lt;-<span class="st"> </span>z <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span>
-  z &lt;-<span class="st"> </span><span class="kw">trunc</span>(z)
-  z &lt;-<span class="st"> </span>z <span class="op">/</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits
-  z <span class="op">*</span><span class="st"> </span>posneg
-}
-
-<span class="kw">round_half_up_v2</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))
-<span class="co">#&gt; [1] -2 -1  1  2  3  4  5</span></code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1">round_half_up_v2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">digits =</span> <span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb110-2" data-line-number="2">  posneg &lt;-<span class="st"> </span><span class="kw">sign</span>(x)</a>
+<a class="sourceLine" id="cb110-3" data-line-number="3">  z &lt;-<span class="st"> </span><span class="kw">abs</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits</a>
+<a class="sourceLine" id="cb110-4" data-line-number="4">  z &lt;-<span class="st"> </span>z <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb110-5" data-line-number="5">  z &lt;-<span class="st"> </span><span class="kw">trunc</span>(z)</a>
+<a class="sourceLine" id="cb110-6" data-line-number="6">  z &lt;-<span class="st"> </span>z <span class="op">/</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits</a>
+<a class="sourceLine" id="cb110-7" data-line-number="7">  z <span class="op">*</span><span class="st"> </span>posneg</a>
+<a class="sourceLine" id="cb110-8" data-line-number="8">}</a>
+<a class="sourceLine" id="cb110-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb110-10" data-line-number="10"><span class="kw">round_half_up_v2</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</a>
+<a class="sourceLine" id="cb110-11" data-line-number="11"><span class="co">#&gt; [1] -2 -1  1  2  3  4  5</span></a></code></pre></div>
 
 </div>
 </div>

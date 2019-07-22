@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="DfT R Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
 
 
-<meta name="date" content="2019-06-17" />
+<meta name="date" content="2019-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,7 +55,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -178,7 +177,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.15" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>4.15</b> Look up tables</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dates.html"><a href="dates.html"><i class="fa fa-check"></i><b>5</b> Working with dates</a></li>
-<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a></li>
+<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a><ul>
+<li class="chapter" data-level="6.1" data-path="factors.html"><a href="factors.html#common-uses"><i class="fa fa-check"></i><b>6.1</b> Common uses</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="factors.html"><a href="factors.html#tabulation-of-data"><i class="fa fa-check"></i><b>6.1.1</b> Tabulation of data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="factors.html"><a href="factors.html#ordering-of-data-for-output"><i class="fa fa-check"></i><b>6.1.2</b> Ordering of data for output</a></li>
+<li class="chapter" data-level="6.1.3" data-path="factors.html"><a href="factors.html#statistical-models"><i class="fa fa-check"></i><b>6.1.3</b> Statistical models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="factors.html"><a href="factors.html#other-things-to-know-about-factors"><i class="fa fa-check"></i><b>6.2</b> Other things to know about factors</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="factors.html"><a href="factors.html#renaming-factor-levels"><i class="fa fa-check"></i><b>6.2.1</b> Renaming factor levels</a></li>
+<li class="chapter" data-level="6.2.2" data-path="factors.html"><a href="factors.html#combining-factors-does-not-result-in-a-factor"><i class="fa fa-check"></i><b>6.2.2</b> Combining factors does not result in a factor</a></li>
+<li class="chapter" data-level="6.2.3" data-path="factors.html"><a href="factors.html#numeric-vectors-that-have-been-read-as-factors"><i class="fa fa-check"></i><b>6.2.3</b> Numeric vectors that have been read as factors</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="factors.html"><a href="factors.html#helpful-packages"><i class="fa fa-check"></i><b>6.3</b> Helpful packages</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a></li>
 <li class="chapter" data-level="8" data-path="tidbits.html"><a href="tidbits.html"><i class="fa fa-check"></i><b>8</b> Interesting tidbits</a><ul>
 <li class="chapter" data-level="8.1" data-path="tidbits.html"><a href="tidbits.html#rounding"><i class="fa fa-check"></i><b>8.1</b> Rounding</a></li>
@@ -203,17 +214,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">DfT R Cookbook</h1>
 <p class="author"><em>Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor</em></p>
-<p class="date"><em>2019-06-17</em></p>
+<p class="date"><em>2019-07-22</em></p>
 </div>
 <div id="why-do-we-need-another-book" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Why do we need <em>another</em> book?</h1>
 <p><code>R</code> is a very flexible programming language, which inevitably means there are lots of ways to achieve the same result. This is true of all programming languages, but is particularly exaggerated in <code>R</code> which makes use of <a href="http://adv-r.had.co.nz/">‘meta-programming’</a>.</p>
 <p>For example, here is how to calculate a new variable using standard R and filter on a variable:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate kilometers per litre from miles per gallon</span>
-mtcars<span class="op">$</span>kpl &lt;-<span class="st"> </span>mtcars<span class="op">$</span>mpg <span class="op">*</span><span class="st"> </span><span class="fl">0.425144</span>
-
-<span class="co"># Select cars with a horsepower greater than 250 &amp; show only mpg and kpl columns</span>
-mtcars[mtcars<span class="op">$</span>hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">250</span>, <span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;kpl&quot;</span>)]</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Calculate kilometers per litre from miles per gallon</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">mtcars<span class="op">$</span>kpl &lt;-<span class="st"> </span>mtcars<span class="op">$</span>mpg <span class="op">*</span><span class="st"> </span><span class="fl">0.425144</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Select cars with a horsepower greater than 250 &amp; show only mpg and kpl columns</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">mtcars[mtcars<span class="op">$</span>hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">250</span>, <span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;kpl&quot;</span>)]</a></code></pre></div>
 <div class="kable-table">
 
 <table>
@@ -257,17 +268,17 @@ kpl
 </table>
 </div>
 <p>Here’s the same thing using Tidyverse style R:</p>
-<pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co"># Calculate kilometers per litre</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(
-    <span class="dt">kpl =</span> mpg <span class="op">*</span><span class="st"> </span><span class="fl">0.425144</span>
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co"># Filter cars with a horsepower greater than 250</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(
-    hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">250</span>
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co"># Take only the car, mpg, and newly created kpl columns</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(car, mpg, kpl)</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="co"># Calculate kilometers per litre</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="dt">kpl =</span> mpg <span class="op">*</span><span class="st"> </span><span class="fl">0.425144</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  </span><span class="co"># Filter cars with a horsepower greater than 250</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">    hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">250</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">  </span><span class="co"># Take only the car, mpg, and newly created kpl columns</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(car, mpg, kpl)</a></code></pre></div>
 <div class="kable-table">
 
 <table>

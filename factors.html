@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Working with factors | DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Working with factors | DfT R Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
 
 
-<meta name="date" content="2019-06-17" />
+<meta name="date" content="2019-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,7 +55,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -178,7 +177,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.15" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>4.15</b> Look up tables</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="dates.html"><a href="dates.html"><i class="fa fa-check"></i><b>5</b> Working with dates</a></li>
-<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a></li>
+<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a><ul>
+<li class="chapter" data-level="6.1" data-path="factors.html"><a href="factors.html#common-uses"><i class="fa fa-check"></i><b>6.1</b> Common uses</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="factors.html"><a href="factors.html#tabulation-of-data"><i class="fa fa-check"></i><b>6.1.1</b> Tabulation of data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="factors.html"><a href="factors.html#ordering-of-data-for-output"><i class="fa fa-check"></i><b>6.1.2</b> Ordering of data for output</a></li>
+<li class="chapter" data-level="6.1.3" data-path="factors.html"><a href="factors.html#statistical-models"><i class="fa fa-check"></i><b>6.1.3</b> Statistical models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="factors.html"><a href="factors.html#other-things-to-know-about-factors"><i class="fa fa-check"></i><b>6.2</b> Other things to know about factors</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="factors.html"><a href="factors.html#renaming-factor-levels"><i class="fa fa-check"></i><b>6.2.1</b> Renaming factor levels</a></li>
+<li class="chapter" data-level="6.2.2" data-path="factors.html"><a href="factors.html#combining-factors-does-not-result-in-a-factor"><i class="fa fa-check"></i><b>6.2.2</b> Combining factors does not result in a factor</a></li>
+<li class="chapter" data-level="6.2.3" data-path="factors.html"><a href="factors.html#numeric-vectors-that-have-been-read-as-factors"><i class="fa fa-check"></i><b>6.2.3</b> Numeric vectors that have been read as factors</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="factors.html"><a href="factors.html#helpful-packages"><i class="fa fa-check"></i><b>6.3</b> Helpful packages</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a></li>
 <li class="chapter" data-level="8" data-path="tidbits.html"><a href="tidbits.html"><i class="fa fa-check"></i><b>8</b> Interesting tidbits</a><ul>
 <li class="chapter" data-level="8.1" data-path="tidbits.html"><a href="tidbits.html#rounding"><i class="fa fa-check"></i><b>8.1</b> Rounding</a></li>
@@ -202,35 +213,332 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="factors" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Working with factors</h1>
-<p>Working with factors can be tricky to both the new and the experience <code>R</code> user
-as their behaviour is not always intuitive. We can illustrate this with a
-couple of examples. Firstly concatenating factors may not work as intended:</p>
-<pre class="sourceCode r"><code class="sourceCode r">my_factor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;bob&quot;</span>, <span class="st">&quot;george&quot;</span>, <span class="st">&quot;bob&quot;</span>))
-my_vector &lt;-<span class="st"> </span><span class="kw">c</span>(my_factor, my_factor)
-my_vector
-<span class="co">#&gt; [1] 1 2 1 1 2 1</span></code></pre>
-<p>instead we would first need to convert to a character vector</p>
-<pre class="sourceCode r"><code class="sourceCode r">my_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">as.character</span>(my_factor), <span class="kw">as.character</span>(my_factor))
-my_vector_<span class="dv">2</span>
-<span class="co">#&gt; [1] &quot;bob&quot;    &quot;george&quot; &quot;bob&quot;    &quot;bob&quot;    &quot;george&quot; &quot;bob&quot;</span></code></pre>
-<p>Secondly, we may sometimes find a numeric vector is being stored as a factor:</p>
-<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/factor_example.csv&quot;</span>)
-my_vector &lt;-<span class="st"> </span>df[[<span class="dv">2</span>]]
-<span class="kw">typeof</span>(my_vector)
-<span class="co">#&gt; [1] &quot;integer&quot;</span>
-my_vector
-<span class="co">#&gt; [1] #N/A #N/A 1    2    3    1    #N/A #N/A #N/A</span>
-<span class="co">#&gt; Levels: #N/A 1 2 3</span></code></pre>
-<p>to transform this to a numeric variable we can proceed as follows</p>
-<pre class="sourceCode r"><code class="sourceCode r">my_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">levels</span>(my_vector)[my_vector])
-<span class="co">#&gt; Warning: NAs introduced by coercion</span>
-<span class="kw">typeof</span>(my_vector_<span class="dv">2</span>)
-<span class="co">#&gt; [1] &quot;double&quot;</span>
-my_vector_<span class="dv">2</span>
-<span class="co">#&gt; [1] NA NA  1  2  3  1 NA NA NA</span></code></pre>
-<p>To alleviate some of these issues it is useful to use the <code>forcats</code> package
-<strong>NOT FINISHED - need to write about <code>forcats</code></strong></p>
+<div id="common-uses" class="section level2">
+<h2><span class="header-section-number">6.1</span> Common uses</h2>
+<p>Within the department there are three main ways you are likely to make use of
+factors:</p>
+<ul>
+<li>Tabulation of data (in particular when you want to illustrate zero occurences
+of a particular value)</li>
+<li>Ordering of data for output (e.g. bars in a graph)</li>
+<li>Statistical models (e.g. in conjunction with <code>contrasts</code> when encoding
+categorical data in formulae)</li>
+</ul>
+<div id="tabulation-of-data" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Tabulation of data</h3>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="co"># define a simple character vector</span></a>
+<a class="sourceLine" id="cb92-2" data-line-number="2">vehicles_observed &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;car&quot;</span>)</a>
+<a class="sourceLine" id="cb92-3" data-line-number="3"><span class="kw">class</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb92-4" data-line-number="4"><span class="co">#&gt; [1] &quot;character&quot;</span></a>
+<a class="sourceLine" id="cb92-5" data-line-number="5"><span class="kw">table</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb92-6" data-line-number="6"><span class="co">#&gt; vehicles_observed</span></a>
+<a class="sourceLine" id="cb92-7" data-line-number="7"><span class="co">#&gt; bus car </span></a>
+<a class="sourceLine" id="cb92-8" data-line-number="8"><span class="co">#&gt;   1   3</span></a>
+<a class="sourceLine" id="cb92-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb92-10" data-line-number="10"><span class="co"># convert to factor with possible levels</span></a>
+<a class="sourceLine" id="cb92-11" data-line-number="11">possible_vehicles &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;motorbike&quot;</span>, <span class="st">&quot;bicycle&quot;</span>)</a>
+<a class="sourceLine" id="cb92-12" data-line-number="12">vehicles_observed &lt;-<span class="st"> </span><span class="kw">factor</span>(vehicles_observed, <span class="dt">levels =</span> possible_vehicles)</a>
+<a class="sourceLine" id="cb92-13" data-line-number="13"><span class="kw">class</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb92-14" data-line-number="14"><span class="co">#&gt; [1] &quot;factor&quot;</span></a>
+<a class="sourceLine" id="cb92-15" data-line-number="15"><span class="kw">table</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb92-16" data-line-number="16"><span class="co">#&gt; vehicles_observed</span></a>
+<a class="sourceLine" id="cb92-17" data-line-number="17"><span class="co">#&gt;       car       bus motorbike   bicycle </span></a>
+<a class="sourceLine" id="cb92-18" data-line-number="18"><span class="co">#&gt;         3         1         0         0</span></a></code></pre></div>
+</div>
+<div id="ordering-of-data-for-output" class="section level3">
+<h3><span class="header-section-number">6.1.2</span> Ordering of data for output</h3>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="co"># example 1</span></a>
+<a class="sourceLine" id="cb93-2" data-line-number="2">vehicles_observed &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;car&quot;</span>)</a>
+<a class="sourceLine" id="cb93-3" data-line-number="3">possible_vehicles &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;motorbike&quot;</span>, <span class="st">&quot;bicycle&quot;</span>)</a>
+<a class="sourceLine" id="cb93-4" data-line-number="4">vehicles_observed &lt;-<span class="st"> </span><span class="kw">factor</span>(vehicles_observed, <span class="dt">levels =</span> possible_vehicles)</a>
+<a class="sourceLine" id="cb93-5" data-line-number="5"><span class="kw">table</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb93-6" data-line-number="6"><span class="co">#&gt; vehicles_observed</span></a>
+<a class="sourceLine" id="cb93-7" data-line-number="7"><span class="co">#&gt;       car       bus motorbike   bicycle </span></a>
+<a class="sourceLine" id="cb93-8" data-line-number="8"><span class="co">#&gt;         3         1         0         0</span></a>
+<a class="sourceLine" id="cb93-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb93-10" data-line-number="10">possible_vehicles &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;bicycle&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;car&quot;</span>, <span class="st">&quot;motorbike&quot;</span>)</a>
+<a class="sourceLine" id="cb93-11" data-line-number="11">vehicles_observed &lt;-<span class="st"> </span><span class="kw">factor</span>(vehicles_observed, <span class="dt">levels =</span> possible_vehicles)</a>
+<a class="sourceLine" id="cb93-12" data-line-number="12"><span class="kw">table</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb93-13" data-line-number="13"><span class="co">#&gt; vehicles_observed</span></a>
+<a class="sourceLine" id="cb93-14" data-line-number="14"><span class="co">#&gt;   bicycle       bus       car motorbike </span></a>
+<a class="sourceLine" id="cb93-15" data-line-number="15"><span class="co">#&gt;         0         1         3         0</span></a>
+<a class="sourceLine" id="cb93-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb93-17" data-line-number="17"><span class="co"># example 2</span></a>
+<a class="sourceLine" id="cb93-18" data-line-number="18">df &lt;-<span class="st"> </span>iris[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(iris), <span class="dv">100</span>), ]</a>
+<a class="sourceLine" id="cb93-19" data-line-number="19"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(Species)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb94-2" data-line-number="2">df<span class="op">$</span>Species &lt;-<span class="st"> </span><span class="kw">factor</span>(df<span class="op">$</span>Species, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;versicolor&quot;</span>, <span class="st">&quot;virginica&quot;</span>, <span class="st">&quot;setosa&quot;</span>))</a>
+<a class="sourceLine" id="cb94-3" data-line-number="3"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(Species)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-96-2.png" width="672" /></p>
+</div>
+<div id="statistical-models" class="section level3">
+<h3><span class="header-section-number">6.1.3</span> Statistical models</h3>
+<p>When building a regression model, R will automatically encode your independent
+character variables using <code>contr.treatment</code> contrasts. This means that each
+level of the vector is contrasted with a baseline level (by default the first
+level once the vector has been converted to a factor). If you want to change
+the baseline level or use a different encoding methodology then you need to
+work with factors. To illustrate this we use the <code>Titanic</code> dataset.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="co"># load data and convert to one observation per row</span></a>
+<a class="sourceLine" id="cb95-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&quot;Titanic&quot;</span>)</a>
+<a class="sourceLine" id="cb95-3" data-line-number="3">df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(Titanic)</a>
+<a class="sourceLine" id="cb95-4" data-line-number="4">df &lt;-<span class="st"> </span>df[<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df), df[ ,<span class="dv">5</span>]), <span class="dv">-5</span>]</a>
+<a class="sourceLine" id="cb95-5" data-line-number="5"><span class="kw">rownames</span>(df) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb95-6" data-line-number="6"><span class="kw">head</span>(df)</a></code></pre></div>
+<div class="kable-table">
 
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Class
+</th>
+<th style="text-align:left;">
+Sex
+</th>
+<th style="text-align:left;">
+Age
+</th>
+<th style="text-align:left;">
+Survived
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb96-2" data-line-number="2"><span class="co"># For this example we convert all variables to characters</span></a>
+<a class="sourceLine" id="cb96-3" data-line-number="3">df[] &lt;-<span class="st"> </span><span class="kw">lapply</span>(df, as.character)</a>
+<a class="sourceLine" id="cb96-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb96-5" data-line-number="5"><span class="co"># save to temporary folder</span></a>
+<a class="sourceLine" id="cb96-6" data-line-number="6">filename &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb96-7" data-line-number="7"><span class="kw">write.csv</span>(df, filename, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb96-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb96-9" data-line-number="9"><span class="co"># reload data with stringsAsFactors = FALSE</span></a>
+<a class="sourceLine" id="cb96-10" data-line-number="10">new_df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(filename, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb96-11" data-line-number="11"><span class="kw">str</span>(new_df)</a>
+<a class="sourceLine" id="cb96-12" data-line-number="12"><span class="co">#&gt; &#39;data.frame&#39;:    2201 obs. of  4 variables:</span></a>
+<a class="sourceLine" id="cb96-13" data-line-number="13"><span class="co">#&gt;  $ Class   : chr  &quot;3rd&quot; &quot;3rd&quot; &quot;3rd&quot; &quot;3rd&quot; ...</span></a>
+<a class="sourceLine" id="cb96-14" data-line-number="14"><span class="co">#&gt;  $ Sex     : chr  &quot;Male&quot; &quot;Male&quot; &quot;Male&quot; &quot;Male&quot; ...</span></a>
+<a class="sourceLine" id="cb96-15" data-line-number="15"><span class="co">#&gt;  $ Age     : chr  &quot;Child&quot; &quot;Child&quot; &quot;Child&quot; &quot;Child&quot; ...</span></a>
+<a class="sourceLine" id="cb96-16" data-line-number="16"><span class="co">#&gt;  $ Survived: chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...</span></a></code></pre></div>
+<p>First lets see what happens if we try and build a logistic regression model for
+survivals but using our newly loaded dataframe</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">model_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>., <span class="dt">family =</span> binomial, <span class="dt">data =</span> new_df)</a>
+<a class="sourceLine" id="cb97-2" data-line-number="2"><span class="co">#&gt; Error in eval(family$initialize): y values must be 0 &lt;= y &lt;= 1</span></a></code></pre></div>
+<p>This errors due to the <strong>Survived</strong> variable being a character vector. Let’s
+convert it to a factor.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1">new_df<span class="op">$</span>Survived &lt;-<span class="st"> </span><span class="kw">factor</span>(new_df<span class="op">$</span>Survived)</a>
+<a class="sourceLine" id="cb98-2" data-line-number="2">model_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>., <span class="dt">family =</span> binomial, <span class="dt">data =</span> new_df)</a>
+<a class="sourceLine" id="cb98-3" data-line-number="3"><span class="kw">summary</span>(model_<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb98-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb98-5" data-line-number="5"><span class="co">#&gt; Call:</span></a>
+<a class="sourceLine" id="cb98-6" data-line-number="6"><span class="co">#&gt; glm(formula = Survived ~ ., family = binomial, data = new_df)</span></a>
+<a class="sourceLine" id="cb98-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb98-8" data-line-number="8"><span class="co">#&gt; Deviance Residuals: </span></a>
+<a class="sourceLine" id="cb98-9" data-line-number="9"><span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span></a>
+<a class="sourceLine" id="cb98-10" data-line-number="10"><span class="co">#&gt; -2.0812  -0.7149  -0.6656   0.6858   2.1278  </span></a>
+<a class="sourceLine" id="cb98-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb98-12" data-line-number="12"><span class="co">#&gt; Coefficients:</span></a>
+<a class="sourceLine" id="cb98-13" data-line-number="13"><span class="co">#&gt;             Estimate Std. Error z value Pr(&gt;|z|)    </span></a>
+<a class="sourceLine" id="cb98-14" data-line-number="14"><span class="co">#&gt; (Intercept)   2.0438     0.1679  12.171  &lt; 2e-16 ***</span></a>
+<a class="sourceLine" id="cb98-15" data-line-number="15"><span class="co">#&gt; Class2nd     -1.0181     0.1960  -5.194 2.05e-07 ***</span></a>
+<a class="sourceLine" id="cb98-16" data-line-number="16"><span class="co">#&gt; Class3rd     -1.7778     0.1716 -10.362  &lt; 2e-16 ***</span></a>
+<a class="sourceLine" id="cb98-17" data-line-number="17"><span class="co">#&gt; ClassCrew    -0.8577     0.1573  -5.451 5.00e-08 ***</span></a>
+<a class="sourceLine" id="cb98-18" data-line-number="18"><span class="co">#&gt; SexMale      -2.4201     0.1404 -17.236  &lt; 2e-16 ***</span></a>
+<a class="sourceLine" id="cb98-19" data-line-number="19"><span class="co">#&gt; AgeChild      1.0615     0.2440   4.350 1.36e-05 ***</span></a>
+<a class="sourceLine" id="cb98-20" data-line-number="20"><span class="co">#&gt; ---</span></a>
+<a class="sourceLine" id="cb98-21" data-line-number="21"><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></a>
+<a class="sourceLine" id="cb98-22" data-line-number="22"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb98-23" data-line-number="23"><span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span></a>
+<a class="sourceLine" id="cb98-24" data-line-number="24"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb98-25" data-line-number="25"><span class="co">#&gt;     Null deviance: 2769.5  on 2200  degrees of freedom</span></a>
+<a class="sourceLine" id="cb98-26" data-line-number="26"><span class="co">#&gt; Residual deviance: 2210.1  on 2195  degrees of freedom</span></a>
+<a class="sourceLine" id="cb98-27" data-line-number="27"><span class="co">#&gt; AIC: 2222.1</span></a>
+<a class="sourceLine" id="cb98-28" data-line-number="28"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb98-29" data-line-number="29"><span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></a></code></pre></div>
+<p>This works, but the baseline case for <strong>Class</strong> is <code>1st</code>. What if we wanted it
+to be <code>3rd</code>. We would first need to convert the variable to a factor and choose
+the appropriate level as a baseline</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">new_df<span class="op">$</span>Class &lt;-<span class="st"> </span><span class="kw">factor</span>(new_df<span class="op">$</span>Class)</a>
+<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="kw">levels</span>(new_df<span class="op">$</span>Class)</a>
+<a class="sourceLine" id="cb99-3" data-line-number="3"><span class="co">#&gt; [1] &quot;1st&quot;  &quot;2nd&quot;  &quot;3rd&quot;  &quot;Crew&quot;</span></a>
+<a class="sourceLine" id="cb99-4" data-line-number="4"><span class="kw">contrasts</span>(new_df<span class="op">$</span>Class) &lt;-<span class="st"> </span><span class="kw">contr.treatment</span>(<span class="kw">levels</span>(new_df<span class="op">$</span>Class), <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb99-5" data-line-number="5">model_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>., <span class="dt">family =</span> binomial, <span class="dt">data =</span> new_df)</a></code></pre></div>
+</div>
+</div>
+<div id="other-things-to-know-about-factors" class="section level2">
+<h2><span class="header-section-number">6.2</span> Other things to know about factors</h2>
+<p>Working with factors can be tricky to both the new, and the experienced <code>R</code>
+user. This is as their behaviour is not always intuitive. Below we illustrate
+three common areas of confusion</p>
+<div id="renaming-factor-levels" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Renaming factor levels</h3>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" data-line-number="1">my_factor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Dog&quot;</span>, <span class="st">&quot;Cat&quot;</span>, <span class="st">&quot;Hippo&quot;</span>, <span class="st">&quot;Hippo&quot;</span>, <span class="st">&quot;Monkey&quot;</span>, <span class="st">&quot;Hippo&quot;</span>))</a>
+<a class="sourceLine" id="cb100-2" data-line-number="2">my_factor</a>
+<a class="sourceLine" id="cb100-3" data-line-number="3"><span class="co">#&gt; [1] Dog    Cat    Hippo  Hippo  Monkey Hippo </span></a>
+<a class="sourceLine" id="cb100-4" data-line-number="4"><span class="co">#&gt; Levels: Cat Dog Hippo Monkey</span></a>
+<a class="sourceLine" id="cb100-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb100-6" data-line-number="6"><span class="co"># change Hippo to Giraffe</span></a>
+<a class="sourceLine" id="cb100-7" data-line-number="7">## DO NOT DO THIS</a>
+<a class="sourceLine" id="cb100-8" data-line-number="8">my_factor[my_factor <span class="op">==</span><span class="st"> &quot;Hippo&quot;</span>] &lt;-<span class="st"> &quot;Giraffe&quot;</span></a>
+<a class="sourceLine" id="cb100-9" data-line-number="9"><span class="co">#&gt; Warning in `[&lt;-.factor`(`*tmp*`, my_factor == &quot;Hippo&quot;, value = &quot;Giraffe&quot;):</span></a>
+<a class="sourceLine" id="cb100-10" data-line-number="10"><span class="co">#&gt; invalid factor level, NA generated</span></a>
+<a class="sourceLine" id="cb100-11" data-line-number="11">my_factor</a>
+<a class="sourceLine" id="cb100-12" data-line-number="12"><span class="co">#&gt; [1] Dog    Cat    &lt;NA&gt;   &lt;NA&gt;   Monkey &lt;NA&gt;  </span></a>
+<a class="sourceLine" id="cb100-13" data-line-number="13"><span class="co">#&gt; Levels: Cat Dog Hippo Monkey</span></a>
+<a class="sourceLine" id="cb100-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb100-15" data-line-number="15">## reset factor</a>
+<a class="sourceLine" id="cb100-16" data-line-number="16">my_factor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Dog&quot;</span>, <span class="st">&quot;Cat&quot;</span>, <span class="st">&quot;Hippo&quot;</span>, <span class="st">&quot;Hippo&quot;</span>, <span class="st">&quot;Monkey&quot;</span>, <span class="st">&quot;Hippo&quot;</span>))</a>
+<a class="sourceLine" id="cb100-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb100-18" data-line-number="18"><span class="co"># change Hippo to Giraffe</span></a>
+<a class="sourceLine" id="cb100-19" data-line-number="19">## DO THIS</a>
+<a class="sourceLine" id="cb100-20" data-line-number="20"><span class="kw">levels</span>(my_factor)[<span class="kw">levels</span>(my_factor) <span class="op">==</span><span class="st"> &quot;Hippo&quot;</span>] &lt;-<span class="st"> &quot;Giraffe&quot;</span></a>
+<a class="sourceLine" id="cb100-21" data-line-number="21">my_factor</a>
+<a class="sourceLine" id="cb100-22" data-line-number="22"><span class="co">#&gt; [1] Dog     Cat     Giraffe Giraffe Monkey  Giraffe</span></a>
+<a class="sourceLine" id="cb100-23" data-line-number="23"><span class="co">#&gt; Levels: Cat Dog Giraffe Monkey</span></a></code></pre></div>
+</div>
+<div id="combining-factors-does-not-result-in-a-factor" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Combining factors does not result in a factor</h3>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1">names_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;jon&quot;</span>, <span class="st">&quot;george&quot;</span>, <span class="st">&quot;bobby&quot;</span>))</a>
+<a class="sourceLine" id="cb101-2" data-line-number="2">names_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;laura&quot;</span>, <span class="st">&quot;claire&quot;</span>, <span class="st">&quot;laura&quot;</span>))</a>
+<a class="sourceLine" id="cb101-3" data-line-number="3"><span class="kw">c</span>(names_<span class="dv">1</span>, names_<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb101-4" data-line-number="4"><span class="co">#&gt; [1] 3 2 1 2 1 2</span></a>
+<a class="sourceLine" id="cb101-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb101-6" data-line-number="6"><span class="co"># if you want concatenation of factors to give a factor than the help page for</span></a>
+<a class="sourceLine" id="cb101-7" data-line-number="7"><span class="co"># c() suggest the following method is used:</span></a>
+<a class="sourceLine" id="cb101-8" data-line-number="8">c.factor &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">recursive=</span><span class="ot">TRUE</span>) <span class="kw">unlist</span>(<span class="kw">list</span>(...), <span class="dt">recursive=</span>recursive)</a>
+<a class="sourceLine" id="cb101-9" data-line-number="9"><span class="kw">c</span>(names_<span class="dv">1</span>, names_<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb101-10" data-line-number="10"><span class="co">#&gt; [1] jon    george bobby  laura  claire laura </span></a>
+<a class="sourceLine" id="cb101-11" data-line-number="11"><span class="co">#&gt; Levels: bobby george jon claire laura</span></a>
+<a class="sourceLine" id="cb101-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb101-13" data-line-number="13"><span class="co"># if you only wanted the result to be a character vector then you could also use</span></a>
+<a class="sourceLine" id="cb101-14" data-line-number="14"><span class="kw">c</span>(<span class="kw">as.character</span>(names_<span class="dv">1</span>), <span class="kw">as.character</span>(names_<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb101-15" data-line-number="15"><span class="co">#&gt; [1] &quot;jon&quot;    &quot;george&quot; &quot;bobby&quot;  &quot;laura&quot;  &quot;claire&quot; &quot;laura&quot;</span></a></code></pre></div>
+</div>
+<div id="numeric-vectors-that-have-been-read-as-factors" class="section level3">
+<h3><span class="header-section-number">6.2.3</span> Numeric vectors that have been read as factors</h3>
+<p>Sometimes we find a numeric vector is being stored as a factor
+(a common occurence when reading a csv from Excel with #N/A values)</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1"><span class="co"># example data set</span></a>
+<a class="sourceLine" id="cb102-2" data-line-number="2">pseudo_excel_csv &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">names =</span> <span class="kw">c</span>(<span class="st">&quot;jon&quot;</span>, <span class="st">&quot;laura&quot;</span>, <span class="st">&quot;ivy&quot;</span>, <span class="st">&quot;george&quot;</span>),</a>
+<a class="sourceLine" id="cb102-3" data-line-number="3">                               <span class="dt">ages =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">22</span>, <span class="st">&quot;#N/A&quot;</span>, <span class="st">&quot;#N/A&quot;</span>))</a>
+<a class="sourceLine" id="cb102-4" data-line-number="4"><span class="co"># save to temporary file</span></a>
+<a class="sourceLine" id="cb102-5" data-line-number="5">filename &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb102-6" data-line-number="6"><span class="kw">write.csv</span>(pseudo_excel_csv, filename, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb102-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb102-8" data-line-number="8"><span class="co"># reload data</span></a>
+<a class="sourceLine" id="cb102-9" data-line-number="9">df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(filename)</a>
+<a class="sourceLine" id="cb102-10" data-line-number="10"><span class="kw">str</span>(df)</a>
+<a class="sourceLine" id="cb102-11" data-line-number="11"><span class="co">#&gt; &#39;data.frame&#39;:    4 obs. of  2 variables:</span></a>
+<a class="sourceLine" id="cb102-12" data-line-number="12"><span class="co">#&gt;  $ names: Factor w/ 4 levels &quot;george&quot;,&quot;ivy&quot;,..: 3 4 2 1</span></a>
+<a class="sourceLine" id="cb102-13" data-line-number="13"><span class="co">#&gt;  $ ages : Factor w/ 3 levels &quot;#N/A&quot;,&quot;20&quot;,&quot;22&quot;: 2 3 1 1</span></a></code></pre></div>
+<p>to transform this to a numeric variable we can proceed as follows</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1">df<span class="op">$</span>ages &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">levels</span>(df<span class="op">$</span>ages)[df<span class="op">$</span>ages])</a>
+<a class="sourceLine" id="cb103-2" data-line-number="2"><span class="co">#&gt; Warning: NAs introduced by coercion</span></a>
+<a class="sourceLine" id="cb103-3" data-line-number="3"><span class="kw">str</span>(df)</a>
+<a class="sourceLine" id="cb103-4" data-line-number="4"><span class="co">#&gt; &#39;data.frame&#39;:    4 obs. of  2 variables:</span></a>
+<a class="sourceLine" id="cb103-5" data-line-number="5"><span class="co">#&gt;  $ names: Factor w/ 4 levels &quot;george&quot;,&quot;ivy&quot;,..: 3 4 2 1</span></a>
+<a class="sourceLine" id="cb103-6" data-line-number="6"><span class="co">#&gt;  $ ages : num  20 22 NA NA</span></a></code></pre></div>
+</div>
+</div>
+<div id="helpful-packages" class="section level2">
+<h2><span class="header-section-number">6.3</span> Helpful packages</h2>
+<p>If you find yourself having to manipulate factors often, then it may be worth
+spending some time with the tidyverse package
+(forcats)[<a href="https://forcats.tidyverse.org" class="uri">https://forcats.tidyverse.org</a>]. This was designed to make working
+with factors simpler. There are many tutorials available online but a good
+place to start is the official
+(vignette)[<a href="https://forcats.tidyverse.org/articles/forcats.html" class="uri">https://forcats.tidyverse.org/articles/forcats.html</a>].</p>
+
+</div>
 </div>
             </section>
 
