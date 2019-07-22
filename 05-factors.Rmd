@@ -101,6 +101,7 @@ new_df$Class <- factor(new_df$Class)
 levels(new_df$Class)
 contrasts(new_df$Class) <- contr.treatment(levels(new_df$Class), 3)
 model_3 <- glm(Survived ~ ., family = binomial, data = new_df)
+summary(model_3)
 ```
 
 ## Other things to know about factors
