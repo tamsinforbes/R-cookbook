@@ -3,4 +3,151 @@ knitr::opts_chunk$set(collapse=TRUE, comment="#>")
 ```
 
 # Working with dates {#dates}
-**NOT FINISHED - need to write about `lubridate`**
+
+
+```{r include=FALSE}
+library(dplyr)
+library(readr)
+library(reshape2)
+library(tidyr)
+library(janitor)
+
+# Read in required data using public data.gov extract
+road_accidents <- readr::read_rds("data/road_accidents_2017.RDS")
+
+# create character version of date to use in examples
+road_accidents$Date1 <- as.character(road_accidents$Date)
+
+```
+
+
+This chapter provides an overview of working with dates, for example extracting year or month from a date, and converting characters to a date.
+
+One of the main packages used to work with dates is **lubridate**.
+
+More information can be found on the lubridates cheatsheet at the following link: https://www.rstudio.com/resources/cheatsheets/
+
+
+## Converting a character to a date 
+
+In R, dates can be converted to a specific date variable type in order to use the variable as a date.
+
+Having a variable as a date means that you can:
+ - extract the different elements of the date (year, month etc.)
+ - calculate differences between dates
+
+This can be done in the following way:
+
+- Identify the order of the year, month, day and use the appropriate function (ymd, mdy, dmy etc.)
+
+```{r, echo = TRUE}
+ library(lubridate)
+
+# convert date to date object
+
+# check class of date
+class(road_accidents$Date1)
+
+# look at the date variable and see what order it is in (year-m-d)
+# therefore use the ymd function
+road_accidents$Date1 <- lubridate::ymd(road_accidents$Date1)
+
+# now check class
+class(road_accidents$Date1)
+
+```
+
+
+## Get year from date
+
+Use the **year** function from lubridate:
+
+```{r}
+
+road_accidents$Year <- lubridate::year(road_accidents$Date1)
+
+```
+
+## Get month from date
+
+Use the **month** function from lubridate:
+
+```{r}
+
+road_accidents$Month <- lubridate::month(road_accidents$Date1)
+
+```
+
+
+## Get day from date
+
+Use the **day** function from lubridate:
+
+```{r}
+
+road_accidents$Day <- lubridate::day(road_accidents$Date1)
+
+```
+
+
+
+## Get quarter from date
+
+Use the **quarter** function from lubridate:
+
+```{r}
+
+road_accidents$Quarter <- lubridate::quarter(road_accidents$Date1)
+
+```
+
+```{r, include = FALSE}
+
+dates <- dplyr::select(road_accidents, Date1, Year, Quarter, Month, Day)
+
+```
+
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(head(dates),
+caption = "Using lubridate to extract time information")
+
+```
+
+
+## Find difference between two dates
+
+
+```{r, include = FALSE}
+
+# First create new date column so difference between two dates can be found
+
+road_accidents$Date2 <-round_date(road_accidents$Date1, unit = "month")
+
+```
+
+Use the **as.duration** function to find the duration between two dates. The duration to be measured can be specified:
+
+- dhours
+- dweeks
+- ddays
+- dminutes
+- dyears
+
+To find out the number of days difference, the **as.duration** function calculates the duration in seconds so the duration must be divided by the desired duration (ddays) to convert to duration in days.
+
+```{r}
+
+road_accidents$date_diff <- as.duration(road_accidents$Date2 %--% road_accidents$Date1) / ddays(1)
+
+```
+
+The number after **ddays** indicates by how many units the duration is (i.e. one day).
+
+
+
+
+
+
+
