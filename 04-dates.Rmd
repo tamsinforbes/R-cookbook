@@ -11,6 +11,7 @@ library(readr)
 library(reshape2)
 library(tidyr)
 library(janitor)
+library(lubridate)
 
 # Read in required data using public data.gov extract
 road_accidents <- readr::read_rds("data/road_accidents_2017.RDS")
@@ -41,7 +42,6 @@ This can be done in the following way:
 - Identify the order of the year, month, day and use the appropriate function (ymd, mdy, dmy etc.)
 
 ```{r, echo = TRUE}
- library(lubridate)
 
 # convert date to date object
 
@@ -139,15 +139,40 @@ To find out the number of days difference, the **as.duration** function calculat
 
 ```{r}
 
-road_accidents$date_diff <- as.duration(road_accidents$Date2 %--% road_accidents$Date1) / ddays(1)
+road_accidents$date_diff <- lubridate::as.duration(road_accidents$Date2 %--% road_accidents$Date1) / ddays(1)
 
 ```
 
 The number after **ddays** indicates by how many units the duration is (i.e. one day).
 
 
+## Convert month (interger to character)
+
+Base R has a useful function which takes the month numbers and converts them to the corresponding text.
+
+```{r}
+
+road_accidents$Month_lab <- month.abb[road_accidents$Month]
+
+```
+
+## Convert month (character to interger)
+
+Base R has a useful function which takes the month text and converts them to the corresponding number.
+
+```{r}
+ road_accidents$Month <- match(road_accidents$Month_lab,month.abb)
+
+```
 
 
+## Merge separate date information into a date
 
+The lubridate package can be used in conjunction with the paste function to combine columns separate date information (e.g. year, month, day) into one date variable.
 
+```{r}
+
+road_accidents$date <- paste(road_accidents$Year, road_accidents$Month, road_accidents$Day, sep="-") %>% ymd() %>% as.Date()
+
+```
 
