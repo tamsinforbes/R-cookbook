@@ -5,6 +5,8 @@ knitr::opts_chunk$set(collapse=TRUE, comment="#>")
 # Working with dates {#dates}
 
 
+
+
 ```{r include=FALSE}
 library(dplyr)
 library(readr)
@@ -27,6 +29,28 @@ This chapter provides an overview of working with dates, for example extracting 
 One of the main packages used to work with dates is **lubridate**.
 
 More information can be found on the lubridates cheatsheet at the following link: https://www.rstudio.com/resources/cheatsheets/
+
+Date vectors are just double vectors with an additional class attribute set as
+"Date".  
+
+**Note - The following borrows directly from Hadley's Advanced R site
+so we need to attribute appropriately and use correct licence**
+
+```{r}
+today <- Sys.Date()
+typeof(today)
+attributes(today)
+```
+
+The value of the double (which can be seen by stripping the class), represents
+the number of days since "1970-01-01"^[This special date is known as the Unix 
+Epoch]:
+
+```{r}
+date <- as.Date("1970-02-01")
+unclass(date)
+```
+
 
 
 ## Converting a character to a date 
@@ -173,6 +197,30 @@ The lubridate package can be used in conjunction with the paste function to comb
 ```{r}
 
 road_accidents$date <- paste(road_accidents$Year, road_accidents$Month, road_accidents$Day, sep="-") %>% ymd() %>% as.Date()
+
+```
+
+
+## Working with date-times
+
+A date-time stores date and time information.
+
+
+## Converting a character to a date-time
+
+This is similar to converting a character to a date as mentioned above.
+
+This can be done in the following way:
+
+- Identify the order of the year, month, day, and time elements (hour, minute and second or just hour and minute) and use the appropriate function (ymd, mdy, dmy etc.)
+
+```{r, echo = TRUE}
+
+# convert date to date object
+
+# look at the date variable and see what order it is in (year-m-d, hms "2017-11-28 14:00)
+# therefore use the ymd_hm
+road_accidents$Date1 <- lubridate::ymd(road_accidents$Date1)
 
 ```
 
