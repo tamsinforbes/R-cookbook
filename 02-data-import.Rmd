@@ -273,8 +273,6 @@ pet_details <- purrr::map_dfr(
     ) 
   )
 
-pet_details 
-
 pet_details %>% 
   knitr::kable() %>% 
   kableExtra::kable_styling(full_width = F, position = "left")
@@ -358,8 +356,6 @@ col_names <- c("Name", "Age", "Species")
 pet_form_1 <- cells_to_rows(
   path = path, cells = cells, col_names = col_names
   )
-
-pet_form_1
 ```
 
 ```{r echo=FALSE}
@@ -380,9 +376,6 @@ all_pet_forms <- fs::dir_ls(
     ~ cells_to_rows(path = .x, cells = cells, col_names = col_names)
     , .id = "path"
     )
-
-all_pet_forms
-
 ```
 
 ```{r echo=FALSE}
@@ -431,9 +424,7 @@ pet_house_1 <- readxl::excel_sheets(path = path) %>%
                           , cells = cells
                           , col_names = col_names)
     , .id = "sheet"
-  ) %>% 
-  knitr::kable() %>% 
-  kableExtra::kable_styling(full_width = F, position = "left")
+  ) 
 ```
 
 ```{r echo=FALSE, eval=FALSE}
