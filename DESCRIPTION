@@ -9,4 +9,13 @@ Imports: rmarkdown,
   DBI,
   bigrquery,
   reshape2,
-  janitor
+  janitor,
+  fs,
+  knitr,
+  kableExtra,
+  DT,
+  dbplyr,
+  haven,
+  openxlsx,
+  xltabr
+  
