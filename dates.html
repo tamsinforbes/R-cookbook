@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Working with dates | DfT R Cookbook- test</title>
+  <title>Chapter 6 Working with dates | DfT R Cookbook- test</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Working with dates | DfT R Cookbook- test" />
+  <meta property="og:title" content="Chapter 6 Working with dates | DfT R Cookbook- test" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="departmentfortransport/R-cookbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Working with dates | DfT R Cookbook- test" />
+  <meta name="twitter:title" content="Chapter 6 Working with dates | DfT R Cookbook- test" />
   
   <meta name="twitter:description" content="Guidance and code examples for R usage for DfT and beyond" />
   
@@ -47,6 +47,15 @@
 
 
 
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.8/datatables.js"></script>
+<link href="libs/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.16/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -131,68 +140,83 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#adding-to-the-book"><i class="fa fa-check"></i><b>1.2</b> Adding to the book</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> The basics</a><ul>
-<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#vectors"><i class="fa fa-check"></i><b>2.1</b> Vectors</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="basics.html"><a href="basics.html#vector-types"><i class="fa fa-check"></i><b>2.1.1</b> Types</a></li>
-<li class="chapter" data-level="2.1.2" data-path="basics.html"><a href="basics.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>2.1.2</b> Conversion between atomic vector types</a></li>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#r-family"><i class="fa fa-check"></i><b>2.1</b> R family</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#dft-rrstudio---subject-to-change"><i class="fa fa-check"></i><b>2.2</b> DfT R/RStudio - subject to change</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#rstudio-ide"><i class="fa fa-check"></i><b>2.3</b> RStudio IDE</a></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#projects"><i class="fa fa-check"></i><b>2.4</b> Projects</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="basics.html"><a href="basics.html#folders"><i class="fa fa-check"></i><b>2.4.1</b> folders</a></li>
+<li class="chapter" data-level="2.4.2" data-path="basics.html"><a href="basics.html#sessioninfo"><i class="fa fa-check"></i><b>2.4.2</b> sessionInfo()</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#r-memory"><i class="fa fa-check"></i><b>2.5</b> R memory</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#assignement-operators---vs"><i class="fa fa-check"></i><b>2.6</b> Assignement operators <code>&lt;-</code> vs <code>=</code></a></li>
+<li class="chapter" data-level="2.7" data-path="basics.html"><a href="basics.html#arithmetic-operators"><i class="fa fa-check"></i><b>2.7</b> Arithmetic operators</a></li>
+<li class="chapter" data-level="2.8" data-path="basics.html"><a href="basics.html#relational-operators"><i class="fa fa-check"></i><b>2.8</b> Relational operators</a></li>
+<li class="chapter" data-level="2.9" data-path="basics.html"><a href="basics.html#logical-operators"><i class="fa fa-check"></i><b>2.9</b> Logical operators</a></li>
+<li class="chapter" data-level="2.10" data-path="basics.html"><a href="basics.html#vectors"><i class="fa fa-check"></i><b>2.10</b> Vectors</a><ul>
+<li class="chapter" data-level="2.10.1" data-path="basics.html"><a href="basics.html#vector-types"><i class="fa fa-check"></i><b>2.10.1</b> Types</a></li>
+<li class="chapter" data-level="2.10.2" data-path="basics.html"><a href="basics.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>2.10.2</b> Conversion between atomic vector types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>3</b> Data Importing/Exporting and interaction with other programmes</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-import.html"><a href="data-import.html#libraries"><i class="fa fa-check"></i><b>3.1</b> Libraries</a></li>
-<li class="chapter" data-level="3.2" data-path="data-import.html"><a href="data-import.html#navigating-folders"><i class="fa fa-check"></i><b>3.2</b> Navigating folders</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="data-import.html"><a href="data-import.html#down"><i class="fa fa-check"></i><b>3.2.1</b> Down</a></li>
-<li class="chapter" data-level="3.2.2" data-path="data-import.html"><a href="data-import.html#up"><i class="fa fa-check"></i><b>3.2.2</b> Up</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="data-import.html"><a href="data-import.html#working-with-files-in-r"><i class="fa fa-check"></i><b>3.3</b> Working with files in R</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="data-import.html"><a href="data-import.html#rds"><i class="fa fa-check"></i><b>3.3.1</b> .rds</a></li>
-<li class="chapter" data-level="3.3.2" data-path="data-import.html"><a href="data-import.html#csv"><i class="fa fa-check"></i><b>3.3.2</b> .csv</a></li>
-<li class="chapter" data-level="3.3.3" data-path="data-import.html"><a href="data-import.html#xls-and-.xlsx"><i class="fa fa-check"></i><b>3.3.3</b> .xls and .xlsx</a></li>
-<li class="chapter" data-level="3.3.4" data-path="data-import.html"><a href="data-import.html#sav"><i class="fa fa-check"></i><b>3.3.4</b> .sav</a></li>
+<li class="chapter" data-level="4" data-path="star-functions.html"><a href="star-functions.html"><i class="fa fa-check"></i><b>4</b> Star functions</a><ul>
+<li class="chapter" data-level="4.1" data-path="star-functions.html"><a href="star-functions.html#navigating-folders"><i class="fa fa-check"></i><b>4.1</b> Navigating folders</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="star-functions.html"><a href="star-functions.html#down"><i class="fa fa-check"></i><b>4.1.1</b> Down</a></li>
+<li class="chapter" data-level="4.1.2" data-path="star-functions.html"><a href="star-functions.html#up"><i class="fa fa-check"></i><b>4.1.2</b> Up</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="data-import.html"><a href="data-import.html#connecting-to-databases"><i class="fa fa-check"></i><b>3.4</b> Connecting to databases</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="data-import.html"><a href="data-import.html#sql"><i class="fa fa-check"></i><b>3.4.1</b> SQL</a></li>
-<li class="chapter" data-level="3.4.2" data-path="data-import.html"><a href="data-import.html#gcp"><i class="fa fa-check"></i><b>3.4.2</b> GCP</a></li>
+<li class="chapter" data-level="4.2" data-path="star-functions.html"><a href="star-functions.html#working-with-files-in-r"><i class="fa fa-check"></i><b>4.2</b> Working with files in R</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="star-functions.html"><a href="star-functions.html#rds"><i class="fa fa-check"></i><b>4.2.1</b> .rds</a></li>
+<li class="chapter" data-level="4.2.2" data-path="star-functions.html"><a href="star-functions.html#csv"><i class="fa fa-check"></i><b>4.2.2</b> .csv</a></li>
+<li class="chapter" data-level="4.2.3" data-path="star-functions.html"><a href="star-functions.html#xlsx-and-.xls"><i class="fa fa-check"></i><b>4.2.3</b> .xlsx and .xls</a></li>
+<li class="chapter" data-level="4.2.4" data-path="star-functions.html"><a href="star-functions.html#exporting-to-.xlsx"><i class="fa fa-check"></i><b>4.2.4</b> Exporting to .xlsx</a></li>
+<li class="chapter" data-level="4.2.5" data-path="star-functions.html"><a href="star-functions.html#sav"><i class="fa fa-check"></i><b>4.2.5</b> .sav</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="star-functions.html"><a href="star-functions.html#connecting-to-databases"><i class="fa fa-check"></i><b>4.3</b> Connecting to databases</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="star-functions.html"><a href="star-functions.html#sql"><i class="fa fa-check"></i><b>4.3.1</b> SQL</a></li>
+<li class="chapter" data-level="4.3.2" data-path="star-functions.html"><a href="star-functions.html#gcp"><i class="fa fa-check"></i><b>4.3.2</b> GCP</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>4</b> Table/Data Frame manipulation</a><ul>
-<li class="chapter" data-level="4.1" data-path="tables.html"><a href="tables.html#pivot-and-reshape-tables"><i class="fa fa-check"></i><b>4.1</b> Pivot and reshape tables</a></li>
-<li class="chapter" data-level="4.2" data-path="tables.html"><a href="tables.html#dropping-and-selecting-columns"><i class="fa fa-check"></i><b>4.2</b> Dropping and selecting columns</a></li>
-<li class="chapter" data-level="4.3" data-path="tables.html"><a href="tables.html#filtering-data"><i class="fa fa-check"></i><b>4.3</b> Filtering data</a></li>
-<li class="chapter" data-level="4.4" data-path="tables.html"><a href="tables.html#group-data"><i class="fa fa-check"></i><b>4.4</b> Group data</a></li>
-<li class="chapter" data-level="4.5" data-path="tables.html"><a href="tables.html#order-data"><i class="fa fa-check"></i><b>4.5</b> Order data</a></li>
-<li class="chapter" data-level="4.6" data-path="tables.html"><a href="tables.html#get-counts-of-data"><i class="fa fa-check"></i><b>4.6</b> Get counts of data</a></li>
-<li class="chapter" data-level="4.7" data-path="tables.html"><a href="tables.html#combine-tables"><i class="fa fa-check"></i><b>4.7</b> Combine tables</a></li>
-<li class="chapter" data-level="4.8" data-path="tables.html"><a href="tables.html#joining-tables"><i class="fa fa-check"></i><b>4.8</b> Joining tables</a></li>
-<li class="chapter" data-level="4.9" data-path="tables.html"><a href="tables.html#select-specific-columns-in-a-join"><i class="fa fa-check"></i><b>4.9</b> Select specific columns in a join</a></li>
-<li class="chapter" data-level="4.10" data-path="tables.html"><a href="tables.html#sum-rows-or-columns"><i class="fa fa-check"></i><b>4.10</b> Sum rows or columns</a><ul>
-<li class="chapter" data-level="4.10.1" data-path="tables.html"><a href="tables.html#sum-rows"><i class="fa fa-check"></i><b>4.10.1</b> Sum rows</a></li>
-<li class="chapter" data-level="4.10.2" data-path="tables.html"><a href="tables.html#sum-columns"><i class="fa fa-check"></i><b>4.10.2</b> Sum columns</a></li>
+<li class="chapter" data-level="5" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>5</b> Table/Data Frame manipulation</a><ul>
+<li class="chapter" data-level="5.1" data-path="tables.html"><a href="tables.html#pivot-and-reshape-tables"><i class="fa fa-check"></i><b>5.1</b> Pivot and reshape tables</a></li>
+<li class="chapter" data-level="5.2" data-path="tables.html"><a href="tables.html#dropping-and-selecting-columns"><i class="fa fa-check"></i><b>5.2</b> Dropping and selecting columns</a></li>
+<li class="chapter" data-level="5.3" data-path="tables.html"><a href="tables.html#filtering-data"><i class="fa fa-check"></i><b>5.3</b> Filtering data</a></li>
+<li class="chapter" data-level="5.4" data-path="tables.html"><a href="tables.html#group-data"><i class="fa fa-check"></i><b>5.4</b> Group data</a></li>
+<li class="chapter" data-level="5.5" data-path="tables.html"><a href="tables.html#order-data"><i class="fa fa-check"></i><b>5.5</b> Order data</a></li>
+<li class="chapter" data-level="5.6" data-path="tables.html"><a href="tables.html#get-counts-of-data"><i class="fa fa-check"></i><b>5.6</b> Get counts of data</a></li>
+<li class="chapter" data-level="5.7" data-path="tables.html"><a href="tables.html#combine-tables"><i class="fa fa-check"></i><b>5.7</b> Combine tables</a></li>
+<li class="chapter" data-level="5.8" data-path="tables.html"><a href="tables.html#joining-tables"><i class="fa fa-check"></i><b>5.8</b> Joining tables</a></li>
+<li class="chapter" data-level="5.9" data-path="tables.html"><a href="tables.html#select-specific-columns-in-a-join"><i class="fa fa-check"></i><b>5.9</b> Select specific columns in a join</a></li>
+<li class="chapter" data-level="5.10" data-path="tables.html"><a href="tables.html#sum-rows-or-columns"><i class="fa fa-check"></i><b>5.10</b> Sum rows or columns</a><ul>
+<li class="chapter" data-level="5.10.1" data-path="tables.html"><a href="tables.html#sum-rows"><i class="fa fa-check"></i><b>5.10.1</b> Sum rows</a></li>
+<li class="chapter" data-level="5.10.2" data-path="tables.html"><a href="tables.html#sum-columns"><i class="fa fa-check"></i><b>5.10.2</b> Sum columns</a></li>
 </ul></li>
-<li class="chapter" data-level="4.11" data-path="tables.html"><a href="tables.html#replace-nas-or-other-values"><i class="fa fa-check"></i><b>4.11</b> Replace NAs or other values</a></li>
-<li class="chapter" data-level="4.12" data-path="tables.html"><a href="tables.html#reordering-rowscolumns"><i class="fa fa-check"></i><b>4.12</b> Reordering rows/columns</a><ul>
-<li class="chapter" data-level="4.12.1" data-path="tables.html"><a href="tables.html#reordering-rows"><i class="fa fa-check"></i><b>4.12.1</b> Reordering rows</a></li>
-<li class="chapter" data-level="4.12.2" data-path="tables.html"><a href="tables.html#reordering-columns"><i class="fa fa-check"></i><b>4.12.2</b> Reordering columns</a></li>
+<li class="chapter" data-level="5.11" data-path="tables.html"><a href="tables.html#replace-nas-or-other-values"><i class="fa fa-check"></i><b>5.11</b> Replace NAs or other values</a></li>
+<li class="chapter" data-level="5.12" data-path="tables.html"><a href="tables.html#reordering-rowscolumns"><i class="fa fa-check"></i><b>5.12</b> Reordering rows/columns</a><ul>
+<li class="chapter" data-level="5.12.1" data-path="tables.html"><a href="tables.html#reordering-rows"><i class="fa fa-check"></i><b>5.12.1</b> Reordering rows</a></li>
+<li class="chapter" data-level="5.12.2" data-path="tables.html"><a href="tables.html#reordering-columns"><i class="fa fa-check"></i><b>5.12.2</b> Reordering columns</a></li>
 </ul></li>
-<li class="chapter" data-level="4.13" data-path="tables.html"><a href="tables.html#creating-new-variables"><i class="fa fa-check"></i><b>4.13</b> Creating new variables</a></li>
-<li class="chapter" data-level="4.14" data-path="tables.html"><a href="tables.html#summarising-data"><i class="fa fa-check"></i><b>4.14</b> Summarising data</a></li>
-<li class="chapter" data-level="4.15" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>4.15</b> Look up tables</a></li>
+<li class="chapter" data-level="5.13" data-path="tables.html"><a href="tables.html#creating-new-variables"><i class="fa fa-check"></i><b>5.13</b> Creating new variables</a></li>
+<li class="chapter" data-level="5.14" data-path="tables.html"><a href="tables.html#summarising-data"><i class="fa fa-check"></i><b>5.14</b> Summarising data</a></li>
+<li class="chapter" data-level="5.15" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>5.15</b> Look up tables</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="dates.html"><a href="dates.html"><i class="fa fa-check"></i><b>5</b> Working with dates</a></li>
-<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a><ul>
-<li class="chapter" data-level="6.1" data-path="factors.html"><a href="factors.html#common-uses"><i class="fa fa-check"></i><b>6.1</b> Common uses</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="factors.html"><a href="factors.html#tabulation-of-data"><i class="fa fa-check"></i><b>6.1.1</b> Tabulation of data</a></li>
-<li class="chapter" data-level="6.1.2" data-path="factors.html"><a href="factors.html#ordering-of-data-for-output"><i class="fa fa-check"></i><b>6.1.2</b> Ordering of data for output</a></li>
-<li class="chapter" data-level="6.1.3" data-path="factors.html"><a href="factors.html#statistical-models"><i class="fa fa-check"></i><b>6.1.3</b> Statistical models</a></li>
+<li class="chapter" data-level="6" data-path="dates.html"><a href="dates.html"><i class="fa fa-check"></i><b>6</b> Working with dates</a></li>
+<li class="chapter" data-level="7" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>7</b> Working with factors</a><ul>
+<li class="chapter" data-level="7.1" data-path="factors.html"><a href="factors.html#common-uses"><i class="fa fa-check"></i><b>7.1</b> Common uses</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="factors.html"><a href="factors.html#tabulation-of-data"><i class="fa fa-check"></i><b>7.1.1</b> Tabulation of data</a></li>
+<li class="chapter" data-level="7.1.2" data-path="factors.html"><a href="factors.html#ordering-of-data-for-output"><i class="fa fa-check"></i><b>7.1.2</b> Ordering of data for output</a></li>
+<li class="chapter" data-level="7.1.3" data-path="factors.html"><a href="factors.html#statistical-models"><i class="fa fa-check"></i><b>7.1.3</b> Statistical models</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="factors.html"><a href="factors.html#other-things-to-know-about-factors"><i class="fa fa-check"></i><b>6.2</b> Other things to know about factors</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="factors.html"><a href="factors.html#renaming-factor-levels"><i class="fa fa-check"></i><b>6.2.1</b> Renaming factor levels</a></li>
-<li class="chapter" data-level="6.2.2" data-path="factors.html"><a href="factors.html#combining-factors-does-not-result-in-a-factor"><i class="fa fa-check"></i><b>6.2.2</b> Combining factors does not result in a factor</a></li>
-<li class="chapter" data-level="6.2.3" data-path="factors.html"><a href="factors.html#numeric-vectors-that-have-been-read-as-factors"><i class="fa fa-check"></i><b>6.2.3</b> Numeric vectors that have been read as factors</a></li>
+<li class="chapter" data-level="7.2" data-path="factors.html"><a href="factors.html#other-things-to-know-about-factors"><i class="fa fa-check"></i><b>7.2</b> Other things to know about factors</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="factors.html"><a href="factors.html#renaming-factor-levels"><i class="fa fa-check"></i><b>7.2.1</b> Renaming factor levels</a></li>
+<li class="chapter" data-level="7.2.2" data-path="factors.html"><a href="factors.html#combining-factors-does-not-result-in-a-factor"><i class="fa fa-check"></i><b>7.2.2</b> Combining factors does not result in a factor</a></li>
+<li class="chapter" data-level="7.2.3" data-path="factors.html"><a href="factors.html#numeric-vectors-that-have-been-read-as-factors"><i class="fa fa-check"></i><b>7.2.3</b> Numeric vectors that have been read as factors</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="factors.html"><a href="factors.html#helpful-packages"><i class="fa fa-check"></i><b>6.3</b> Helpful packages</a></li>
+<li class="chapter" data-level="7.3" data-path="factors.html"><a href="factors.html#helpful-packages"><i class="fa fa-check"></i><b>7.3</b> Helpful packages</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a></li>
-<li class="chapter" data-level="8" data-path="tidbits.html"><a href="tidbits.html"><i class="fa fa-check"></i><b>8</b> Interesting tidbits</a><ul>
-<li class="chapter" data-level="8.1" data-path="tidbits.html"><a href="tidbits.html#rounding"><i class="fa fa-check"></i><b>8.1</b> Rounding</a></li>
+<li class="chapter" data-level="8" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>8</b> Plotting and Data Visualisations</a></li>
+<li class="chapter" data-level="9" data-path="tidbits.html"><a href="tidbits.html"><i class="fa fa-check"></i><b>9</b> Interesting tidbits</a><ul>
+<li class="chapter" data-level="9.1" data-path="tidbits.html"><a href="tidbits.html#rounding"><i class="fa fa-check"></i><b>9.1</b> Rounding</a></li>
 </ul></li>
 </ul>
 
@@ -212,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="dates" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Working with dates</h1>
+<h1><span class="header-section-number">Chapter 6</span> Working with dates</h1>
 <p><strong>NOT FINISHED - need to write about <code>lubridate</code></strong></p>
 
 </div>
