@@ -18,7 +18,7 @@ library(openxlsx) #formatting xslx outputs
 library(xltabr) #MoJ RAP enabler built on openxlsx
 ```
 
-# Star functions
+## Star functions
 
 - `readxl::read_excel`
 - `readxl::excel_sheets`
