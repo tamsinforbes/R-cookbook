@@ -1,3 +1,55 @@
+--- 
+title: "DfT R Cookbook"
+author: "Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: 
+  bookdown::gitbook:
+    df_print: kable
+    fig_width: 7
+    fig_height: 6
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: departmentfortransport/R-cookbook
+description: "Guidance and code examples for R usage for DfT and beyond"
+
+---
+
+# Why do we need _another_ book?
+
+Placeholder
+
+
+## Coding standards
+## Adding to the book
+
+<!--chapter:end:index.Rmd-->
+
+
+# The basics {#basics}
+
+Placeholder
+
+
+## R family
+## DfT R/RStudio - subject to change
+## RStudio IDE
+## Projects
+### folders
+### sessionInfo()
+## R memory
+## Assignement operators `<-` vs `=`
+## Arithmetic operators
+## Relational operators
+## Logical operators
+## Vectors
+### Types {#vector-types}
+### Conversion between atomic vector types
+
+<!--chapter:end:01-basics.Rmd-->
+
 # Data Importing/Exporting and interaction with other programmes {#data-import}
 
 This chapter is for code examples of data importing/exporting and interactions with other programmes and databases.
@@ -523,3 +575,80 @@ Below are links to DfT Coffee and Coding talks on the subject of connecting R to
 Link below to Coffee and Coding talk on how to use bigrquery to interact with GCP's BigQuery
 
 [20190403_bigrquery](https://github.com/departmentfortransport/coffee-and-coding/tree/master/20190403_bigrquery)
+
+<!--chapter:end:02-data-import.Rmd-->
+
+
+# Table/Data Frame manipulation {#tables}
+
+Placeholder
+
+
+## Pivot and reshape tables
+## Dropping and selecting columns
+## Filtering data
+## Group data 
+## Order data
+## Get counts of data
+## Combine tables
+## Joining tables
+## Select specific columns in a join
+## Sum rows or columns
+### Sum rows
+### Sum columns
+## Replace NAs or other values
+## Reordering rows/columns
+### Reordering rows
+### Reordering columns
+## Creating new variables
+## Summarising data
+## Look up tables
+
+<!--chapter:end:03-table-manipulation.Rmd-->
+
+```{r include=FALSE}
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
+```
+
+# Working with dates {#dates}
+**NOT FINISHED - need to write about `lubridate`**
+
+<!--chapter:end:04-dates.Rmd-->
+
+
+# Working with factors {#factors}
+
+Placeholder
+
+
+## Common uses
+### Tabulation of data
+### Ordering of data for output
+### Statistical models
+## Other things to know about factors
+### Renaming factor levels
+### Combining factors does not result in a factor
+### Numeric vectors that have been read as factors
+## Helpful packages
+
+<!--chapter:end:05-factors.Rmd-->
+
+
+# Plotting and Data Visualisations {#plots}
+
+Placeholder
+
+
+
+<!--chapter:end:06-plotting.Rmd-->
+
+
+# Interesting tidbits {#tidbits}
+
+Placeholder
+
+
+## Rounding
+
+<!--chapter:end:08-tidbits.Rmd-->
+
