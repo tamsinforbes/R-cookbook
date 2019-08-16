@@ -2,7 +2,7 @@
 knitr::opts_chunk$set(collapse=TRUE, comment="#>")
 ```
 
-# Working with dates {#dates}
+# Working with dates and times {#dates-times}
 
 
 
@@ -24,7 +24,7 @@ road_accidents$Date1 <- as.character(road_accidents$Date)
 ```
 
 
-This chapter provides an overview of working with dates, for example extracting year or month from a date, and converting characters to a date.
+This chapter provides an overview of working with dates and times, for example extracting year or month from a date, and converting characters to a date.
 
 One of the main packages used to work with dates is **lubridate**.
 
