@@ -223,7 +223,7 @@ This can be done in the following way:
 
 - Identify the order of the year, month, day, and time elements (hour, minute and second or just hour and minute) and use the appropriate function (ymd, mdy, dmy etc.)
 
-```{r, eval = false}
+```{r, eval = FALSE}
 
 # convert date to date object
 
@@ -236,14 +236,103 @@ road_accidents$Date_time1 <- lubridate::ymd_hm(road_accidents$Date_time)
 
 ## Extract date from date time variable
 
-Use the date function to extract the date from a date time variable.
+Use the **date** function to extract the date from a date time variable.
 
 The year/month/day information can then be extracted from the date using the code examples above.
 
-```{r, eval = false}
+```{r, eval = FALSE}
 
 
 road_accidents$Date2 <- lubridate::date(road_accidents$Date_time)
 
 ```
 
+## Convert character to hms (time) variable
+
+Convert time as character into a hms variable so the variable can manipulated as a time object.
+
+This can be done using the **hms** package.
+
+```{r, eval = FALSE}
+
+
+road_accidents$time <- hms::as.hms(road_accidents$time)
+
+```
+
+## Extract hour from time
+
+Use the **hour** function from the lubridate package to extract hour information.
+
+```{r}
+
+
+road_accidents$hour <- lubridate::hour(road_accidents$Time)
+
+```
+
+## Extract minute from time
+
+Use the **minute** function from the lubridate package to extract hour information.
+
+```{r}
+
+
+road_accidents$minute <- lubridate::minute(road_accidents$Time)
+
+```
+
+
+## Extract second from time
+
+Use the **second** function from the lubridate package to extract hour information.
+
+```{r}
+
+
+road_accidents$second <- lubridate::second(road_accidents$Time)
+
+```
+
+
+## Merge separate time information into one variable
+
+Hour, minute and second variables can be merged to create a time variable, and then coverted to hms.
+
+```{r}
+
+# merge seperate time information
+road_accidents$time2 <- paste(road_accidents$hour,road_accidents$minute, road_accidents$second, sep=":")
+
+# convert to hms
+road_accidents$time3 <- hms::as.hms(road_accidents$time2)
+
+```
+
+
+## find the difference between two times
+
+Use the base r **difftime** function to find the difference between two times.
+
+Note: this can also be used to find the difference in days or weeks.
+
+Also note: the object must be hms/date to be able to calculate the difference.
+
+```{r}
+
+time_first <- hms::as.hms("11:00:00")
+time_second <- hms::as.hms("11:05:00")
+
+difference <- difftime(time_first, time_second, "mins" )
+
+```
+
+```{r, echo = TRUE }
+
+difference
+
+```
+
+Change the unit of measurement to get different time differences (for days and weeks you'll need a date rather than a hms).
+
+Units: "secs", "mins", "hours", "days", "weeks"
