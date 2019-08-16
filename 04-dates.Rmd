@@ -58,8 +58,8 @@ unclass(date)
 In R, dates can be converted to a specific date variable type in order to use the variable as a date.
 
 Having a variable as a date means that you can:
- - extract the different elements of the date (year, month etc.)
- - calculate differences between dates
+ * extract the different elements of the date (year, month etc.)
+ * calculate differences between dates
 
 This can be done in the following way:
 
