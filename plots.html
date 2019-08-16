@@ -24,7 +24,7 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
 
 
-<meta name="date" content="2019-08-15" />
+<meta name="date" content="2019-08-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -199,7 +199,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.14" data-path="tables.html"><a href="tables.html#summarising-data"><i class="fa fa-check"></i><b>4.14</b> Summarising data</a></li>
 <li class="chapter" data-level="4.15" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>4.15</b> Look up tables</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="dates.html"><a href="dates.html"><i class="fa fa-check"></i><b>5</b> Working with dates</a></li>
+<li class="chapter" data-level="5" data-path="dates-times.html"><a href="dates-times.html"><i class="fa fa-check"></i><b>5</b> Working with dates and times</a><ul>
+<li class="chapter" data-level="5.1" data-path="dates-times.html"><a href="dates-times.html#converting-a-character-to-a-date"><i class="fa fa-check"></i><b>5.1</b> Converting a character to a date</a></li>
+<li class="chapter" data-level="5.2" data-path="dates-times.html"><a href="dates-times.html#get-year-from-date"><i class="fa fa-check"></i><b>5.2</b> Get year from date</a></li>
+<li class="chapter" data-level="5.3" data-path="dates-times.html"><a href="dates-times.html#get-month-from-date"><i class="fa fa-check"></i><b>5.3</b> Get month from date</a></li>
+<li class="chapter" data-level="5.4" data-path="dates-times.html"><a href="dates-times.html#get-day-from-date"><i class="fa fa-check"></i><b>5.4</b> Get day from date</a></li>
+<li class="chapter" data-level="5.5" data-path="dates-times.html"><a href="dates-times.html#get-weekday-from-date"><i class="fa fa-check"></i><b>5.5</b> Get weekday from date</a></li>
+<li class="chapter" data-level="5.6" data-path="dates-times.html"><a href="dates-times.html#get-quarter-from-date"><i class="fa fa-check"></i><b>5.6</b> Get quarter from date</a></li>
+<li class="chapter" data-level="5.7" data-path="dates-times.html"><a href="dates-times.html#find-difference-between-two-dates"><i class="fa fa-check"></i><b>5.7</b> Find difference between two dates</a></li>
+<li class="chapter" data-level="5.8" data-path="dates-times.html"><a href="dates-times.html#convert-month-interger-to-character"><i class="fa fa-check"></i><b>5.8</b> Convert month (interger to character)</a></li>
+<li class="chapter" data-level="5.9" data-path="dates-times.html"><a href="dates-times.html#convert-month-character-to-interger"><i class="fa fa-check"></i><b>5.9</b> Convert month (character to interger)</a></li>
+<li class="chapter" data-level="5.10" data-path="dates-times.html"><a href="dates-times.html#merge-separate-date-information-into-a-date"><i class="fa fa-check"></i><b>5.10</b> Merge separate date information into a date</a></li>
+<li class="chapter" data-level="5.11" data-path="dates-times.html"><a href="dates-times.html#working-with-date-times"><i class="fa fa-check"></i><b>5.11</b> Working with date-times</a></li>
+<li class="chapter" data-level="5.12" data-path="dates-times.html"><a href="dates-times.html#converting-a-character-to-a-date-time"><i class="fa fa-check"></i><b>5.12</b> Converting a character to a date-time</a></li>
+<li class="chapter" data-level="5.13" data-path="dates-times.html"><a href="dates-times.html#extract-date-from-date-time-variable"><i class="fa fa-check"></i><b>5.13</b> Extract date from date time variable</a></li>
+<li class="chapter" data-level="5.14" data-path="dates-times.html"><a href="dates-times.html#convert-character-to-hms-time-variable"><i class="fa fa-check"></i><b>5.14</b> Convert character to hms (time) variable</a></li>
+<li class="chapter" data-level="5.15" data-path="dates-times.html"><a href="dates-times.html#extract-hour-from-time"><i class="fa fa-check"></i><b>5.15</b> Extract hour from time</a></li>
+<li class="chapter" data-level="5.16" data-path="dates-times.html"><a href="dates-times.html#extract-minute-from-time"><i class="fa fa-check"></i><b>5.16</b> Extract minute from time</a></li>
+<li class="chapter" data-level="5.17" data-path="dates-times.html"><a href="dates-times.html#extract-second-from-time"><i class="fa fa-check"></i><b>5.17</b> Extract second from time</a></li>
+<li class="chapter" data-level="5.18" data-path="dates-times.html"><a href="dates-times.html#merge-separate-time-information-into-one-variable"><i class="fa fa-check"></i><b>5.18</b> Merge separate time information into one variable</a></li>
+<li class="chapter" data-level="5.19" data-path="dates-times.html"><a href="dates-times.html#find-the-difference-between-two-times"><i class="fa fa-check"></i><b>5.19</b> find the difference between two times</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a><ul>
 <li class="chapter" data-level="6.1" data-path="factors.html"><a href="factors.html#common-uses"><i class="fa fa-check"></i><b>6.1</b> Common uses</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="factors.html"><a href="factors.html#tabulation-of-data"><i class="fa fa-check"></i><b>6.1.1</b> Tabulation of data</a></li>
@@ -239,50 +259,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This chapter is for code examples of plotting and visualising data.</p>
 <p>Plotting in Base R</p>
 <p>First read in data and summarise it so we’re ready to plot:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb163-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb163-3" data-line-number="3"><span class="kw">library</span>(readxl)</a>
-<a class="sourceLine" id="cb163-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb163-5" data-line-number="5">port &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/port0499.xlsx&quot;</span>)</a>
-<a class="sourceLine" id="cb163-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb163-7" data-line-number="7">total_tonnage &lt;-<span class="st"> </span>port <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb163-8" data-line-number="8"><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb163-9" data-line-number="9"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total =</span> <span class="kw">sum</span>(tonnage))</a>
-<a class="sourceLine" id="cb163-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb163-11" data-line-number="11">average_tonnage &lt;-<span class="st"> </span>port <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb163-12" data-line-number="12"><span class="st">  </span><span class="kw">group_by</span>(polu_majorport) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb163-13" data-line-number="13"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_tonnage =</span> <span class="kw">mean</span>(tonnage)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb163-14" data-line-number="14"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">5</span>, <span class="dt">wt =</span> avg_tonnage) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb163-15" data-line-number="15"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(avg_tonnage))</a></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb184-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb184-3" data-line-number="3"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb184-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb184-5" data-line-number="5">port &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/port0499.xlsx&quot;</span>)</a>
+<a class="sourceLine" id="cb184-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb184-7" data-line-number="7">total_tonnage &lt;-<span class="st"> </span>port <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb184-8" data-line-number="8"><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb184-9" data-line-number="9"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total =</span> <span class="kw">sum</span>(tonnage))</a>
+<a class="sourceLine" id="cb184-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb184-11" data-line-number="11">average_tonnage &lt;-<span class="st"> </span>port <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb184-12" data-line-number="12"><span class="st">  </span><span class="kw">group_by</span>(polu_majorport) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb184-13" data-line-number="13"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_tonnage =</span> <span class="kw">mean</span>(tonnage)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb184-14" data-line-number="14"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">5</span>, <span class="dt">wt =</span> avg_tonnage) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb184-15" data-line-number="15"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(avg_tonnage))</a></code></pre></div>
 <p>Line chart with Base R</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="kw">plot</span>(total_tonnage<span class="op">$</span>year, total_tonnage<span class="op">$</span>total,</a>
-<a class="sourceLine" id="cb164-2" data-line-number="2">     <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>,</a>
-<a class="sourceLine" id="cb164-3" data-line-number="3">     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>,</a>
-<a class="sourceLine" id="cb164-4" data-line-number="4">     <span class="dt">lwd =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb164-5" data-line-number="5">     <span class="dt">xlab =</span> <span class="st">&quot;Year&quot;</span>,</a>
-<a class="sourceLine" id="cb164-6" data-line-number="6">     <span class="dt">ylab =</span> <span class="st">&quot;Tonnage&quot;</span>,</a>
-<a class="sourceLine" id="cb164-7" data-line-number="7">     <span class="dt">main =</span> <span class="st">&quot;Total Tonnage 2000 - 2017&quot;</span>)</a></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="kw">plot</span>(total_tonnage<span class="op">$</span>year, total_tonnage<span class="op">$</span>total,</a>
+<a class="sourceLine" id="cb185-2" data-line-number="2">     <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>,</a>
+<a class="sourceLine" id="cb185-3" data-line-number="3">     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>,</a>
+<a class="sourceLine" id="cb185-4" data-line-number="4">     <span class="dt">lwd =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb185-5" data-line-number="5">     <span class="dt">xlab =</span> <span class="st">&quot;Year&quot;</span>,</a>
+<a class="sourceLine" id="cb185-6" data-line-number="6">     <span class="dt">ylab =</span> <span class="st">&quot;Tonnage&quot;</span>,</a>
+<a class="sourceLine" id="cb185-7" data-line-number="7">     <span class="dt">main =</span> <span class="st">&quot;Total Tonnage 2000 - 2017&quot;</span>)</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-168-1.png" width="672" /></p>
 <p>Bar plot with Base R</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="kw">barplot</span>(average_tonnage<span class="op">$</span>avg_tonnage,</a>
-<a class="sourceLine" id="cb165-2" data-line-number="2">        <span class="dt">width =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb165-3" data-line-number="3">        <span class="dt">names.arg =</span> <span class="kw">c</span>(<span class="st">&quot;Glensanda&quot;</span>, <span class="st">&quot;Sullom Voe&quot;</span>, <span class="st">&quot;Dover&quot;</span>,</a>
-<a class="sourceLine" id="cb165-4" data-line-number="4">                      <span class="st">&quot;Milford Haven&quot;</span>, <span class="st">&quot;Rivers Hull &amp; Humber&quot;</span>),</a>
-<a class="sourceLine" id="cb165-5" data-line-number="5">        <span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>,</a>
-<a class="sourceLine" id="cb165-6" data-line-number="6">        <span class="dt">xlab =</span> <span class="st">&quot;Major Port&quot;</span>,</a>
-<a class="sourceLine" id="cb165-7" data-line-number="7">        <span class="dt">ylab =</span> <span class="st">&quot;Tonnage&quot;</span>,</a>
-<a class="sourceLine" id="cb165-8" data-line-number="8">        <span class="dt">main =</span> <span class="st">&quot;Average Tonnage by Major Port (top 5) 2000 - 2017&quot;</span>)</a></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1"><span class="kw">barplot</span>(average_tonnage<span class="op">$</span>avg_tonnage,</a>
+<a class="sourceLine" id="cb186-2" data-line-number="2">        <span class="dt">width =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb186-3" data-line-number="3">        <span class="dt">names.arg =</span> <span class="kw">c</span>(<span class="st">&quot;Glensanda&quot;</span>, <span class="st">&quot;Sullom Voe&quot;</span>, <span class="st">&quot;Dover&quot;</span>,</a>
+<a class="sourceLine" id="cb186-4" data-line-number="4">                      <span class="st">&quot;Milford Haven&quot;</span>, <span class="st">&quot;Rivers Hull &amp; Humber&quot;</span>),</a>
+<a class="sourceLine" id="cb186-5" data-line-number="5">        <span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>,</a>
+<a class="sourceLine" id="cb186-6" data-line-number="6">        <span class="dt">xlab =</span> <span class="st">&quot;Major Port&quot;</span>,</a>
+<a class="sourceLine" id="cb186-7" data-line-number="7">        <span class="dt">ylab =</span> <span class="st">&quot;Tonnage&quot;</span>,</a>
+<a class="sourceLine" id="cb186-8" data-line-number="8">        <span class="dt">main =</span> <span class="st">&quot;Average Tonnage by Major Port (top 5) 2000 - 2017&quot;</span>)</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-169-1.png" width="672" /></p>
 <p>Plotting with ggplot2</p>
 <p>Line chart</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> total_tonnage) <span class="op">+</span></a>
-<a class="sourceLine" id="cb166-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> total), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb166-3" data-line-number="3"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb166-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Tonnage&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb166-5" data-line-number="5"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Total Tonnage 2000 - 2017&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb166-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">2000</span>, <span class="dv">2017</span>, <span class="dv">2</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb166-7" data-line-number="7"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> total_tonnage) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> total), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-3" data-line-number="3"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Tonnage&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-5" data-line-number="5"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Total Tonnage 2000 - 2017&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">2000</span>, <span class="dv">2017</span>, <span class="dv">2</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-7" data-line-number="7"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-170-1.png" width="672" /></p>
 <p>Bar chart</p>
 
 </div>
