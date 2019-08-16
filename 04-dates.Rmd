@@ -2,5 +2,337 @@
 knitr::opts_chunk$set(collapse=TRUE, comment="#>")
 ```
 
-# Working with dates {#dates}
-**NOT FINISHED - need to write about `lubridate`**
+# Working with dates and times {#dates-times}
+
+
+
+
+```{r include=FALSE}
+library(dplyr)
+library(readr)
+library(reshape2)
+library(tidyr)
+library(janitor)
+library(lubridate)
+
+# Read in required data using public data.gov extract
+road_accidents <- readr::read_rds("data/road_accidents_2017.RDS")
+
+# create character version of date to use in examples
+road_accidents$Date1 <- as.character(road_accidents$Date)
+
+```
+
+
+This chapter provides an overview of working with dates and times, for example extracting year or month from a date, and converting characters to a date.
+
+One of the main packages used to work with dates is **lubridate**.
+
+More information can be found on the lubridates cheatsheet at the following link: https://www.rstudio.com/resources/cheatsheets/
+
+Date vectors are just double vectors with an additional class attribute set as
+"Date".  
+
+**Note - The following borrows directly from Hadley's Advanced R site
+so we need to attribute appropriately and use correct licence**
+
+```{r}
+today <- Sys.Date()
+typeof(today)
+attributes(today)
+```
+
+The value of the double (which can be seen by stripping the class), represents
+the number of days since "1970-01-01"^[This special date is known as the Unix 
+Epoch]:
+
+```{r}
+date <- as.Date("1970-02-01")
+unclass(date)
+```
+
+
+
+## Converting a character to a date 
+
+In R, dates can be converted to a specific date variable type in order to use the variable as a date.
+
+Having a variable as a date means that you can:
+ - extract the different elements of the date (year, month etc.)
+ - calculate differences between dates
+
+This can be done in the following way:
+
+- Identify the order of the year, month, day and use the appropriate function (ymd, mdy, dmy etc.)
+
+```{r, echo = TRUE}
+
+# convert date to date object
+
+# check class of date
+class(road_accidents$Date1)
+
+# look at the date variable and see what order it is in (year-m-d)
+# therefore use the ymd function
+road_accidents$Date1 <- lubridate::ymd(road_accidents$Date1)
+
+# now check class
+class(road_accidents$Date1)
+
+```
+
+
+## Get year from date
+
+Use the **year** function from lubridate:
+
+```{r}
+
+road_accidents$Year <- lubridate::year(road_accidents$Date1)
+
+```
+
+## Get month from date
+
+Use the **month** function from lubridate:
+
+```{r}
+
+road_accidents$Month <- lubridate::month(road_accidents$Date1)
+
+```
+
+
+## Get day from date
+
+Use the **day** function from lubridate:
+
+```{r}
+
+road_accidents$Day <- lubridate::day(road_accidents$Date1)
+
+```
+
+## Get weekday from date
+
+Use the **wday** function from lubridate to get the weekday label:
+
+```{r}
+
+road_accidents$weekday <- lubridate::wday(road_accidents$Date1)
+
+```
+
+
+## Get quarter from date
+
+Use the **quarter** function from lubridate:
+
+```{r}
+
+road_accidents$Quarter <- lubridate::quarter(road_accidents$Date1)
+
+```
+
+```{r, include = FALSE}
+
+dates <- dplyr::select(road_accidents, Date1, Year, Quarter, Month, Day, weekday)
+
+```
+
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(head(dates),
+caption = "Using lubridate to extract time information")
+
+```
+
+
+## Find difference between two dates
+
+
+```{r, include = FALSE}
+
+# First create new date column so difference between two dates can be found
+
+road_accidents$Date2 <-round_date(road_accidents$Date1, unit = "month")
+
+```
+
+Use the **as.duration** function to find the duration between two dates. The duration to be measured can be specified:
+
+- dhours
+- dweeks
+- ddays
+- dminutes
+- dyears
+
+To find out the number of days difference, the **as.duration** function calculates the duration in seconds so the duration must be divided by the desired duration (ddays) to convert to duration in days.
+
+```{r}
+
+road_accidents$date_diff <- lubridate::as.duration(road_accidents$Date2 %--% road_accidents$Date1) / ddays(1)
+
+```
+
+The number after **ddays** indicates by how many units the duration is (i.e. one day).
+
+
+## Convert month (interger to character)
+
+Base R has a useful function which takes the month numbers and converts them to the corresponding text.
+
+```{r}
+
+road_accidents$Month_lab <- month.abb[road_accidents$Month]
+
+```
+
+## Convert month (character to interger)
+
+Base R has a useful function which takes the month text and converts them to the corresponding number.
+
+```{r}
+ road_accidents$Month <- match(road_accidents$Month_lab,month.abb)
+
+```
+
+
+## Merge separate date information into a date
+
+The lubridate package can be used in conjunction with the paste function to combine columns separate date information (e.g. year, month, day) into one date variable.
+
+```{r}
+
+road_accidents$date <- paste(road_accidents$Year, road_accidents$Month, road_accidents$Day, sep="-") %>% ymd() %>% as.Date()
+
+```
+
+
+## Working with date-times
+
+A date-time stores date and time information.
+
+
+## Converting a character to a date-time
+
+This is similar to converting a character to a date as mentioned above.
+
+This can be done in the following way:
+
+- Identify the order of the year, month, day, and time elements (hour, minute and second or just hour and minute) and use the appropriate function (ymd, mdy, dmy etc.)
+
+```{r, eval = FALSE}
+
+# convert date to date object
+
+# look at the date variable and see what order it is in (year-m-d, hms "2017-11-28 14:00)
+# therefore use the ymd_hm
+road_accidents$Date_time1 <- lubridate::ymd_hm(road_accidents$Date_time)
+
+```
+
+
+## Extract date from date time variable
+
+Use the **date** function to extract the date from a date time variable.
+
+The year/month/day information can then be extracted from the date using the code examples above.
+
+```{r, eval = FALSE}
+
+
+road_accidents$Date2 <- lubridate::date(road_accidents$Date_time)
+
+```
+
+## Convert character to hms (time) variable
+
+Convert time as character into a hms variable so the variable can manipulated as a time object.
+
+This can be done using the **hms** package.
+
+```{r, eval = FALSE}
+
+
+road_accidents$time <- hms::as.hms(road_accidents$time)
+
+```
+
+## Extract hour from time
+
+Use the **hour** function from the lubridate package to extract hour information.
+
+```{r}
+
+
+road_accidents$hour <- lubridate::hour(road_accidents$Time)
+
+```
+
+## Extract minute from time
+
+Use the **minute** function from the lubridate package to extract hour information.
+
+```{r}
+
+
+road_accidents$minute <- lubridate::minute(road_accidents$Time)
+
+```
+
+
+## Extract second from time
+
+Use the **second** function from the lubridate package to extract hour information.
+
+```{r}
+
+
+road_accidents$second <- lubridate::second(road_accidents$Time)
+
+```
+
+
+## Merge separate time information into one variable
+
+Hour, minute and second variables can be merged to create a time variable, and then coverted to hms.
+
+```{r}
+
+# merge seperate time information
+road_accidents$time2 <- paste(road_accidents$hour,road_accidents$minute, road_accidents$second, sep=":")
+
+# convert to hms
+road_accidents$time3 <- hms::as.hms(road_accidents$time2)
+
+```
+
+
+## find the difference between two times
+
+Use the base r **difftime** function to find the difference between two times.
+
+Note: this can also be used to find the difference in days or weeks.
+
+Also note: the object must be hms/date to be able to calculate the difference.
+
+```{r}
+
+time_first <- hms::as.hms("11:00:00")
+time_second <- hms::as.hms("11:05:00")
+
+difference <- difftime(time_first, time_second, "mins" )
+
+```
+
+```{r, echo = TRUE }
+
+difference
+
+```
+
+Change the unit of measurement to get different time differences (for days and weeks you'll need a date rather than a hms).
+
+Units: "secs", "mins", "hours", "days", "weeks"
