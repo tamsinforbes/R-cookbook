@@ -64,7 +64,12 @@ Why you should work in an R project, how to set up and project happiness. See th
 
 ### folders
 
-data, output, images
+When you set up a project it is good practise to include separate folders for different types of files such as
+
+- data; for the data your R code is using
+- output; for files creates by your code
+- R; all your code files, eg .R, .Rmd
+- images
 
 ### sessionInfo()
 
@@ -73,7 +78,7 @@ Include a saved file of the sessionInfo() output, this command prints out the ve
 
 ## R memory
 
-R works in RAM, so its memory is only as good as the amount of RAM you have 
+R works in RAM, so its memory is only as good as the amount of RAM you have. More info in the **Memory** chapter of Advanced R by Hadley Wickham [here](http://adv-r.had.co.nz/memory.html).
 
 
 ## Assignement operators `<-` vs `=`
