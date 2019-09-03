@@ -12,19 +12,35 @@ A few of the common R relations are
 
 - R is the programming language, born in 1997, based on S, [honest](https://en.wikipedia.org/wiki/R_(programming_language)).
 - RStudio is a useful integrated development environment (IDE) that makes it cleaner to write, run and organise R code.
-- Rproj is the file extension for an R project, essentially a working directory marker, shortens file paths, keep everything relevant to your project together and easy to reference.
+- Rproj is the file extension for an R project, essentially a working directory marker, shortens file paths, keeps everything relevant to your project together and easy to reference.
 - packages are collections of functions written to make specific tasks easier, eg the `stringr` package contains functions to work with strings. Packages are often referred to as libraries in other programing languages.
 - .R is the file extension for a basic R script in which anything not commented out with `#` is code that is run.
 - .Rmd is the file extension for Rmarkdown an R package useful for producing reports. A .Rmd script is different to a .R script in that the default is text rather than code. Code is placed in code chunks - similar to how a Jupyter Notebook looks.
 
 ## DfT R/RStudio - subject to change
 
-Which version of R/RStudio should I use at DfT? A good question. Currently the 'best' verion of R we have available on network is linked to RStudio version 11543. This can be accessed via the Citrix app on the Windows 10 devices, or via Citrix desktop. The local version of RStudio on the Windows 10 devices is currently unusable (user testing is ongoing to change this).
+Which version of R/RStudio should I use at DfT? A good question. Currently the 'best' verion of R we have available on network is linked to RStudio version 11453. This can be accessed via the Citrix app on the Windows 10 devices, or via Citrix desktop. The local version of RStudio on the Windows 10 devices is currently unusable (user testing is ongoing to change this). There is also a 11423 version of RStudio available which uses slightly older versions of packages.
 
 
 ## RStudio IDE
 
-Whistle stop tour of R favourite IDE - with pics!
+The RStudio integrated development environment has some very useful features which make writing and organising code a lot easier. It's divided into 3 panes; 
+
+- left (bottom left if you have scripts open); this is the **Console** it shows you what code has been run.
+- top right; **Environemnt**, and other tabs. The **Environment** tab shows what objects have been created in the global environment in the current session. The **Connections** tab will show any connections you have set up this session, for example, to an SQL server.
+- bottom right; **Files** tab shows what directory you are in and the files there. **Plots** tab shows all the plot outputs created this session, you can navigate through them. **Packages** tab shows a list of installed packages, if the box in front of the package name is checked then this package has been loaded this session. **Help** tab can be used to search for help on a topic/package function, it also holds any output from `?function_name` help command that has been run in the console, again you can navigate through help topics using the left and right arrows. **Viewer** tab can be used to view local web content.
+
+For some pictures have a look at DfE's **R Training Course** [getting started with rstudio](https://dfe-analytical-services.github.io/r-training-course/getting-started-with-rstudio.html)
+
+Or Matt Dray's [Beginner R Featuring Pokemon: the RStudio interface](https://matt-dray.github.io/beginner-r-feat-pkmn/#4_the_rstudio_interface)
+
+Other handy buttons in RStudio IDE
+- top left new script icon; blank pagwe with green circle and white cross.
+- top right project icon; 3D transparent light blue cube with R. Use this to create and open projects.
+
+RStudio menu bar a few pointers
+- **View** contains **Zoom In** **Zoom Out**
+- **Tools** -> **Global Options** contains many useful setting tabs such as **Appearance** where you can change the RStudio theme, and **Code** -> **Display** where you can set a margin vertical guideline (default is 80 characters).
 
 ## Projects
 
