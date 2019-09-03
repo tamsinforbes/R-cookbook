@@ -52,11 +52,7 @@ lookup_table <- readr::read_csv(
 )
 ```
 
-## Working with files in R
-
-This section focusses on reading in various filetypes for working on in R memory. 
-
-### .rds
+## .rds
 
 .rds is R's native file format, any object you create in R can be saved as a .rds file. The functions `readRDS` and `saveRDS` are base R functions.
 
@@ -69,7 +65,7 @@ saveRDS(
 ```
 
 
-### .csv
+## .csv
 
 We use the functions `read_csv` and `write_csv` from the `readr` package (which is part of the `tidyverse`). These are a little bit *cleverer* than their base counterparts, however, this cleverness can catch you out.
 
@@ -131,11 +127,11 @@ Other arguments within `read_csv` that I will just mention, with their default s
  
 
 
-### .xlsx and .xls
+## .xlsx and .xls
 
 Excel workbooks come in many shapes and sizes. You may have one or many worksheets in one or many workbooks, there may only be certain cells that you are interested in. Below are a few examples of how to cope with these variations using functions from `readxl` and `purrr` to iterate over either worksheets and/or workbooks, the aim being to end up with all the data in a single tidy dataframe.
 
-#### Single worksheet - single workbook
+### Single worksheet - single workbook
 
 The simplest combination, you are interested in one rectangular dataset in a particular worksheet in one workbook. Leaving the defaults works fine on this dataset. Note that `readxl::read_excel` detects if the file is `.xlsx` or `.xls` and behaves accordingly.
 
@@ -156,7 +152,7 @@ readxl::read_excel(
 ```
 
 
-#### Single worksheet - many workbooks
+### Single worksheet - many workbooks
 
 For example, you collect pokemon go capture data from many different players, the data all has the same structure and you want to read it in and row bind into a single dataframe in R. 
 
@@ -185,7 +181,7 @@ Note that the `regex` argument in `fs::dir_ls` is applied to the full file path 
 
 [stringr cheatsheet including regex](http://edrub.in/CheatSheets/cheatSheetStringr.pdf)
 
-#### Many worksheets - single workbook
+### Many worksheets - single workbook
 
 You have a single workbook, but it contains many worksheets of interest, each containing rectangular data with the same structure. For example, you have a workbook containing pokemon go captures data, where each different data collection point has its own sheet. The data structure, column names and data types are consistent. You want to read in and combine these data into a single dataframe.
 
@@ -202,7 +198,7 @@ pokemon_collections <- readxl::excel_sheets(path = path) %>%
 DT::datatable(data = pokemon_collections)
 ```
 
-#### Many worksheets - many workbooks
+### Many worksheets - many workbooks
 
 Now we can use the above two solutions to combine data from many worksheets spread across many workbooks. As before, the data is rectangular and has the same structure. For example, you receive a workbook every month, containing pokemon go captures data, and each data collection point has its own sheet. 
 
@@ -231,7 +227,7 @@ pokemon_monthly_collections <- fs::dir_ls(
 DT::datatable(data = pokemon_monthly_collections)
 ```
 
-#### Non-rectangular data - single worksheet - single workbook
+### Non-rectangular data - single worksheet - single workbook
 
 You have received some kind of data entry form that has been done in excel in a more human readable, rather than machine readable, format. Some of the cells contain instructions and admin data so you only want the data held in specific cells. This is non-rectangular data, that is, the data of interest is dotted all over the place. In this example we have pet forms, and the data of interest is in cells **B2**, **D5** and **E8** only.
 
@@ -324,7 +320,7 @@ pet_details_2 %>%
   kableExtra::kable_styling(full_width = F, position = "left")
 ```
 
-#### Non-rectangular data - single worksheet - many workbooks
+### Non-rectangular data - single worksheet - many workbooks
 
 Having solved for one workbook and worksheet, we can functionalise and iterate to gather the data from every wookbook, two of which are shown below.
 
@@ -386,7 +382,7 @@ all_pet_forms %>%
 ```
 
 
-#### Non-rectangular data - many worksheets - single workbook
+### Non-rectangular data - many worksheets - single workbook
 
 Now we have more than one worksheet in a single workbook, and the data looks like this, the workbook is from a "pet house" and each worksheet is pet details.
 
@@ -435,7 +431,7 @@ pet_house_1 %>%
 ```
 
 
-#### Non-rectangular data - many worksheets - many workbooks
+### Non-rectangular data - many worksheets - many workbooks
 
 Finally we have many workbooks each containing many worksheets, each containing many cells, as before we want to read them in and combine.
 
@@ -476,9 +472,7 @@ pet_house_all %>%
 
 
 
- 
-
-### Exporting to .xlsx
+## Exporting to .xlsx
 
 We recommend `openxlsx` and `xltabr` for writing and formatting tables to MS Excel. The latter is a wrapper built on `openxlsx` developed by MoJ and is specifically aimed at making it easier to produce publication ready tables. `xltabr` has one known drawback in that it applies the foramtting cell by cell, so if your tables are massive (~100,000 rows) it will take too long, in this instance you should resort to `openxlsx`.
 
@@ -486,31 +480,29 @@ https://cran.r-project.org/web/packages/openxlsx/openxlsx.pdf
 
 https://cran.r-project.org/web/packages/xltabr/xltabr.pdf
 
-Here I am going to go over a few basics of using `xltabr` to produce publication ready output. I'm using an extract of some already published Search and Rescue Helicopter data that was itself produced using `xltabr`, see the full series here. 
+So you can see an example of the formatting available, here is a link to DfT's Search and Rescue Helicopter statistics tables that are produced in R using `xltabr`.
 
 https://www.gov.uk/government/statistical-data-sets/search-and-rescue-helicopter-sarh01
 
 
 
-### .sav
+## .sav
 
 Use `haven` to import SPSS, Stata and SAS files.
 
-## Connecting to databases
+## SQL
 
-### SQL
-
-Below are links to DfT Coffee and Coding talks on the subject of connecting R to SQL
+Below are links to DfT Coffee and Coding materials on the subject of connecting R to SQL
 
 [20181114_Connecting_R_to_SQL](https://github.com/departmentfortransport/coffee-and-coding/tree/master/20181114_Connecting_R_to_SQL)
 
 [20190130_SQL_and_Excel_to_R](https://github.com/departmentfortransport/coffee-and-coding/tree/master/20190130_SQL_and_Excel_to_R)
 
 
-### GCP
+## GCP
 
-#### BigQuery
+### BigQuery
 
-Link below to Coffee and Coding talk on how to use bigrquery to interact with GCP's BigQuery
+Link below to DfT Coffee and Coding materials on how to use bigrquery to interact with GCP's BigQuery
 
 [20190403_bigrquery](https://github.com/departmentfortransport/coffee-and-coding/tree/master/20190403_bigrquery)
