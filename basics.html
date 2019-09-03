@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 The basics | DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 The basics | DfT R Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
 
 
-<meta name="date" content="2019-08-16" />
+<meta name="date" content="2019-09-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="data-import.html">
+<link rel="prev" href="index.html"/>
+<link rel="next" href="data-import.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -263,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>R is the programming language, born in 1997, based on S, <a href="https://en.wikipedia.org/wiki/R_(programming_language)">honest</a>.</li>
 <li>RStudio is a useful integrated development environment (IDE) that makes it cleaner to write, run and organise R code.</li>
-<li>Rproj is the file extension for an R project, essentially a working directory marker, shortens file paths, keep everything relevant to your project together and easy to reference.</li>
+<li>Rproj is the file extension for an R project, essentially a working directory marker, shortens file paths, keeps everything relevant to your project together and easy to reference.</li>
 <li>packages are collections of functions written to make specific tasks easier, eg the <code>stringr</code> package contains functions to work with strings. Packages are often referred to as libraries in other programing languages.</li>
 <li>.R is the file extension for a basic R script in which anything not commented out with <code>#</code> is code that is run.</li>
 <li>.Rmd is the file extension for Rmarkdown an R package useful for producing reports. A .Rmd script is different to a .R script in that the default is text rather than code. Code is placed in code chunks - similar to how a Jupyter Notebook looks.</li>
@@ -271,11 +271,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="dft-rrstudio---subject-to-change" class="section level2">
 <h2><span class="header-section-number">2.2</span> DfT R/RStudio - subject to change</h2>
-<p>Which version of R/RStudio should I use at DfT? A good question. Currently the ‘best’ verion of R we have available on network is linked to RStudio version 11543. This can be accessed via the Citrix app on the Windows 10 devices, or via Citrix desktop. The local version of RStudio on the Windows 10 devices is currently unusable (user testing is ongoing to change this).</p>
+<p>Which version of R/RStudio should I use at DfT? A good question. Currently the ‘best’ verion of R we have available on network is linked to RStudio version 11453. This can be accessed via the Citrix app on the Windows 10 devices, or via Citrix desktop. The local version of RStudio on the Windows 10 devices is currently unusable (user testing is ongoing to change this). There is also a 11423 version of RStudio available which uses slightly older versions of packages.</p>
 </div>
 <div id="rstudio-ide" class="section level2">
 <h2><span class="header-section-number">2.3</span> RStudio IDE</h2>
-<p>Whistle stop tour of R favourite IDE - with pics!</p>
+<p>The RStudio integrated development environment has some very useful features which make writing and organising code a lot easier. It’s divided into 3 panes;</p>
+<ul>
+<li>left (bottom left if you have scripts open); this is the <strong>Console</strong> it shows you what code has been run.</li>
+<li>top right; <strong>Environemnt</strong>, and other tabs. The <strong>Environment</strong> tab shows what objects have been created in the global environment in the current session. The <strong>Connections</strong> tab will show any connections you have set up this session, for example, to an SQL server.</li>
+<li>bottom right; <strong>Files</strong> tab shows what directory you are in and the files there. <strong>Plots</strong> tab shows all the plot outputs created this session, you can navigate through them. <strong>Packages</strong> tab shows a list of installed packages, if the box in front of the package name is checked then this package has been loaded this session. <strong>Help</strong> tab can be used to search for help on a topic/package function, it also holds any output from <code>?function_name</code> help command that has been run in the console, again you can navigate through help topics using the left and right arrows. <strong>Viewer</strong> tab can be used to view local web content.</li>
+</ul>
+<p>For some pictures have a look at DfE’s <strong>R Training Course</strong> <a href="https://dfe-analytical-services.github.io/r-training-course/getting-started-with-rstudio.html">getting started with rstudio</a></p>
+<p>Or Matt Dray’s <a href="https://matt-dray.github.io/beginner-r-feat-pkmn/#4_the_rstudio_interface">Beginner R Featuring Pokemon: the RStudio interface</a></p>
+<p>Other handy buttons in RStudio IDE
+- top left new script icon; blank pagwe with green circle and white cross.
+- top right project icon; 3D transparent light blue cube with R. Use this to create and open projects.</p>
+<p>RStudio menu bar a few pointers
+- <strong>View</strong> contains <strong>Zoom In</strong> <strong>Zoom Out</strong>
+- <strong>Tools</strong> -&gt; <strong>Global Options</strong> contains many useful setting tabs such as <strong>Appearance</strong> where you can change the RStudio theme, and <strong>Code</strong> -&gt; <strong>Display</strong> where you can set a margin vertical guideline (default is 80 characters).</p>
 </div>
 <div id="projects" class="section level2">
 <h2><span class="header-section-number">2.4</span> Projects</h2>

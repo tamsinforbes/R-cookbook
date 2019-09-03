@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Working with dates and times | DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Working with dates and times | DfT R Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
 
 
-<meta name="date" content="2019-08-16" />
+<meta name="date" content="2019-09-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="tables.html">
-<link rel="next" href="factors.html">
+<link rel="prev" href="tables.html"/>
+<link rel="next" href="factors.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -575,7 +575,9 @@ weekday
 <a class="sourceLine" id="cb169-5" data-line-number="5"><span class="co"># convert to hms</span></a>
 <a class="sourceLine" id="cb169-6" data-line-number="6">road_accidents<span class="op">$</span>time3 &lt;-<span class="st"> </span>hms<span class="op">::</span><span class="kw">as.hms</span>(road_accidents<span class="op">$</span>time2)</a>
 <a class="sourceLine" id="cb169-7" data-line-number="7"><span class="co">#&gt; Warning: as.hms() is deprecated, please use as_hms().</span></a>
-<a class="sourceLine" id="cb169-8" data-line-number="8"><span class="co">#&gt; This warning is displayed once per session.</span></a></code></pre></div>
+<a class="sourceLine" id="cb169-8" data-line-number="8"><span class="co">#&gt; This warning is displayed once per session.</span></a>
+<a class="sourceLine" id="cb169-9" data-line-number="9"><span class="co">#&gt; Warning: Lossy cast from &lt;character&gt; to &lt;hms&gt; at position(s) 31864, 34039,</span></a>
+<a class="sourceLine" id="cb169-10" data-line-number="10"><span class="co">#&gt; 106469</span></a></code></pre></div>
 </div>
 <div id="find-the-difference-between-two-times" class="section level2">
 <h2><span class="header-section-number">5.19</span> find the difference between two times</h2>
