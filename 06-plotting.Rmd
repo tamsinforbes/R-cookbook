@@ -6,7 +6,6 @@ For charts, we'll look at a few examples of how to create simple charts in base 
 
 
 ```{r include=FALSE}
-library(tidyverse)
 # Every file must contain at least one R chunk due to the linting process.
 ```
 ## Plotting in base R
