@@ -192,6 +192,8 @@ To assign or to equal? These are not always the same thing. In R to assign a val
 
 ## Logical operators
 
+Logical operations are possible only for numeric, logical or complex types. Note that 0 (or complex version 0 + 0i) is equivalent to `FALSE`, and all other numbers (numeric or complex) are equivalent to `TRUE`. 
+
 - not `!` 
 ```{r}
 x <- c(TRUE, 0, FALSE, -4)
