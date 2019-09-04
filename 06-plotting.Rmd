@@ -7,6 +7,11 @@ For charts, we'll look at a few examples of how to create simple charts in base 
 
 ```{r include=FALSE}
 # Every file must contain at least one R chunk due to the linting process.
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(leaflet)
 ```
 ## Plotting in base R
 
@@ -69,7 +74,8 @@ road_acc_2017
 To create a bar chart, we use the base R function 'barplot' and then specify the variable we want to plot as the height argument:
 
 
-```{r}
+```{r, message=FALSE}
+options(scipen=999)
 barplot(height = road_acc_2017$total)
 ```
 
