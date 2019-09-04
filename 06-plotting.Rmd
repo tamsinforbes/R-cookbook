@@ -33,8 +33,8 @@ head(road_acc)
 We want to plot a line chart of total road accidents against year. First we need to group our data by accident year and summarise to get a total sum of accidents for each year:
 ```{r}
 road_acc_total <- road_acc %>%
-  group_by(accident_year) %>%
-  summarise(total = sum(total))
+  dplyr::group_by(accident_year) %>%
+  dplyr::summarise(total = sum(total))
 ```
 
 We'll now use the base R function 'plot', specifying the x and y axis and well as the plot type 'l' for line charts:
@@ -66,7 +66,7 @@ We want to plot a bar chart showing the total number of accidents of each severi
 
 ```{r}
 road_acc_2017 <- road_acc %>%
-  filter(accident_year == 2017)
+  dplyr::filter(accident_year == 2017)
 
 road_acc_2017
 ```
@@ -189,7 +189,7 @@ ggplot(data = road_acc_2017) +
   geom_bar(mapping = aes(x = name, y = total),  fill = "lightblue", col = "black", stat = "identity")+
   xlab("Severity") +
   ylab("Total accidents") +
-  ggtitle("Total accidents by severity, 2017")+
+  ggtitle("Total accidents by severity, 2017") +
   theme_classic()
 ```
 
@@ -313,7 +313,7 @@ Since we set our legend to be horizontal in our DfT theme, we get a warning mess
 Using plot_ly() is similar to ggplot2 in some ways as we build the plot in layers but we use the pipe operator rather than a plus sign, and ~ sign before the variables in our data:
 
 ```{r}
-plot_ly(road_acc, x = ~accident_year, y = ~total) %>% # specify the data and x and y axes
+plotly::plot_ly(road_acc, x = ~accident_year, y = ~total) %>% # specify the data and x and y axes
   add_lines(color = ~name, colors = dft_colour[1:3]) %>% # colour lines by severity
   layout(title = "Accidents by severity, 2005 to 2017",
          xaxis = list(title = "Accident Year"),
