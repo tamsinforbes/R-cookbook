@@ -17,7 +17,7 @@ This chapter provides an overview of code examples for table or data frame manip
 
 One of the main things you will have to do in any R project or RAP project will be manipulating the data that you are using in order to get it into the format you require.
 
-One of the main packages used to manipulate data is the dplyr package which we recommend and use throughout this book. The dplyr package (and others e.g. tidyr) are all part of the tidyverse. The tidyverse is a group of packages developed by Hadley Wickham and others and are all designed to work with each other. See https://www.tidyverse.org/ for more info.
+One of the main packages used to manipulate data is the {dplyr} package which we recommend and use throughout this book. The dplyr package (and others e.g. tidyr) are all part of the tidyverse. The tidyverse is a group of packages developed by Hadley Wickham and others and are all designed to work with each other. See https://www.tidyverse.org/ for more info.
 
 **Tidyverse packages and functions can be combined and layered using the pipe operator `%>%`.**
 
