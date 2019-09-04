@@ -321,6 +321,7 @@ plotly::plot_ly(road_acc, x = ~accident_year, y = ~total) %>% # specify the data
          yaxis = list(title = ""))
 ```
 
+
 You can find more information about using {plotly} in R from the following websites:
 
 * Graphing library with example code: [https://plot.ly/r/](https://plot.ly/r/)
