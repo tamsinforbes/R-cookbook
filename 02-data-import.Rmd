@@ -14,7 +14,7 @@ library(DBI) #database connection
 library(dbplyr) #database connection
 library(haven) #for importing/exporting SPSS, Stata, and SAS files
 library(bigrquery) #connecting to GCP BigQuery
-library(openxlsx) #formatting xslx outputs
+library(openxlsx) #formatting xlsx outputs
 library(xltabr) #MoJ RAP enabler built on openxlsx
 ```
 
@@ -89,7 +89,7 @@ The pokemon dataset has less than 1000 rows so `read_csv` has 'seen' the letters
 
 What if there are more than 1000 rows? For example, say you have a numeric column, but there are some letters prefixed to the numbers in some of the post-row-1000 rows. These values are still meaningful to you, and with some data wrangling you can extract the actual numbers. Unfortunately `read_csv` has guessed at type double based on the first 1000 rows and since character type cannot be coerced into double, these values will be replaced with `NA`. If you have messy data like this the best thing to do is to force `read_csv` to read in as character type to preserve all values as they appear, you can then sort out the mess yourself.
 
-You can specify the column data type using the `col_types` argument. Below I have used a compact string of abbreviations to specify the column types, see the help at `?read_csv` or the {readr} vignette for the full list. You can see I got many parsing failures, which I can access with `problems()`, which is a data frame of the values that `read_csv` was unable to coerce into the type I specified, and so has replaced with NA. 
+You can specify the column data type using the `col_types` argument. Below I have used a compact string of abbreviations (c = character, d = double, D = date, t = time) to specify the column types, see the help at `?read_csv` or the {readr} vignette for the full list. You can see I got many parsing failures, which I can access with `problems()`, which is a data frame of the values that `read_csv` was unable to coerce into the type I specified, and so has replaced with NA. 
 ```{r}
 pokemon <- readr::read_csv(
   file = "data/messy_pokemon_data.csv"
@@ -184,7 +184,7 @@ Note that the `regex` argument in `fs::dir_ls` is applied to the full file path 
 
 You have a single workbook, but it contains many worksheets of interest, each containing rectangular data with the same structure. For example, you have a workbook containing pokemon go captures data, where each different data collection point has its own sheet. The data structure, column names and data types are consistent. You want to read in and combine these data into a single dataframe.
 
-The code below sets the location of the workbook and puts this in the object `path`. It then collects the names of all the sheets in that workbook using `readxl::excel_sheets`. Next `purrr::set_names` sets these names in a vector so that they can be used in the next step. This vector of names is implictly assigned to the `.x` argument in `purrr::map_dfr` as it is the first thing passed to it. This means we can refer to it as `.x` in the function we are iterating, in this case `readxl::read_excel`. Finally, an id column is included, made up of the sheet names and named "sheet". The output is a single dataframe with all the sheets row bound together.
+The code below sets the location of the workbook and puts this in the object `path`. It then collects the names of all the sheets in that workbook using `readxl::excel_sheets`. Next `purrr::set_names` sets these names in a vector so that they can be used in the next step. This vector of names is implicitly assigned to the `.x` argument in `purrr::map_dfr` as it is the first thing passed to it. This means we can refer to it as `.x` in the function we are iterating, in this case `readxl::read_excel`. Finally, an id column is included, made up of the sheet names and named "sheet". The output is a single dataframe with all the sheets row bound together.
 
 ```{r}
 path <- "data/multi_tab_messy_pokemon_data.xlsx"
@@ -321,7 +321,7 @@ pet_details_2 %>%
 
 ### Non-rectangular data - single worksheet - many workbooks
 
-Having solved for one workbook and worksheet, we can functionalise and iterate to gather the data from every wookbook, two of which are shown below.
+Having solved for one workbook and worksheet, we can functionalise and iterate to gather the data from every workbook, two of which are shown below.
 
 ![](image/pet_forms.png)
 
@@ -342,7 +342,7 @@ cells_to_rows <- function(path, cells, col_names){
 }
 ```
 
-Let's test it on the first pet form data, first setting the paramaters to use in the function. 
+Let's test it on the first pet form data, first setting the parameters to use in the function. 
 ```{r}
 path <- "data/pet_form_1.xlsx"
 cells <- c("B2", "D5", "E8")
@@ -437,7 +437,7 @@ Finally we have many workbooks each containing many worksheets, each containing 
 ![](image/pet_houses.png)
 <br/>
 
-We could functionalise the code above that reads and combines the cells in many worksheets from a single workbook, but an alternative approach is used below. We create an anonymous function an use that on the fly. This is useful if the function is a one off, and not too complicated. The anonymous function below still depends on the `sheet_cells_to_rows` we created earlier though.
+We could functionalise the code above that reads and combines the cells in many worksheets from a single workbook, but an alternative approach is used below. We create an anonymous function and use that on the fly. This is useful if the function is a one off, and not too complicated. The anonymous function below still depends on the `sheet_cells_to_rows` we created earlier though.
 
 ```{r}
 cells <- c("B2", "D5", "E8")
@@ -473,7 +473,7 @@ pet_house_all %>%
 
 ## Exporting to .xlsx
 
-We recommend {openxlsx} and {xltabr} for writing and formatting tables to MS Excel. The latter is a wrapper built on {openxlsx} developed by MoJ and is specifically aimed at making it easier to produce publication ready tables. {xltabr} has one known drawback in that it applies the foramtting cell by cell, so if your tables are massive (~100,000 rows) it will take too long, in this instance you should resort to {openxlsx}.
+We recommend {openxlsx} and {xltabr} for writing and formatting tables to MS Excel. The latter is a wrapper built on {openxlsx} developed by MoJ and is specifically aimed at making it easier to produce publication ready tables. {xltabr} has one known drawback in that it applies the formatting cell by cell, so if your tables are massive (~100,000 rows) it will take too long, in this instance you should resort to {openxlsx}.
 
 [openxlsx manual](https://cran.r-project.org/web/packages/openxlsx/openxlsx.pdf)
 

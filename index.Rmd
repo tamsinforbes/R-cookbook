@@ -77,7 +77,18 @@ knitr::write_bib(c(
 ), "packages.bib")
 ```
 
+
+## Data
+
+The data used in this book is all opensource or has been created for the purposes of demonstarting various techniques. As well as being availble fro the data folder on the github site [here][(https://github.com/departmentfortransport/R-cookbook/tree/master/data) you can also find the larger data sets at the links below.
+
+- [Road Safety Data API](https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data)
+- Search and Rescue Helicopter data; SARH0112 record level data download available under **All data** at the bottom of this [webpage](https://www.gov.uk/government/statistical-data-sets/search-and-rescue-helicopter-sarh01).
+- Pokemon data, not sure of original source, but borrowed from Matt Dray [here](https://github.com/matt-dray/beginner-r-feat-pkmn/tree/master/data)
+
+
 ## Work in progress
 
 This book is not static - new chapters can be added and current chapters can be amended. Please let us know if you have suggestions by raising an issue [here](https://github.com/departmentfortransport/R-cookbook/issues).
+
 
