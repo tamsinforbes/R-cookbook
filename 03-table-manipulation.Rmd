@@ -17,11 +17,11 @@ This chapter provides an overview of code examples for table or data frame manip
 
 One of the main things you will have to do in any R project or RAP project will be manipulating the data that you are using in order to get it into the format you require.
 
-One of the main packages used to manipulate data is the {dplyr} package which we recommend and use throughout this book. The dplyr package (and others e.g. tidyr) are all part of the tidyverse. The tidyverse is a group of packages developed by Hadley Wickham and others and are all designed to work with each other. See https://www.tidyverse.org/ for more info.
+One of the main packages used to manipulate data is the {dplyr} package which we recommend and use throughout this book. The {dplyr} package (and others e.g. {tidyr}) are all part of the tidyverse. The tidyverse is a group of packages developed by Hadley Wickham and others and are all designed to work with each other. See https://www.tidyverse.org/ for more info.
 
 **Tidyverse packages and functions can be combined and layered using the pipe operator `%>%`.**
 
-Dplyr is built to work with **tidy data**. To find out more about tidy data please look at the following link https://r4ds.had.co.nz/tidy-data.html but the general principles are:
+{dplyr} is built to work with **tidy data**. To find out more about tidy data please look at the following link https://r4ds.had.co.nz/tidy-data.html but the general principles are:
 
 1. Each variables must have its own column
 2. Each observation must have its own row
@@ -33,8 +33,8 @@ Dplyr is built to work with **tidy data**. To find out more about tidy data plea
 
 There will be two examples for pivoting tables provided:
 
-* The tidyr package uses the gather/spread functions and is often used to create tidy data
-* The reshape2 package is also a useful package to pivot tables and has added functionality such as providing totals of columns etc.
+* The {tidyr} package uses the gather/spread functions and is often used to create tidy data
+* The {reshape2} package is also a useful package to pivot tables and has added functionality such as providing totals of columns etc.
 
 
 We want to have the day of the week variable running along the top so each day of the week is its own column.
@@ -52,13 +52,15 @@ caption = "Number of road accidents by accident severity and weekday")
 
 
 
-**Tidyr package**
+**{tidyr} package**
 
-Using the tidyr package, gather and spread functions can be used  to pivot the table views:
+Using the {tidyr} package, gather and spread functions can be used  to pivot the table views:
 
 - **gather** makes wide data longer i.e. variables running along the top can be "gathered" into rows running down.
 
 - **spread** makes long data wider i.e. one variable can be spread and run along the top with each value being a variable.
+
+**Note: Hadley Wickham is bringing out new versions of these packages called pivot_longer and pivot_wider which are not yet available on DfT laptops.**
 
 ```{r}
 # Pivot table using tidyr package
@@ -68,7 +70,7 @@ road_accidents_weekdays <- road_accidents_small %>%
   
 ```
 
-With the spread function above you need to first specify the variable you want to spread, in this case Day_of_Week, and then the variable that will be used to populate the columns (n).
+With the spread function above you need to first specify the variable you want to spread, in this case `Day_of_Week`, and then the variable that will be used to populate the columns (`n`).
 
 ```{r, echo = FALSE, results='asis'}
 
@@ -78,18 +80,28 @@ caption = "Number of road accidents by accident severity and weekday, tidyr::spr
 ```
 
 
-The opposite can also be done using the gather function: GET HELP ON THIS
+The opposite can also be done using the gather function: 
 
 ```{r}
 # Pivot table using tidyr package
 library(tidyr)
 road_accidents_gather <- road_accidents_weekdays %>%
-  tidyr::gather(Accident_Severity, n, 1:7)
+  tidyr::gather(`1`, `2`, `3`, `4`, `5`, `6`, `7`, key = "weekday", value = "n")
+
+
   
 ```
 
+To use gather, specify which columns you want to be gathered into one column (in this case the individual weekday columns). The `key` is the name of the gathered column, and the `value` is the name of the values.
 
-**Reshape2 package**
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(head(road_accidents_gather),
+caption = "Number of road accidents by accident severity and weekday, tidyr::gather")
+
+```
+
+**{reshape2} package**
 
 Again, this has two functions which can be used to pivot tables:
 
@@ -101,12 +113,13 @@ Again, this has two functions which can be used to pivot tables:
 ```{r}
 # Pivot table using reshape2 package
 library(reshape2)
-road_accidents_weekdays2 <- reshape2::dcast(road_accidents_small, Accident_Severity ~ Day_of_Week,
-                                            value.var = "n")
+road_accidents_weekdays2 <- 
+  reshape2::dcast(road_accidents_small, Accident_Severity ~ 
+                    Day_of_Week, value.var = "n")
   
 ```
 
-With the dcast function above, after stating the name of the data frame, you need to specify the variable(s) you want in long format (multiple variables seperated by "+"), in this case Accident_Severity, and then the wide format variable(s) are put after the tilda (again multiple seperated by "+"). The value.var argument specifies which column will be used to populate the new columns, in this case it is n.
+With the `dcast` function above, after stating the name of the data frame, you need to specify the variable(s) you want in long format (multiple variables seperated by "+"), in this case Accident_Severity, and then the wide format variable(s) are put after the tilda (again multiple seperated by "+"). The `value.var` argument specifies which column will be used to populate the new columns, in this case it is n.
 
 ```{r, echo = FALSE, results='asis'}
 
@@ -115,17 +128,18 @@ caption = "Number of road accidents by accident severity and weekday, reshape2::
 
 ```
 
-If you want to create sums and totals of the tables this can also be done using reshape2. For example, taking the original table, we want to pivot it and sum each severity to get the total number of accidents per day.
+If you want to create sums and totals of the tables this can also be done using {reshape2}. For example, taking the original table, we want to pivot it and sum each severity to get the total number of accidents per day.
 
 ```{r}
 # Pivot table using reshape2 package
 library(reshape2)
-road_accidents_weekdays3 <- reshape2::dcast(road_accidents_small, Accident_Severity ~ Day_of_Week,
-                                            value.var = "n", sum, margins = "Accident_Severity")
+road_accidents_weekdays3 <- 
+reshape2::dcast(road_accidents_small, Accident_Severity ~ Day_of_Week,
+value.var = "n", sum, margins = "Accident_Severity")
   
 ```
 
-In this example, we use the margins argument to specify what we want to combine to create totals. So we want to add all the accident severity figures up for each weekday. Before using margin you need to specify how the margins are calculated, in this case we want a sum. Alternative options are to calculate the length, i.e. the number of rows.
+In this example, we use the `margins` argument to specify what we want to combine to create totals. So we want to add all the accident severity figures up for each weekday. Before using `margins` you need to specify how the margins are calculated, in this case we want a `sum`. Alternative options are to calculate the length, i.e. the number of rows.
 
 ```{r, echo = FALSE, results='asis'}
 
@@ -137,7 +151,7 @@ caption = "Number of road accidents by accident severity and weekday plus totals
 
 
 
-The opposite can also be done using the melt function.
+The opposite can also be done using the `melt` function.
 
 ```{r}
 # Pivot table using reshape2 package
@@ -148,16 +162,16 @@ road_accidents_melt <- reshape2::melt(road_accidents_weekdays2, id.vars = "Accid
   
 ```
 
-For the melt function you need to specify:
+For the `melt` function you need to specify:
 
 
-id.vars = "variables to be kept as columns"
+`id.vars` = "variables to be kept as columns"
 
-measure.vars = c("variables to be created as one column")
+`measure.vars` = c("variables to be created as one column")
 
-variable.name = "name of created column using the measure.vars"
+`variable.name` = "name of created column using the measure.vars"
 
-value.name = "name of value column"
+`value.name` = "name of value column"
 
 
 ```{r, echo = FALSE, results='asis'}
@@ -168,7 +182,7 @@ caption = "Number of road accidents by accident severity and weekday, reshape2::
 
 ## Dropping and selecting columns
 
-Use the dplyr select function to both select and drop columns.
+Use the {dplyr} select function to both select and drop columns.
 
 **Select columns**
 
@@ -202,7 +216,7 @@ caption = "Three columns from road accidents 2017")
 
 ## Filtering data
 
-Use the dplyr filter function to filter data.
+Use the {dplyr} filter function to filter data.
 
 This example filters the data for slight severity accidents (accident severity 3).
 
@@ -241,7 +255,7 @@ Also note that in the above example the variable is quoted in back ticks (`). Th
 
 ## Group data 
 
-Use the dplyr group_by function to group data. This works in a similar manner to "GROUP BY" in SQL.
+Use the {dplyr} group_by function to group data. This works in a similar manner to "GROUP BY" in SQL.
 
 The below example groups the data by accident severity and weekday, and creates totals for each group using the "tally" function.
 
@@ -259,7 +273,7 @@ caption = "Road accidents 2017 by accident severity and weekday")
 
 ## Order data
 
-Use the dplyr arrange function to order data. This works in a similar manner to "ORDER BY" in SQL.
+Use the {dplyr} arrange function to order data. This works in a similar manner to "ORDER BY" in SQL.
 
 This example orders the data by date and number of casualties.
 
@@ -285,7 +299,7 @@ caption = "Road accidents 2017 ordered by date and number of casualties")
 
 ## Get counts of data
 
-To get counts for groups of data, the dplyr tally function can be used in conjunction with the dplyr group by function. This groups the data into the required groups and then tallys how many records are in each group.
+To get counts for groups of data, the {dplyr} tally function can be used in conjunction with the {dplyr} group by function. This groups the data into the required groups and then tallys how many records are in each group.
 
 ```{r}
 # Create grouped data set with counts
@@ -308,11 +322,11 @@ caption = "Road accidents 2017 by accident severity and weekday")
 When combining data from two tables there are two ways to do this in R:
 
 * Bind the tables by basically either appending the tables on the rows or columns
-* Join the tables using the dplyr version of SQL joins
+* Join the tables using the {dplyr} version of SQL joins
 
 **Binding tables**
 
-Binding tables is mainly done to append tables by creating more rows, however tables can also be binded by adding more columns. Although it is recommended to use the dplyr join functions to combine columns (see 5.6).
+Binding tables is mainly done to append tables by creating more rows, however tables can also be bound by adding more columns. Although it is recommended to use the {dplyr} join functions to combine columns (see 5.6).
 
 ```{r include=FALSE}
 library(dplyr)
@@ -334,7 +348,7 @@ knitr::kable(accidents_3, caption = "Number of slight injury road accidents in 2
 
 ```
 
-To combine these tables we can use the bind_rows function from the dplyr package. Use bind_rows when you want to append the tables underneath one another to make one longer table, i.e. you want to add more rows.
+To combine these tables we can use the bind_rows function from the {dplyr} package. Use bind_rows when you want to append the tables underneath one another to make one longer table, i.e. you want to add more rows.
 
 **Ensure that the column names for each table are exactly the same in each table.**
 
@@ -367,7 +381,7 @@ road_acc_2 <- head(dplyr::select(road_accidents, acc_index, Date, Day_of_Week))
 ## Joining tables
 
 
-Joins in R can be done using dplyr. This is generally to combine columns of data from two tables:
+Joins in R can be done using {dplyr}. This is generally to combine columns of data from two tables:
 
 
 ```{r}
@@ -381,9 +395,9 @@ all_accidents_cols_join <- road_acc_1 %>%
 This uses the same principles as SQL, by specifying what the tables should be joined on using the **by =** argument. 
 
 
-Dplyr has all the usual SQL joins for example, inner_join, full_join, right_join. All of these are used in the same way as the left join example above.
+{dplyr} has all the usual SQL joins for example, `inner_join`, `full_join`, `right_join`. All of these are used in the same way as the left join example above.
 
-Another useful join for data manipulation is an anti_join. This provides all the data that is not in the joined table. For example, the below snapshot of a table displays road accident totals broken down by accident severity and weekday:
+Another useful join for data manipulation is an `anti_join`. This provides all the data that is not in the joined table. For example, the below snapshot of a table displays road accident totals broken down by accident severity and weekday:
 
 ```{r, echo = FALSE, results='asis'}
 
@@ -393,7 +407,7 @@ knitr::kable(head(road_accidents_small, caption = "Road accident data 2017 by ac
 
 I am interested in creating two sub-groups of this data, a table for all accidents on a Monday (weekday 2), and all other accidents.
 
-First, I get the Monday data using the dplyr filter function (see 5.3).
+First, I get the **Monday** data using the {dplyr} filter function (see 5.3).
 
 ```{r include=FALSE}
 library(dplyr)
@@ -410,7 +424,7 @@ knitr::kable(head(accidents_monday, caption = "Road accident data 2017 on a Mond
 
 ```
 
-Then, I can use an anti-join to create a table which has all of the data that is not in the above table:
+Then, I can use an `anti-join` to create a table which has all of the data that is not in the above table:
 
 ```{r}
 # create table of all rows not in the joined table
@@ -430,7 +444,7 @@ knitr::kable(all_accidents_not_monday, caption = "Road accident data 2017 not on
 
 ## Select specific columns in a join
 
-Doing a join with dplyr will join all columns from both tables, however sometimes not all columns from each table are needed.
+Doing a join with {dplyr} will join all columns from both tables, however sometimes not all columns from each table are needed.
 
 Let's look at some previous tables again:
 
@@ -440,7 +454,7 @@ knitr::kable(road_acc_1, caption = "Police force and accident severity informati
 knitr::kable(road_acc_2, caption = "Date and weekday information for accidents")
 ```
 
-Let's say we want acc_index and Police_Force from the first table, and Date from the second table.
+Let's say we want **acc_index** and **Police_Force** from the first table, and **Date** from the second table.
 
 ```{r}
 # select specific columns from each table and left join
@@ -451,9 +465,9 @@ road_acc_3 <- road_acc_1 %>%
   dplyr::left_join(select(road_acc_2, acc_index, Date), by = "acc_index")
 ```
 
-The above code takes the first table and uses the select statement to select the required columns from the first table. 
+The above code takes the first table and uses the `select` statement to select the required columns from the first table. 
 
-Then within the left_join command, to select the data from the second table, you again add the select statement.
+Then within the `left_join` command, to select the data from the second table, you again add the `select` statement.
 
 **Note: you will need to select the joining variable in both tables but this will only appear once**
 
@@ -463,7 +477,7 @@ knitr::kable(road_acc_3, caption = "Police force and Date information for specif
 ```
 
 ## Sum rows or columns
-These solutions use the base R functions rather than dplyr.
+These solutions use the base R functions rather than {dplyr}.
 
 ### Sum rows
 
@@ -518,7 +532,7 @@ knitr::kable(road_accidents_weekdays[,-9:-10], caption = "Road accidents 2017 by
 ```
 
 
-Reshape2 can also be used to get column totals when pivoting a table (See 5.1).
+{reshape2} can also be used to get column totals when pivoting a table (See 5.1).
 
 ## Replace NAs or other values
 
@@ -546,7 +560,7 @@ road_accidents_na$Junction_Control <- road_accidents_na$Junction_Control %>%
 
 ```
 
-**Note: To replace NA with a character the character replacement must be wrapped in "quotations"**
+**Note: To replace NA with a character the character replacement must be wrapped in "quotation marks"**
 
 To replace all NAs in a data frame or tibble:
 
@@ -586,7 +600,7 @@ The case_when function is similar to using CASE WHEN in SQL.
 
 The TRUE argument indicates that if the values aren't included in the case_when then they should be whatever is after the tilda (~)  i.e. the equivalent of the ELSE statement in SQL.
 
-The "as.character" parameter says that everything that isn't 3 should be kept as it is, this could be replaced by an arbitrary character or value e.g. "Other". This would make everything that is not a 3, coded as "Other". 
+The "as.character" function says that everything that in `1st_Road_Class` isn't 3 should be kept as it is, this could be replaced by an arbitrary character or value e.g. "Other". This would make everything that is not a 3, coded as "Other". 
 
 You can have multiple case_when arguments for multiple values, they just need to be seperated with a comma. Multiple case_when statements for different variables can be layered using the pipe operator `%>%`.
 
@@ -595,7 +609,7 @@ You can have multiple case_when arguments for multiple values, they just need to
 
 ### Reordering rows
 
-Rows can be reordered by certain variables using the dplyr arrange function with examples in the **Order data** sub-chapter. This will order the data in ascending order by the variables quoted. To order rows in descending order the ``desc()`` command can be used within the arrange function.
+Rows can be reordered by certain variables using the {dplyr} arrange function with examples in the **4.5 Order data** sub-chapter of this book. This will order the data in ascending order by the variables quoted. To order rows in descending order the ``desc()`` command can be used within the arrange function.
 
 ```{r}
 # Order data by date and number of casualties
@@ -612,7 +626,7 @@ caption = "Road accidents 2017 ordered by date (descending) and number of casual
 
 ### Reordering columns
 
-Use the dplyr select statement to reorder columns, where the order of the variables quoted represents the order of the columns in the table.
+Use the {dplyr} select statement to reorder columns, where the order of the variables quoted represents the order of the columns in the table.
 
 ```{r, echo = FALSE, results='asis'}
 
@@ -631,7 +645,7 @@ table_reordered <- road_accidents_4_cols %>%
 
 ## Creating new variables
 
-The dplyr mutate function can be used to create new variables based on current variables or other additional information. 
+The {dplyr} mutate function can be used to create new variables based on current variables or other additional information. 
 
 For example, to create a new variable which is speed limit in km:
 
@@ -650,7 +664,7 @@ caption = "Road accidents by km/h")
 
 ## Summarising data
 
-The dplyr summarise function can be used to summarise data (mean, median, sd, min, max, n_distinct). See https://dplyr.tidyverse.org/reference/summarise.html for more examples.
+The {dplyr} summarise function can be used to summarise data (mean, median, sd, min, max, n_distinct). See https://dplyr.tidyverse.org/reference/summarise.html for more examples.
 
 For example, to get the mean number of accidents for each weekday:
 
@@ -676,7 +690,7 @@ caption = "Mean number of accidents in 2017, by weekday")
 
 ## Look up tables
 
-Aside from importing a seperate lookup data file into R, named vectors can be used as lookup tables.
+Aside from importing a separate lookup data file into R, named vectors can be used as lookup tables.
 
 For example, to assign accident severity values with labels, named vectors can be used (**note: numbers must also be in quotation marks**):
 

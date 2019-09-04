@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿Name,Value
 Bob,#N/A
 George,#N/A
@@ -7,4 +8,15 @@ George,3
 Ringo,1
 Mary,#N/A
 Louise,#N/A
+=======
+﻿Name,Value
+Bob,#N/A
+George,#N/A
+Wyatt,1
+Bob,2
+George,3
+Ringo,1
+Mary,#N/A
+Louise,#N/A
+>>>>>>> c055bf3b6639c1698d066981bd02bdb760c4c452
 Bob,#N/A
