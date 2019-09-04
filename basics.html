@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="Guidance and code examples for R usage for DfT and beyond" />
   
 
-<meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
+<meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Tim Taylor" />
 
 
 <meta name="date" content="2019-09-04" />
@@ -150,32 +150,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Why do we need <em>another</em> book?</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#coding-standards"><i class="fa fa-check"></i><b>1.1</b> Coding standards</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#adding-to-the-book"><i class="fa fa-check"></i><b>1.2</b> Adding to the book</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#data"><i class="fa fa-check"></i><b>1.2</b> Data</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#work-in-progress"><i class="fa fa-check"></i><b>1.3</b> Work in progress</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> The basics</a><ul>
 <li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#r-family"><i class="fa fa-check"></i><b>2.1</b> R family</a></li>
 <li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#dft-rrstudio---subject-to-change"><i class="fa fa-check"></i><b>2.2</b> DfT R/RStudio - subject to change</a></li>
-<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#rstudio-ide"><i class="fa fa-check"></i><b>2.3</b> RStudio IDE</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#rstudio-ide"><i class="fa fa-check"></i><b>2.3</b> RStudio IDE</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="basics.html"><a href="basics.html#left-bottom-left-if-you-have-scripts-open"><i class="fa fa-check"></i><b>2.3.1</b> Left (bottom left if you have scripts open)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics.html"><a href="basics.html#top-right-environment-and-other-tabs"><i class="fa fa-check"></i><b>2.3.2</b> Top right; <strong>Environment</strong>, and other tabs</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basics.html"><a href="basics.html#bottom-right"><i class="fa fa-check"></i><b>2.3.3</b> Bottom right</a></li>
+<li class="chapter" data-level="2.3.4" data-path="basics.html"><a href="basics.html#other-handy-buttons-in-rstudio-ide"><i class="fa fa-check"></i><b>2.3.4</b> Other handy buttons in RStudio IDE</a></li>
+<li class="chapter" data-level="2.3.5" data-path="basics.html"><a href="basics.html#rstudio-menu-bar-a-few-pointers"><i class="fa fa-check"></i><b>2.3.5</b> RStudio menu bar a few pointers</a></li>
+</ul></li>
 <li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#projects"><i class="fa fa-check"></i><b>2.4</b> Projects</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="basics.html"><a href="basics.html#folders"><i class="fa fa-check"></i><b>2.4.1</b> folders</a></li>
+<li class="chapter" data-level="2.4.1" data-path="basics.html"><a href="basics.html#folders"><i class="fa fa-check"></i><b>2.4.1</b> Folders</a></li>
 <li class="chapter" data-level="2.4.2" data-path="basics.html"><a href="basics.html#sessioninfo"><i class="fa fa-check"></i><b>2.4.2</b> sessionInfo()</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#r-memory"><i class="fa fa-check"></i><b>2.5</b> R memory</a></li>
-<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#assignement-operators---vs"><i class="fa fa-check"></i><b>2.6</b> Assignement operators <code>&lt;-</code> vs <code>=</code></a></li>
-<li class="chapter" data-level="2.7" data-path="basics.html"><a href="basics.html#arithmetic-operators"><i class="fa fa-check"></i><b>2.7</b> Arithmetic operators</a></li>
-<li class="chapter" data-level="2.8" data-path="basics.html"><a href="basics.html#relational-operators"><i class="fa fa-check"></i><b>2.8</b> Relational operators</a></li>
-<li class="chapter" data-level="2.9" data-path="basics.html"><a href="basics.html#logical-operators"><i class="fa fa-check"></i><b>2.9</b> Logical operators</a></li>
-<li class="chapter" data-level="2.10" data-path="basics.html"><a href="basics.html#vectors"><i class="fa fa-check"></i><b>2.10</b> Vectors</a><ul>
-<li class="chapter" data-level="2.10.1" data-path="basics.html"><a href="basics.html#vector-types"><i class="fa fa-check"></i><b>2.10.1</b> Types</a></li>
-<li class="chapter" data-level="2.10.2" data-path="basics.html"><a href="basics.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>2.10.2</b> Conversion between atomic vector types</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#a-note-on-rounding"><i class="fa fa-check"></i><b>2.6</b> A note on rounding</a></li>
+<li class="chapter" data-level="2.7" data-path="basics.html"><a href="basics.html#assignment-operators---vs"><i class="fa fa-check"></i><b>2.7</b> Assignment operators <code>&lt;-</code> vs <code>=</code></a></li>
+<li class="chapter" data-level="2.8" data-path="basics.html"><a href="basics.html#arithmetic-operators"><i class="fa fa-check"></i><b>2.8</b> Arithmetic operators</a></li>
+<li class="chapter" data-level="2.9" data-path="basics.html"><a href="basics.html#relational-operators"><i class="fa fa-check"></i><b>2.9</b> Relational operators</a></li>
+<li class="chapter" data-level="2.10" data-path="basics.html"><a href="basics.html#logical-operators"><i class="fa fa-check"></i><b>2.10</b> Logical operators</a></li>
+<li class="chapter" data-level="2.11" data-path="basics.html"><a href="basics.html#vectors"><i class="fa fa-check"></i><b>2.11</b> Vectors</a><ul>
+<li class="chapter" data-level="2.11.1" data-path="basics.html"><a href="basics.html#vector-types"><i class="fa fa-check"></i><b>2.11.1</b> Types</a></li>
+<li class="chapter" data-level="2.11.2" data-path="basics.html"><a href="basics.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>2.11.2</b> Conversion between atomic vector types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>3</b> Data Importing/Exporting and interaction with other programmes</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-import.html"><a href="data-import.html#libraries"><i class="fa fa-check"></i><b>3.1</b> Libraries</a></li>
 <li class="chapter" data-level="3.2" data-path="data-import.html"><a href="data-import.html#star-functions"><i class="fa fa-check"></i><b>3.2</b> Star functions</a></li>
 <li class="chapter" data-level="3.3" data-path="data-import.html"><a href="data-import.html#navigating-folders"><i class="fa fa-check"></i><b>3.3</b> Navigating folders</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="data-import.html"><a href="data-import.html#down"><i class="fa fa-check"></i><b>3.3.1</b> Down</a></li>
-<li class="chapter" data-level="3.3.2" data-path="data-import.html"><a href="data-import.html#up"><i class="fa fa-check"></i><b>3.3.2</b> Up</a></li>
+<li class="chapter" data-level="3.3.1" data-path="data-import.html"><a href="data-import.html#up"><i class="fa fa-check"></i><b>3.3.1</b> Up</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="data-import.html"><a href="data-import.html#rds"><i class="fa fa-check"></i><b>3.4</b> .rds</a></li>
 <li class="chapter" data-level="3.5" data-path="data-import.html"><a href="data-import.html#csv"><i class="fa fa-check"></i><b>3.5</b> .csv</a></li>
@@ -301,7 +308,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="basics" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> The basics</h1>
-<p><strong>TO BE COMPLETED</strong></p>
 <div id="r-family" class="section level2">
 <h2><span class="header-section-number">2.1</span> R family</h2>
 <p>A few of the common R relations are</p>
@@ -309,33 +315,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>R is the programming language, born in 1997, based on S, <a href="https://en.wikipedia.org/wiki/R_(programming_language)">honest</a>.</li>
 <li>RStudio is a useful integrated development environment (IDE) that makes it cleaner to write, run and organise R code.</li>
 <li>Rproj is the file extension for an R project, essentially a working directory marker, shortens file paths, keeps everything relevant to your project together and easy to reference.</li>
-<li>packages are collections of functions written to make specific tasks easier, eg the <code>stringr</code> package contains functions to work with strings. Packages are often referred to as libraries in other programing languages.</li>
+<li>packages are collections of functions written to make specific tasks easier, eg the {stringr} package contains functions to work with strings. Packages are often referred to as libraries in other programming languages.</li>
 <li>.R is the file extension for a basic R script in which anything not commented out with <code>#</code> is code that is run.</li>
 <li>.Rmd is the file extension for Rmarkdown an R package useful for producing reports. A .Rmd script is different to a .R script in that the default is text rather than code. Code is placed in code chunks - similar to how a Jupyter Notebook looks.</li>
 </ul>
 </div>
 <div id="dft-rrstudio---subject-to-change" class="section level2">
 <h2><span class="header-section-number">2.2</span> DfT R/RStudio - subject to change</h2>
-<p>Which version of R/RStudio should I use at DfT? A good question. Currently the ‘best’ verion of R we have available on network is linked to RStudio version 11453. This can be accessed via the Citrix app on the Windows 10 devices, or via Citrix desktop. The local version of RStudio on the Windows 10 devices is currently unusable (user testing is ongoing to change this). There is also a 11423 version of RStudio available which uses slightly older versions of packages.</p>
+<p>Which version of R/RStudio should I use at DfT? A good question. Currently the ‘best’ version of R we have available on network is linked to RStudio version 11453. This can be accessed via the Citrix app on the Windows 10 devices, or via Citrix desktop. The local version of RStudio on the Windows 10 devices is currently unusable (user testing is ongoing to change this). There is also a 11423 version of RStudio available which uses slightly older versions of packages.</p>
 </div>
 <div id="rstudio-ide" class="section level2">
 <h2><span class="header-section-number">2.3</span> RStudio IDE</h2>
 <p>The RStudio integrated development environment has some very useful features which make writing and organising code a lot easier. It’s divided into 3 panes;</p>
-<div id="left-bottom-left-if-you-have-scripts-open" class="section level4">
-<h4><span class="header-section-number">2.3.0.1</span> Left (bottom left if you have scripts open)</h4>
+<div id="left-bottom-left-if-you-have-scripts-open" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Left (bottom left if you have scripts open)</h3>
 <ul>
 <li>this is the <strong>Console</strong> it shows you what code has been run and outputs.</li>
 </ul>
 </div>
-<div id="top-right-environment-and-other-tabs" class="section level4">
-<h4><span class="header-section-number">2.3.0.2</span> Top right; <strong>Environment</strong>, and other tabs</h4>
+<div id="top-right-environment-and-other-tabs" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Top right; <strong>Environment</strong>, and other tabs</h3>
 <ul>
 <li><strong>Environment</strong> tab shows what objects have been created in the global environment in the current session.</li>
 <li><strong>Connections</strong> tab will show any connections you have set up this session, for example, to an SQL server.</li>
 </ul>
 </div>
-<div id="bottom-right" class="section level4">
-<h4><span class="header-section-number">2.3.0.3</span> Bottom right</h4>
+<div id="bottom-right" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Bottom right</h3>
 <ul>
 <li><strong>Files</strong> tab shows what directory you are in and the files there.</li>
 <li><strong>Plots</strong> tab shows all the plot outputs created this session, you can navigate through them.</li>
@@ -346,15 +352,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For some pictures have a look at DfE’s <strong>R Training Course</strong> <a href="https://dfe-analytical-services.github.io/r-training-course/getting-started-with-rstudio.html">getting started with rstudio</a></p>
 <p>Or Matt Dray’s <a href="https://matt-dray.github.io/beginner-r-feat-pkmn/#4_the_rstudio_interface">Beginner R Featuring Pokemon: the RStudio interface</a></p>
 </div>
-<div id="other-handy-buttons-in-rstudio-ide" class="section level4">
-<h4><span class="header-section-number">2.3.0.4</span> Other handy buttons in RStudio IDE</h4>
+<div id="other-handy-buttons-in-rstudio-ide" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Other handy buttons in RStudio IDE</h3>
 <ul>
 <li>top left new script icon; blank page with green circle and white cross.</li>
 <li>top right project icon; 3D transparent light blue cube with R. Use this to create and open projects.</li>
 </ul>
 </div>
-<div id="rstudio-menu-bar-a-few-pointers" class="section level4">
-<h4><span class="header-section-number">2.3.0.5</span> RStudio menu bar a few pointers</h4>
+<div id="rstudio-menu-bar-a-few-pointers" class="section level3">
+<h3><span class="header-section-number">2.3.5</span> RStudio menu bar a few pointers</h3>
 <ul>
 <li><strong>View</strong> contains <strong>Zoom In</strong> <strong>Zoom Out</strong></li>
 <li><strong>Tools</strong> -&gt; <strong>Global Options</strong> contains many useful setting tabs such as <strong>Appearance</strong> where you can change the RStudio theme, and <strong>Code</strong> -&gt; <strong>Display</strong> where you can set a margin vertical guideline (default is 80 characters).</li>
@@ -365,7 +371,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.4</span> Projects</h2>
 <p>Why you should work in an R project, how to set up and project happiness. See this section of <a href="https://matt-dray.github.io/beginner-r-feat-pkmn/#3_project_working">Beginner R Featuring Pokemon</a> by Matt Dray.</p>
 <div id="folders" class="section level3">
-<h3><span class="header-section-number">2.4.1</span> folders</h3>
+<h3><span class="header-section-number">2.4.1</span> Folders</h3>
 <p>When you set up a project it is good practise to include separate folders for different types of files such as</p>
 <ul>
 <li>data; for the data your R code is using</li>
@@ -381,205 +387,211 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="r-memory" class="section level2">
 <h2><span class="header-section-number">2.5</span> R memory</h2>
-<p>R works in RAM, so its memory is only as good as the amount of RAM you have. More info in the <strong>Memory</strong> chapter of Advanced R by Hadley Wickham <a href="http://adv-r.had.co.nz/memory.html">here</a>.</p>
+<p>R works in RAM, so its memory is only as good as the amount of RAM you have - however this should be sufficient for most tasks. More info in the <strong>Memory</strong> chapter of Advanced R by Hadley Wickham <a href="http://adv-r.had.co.nz/memory.html">here</a>.</p>
 </div>
-<div id="assignement-operators---vs" class="section level2">
-<h2><span class="header-section-number">2.6</span> Assignement operators <code>&lt;-</code> vs <code>=</code></h2>
-<p>To assign or to equal? These are not always the same thing. In R to assign a value to a variable it is advised to use <code>&lt;-</code> rather than <code>=</code>. The latter is generally used for setting parameters inside functions, eg, <code>my_string &lt;- stringr::str_match(string = &quot;abc&quot;, pattern = &quot;a&quot;)</code>. More on assignment operators <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/assignOps.html">here</a>.</p>
+<div id="a-note-on-rounding" class="section level2">
+<h2><span class="header-section-number">2.6</span> A note on rounding</h2>
+<p>The base function <code>round()</code> in R rounds <strong>half to even</strong>, that is, half way is rounded to the nearest even number, for example the decimals below both round to the same value.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">round</span>(<span class="fl">3.5</span>)</a></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">round</span>(<span class="fl">4.5</span>)</a></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p>This helps eliminate bias, more info on Wikipedia <a href="https://en.wikipedia.org/wiki/Rounding#Round_half_to_even">round half to even</a></p>
+<p>If <strong>round half to even</strong> is not for you, you can use <strong>round_half_up</strong> from the {janitor} package, thus</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">janitor<span class="op">::</span><span class="kw">round_half_up</span>(<span class="fl">3.5</span>)</a></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">janitor<span class="op">::</span><span class="kw">round_half_up</span>(<span class="fl">4.5</span>)</a></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+</div>
+<div id="assignment-operators---vs" class="section level2">
+<h2><span class="header-section-number">2.7</span> Assignment operators <code>&lt;-</code> vs <code>=</code></h2>
+<p>To assign or to equal? These are not always the same thing. In R to assign a value to a variable it is advised to use <code>&lt;-</code> rather than <code>=</code>. The latter is generally used for setting parameters inside functions, e.g., <code>my_string &lt;- stringr::str_match(string = &quot;abc&quot;, pattern = &quot;a&quot;)</code>. More on assignment operators <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/assignOps.html">here</a>.</p>
 </div>
 <div id="arithmetic-operators" class="section level2">
-<h2><span class="header-section-number">2.7</span> Arithmetic operators</h2>
+<h2><span class="header-section-number">2.8</span> Arithmetic operators</h2>
 <ul>
 <li>addition</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <ul>
 <li>subtraction</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dv">5</span> <span class="op">-</span><span class="st"> </span><span class="dv">4</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="dv">5</span> <span class="op">-</span><span class="st"> </span><span class="dv">4</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <ul>
 <li>multiplication</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <ul>
 <li>division</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="dv">3</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="dv">3</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 1.5</code></pre>
 <ul>
 <li>exponent</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="dv">3</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="dv">3</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <ul>
 <li>modulus (remainder on divsion)</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="dv">14</span> <span class="op">%%</span><span class="st"> </span><span class="dv">6</span> </a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="dv">14</span> <span class="op">%%</span><span class="st"> </span><span class="dv">6</span> </a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <ul>
 <li>integer division</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="dv">50</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">8</span></a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="dv">50</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">8</span></a></code></pre></div>
 <pre><code>## [1] 6</code></pre>
 </div>
 <div id="relational-operators" class="section level2">
-<h2><span class="header-section-number">2.8</span> Relational operators</h2>
+<h2><span class="header-section-number">2.9</span> Relational operators</h2>
 <ul>
 <li>less than</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">3.142</span></a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">3.142</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>greater than</li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="fl">3.14159</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="fl">3.14159</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>less than or equal to</li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="dv">3</span> <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="dv">3</span> <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>greater than or equal to</li>
 </ul>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="dv">3</span> <span class="op">&gt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="dv">3</span> <span class="op">&gt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&gt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&gt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>equal to</li>
 </ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="fl">3.14159</span></a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="fl">3.14159</span></a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <ul>
 <li>not equal to</li>
 </ul>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="dv">3</span> <span class="op">!=</span><span class="st"> </span><span class="fl">3.14159</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="dv">3</span> <span class="op">!=</span><span class="st"> </span><span class="fl">3.14159</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="logical-operators" class="section level2">
-<h2><span class="header-section-number">2.9</span> Logical operators</h2>
+<h2><span class="header-section-number">2.10</span> Logical operators</h2>
 <ul>
 <li>not <code>!</code></li>
 </ul>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="dv">0</span>, <span class="ot">FALSE</span>, <span class="dv">-4</span>)</a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="op">!</span>x</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="dv">0</span>, <span class="ot">FALSE</span>, <span class="dv">-4</span>)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="op">!</span>x</a></code></pre></div>
 <pre><code>## [1] FALSE  TRUE  TRUE FALSE</code></pre>
 <ul>
 <li>element-wise and <code>&amp;</code></li>
 </ul>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">3.14</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">x <span class="op">&amp;</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">3.14</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">x <span class="op">&amp;</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE FALSE</code></pre>
 <ul>
 <li>first element and <code>&amp;&amp;</code></li>
 </ul>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">x <span class="op">&amp;&amp;</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">x <span class="op">&amp;&amp;</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>element-wise or <code>|</code></li>
 </ul>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">x <span class="op">|</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">x <span class="op">|</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE  TRUE</code></pre>
 <ul>
 <li>first element or <code>||</code></li>
 </ul>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">FALSE</span>, <span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">y <span class="op">||</span><span class="st"> </span>z</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">FALSE</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">y <span class="op">||</span><span class="st"> </span>z</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="vectors" class="section level2">
-<h2><span class="header-section-number">2.10</span> Vectors</h2>
+<h2><span class="header-section-number">2.11</span> Vectors</h2>
 <div id="vector-types" class="section level3">
-<h3><span class="header-section-number">2.10.1</span> Types</h3>
+<h3><span class="header-section-number">2.11.1</span> Types</h3>
 <p>There are four main atomic vector types that you are likely to come across
 when using R<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>; <strong>logical</strong> (<code>TRUE</code>
 or <code>FALSE</code>), <em>double</em> (<code>3.142</code>), <em>integer</em> (<code>2L</code>) and <em>character</em> (<code>&quot;Awesome&quot;</code>)</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">v1 &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">typeof</span>(v1)</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">v1 &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="kw">typeof</span>(v1)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">v1 &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">typeof</span>(v1)</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">v1 &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw">typeof</span>(v1)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">v2 &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
-<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="kw">typeof</span>(v2)</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">v2 &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw">typeof</span>(v2)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">v2 &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">typeof</span>(v2)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">v2 &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">typeof</span>(v2)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="co"># integer values must be followed by an L to be stored as integers</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">v3 &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="kw">typeof</span>(v3)</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="co"># integer values must be followed by an L to be stored as integers</span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2">v3 &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="kw">typeof</span>(v3)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">v3 &lt;-<span class="st"> </span>2L</a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw">typeof</span>(v3)</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">v3 &lt;-<span class="st"> </span>2L</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="kw">typeof</span>(v3)</a></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">v4 &lt;-<span class="st"> &quot;Awesome&quot;</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw">typeof</span>(v4)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">v4 &lt;-<span class="st"> &quot;Awesome&quot;</span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="kw">typeof</span>(v4)</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>As well as the atomic vector types you will often encounter two other vector
-types; <strong>factor</strong> and <strong>Date</strong>.</p>
-<p>Factor vectors are used to represent categorical data. They are actually
-integer vectors with two additional attributes, levels and class. At this
-stage it is not worth worrying to much about what attribute are just understand
-that, for factors, the levels attribute gives the possible categories and
-combined with the integer values works much like a lookup table. The <code>class</code>
-attribute is just “factor”.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">ratings &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;amazing&quot;</span>))</a>
-<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">typeof</span>(ratings)</a></code></pre></div>
+types; <strong>factor</strong> and <strong>Date</strong>. As well as some notes here this book also contains fuller sections on both
+- Chapter 6 <a href="factors.html#factors">Working with factors</a>
+- Chapter 5 <a href="dates-times.html#dates-times">Working with dates and times</a></p>
+<p>Factor vectors are used to represent categorical data. They are actually integer vectors with two additional attributes, levels and class. At this stage it is not worth worrying too much about what attributes are, but is suffiecient to understand that, for factors, the levels attribute gives the possible categories, and combined with the integer values works much like a lookup table. The <code>class</code> attribute is just “factor”.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">ratings &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;amazing&quot;</span>))</a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="kw">typeof</span>(ratings)</a></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">attributes</span>(ratings)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">attributes</span>(ratings)</a></code></pre></div>
 <pre><code>## $levels
 ## [1] &quot;amazing&quot; &quot;bad&quot;     &quot;good&quot;   
 ## 
 ## $class
 ## [1] &quot;factor&quot;</code></pre>
-<p>Date vectors are just double vectors with an additional class attribute set as
-“Date”.</p>
-<p><strong>Note - The following borrows directly from Hadley’s Advanced R site
-so we need to attribute appropriately and use correct licence</strong></p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()</a>
-<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="kw">typeof</span>(today)</a></code></pre></div>
+<p>Date vectors are just double vectors with an additional class attribute set as “Date”.</p>
+<p><strong>Note - The following borrows directly from Hadley’s Advanced R site so we need to attribute appropriately and use correct licence</strong></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()</a>
+<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="kw">typeof</span>(today)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">attributes</span>(today)</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">attributes</span>(today)</a></code></pre></div>
 <pre><code>## $class
 ## [1] &quot;Date&quot;</code></pre>
-<p>The value of the double (which can be seen by stripping the class), represents
-the number of days since “1970-01-01”<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1970-02-01&quot;</span>)</a>
-<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="kw">unclass</span>(date)</a></code></pre></div>
+<p>The value of the double (which can be seen by stripping the class), represents the number of days since “1970-01-01”<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1970-02-01&quot;</span>)</a>
+<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="kw">unclass</span>(date)</a></code></pre></div>
 <pre><code>## [1] 31</code></pre>
 </div>
 <div id="conversion-between-atomic-vector-types" class="section level3">
-<h3><span class="header-section-number">2.10.2</span> Conversion between atomic vector types</h3>
-<p>Converting between the atomic vector types is done using the <code>as.character</code>,
-<code>as.integer</code>, <code>as.logical</code> and <code>as.double</code> functions.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">value &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
-<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="kw">as.integer</span>(value)</a></code></pre></div>
+<h3><span class="header-section-number">2.11.2</span> Conversion between atomic vector types</h3>
+<p>Converting between the atomic vector types is done using the <code>as.character</code>, <code>as.integer</code>, <code>as.logical</code> and <code>as.double</code> functions.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">value &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
+<a class="sourceLine" id="cb75-2" data-line-number="2"><span class="kw">as.integer</span>(value)</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">as.character</span>(value)</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="kw">as.character</span>(value)</a></code></pre></div>
 <pre><code>## [1] &quot;1.5&quot;</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">as.logical</span>(value)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">as.logical</span>(value)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Where it is not possible to convert a value you will get a warning message</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">value &lt;-<span class="st"> &quot;z&quot;</span></a>
-<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="kw">as.integer</span>(value)</a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1">value &lt;-<span class="st"> &quot;z&quot;</span></a>
+<a class="sourceLine" id="cb81-2" data-line-number="2"><span class="kw">as.integer</span>(value)</a></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1] NA</code></pre>
-<p>When combining different vector types, coercion will obey the following
-hierarchy: character, double, integer, logical.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="st">&quot;pop&quot;</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
+<p>When combining different vector types, coercion will obey the following hierarchy: character, double, integer, logical.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="st">&quot;pop&quot;</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(3L, <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(3L, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
 
 </div>
@@ -590,8 +602,7 @@ hierarchy: character, double, integer, logical.</p>
 <ol start="1">
 <li id="fn1"><p>technically there are more, see
 <a href="https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors" class="uri">https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors</a><a href="basics.html#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>This special date is known as the Unix
-Epoch<a href="basics.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>This special date is known as the Unix Epoch<a href="basics.html#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
