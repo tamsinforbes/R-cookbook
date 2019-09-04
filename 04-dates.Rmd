@@ -55,7 +55,7 @@ This chapter will be using the road accident data set:
 
 ```{r, echo = FALSE, results='asis'}
 
-knitr::kable(head(dplyr::select(road_accidents, acc_index, Date, Police_Force, Accident_Severity, Day_of_Week, Time)),
+knitr::kable(head(dplyr::select(road_accidents, acc_index, Date, Police_Force,  Day_of_Week, Time)),
 caption = "Reported Road Accidents, 2017")
 
 ```
@@ -103,7 +103,7 @@ road_accidents$Year <- lubridate::year(road_accidents$Date1)
 
 ```
 
-*See Table 5.1 for output*
+*See Table 5.2 for output*
 
 ### Get month from date
 
@@ -115,7 +115,7 @@ road_accidents$Month <- lubridate::month(road_accidents$Date1)
 
 ```
 
-*See Table 5.1 for output*
+*See Table 5.2 for output*
 
 ### Get day from date
 
@@ -127,7 +127,7 @@ road_accidents$Day <- lubridate::day(road_accidents$Date1)
 
 ```
 
-*See Table 5.1 for output*
+*See Table 5.2 for output*
 
 ### Get weekday from date
 
@@ -139,7 +139,7 @@ road_accidents$weekday <- lubridate::wday(road_accidents$Date1)
 
 ```
 
-*See Table 5.1 for output*
+*See Table 5.2 for output*
 
 ### Get quarter from date
 
@@ -151,7 +151,7 @@ road_accidents$Quarter <- lubridate::quarter(road_accidents$Date1)
 
 ```
 
-*See Table 5.1 for output*
+*See Table 5.2 for output*
 
 ```{r, include = FALSE}
 
@@ -259,7 +259,9 @@ The {lubridate} package can be used in conjunction with the paste function to co
 ```{r}
 
 road_accidents$date <- 
-paste(road_accidents$Year, road_accidents$Month, road_accidents$Day, sep="-") %>% ymd() %>% as.Date()
+paste(road_accidents$Year, road_accidents$Month, road_accidents$Day, sep="-") %>% 
+  ymd()%>%
+  as.Date()
 
 ```
 
@@ -331,6 +333,8 @@ road_accidents$hour <- lubridate::hour(road_accidents$Time)
 
 ```
 
+*See Table 5.8 for output* 
+
 ### Extract minute from time
 
 Use the **minute** function from the {lubridate} package to extract minute information.
@@ -342,6 +346,7 @@ road_accidents$minute <- lubridate::minute(road_accidents$Time)
 
 ```
 
+*See Table 5.8 for output* 
 
 ### Extract second from time
 
@@ -353,6 +358,8 @@ Use the **second** function from the {lubridate} package to extract second infor
 road_accidents$second <- lubridate::second(road_accidents$Time)
 
 ```
+
+*See Table 5.8 for output* 
 
 ```{r, echo = FALSE, results='asis'}
 

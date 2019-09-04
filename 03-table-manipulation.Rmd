@@ -245,7 +245,7 @@ road_accidents_filter2 <- road_accidents_4_cols %>%
   dplyr::filter(Accident_Severity == 3 | Accident_Severity == 2)
 ```
 
-**Note: filtering with characters must be wrapped in "quotations" e.g:**
+**Note: filtering with characters must be wrapped in "quotation marks" e.g:**
 ```{r, eval = FALSE}
 road_accidents_filter3 <- road_accidents %>%
 dplyr::filter(`Local_Authority_(Highway)` == "E09000010")
