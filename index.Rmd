@@ -30,6 +30,7 @@ mtcars <- tibble::as.tibble(mtcars) %>%
   # Add rows for dplyr example
   tibble::rownames_to_column(var = "car")
 ```
+![](image/book_image.png)
 
 # Why do we need _another_ book?
 
