@@ -4,8 +4,6 @@
 # Every file must contain at least one R chunk due to the linting process.
 ```
 
-**TO BE COMPLETED**
-
 ## R family
 
 A few of the common R relations are
@@ -13,13 +11,13 @@ A few of the common R relations are
 - R is the programming language, born in 1997, based on S, [honest](https://en.wikipedia.org/wiki/R_(programming_language)).
 - RStudio is a useful integrated development environment (IDE) that makes it cleaner to write, run and organise R code.
 - Rproj is the file extension for an R project, essentially a working directory marker, shortens file paths, keeps everything relevant to your project together and easy to reference.
-- packages are collections of functions written to make specific tasks easier, eg the `stringr` package contains functions to work with strings. Packages are often referred to as libraries in other programing languages.
+- packages are collections of functions written to make specific tasks easier, eg the {stringr} package contains functions to work with strings. Packages are often referred to as libraries in other programming languages.
 - .R is the file extension for a basic R script in which anything not commented out with `#` is code that is run.
 - .Rmd is the file extension for Rmarkdown an R package useful for producing reports. A .Rmd script is different to a .R script in that the default is text rather than code. Code is placed in code chunks - similar to how a Jupyter Notebook looks.
 
 ## DfT R/RStudio - subject to change
 
-Which version of R/RStudio should I use at DfT? A good question. Currently the 'best' verion of R we have available on network is linked to RStudio version 11453. This can be accessed via the Citrix app on the Windows 10 devices, or via Citrix desktop. The local version of RStudio on the Windows 10 devices is currently unusable (user testing is ongoing to change this). There is also a 11423 version of RStudio available which uses slightly older versions of packages.
+Which version of R/RStudio should I use at DfT? A good question. Currently the 'best' version of R we have available on network is linked to RStudio version 11453. This can be accessed via the Citrix app on the Windows 10 devices, or via Citrix desktop. The local version of RStudio on the Windows 10 devices is currently unusable (user testing is ongoing to change this). There is also a 11423 version of RStudio available which uses slightly older versions of packages.
 
 
 ## RStudio IDE
@@ -27,16 +25,16 @@ Which version of R/RStudio should I use at DfT? A good question. Currently the '
 The RStudio integrated development environment has some very useful features which make writing and organising code a lot easier. It's divided into 3 panes; 
 
 
-#### Left (bottom left if you have scripts open)
+### Left (bottom left if you have scripts open)
  
 - this is the **Console** it shows you what code has been run and outputs.
 
-#### Top right; **Environment**, and other tabs
+### Top right; **Environment**, and other tabs
 
 - **Environment** tab shows what objects have been created in the global environment in the current session. 
 - **Connections** tab will show any connections you have set up this session, for example, to an SQL server.
 
-#### Bottom right
+### Bottom right
 
 - **Files** tab shows what directory you are in and the files there. 
 - **Plots** tab shows all the plot outputs created this session, you can navigate through them. 
@@ -48,12 +46,12 @@ For some pictures have a look at DfE's **R Training Course** [getting started wi
 
 Or Matt Dray's [Beginner R Featuring Pokemon: the RStudio interface](https://matt-dray.github.io/beginner-r-feat-pkmn/#4_the_rstudio_interface)
 
-#### Other handy buttons in RStudio IDE
+### Other handy buttons in RStudio IDE
 
 - top left new script icon; blank page with green circle and white cross.
 - top right project icon; 3D transparent light blue cube with R. Use this to create and open projects.
 
-#### RStudio menu bar a few pointers
+### RStudio menu bar a few pointers
 
 - **View** contains **Zoom In** **Zoom Out**
 - **Tools** -> **Global Options** contains many useful setting tabs such as **Appearance** where you can change the RStudio theme, and **Code** -> **Display** where you can set a margin vertical guideline (default is 80 characters).
@@ -62,7 +60,7 @@ Or Matt Dray's [Beginner R Featuring Pokemon: the RStudio interface](https://mat
 
 Why you should work in an R project, how to set up and project happiness. See this section of [Beginner R Featuring Pokemon](https://matt-dray.github.io/beginner-r-feat-pkmn/#3_project_working) by Matt Dray.
 
-### folders
+### Folders
 
 When you set up a project it is good practise to include separate folders for different types of files such as
 
@@ -78,12 +76,27 @@ Include a saved file of the sessionInfo() output, this command prints out the ve
 
 ## R memory
 
-R works in RAM, so its memory is only as good as the amount of RAM you have. More info in the **Memory** chapter of Advanced R by Hadley Wickham [here](http://adv-r.had.co.nz/memory.html).
+R works in RAM, so its memory is only as good as the amount of RAM you have - however this should be sufficient for most tasks. More info in the **Memory** chapter of Advanced R by Hadley Wickham [here](http://adv-r.had.co.nz/memory.html).
+
+## A note on rounding
+
+The base function `round()` in R rounds **half to even**, that is, half way is rounded to the nearest even number, for example the decimals below both round to the same value.
+```{r}
+round(3.5)
+round(4.5)
+```
+This helps eliminate bias, more info on Wikipedia [round half to even](https://en.wikipedia.org/wiki/Rounding#Round_half_to_even)
+
+If **round half to even** is not for you, you can use **round_half_up** from the {janitor} package, thus
+```{r}
+janitor::round_half_up(3.5)
+janitor::round_half_up(4.5)
+```
 
 
-## Assignement operators `<-` vs `=`
+## Assignment operators `<-` vs `=`
 
-To assign or to equal? These are not always the same thing. In R to assign a value to a variable it is advised to use `<-` rather than `=`. The latter is generally used for setting parameters inside functions, eg, `my_string <- stringr::str_match(string = "abc", pattern = "a")`. More on assignment operators [here](https://stat.ethz.ch/R-manual/R-patched/library/base/html/assignOps.html).
+To assign or to equal? These are not always the same thing. In R to assign a value to a variable it is advised to use `<-` rather than `=`. The latter is generally used for setting parameters inside functions, e.g., `my_string <- stringr::str_match(string = "abc", pattern = "a")`. More on assignment operators [here](https://stat.ethz.ch/R-manual/R-patched/library/base/html/assignOps.html).
 
 ## Arithmetic operators
 
@@ -214,14 +227,11 @@ typeof(v4)
 ```
 
 As well as the atomic vector types you will often encounter two other vector
-types; **factor** and **Date**.  
+types; **factor** and **Date**. As well as some notes here this book also contains fuller sections on both
+- Chapter 6 [Working with factors]
+- Chapter 5 [Working with dates and times]
 
-Factor vectors are used to represent categorical data.  They are actually
-integer vectors with two additional attributes, levels and class.  At this
-stage it is not worth worrying to much about what attribute are just understand
-that, for factors, the levels attribute gives the possible categories and 
-combined with the integer values works much like a lookup table.  The `class` 
-attribute is just "factor".
+Factor vectors are used to represent categorical data. They are actually integer vectors with two additional attributes, levels and class. At this stage it is not worth worrying too much about what attributes are, but is suffiecient to understand that, for factors, the levels attribute gives the possible categories, and combined with the integer values works much like a lookup table.  The `class` attribute is just "factor".
 
 
 ```{r}
@@ -230,11 +240,9 @@ typeof(ratings)
 attributes(ratings)
 ```
 
-Date vectors are just double vectors with an additional class attribute set as
-"Date".  
+Date vectors are just double vectors with an additional class attribute set as "Date".  
 
-**Note - The following borrows directly from Hadley's Advanced R site
-so we need to attribute appropriately and use correct licence**
+**Note - The following borrows directly from Hadley's Advanced R site so we need to attribute appropriately and use correct licence**
 
 ```{r}
 today <- Sys.Date()
@@ -242,9 +250,7 @@ typeof(today)
 attributes(today)
 ```
 
-The value of the double (which can be seen by stripping the class), represents
-the number of days since "1970-01-01"^[This special date is known as the Unix 
-Epoch]:
+The value of the double (which can be seen by stripping the class), represents the number of days since "1970-01-01"^[This special date is known as the Unix Epoch]:
 
 ```{r}
 date <- as.Date("1970-02-01")
@@ -253,8 +259,7 @@ unclass(date)
 
 ### Conversion between atomic vector types
 
-Converting between the atomic vector types is done using the `as.character`, 
-`as.integer`, `as.logical` and `as.double` functions.
+Converting between the atomic vector types is done using the `as.character`, `as.integer`, `as.logical` and `as.double` functions.
 
 ```{r}
 value <- 1.5
@@ -270,8 +275,7 @@ value <- "z"
 as.integer(value)
 ```
 
-When combining different vector types, coercion will obey the following 
-hierarchy: character, double, integer, logical.
+When combining different vector types, coercion will obey the following hierarchy: character, double, integer, logical.
 
 ```{r}
 typeof(c(9.9, 3L, "pop", TRUE))

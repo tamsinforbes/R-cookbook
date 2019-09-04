@@ -1,6 +1,6 @@
 --- 
 title: "DfT R Cookbook"
-author: "Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor"
+author: "Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Tim Taylor"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: 
@@ -45,7 +45,7 @@ mtcars[mtcars$hp > 250, c("car", "mpg", "kpl")]
 
 ```
 
-Here's the same thing using Tidyverse style R:
+Here's the same thing using {tidyverse} style R:
 ```{r}
 
 mtcars %>%
@@ -70,15 +70,25 @@ This is the main motivation for this book, to establish a way of coding that rep
 
 Related to this, the Data Science team maintain a [coding standards document](https://departmentfortransport.github.io/ds-processes/Coding_standards/r.html), that outlines some best practices when writing R code. This is not prescriptive and goes beyond the scope of this document, but might be useful for managing your R projects. 
 
-## Adding to the book
-
-This book is not static - new chapters can be added and current chapters can be amended. If you want to edit or write a chapter for the book, check out the [GitHub page](https://github.com/departmentfortransport/ds-r-training). 
-
-
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), "bookdown", "knitr", "rmarkdown"
 ), "packages.bib")
 ```
+
+
+## Data
+
+The data used in this book is all opensource or has been created for the purposes of demonstarting various techniques. As well as being availble fro the data folder on the github site [here][(https://github.com/departmentfortransport/R-cookbook/tree/master/data) you can also find the larger data sets at the links below.
+
+- [Road Safety Data API](https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data)
+- Search and Rescue Helicopter data; SARH0112 record level data download available under **All data** at the bottom of this [webpage](https://www.gov.uk/government/statistical-data-sets/search-and-rescue-helicopter-sarh01).
+- Pokemon data, not sure of original source, but borrowed from Matt Dray [here](https://github.com/matt-dray/beginner-r-feat-pkmn/tree/master/data)
+
+
+## Work in progress
+
+This book is not static - new chapters can be added and current chapters can be amended. Please let us know if you have suggestions by raising an issue [here](https://github.com/departmentfortransport/R-cookbook/issues).
+
 
