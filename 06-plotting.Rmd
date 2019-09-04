@@ -72,10 +72,12 @@ road_acc_2017
 ```
 
 To create a bar chart, we use the base R function 'barplot' and then specify the variable we want to plot as the height argument:
+```{r, echo=FALSE}
+options(scipen=999)
+```
 
 
 ```{r, message=FALSE}
-options(scipen=999)
 barplot(height = road_acc_2017$total)
 ```
 
