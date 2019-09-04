@@ -577,18 +577,17 @@ types; <strong>Date</strong> and <strong>factor</strong> . As well as some notes
 ## 
 ## $class
 ## [1] &quot;factor&quot;</code></pre>
-<p>Date vectors are just double vectors with an additional class attribute set as “Date”.</p>
-<p><strong>Note - The following borrows directly from Hadley’s Advanced R site so we need to attribute appropriately and use correct licence</strong></p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()</a>
-<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="kw">typeof</span>(today)</a></code></pre></div>
+<p>Date vectors are just vectors of class double with an additional class attribute set as “Date”.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">DfT_birthday &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">as_date</span>(<span class="st">&quot;1919-08-14&quot;</span>)</a>
+<a class="sourceLine" id="cb70-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb70-3" data-line-number="3"><span class="kw">typeof</span>(DfT_birthday)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw">attributes</span>(today)</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw">attributes</span>(DfT_birthday)</a></code></pre></div>
 <pre><code>## $class
 ## [1] &quot;Date&quot;</code></pre>
-<p>The value of the double (which can be seen by stripping the class), represents the number of days since “1970-01-01”<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1970-02-01&quot;</span>)</a>
-<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="kw">unclass</span>(date)</a></code></pre></div>
-<pre><code>## [1] 31</code></pre>
+<p>If we remove the class using <code>unclass()</code> we can reveal the value of the double, which is the number of days since “1970-01-01”<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, since DfT’s birthday is before this date, the double is negative.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">unclass</span>(DfT_birthday)</a></code></pre></div>
+<pre><code>## [1] -18403</code></pre>
 </div>
 <div id="conversion-between-atomic-vector-types" class="section level3">
 <h3><span class="header-section-number">2.11.2</span> Conversion between atomic vector types</h3>
@@ -623,7 +622,7 @@ types; <strong>Date</strong> and <strong>factor</strong> . As well as some notes
 <ol start="1">
 <li id="fn1"><p>technically there are more, see
 <a href="https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors" class="uri">https://adv-r.hadley.nz/vectors-chap.html#atomic-vectors</a><a href="basics.html#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>This special date is known as the Unix Epoch<a href="basics.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>a special date known as the Unix Epoch<a href="basics.html#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
