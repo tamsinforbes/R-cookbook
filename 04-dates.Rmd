@@ -26,9 +26,9 @@ road_accidents$Date1 <- as.character(road_accidents$Date)
 
 This chapter provides an overview of working with dates and times, for example extracting year or month from a date, and converting characters to a date.
 
-One of the main packages used to work with dates is **lubridate**.
+One of the main packages used to work with dates is **{lubridate}**.
 
-More information can be found on the lubridates cheatsheet at the following link: https://www.rstudio.com/resources/cheatsheets/
+More information can be found on the {lubridate} cheatsheet at the following link: https://www.rstudio.com/resources/cheatsheets/
 
 Date vectors are just double vectors with an additional class attribute set as
 "Date".  
@@ -51,15 +51,25 @@ date <- as.Date("1970-02-01")
 unclass(date)
 ```
 
+This chapter will be using the road accident data set:
 
+```{r, echo = FALSE, results='asis'}
 
-## Converting a character to a date 
+knitr::kable(head(dplyr::select(road_accidents, acc_index, Date, Police_Force, Accident_Severity, Day_of_Week, Time)),
+caption = "Reported Road Accidents, 2017")
+
+```
+
+## Working with dates
+
+### Converting a character to a date 
 
 In R, dates can be converted to a specific date variable type in order to use the variable as a date.
 
 Having a variable as a date means that you can:
- * extract the different elements of the date (year, month etc.)
- * calculate differences between dates
+
+ - extract the different elements of the date (year, month etc.)
+ - calculate differences between dates
 
 This can be done in the following way:
 
@@ -82,9 +92,10 @@ class(road_accidents$Date1)
 ```
 
 
-## Get year from date
 
-Use the **year** function from lubridate:
+### Get year from date
+
+Use the **year** function from {lubridate}:
 
 ```{r}
 
@@ -92,9 +103,11 @@ road_accidents$Year <- lubridate::year(road_accidents$Date1)
 
 ```
 
-## Get month from date
+*See Table 5.1 for output*
 
-Use the **month** function from lubridate:
+### Get month from date
+
+Use the **month** function from {lubridate}:
 
 ```{r}
 
@@ -102,10 +115,11 @@ road_accidents$Month <- lubridate::month(road_accidents$Date1)
 
 ```
 
+*See Table 5.1 for output*
 
-## Get day from date
+### Get day from date
 
-Use the **day** function from lubridate:
+Use the **day** function from {lubridate}:
 
 ```{r}
 
@@ -113,9 +127,11 @@ road_accidents$Day <- lubridate::day(road_accidents$Date1)
 
 ```
 
-## Get weekday from date
+*See Table 5.1 for output*
 
-Use the **wday** function from lubridate to get the weekday label:
+### Get weekday from date
+
+Use the **wday** function from {lubridate} to get the weekday label:
 
 ```{r}
 
@@ -123,16 +139,19 @@ road_accidents$weekday <- lubridate::wday(road_accidents$Date1)
 
 ```
 
+*See Table 5.1 for output*
 
-## Get quarter from date
+### Get quarter from date
 
-Use the **quarter** function from lubridate:
+Use the **quarter** function from {lubridate}:
 
 ```{r}
 
 road_accidents$Quarter <- lubridate::quarter(road_accidents$Date1)
 
 ```
+
+*See Table 5.1 for output*
 
 ```{r, include = FALSE}
 
@@ -149,7 +168,7 @@ caption = "Using lubridate to extract time information")
 ```
 
 
-## Find difference between two dates
+### Find difference between two dates
 
 
 ```{r, include = FALSE}
@@ -157,6 +176,13 @@ caption = "Using lubridate to extract time information")
 # First create new date column so difference between two dates can be found
 
 road_accidents$Date2 <-round_date(road_accidents$Date1, unit = "month")
+
+```
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(head(dplyr::select(road_accidents, acc_index, Date1, Date2)),
+caption = "Find difference between two dates")
 
 ```
 
@@ -172,16 +198,27 @@ To find out the number of days difference, the **as.duration** function calculat
 
 ```{r}
 
-road_accidents$date_diff <- lubridate::as.duration(road_accidents$Date2 %--% road_accidents$Date1) / ddays(1)
+road_accidents$date_diff <- 
+lubridate::as.duration(road_accidents$Date2 %--% road_accidents$Date1) / ddays(1)
 
 ```
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(head(dplyr::select(road_accidents, acc_index, Date1, Date2, date_diff)),
+caption = "Find difference between two dates")
+
+```
+
+
+The `%--%` operator is used to define an **interval**. So, this code is calculating the duration of the interval between `Date2` and `Date1`.
 
 The number after **ddays** indicates by how many units the duration is (i.e. one day).
 
 
-## Convert month (interger to character)
+### Convert month (integer to character)
 
-Base R has a useful function which takes the month numbers and converts them to the corresponding text.
+{base} R has a useful function which takes the month numbers and converts them to the corresponding text.
 
 ```{r}
 
@@ -189,9 +226,16 @@ road_accidents$Month_lab <- month.abb[road_accidents$Month]
 
 ```
 
-## Convert month (character to interger)
+```{r, echo = FALSE, results='asis'}
 
-Base R has a useful function which takes the month text and converts them to the corresponding number.
+knitr::kable(head(dplyr::select(road_accidents, acc_index, Date, Month, Month_lab)),
+caption = "Convert month to character")
+
+```
+
+### Convert month (character to integer)
+
+{base} R has a useful function which takes the month text and converts them to the corresponding number.
 
 ```{r}
  road_accidents$Month <- match(road_accidents$Month_lab,month.abb)
@@ -199,23 +243,39 @@ Base R has a useful function which takes the month text and converts them to the
 ```
 
 
-## Merge separate date information into a date
+```{r, echo = FALSE, results='asis'}
 
-The lubridate package can be used in conjunction with the paste function to combine columns separate date information (e.g. year, month, day) into one date variable.
-
-```{r}
-
-road_accidents$date <- paste(road_accidents$Year, road_accidents$Month, road_accidents$Day, sep="-") %>% ymd() %>% as.Date()
+knitr::kable(head(dplyr::select(road_accidents, acc_index, Date, Month, Month_lab)),
+caption = "Convert month character to integer")
 
 ```
 
+
+
+### Merge separate date information into a date
+
+The {lubridate} package can be used in conjunction with the paste function to combine columns separate date information (e.g. year, month, day) into one date variable.
+
+```{r}
+
+road_accidents$date <- 
+paste(road_accidents$Year, road_accidents$Month, road_accidents$Day, sep="-") %>% ymd() %>% as.Date()
+
+```
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(head(dplyr::select(road_accidents, acc_index, Date, Year, Month, Day, date)),
+caption = "Convert month to character")
+
+```
 
 ## Working with date-times
 
 A date-time stores date and time information.
 
 
-## Converting a character to a date-time
+### Converting a character to a date-time
 
 This is similar to converting a character to a date as mentioned above.
 
@@ -234,7 +294,7 @@ road_accidents$Date_time1 <- lubridate::ymd_hm(road_accidents$Date_time)
 ```
 
 
-## Extract date from date time variable
+### Extract date from date time variable
 
 Use the **date** function to extract the date from a date time variable.
 
@@ -247,22 +307,22 @@ road_accidents$Date2 <- lubridate::date(road_accidents$Date_time)
 
 ```
 
-## Convert character to hms (time) variable
+### Convert character to hms (time) variable
 
 Convert time as character into a hms variable so the variable can manipulated as a time object.
 
-This can be done using the **hms** package.
+This can be done using the **{hms}** package.
 
-```{r, eval = FALSE}
+```{r}
 
 
-road_accidents$time <- hms::as.hms(road_accidents$time)
+road_accidents$Time <- hms::as_hms(road_accidents$Time)
 
 ```
 
-## Extract hour from time
+### Extract hour from time
 
-Use the **hour** function from the lubridate package to extract hour information.
+Use the **hour** function from the {lubridate} package to extract hour information.
 
 ```{r}
 
@@ -271,9 +331,9 @@ road_accidents$hour <- lubridate::hour(road_accidents$Time)
 
 ```
 
-## Extract minute from time
+### Extract minute from time
 
-Use the **minute** function from the lubridate package to extract hour information.
+Use the **minute** function from the {lubridate} package to extract minute information.
 
 ```{r}
 
@@ -283,9 +343,9 @@ road_accidents$minute <- lubridate::minute(road_accidents$Time)
 ```
 
 
-## Extract second from time
+### Extract second from time
 
-Use the **second** function from the lubridate package to extract hour information.
+Use the **second** function from the {lubridate} package to extract second information.
 
 ```{r}
 
@@ -294,10 +354,16 @@ road_accidents$second <- lubridate::second(road_accidents$Time)
 
 ```
 
+```{r, echo = FALSE, results='asis'}
 
-## Merge separate time information into one variable
+knitr::kable(head(dplyr::select(road_accidents, acc_index, Time, hour, minute, second)),
+caption = "Extract time information")
 
-Hour, minute and second variables can be merged to create a time variable, and then coverted to hms.
+```
+
+### Merge separate time information into one variable
+
+Hour, minute and second variables can be merged to create a time variable, and then converted to hms.
 
 ```{r}
 
@@ -305,14 +371,21 @@ Hour, minute and second variables can be merged to create a time variable, and t
 road_accidents$time2 <- paste(road_accidents$hour,road_accidents$minute, road_accidents$second, sep=":")
 
 # convert to hms
-road_accidents$time3 <- hms::as.hms(road_accidents$time2)
+road_accidents$time3 <- hms::as_hms(road_accidents$time2)
+
+```
+
+```{r, echo = FALSE, results='asis'}
+
+knitr::kable(head(dplyr::select(road_accidents, acc_index, hour, minute, second, time3)),
+caption = "Merge time information")
 
 ```
 
 
-## find the difference between two times
+### find the difference between two times
 
-Use the base r **difftime** function to find the difference between two times.
+Use the {base} r **difftime** function to find the difference between two times.
 
 Note: this can also be used to find the difference in days or weeks.
 
