@@ -193,7 +193,7 @@ ggplot(data = road_acc_2017) +
   theme_classic()
 ```
 
-### DfT colours
+## DfT colours
 
 So far we've used colours built into R and referred to them by name e.g. red, lightlue etc. In order to make charts using DfT colours, we can specify what colours we want using hexcodes. For example, for the previous bar chart we can set the levels of severity to different DfT colours.
 
@@ -211,7 +211,7 @@ Here we map the name variable to the fill argument within the aesthetic.
 
 
 
-### Themes
+## Themes
 
 We mentioned themes earlier. Themes are used to set the style of your plot and can give your plots a consistent customized look. You can customise things such as titles, labels, fonts, background, gridlines, and legends. We have been using theme_classic() so far but ggplot2 has a number of built-in themes that you can use for your plots available here: [https://ggplot2.tidyverse.org/reference/ggtheme.html](https://ggplot2.tidyverse.org/reference/ggtheme.html)
 
@@ -229,11 +229,11 @@ ggplot(data = road_acc_2017) +
         plot.title = element_text(hjust = 0.5))
 ```
 
-**Custom Themes**
+### Custom DfT Theme
 
 Instead of using the built-in themes, we can create our own theme to apply to our plots. Below I have created a 'DfT theme' for line charts which sets things such as the font types, sizes, axes lines and title positions to make the plot consistent with what we might put in a DfT publication.
 
-You can adjust and tweak this theme and the colours to create plots in the correct style for your own publication. 
+You can adjust and tweak this theme and the colours to create plots in the correct style for your own publications. 
 
 ```{r}
 # set DfT colours
