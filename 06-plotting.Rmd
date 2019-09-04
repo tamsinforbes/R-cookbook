@@ -60,6 +60,22 @@ plot(
 )
 ```
 
+We can also force our plot to start at 0:
+
+```{r}
+plot(
+  x = road_acc_total$accident_year,
+  y = road_acc_total$total,
+  type = "l",
+  col = "red",
+  xlab = "Year",
+  ylab = "Total",
+  main = "Total road accidents per year, 2005 - 2017",
+  ylim=c(0, max(road_acc_total$total))
+)
+```
+
+
 ### Bar charts in base R ###
 
 We want to plot a bar chart showing the total number of accidents of each severity in 2017. First let's filter the road accidents data for 2017:
@@ -136,6 +152,7 @@ ggplot(data = road_acc_total) +
   ylab("Total") +
   ggtitle("Total road accidents per year, 2005 - 2017") +
   scale_x_continuous(breaks = seq(2000, 2017, 2)) +
+  expand_limits(y=0) +
   theme_classic()
 ```
 
