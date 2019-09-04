@@ -30,7 +30,6 @@ library(xltabr) #MoJ RAP enabler built on openxlsx
 ## Navigating folders
 
 A couple of pointers to navigate from your working directory, which, if you're using R projects (it is highly recommended that you do) will be wherever the `.Rproj` file is located 
-
 ### Down
 
 To navigate down folders use `/`. The path given below saves the file **my_df.csv** in the **data** folder, which itself is inside the **monthly_work** folder
@@ -67,7 +66,7 @@ saveRDS(
 
 ## .csv
 
-We use the functions `read_csv` and `write_csv` from the `readr` package (which is part of the `tidyverse`). These are a little bit *cleverer* than their base counterparts, however, this cleverness can catch you out.
+We use the functions `read_csv` and `write_csv` from the {readr} package (which is part of the {tidyverse}). These are a little bit *cleverer* than their base counterparts, however, this cleverness can catch you out.
 
 The file **messy_pokemon_data.csv** contains pokemon go captures data which has been deliberately messed up a bit. `read_csv` imputes the column specification from the first 1000 rows, which is fine if your first 1000 rows are representative of the data type. If not then subsequent data that can't be coerced into the imputed data type will be replaced with NA. 
 
@@ -90,7 +89,7 @@ The pokemon dataset has less than 1000 rows so `read_csv` has 'seen' the letters
 
 What if there are more than 1000 rows? For example, say you have a numeric column, but there are some letters prefixed to the numbers in some of the post-row-1000 rows. These values are still meaningful to you, and with some data wrangling you can extract the actual numbers. Unfortunately `read_csv` has guessed at type double based on the first 1000 rows and since character type cannot be coerced into double, these values will be replaced with `NA`. If you have messy data like this the best thing to do is to force `read_csv` to read in as character type to preserve all values as they appear, you can then sort out the mess yourself.
 
-You can specify the column data type using the `col_types` argument. Below I have used a compact string of abbreviations to specify the column types, see the help at `?read_csv` or the `readr` vignette for the full list. You can see I got many parsing failures, which I can access with `problems()`, which is a data frame of the values that `read_csv` was unable to coerce into the type I specified, and so has replaced with NA. 
+You can specify the column data type using the `col_types` argument. Below I have used a compact string of abbreviations to specify the column types, see the help at `?read_csv` or the {readr} vignette for the full list. You can see I got many parsing failures, which I can access with `problems()`, which is a data frame of the values that `read_csv` was unable to coerce into the type I specified, and so has replaced with NA. 
 ```{r}
 pokemon <- readr::read_csv(
   file = "data/messy_pokemon_data.csv"
@@ -129,7 +128,7 @@ Other arguments within `read_csv` that I will just mention, with their default s
 
 ## .xlsx and .xls
 
-Excel workbooks come in many shapes and sizes. You may have one or many worksheets in one or many workbooks, there may only be certain cells that you are interested in. Below are a few examples of how to cope with these variations using functions from `readxl` and `purrr` to iterate over either worksheets and/or workbooks, the aim being to end up with all the data in a single tidy dataframe.
+Excel workbooks come in many shapes and sizes. You may have one or many worksheets in one or many workbooks, there may only be certain cells that you are interested in. Below are a few examples of how to cope with these variations using functions from {readxl} and {purrr} to iterate over either worksheets and/or workbooks, the aim being to end up with all the data in a single tidy dataframe.
 
 ### Single worksheet - single workbook
 
@@ -255,7 +254,7 @@ readxl::read_excel(
  kableExtra::kable_styling(full_width = F, position = "left")
 ```
 
-The `range` argument helps, we have picked up one bit of the data, and its name. The `range` argument uses the `cellranger` package which allows you to refer to ranges in Excel files in Excel style. However, we have 3 disconnected data points, we need to iterate, so it's `purrr` to the rescue once more.
+The `range` argument helps, we have picked up one bit of the data, and its name. The `range` argument uses the {cellranger} package which allows you to refer to ranges in Excel files in Excel style. However, we have 3 disconnected data points, we need to iterate, so it's {purrr} to the rescue once more.
 
 The code below demonstrates explicitly that the `.x` argument in `purrr::map_dfr` takes the vector of things that will be iterated over in the supplied function. In this case we are giving the `range` argument of `readxl::read_excel` three individual cells to iterate over. These will then be rowbound so we end up with a single dataframe comprising a single column, named "cells", containing 3 rows.
 ```{r}
@@ -474,21 +473,21 @@ pet_house_all %>%
 
 ## Exporting to .xlsx
 
-We recommend `openxlsx` and `xltabr` for writing and formatting tables to MS Excel. The latter is a wrapper built on `openxlsx` developed by MoJ and is specifically aimed at making it easier to produce publication ready tables. `xltabr` has one known drawback in that it applies the foramtting cell by cell, so if your tables are massive (~100,000 rows) it will take too long, in this instance you should resort to `openxlsx`.
+We recommend {openxlsx} and {xltabr} for writing and formatting tables to MS Excel. The latter is a wrapper built on {openxlsx} developed by MoJ and is specifically aimed at making it easier to produce publication ready tables. {xltabr} has one known drawback in that it applies the foramtting cell by cell, so if your tables are massive (~100,000 rows) it will take too long, in this instance you should resort to {openxlsx}.
 
-https://cran.r-project.org/web/packages/openxlsx/openxlsx.pdf
+[openxlsx manual](https://cran.r-project.org/web/packages/openxlsx/openxlsx.pdf)
 
-https://cran.r-project.org/web/packages/xltabr/xltabr.pdf
+[xltabr manual](https://cran.r-project.org/web/packages/xltabr/xltabr.pdf)
 
-So you can see an example of the formatting available, here is a link to DfT's Search and Rescue Helicopter statistics tables that are produced in R using `xltabr`.
+So you can see an example of the formatting available, here is a link to DfT's Search and Rescue Helicopter (SARH) statistics tables that are produced in R using {xltabr}.
 
-https://www.gov.uk/government/statistical-data-sets/search-and-rescue-helicopter-sarh01
+[SARH tables](https://www.gov.uk/government/statistical-data-sets/search-and-rescue-helicopter-sarh01)
 
 
 
 ## .sav
 
-Use `haven` to import SPSS, Stata and SAS files.
+Use {haven} to import SPSS, Stata and SAS files.
 
 ## SQL
 
@@ -503,6 +502,6 @@ Below are links to DfT Coffee and Coding materials on the subject of connecting 
 
 ### BigQuery
 
-Link below to DfT Coffee and Coding materials on how to use bigrquery to interact with GCP's BigQuery
+Link below to DfT Coffee and Coding materials on how to use {bigrquery} to interact with GCP's BigQuery
 
 [20190403_bigrquery](https://github.com/departmentfortransport/coffee-and-coding/tree/master/20190403_bigrquery)
