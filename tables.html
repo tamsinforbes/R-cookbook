@@ -1322,7 +1322,7 @@ Police_Force
 <p>Or operator</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1">road_accidents_filter2 &lt;-<span class="st"> </span>road_accidents_<span class="dv">4</span>_cols <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb136-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Accident_Severity <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>Accident_Severity <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
-<p><strong>Note: filtering with characters must be wrapped in “quotations” e.g:</strong></p>
+<p><strong>Note: filtering with characters must be wrapped in “quotation marks” e.g:</strong></p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1">road_accidents_filter3 &lt;-<span class="st"> </span>road_accidents <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb137-2" data-line-number="2">dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="st">`</span><span class="dt">Local_Authority_(Highway)</span><span class="st">`</span> <span class="op">==</span><span class="st"> &quot;E09000010&quot;</span>)</a></code></pre></div>
 <p>Also note that in the above example the variable is quoted in back ticks (`). This is because some variable names confuse R due to brackets and numbers and need to be wrapped in back ticks so R knows that everything inside the back ticks is a variable name.</p>
@@ -1456,104 +1456,104 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
-2017210182483
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-21
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-2017-05-01
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2017010037150
+2017134181251
 </td>
 <td style="text-align:right;">
 3
 </td>
 <td style="text-align:right;">
-1
+13
 </td>
 <td style="text-align:right;">
-1
+2
 </td>
 <td style="text-align:left;">
-2017-05-13
+2017-01-08
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-2017010039501
+2017200150739
 </td>
 <td style="text-align:right;">
 3
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-2017-05-17
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2017010057987
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-2017-09-06
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2017440434689
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-44
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-2017-11-08
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2017200241258
-</td>
-<td style="text-align:right;">
-2
 </td>
 <td style="text-align:right;">
 20
 </td>
 <td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+2017-01-17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017220180681
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
 1
 </td>
 <td style="text-align:left;">
-2017-11-10
+2017-02-23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017460180817
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+2017-05-06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017621701486
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-10-30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017010068269
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-11-05
 </td>
 </tr>
 </tbody>
@@ -3337,104 +3337,104 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
-201760V178182
+2017950002591
 </td>
 <td style="text-align:right;">
 3
 </td>
 <td style="text-align:right;">
-60
+95
 </td>
 <td style="text-align:right;">
 1
 </td>
 <td style="text-align:left;">
-2017-11-24
+2017-12-13
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-2017200241258
+2017010068269
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-11-05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017621701486
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-10-30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017460180817
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+46
 </td>
 <td style="text-align:right;">
 2
+</td>
+<td style="text-align:left;">
+2017-05-06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017220180681
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2017-02-23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017200150739
+</td>
+<td style="text-align:right;">
+3
 </td>
 <td style="text-align:right;">
 20
 </td>
 <td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-2017-11-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2017440434689
-</td>
-<td style="text-align:right;">
 3
 </td>
-<td style="text-align:right;">
-44
-</td>
-<td style="text-align:right;">
-1
-</td>
 <td style="text-align:left;">
-2017-11-08
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2017010057987
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-2017-09-06
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2017010039501
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-2017-05-17
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2017010037150
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-2017-05-13
+2017-01-17
 </td>
 </tr>
 </tbody>
@@ -3584,7 +3584,7 @@ speed_km
 <tbody>
 <tr>
 <td style="text-align:left;">
-2017010057987
+2017010068269
 </td>
 <td style="text-align:right;">
 1
@@ -3598,10 +3598,10 @@ speed_km
 </tr>
 <tr>
 <td style="text-align:left;">
-201760V178182
+2017134181251
 </td>
 <td style="text-align:right;">
-60
+13
 </td>
 <td style="text-align:right;">
 30
@@ -3612,21 +3612,21 @@ speed_km
 </tr>
 <tr>
 <td style="text-align:left;">
-2017210182483
+2017950002591
 </td>
 <td style="text-align:right;">
-21
+95
 </td>
 <td style="text-align:right;">
-50
+30
 </td>
 <td style="text-align:right;">
-80
+48
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-2017200241258
+2017200150739
 </td>
 <td style="text-align:right;">
 20
@@ -3640,24 +3640,24 @@ speed_km
 </tr>
 <tr>
 <td style="text-align:left;">
-2017440434689
+2017621701486
 </td>
 <td style="text-align:right;">
-44
+62
 </td>
 <td style="text-align:right;">
-70
+30
 </td>
 <td style="text-align:right;">
-112
+48
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-2017010039501
+2017220180681
 </td>
 <td style="text-align:right;">
-1
+22
 </td>
 <td style="text-align:right;">
 30
