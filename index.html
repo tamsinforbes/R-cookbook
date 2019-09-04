@@ -24,7 +24,7 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor" />
 
 
-<meta name="date" content="2019-09-03" />
+<meta name="date" content="2019-09-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,6 +56,19 @@
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.1.17/leaflet-providers.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
 
 
 <style type="text/css">
@@ -240,7 +253,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="factors.html"><a href="factors.html#helpful-packages"><i class="fa fa-check"></i><b>6.3</b> Helpful packages</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a></li>
+<li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a><ul>
+<li class="chapter" data-level="7.1" data-path="plots.html"><a href="plots.html#plotting-in-base-r"><i class="fa fa-check"></i><b>7.1</b> Plotting in base R</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="plots.html"><a href="plots.html#line-charts-in-base-r"><i class="fa fa-check"></i><b>7.1.1</b> Line charts in base R</a></li>
+<li class="chapter" data-level="7.1.2" data-path="plots.html"><a href="plots.html#bar-charts-in-base-r"><i class="fa fa-check"></i><b>7.1.2</b> Bar charts in base R</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="plots.html"><a href="plots.html#plotting-withh-ggplot2"><i class="fa fa-check"></i><b>7.2</b> Plotting withh ggplot2</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="plots.html"><a href="plots.html#line-charts-with-ggplot2"><i class="fa fa-check"></i><b>7.2.1</b> Line charts with ggplot2</a></li>
+<li class="chapter" data-level="7.2.2" data-path="plots.html"><a href="plots.html#aesthetic-mappings"><i class="fa fa-check"></i><b>7.2.2</b> Aesthetic mappings</a></li>
+<li class="chapter" data-level="7.2.3" data-path="plots.html"><a href="plots.html#bar-charts-with-ggplot2"><i class="fa fa-check"></i><b>7.2.3</b> Bar charts with ggplot2</a></li>
+<li class="chapter" data-level="7.2.4" data-path="plots.html"><a href="plots.html#dft-colours"><i class="fa fa-check"></i><b>7.2.4</b> DfT colours</a></li>
+<li class="chapter" data-level="7.2.5" data-path="plots.html"><a href="plots.html#themes"><i class="fa fa-check"></i><b>7.2.5</b> Themes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="plots.html"><a href="plots.html#interactive-charts-with-plotly"><i class="fa fa-check"></i><b>7.3</b> Interactive charts with plotly</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="plots.html"><a href="plots.html#plotly-with-ggplot2"><i class="fa fa-check"></i><b>7.3.1</b> Plotly with ggplot2</a></li>
+<li class="chapter" data-level="7.3.2" data-path="plots.html"><a href="plots.html#plot_ly"><i class="fa fa-check"></i><b>7.3.2</b> Plot_ly()</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="plots.html"><a href="plots.html#mapping-in-r"><i class="fa fa-check"></i><b>7.4</b> Mapping in R</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="plots.html"><a href="plots.html#mapping-with-ggplot2"><i class="fa fa-check"></i><b>7.4.1</b> Mapping with ggplot2</a></li>
+<li class="chapter" data-level="7.4.2" data-path="plots.html"><a href="plots.html#mapping-with-leaflet"><i class="fa fa-check"></i><b>7.4.2</b> Mapping with leaflet</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="tidbits.html"><a href="tidbits.html"><i class="fa fa-check"></i><b>8</b> Interesting tidbits</a><ul>
 <li class="chapter" data-level="8.1" data-path="tidbits.html"><a href="tidbits.html#rounding"><i class="fa fa-check"></i><b>8.1</b> Rounding</a></li>
 </ul></li>
@@ -264,7 +297,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">DfT R Cookbook</h1>
 <p class="author"><em>Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Andrew Kelly, Tim Taylor</em></p>
-<p class="date"><em>2019-09-03</em></p>
+<p class="date"><em>2019-09-04</em></p>
 </div>
 <div id="why-do-we-need-another-book" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Why do we need <em>another</em> book?</h1>
