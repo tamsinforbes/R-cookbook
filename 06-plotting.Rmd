@@ -321,8 +321,11 @@ plot_ly(road_acc, x = ~accident_year, y = ~total) %>% # specify the data and x a
 ```
 
 You can find more information about using plotly in R from the following websites:
+
 * Graphing library with example code: [https://plot.ly/r/](https://plot.ly/r/)
+
 * Cheat sheet: [https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf](https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf)
+
 * E-book: [https://plotly-r.com/index.html](https://plotly-r.com/index.html)
 
 ## Mapping in R
@@ -341,6 +344,8 @@ The leaflet package can be used to create interactive maps in R. Similar to ggpl
 library(leaflet)
 
 sarh <- readr::read_csv(file = "data/SARH_spatial.csv")
+
+head(sarh)
 
 #plot the interactive map using leaflet
 leaflet::leaflet(data = sarh) %>% 
