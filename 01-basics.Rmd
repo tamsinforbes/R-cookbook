@@ -80,19 +80,29 @@ R works in RAM, so its memory is only as good as the amount of RAM you have - ho
 
 ## A note on rounding
 
-The base function `round()` in R rounds **half to even**, that is, half way is rounded to the nearest even number, for example the decimals below both round to the same value.
-```{r}
-round(3.5)
-round(4.5)
-```
-This helps eliminate bias, more info on Wikipedia [round half to even](https://en.wikipedia.org/wiki/Rounding#Round_half_to_even)
+For rounding numerical values we have the base function `round(x, digits = 0)`. This rounds the value of the first argument to the specified number of decimal places (default 0).
 
-If **round half to even** is not for you, you can use **round_half_up** from the {janitor} package, thus
 ```{r}
-janitor::round_half_up(3.5)
-janitor::round_half_up(4.5)
+round(c(-1.5, -0.5, 0.5, 1.5, 2.5, 3.5, 4.5))
 ```
 
+For example, note that 1.5 and 2.5 both round to 2, which is probably not what you were expecting, this is generally referred to as 'round half to even'. The `round()` documentation explains all (`?round`)
+
+> Note that for rounding off a 5, the IEC 60559 standard (see also ‘IEEE 754’) 
+is expected to be used, *‘go to the even digit’*. Therefore `round(0.5)` is `0` 
+and `round(-1.5)` is `-2`. However, this is dependent on OS services and on 
+representation error (since e.g. `0.15` is not represented exactly, the
+rounding rule applies to the represented number and not to the printed number, 
+and so `round(0.15, 1)` could be either `0.1` or `0.2`).
+
+To implement what we consider normal rounding we can use the {janitor} package and the function `round_half_up`
+
+```{r, warning=FALSE}
+library(janitor)
+janitor::round_half_up(c(-1.5, -0.5, 0.5, 1.5, 2.5, 3.5, 4.5))
+```
+
+If we do not have access to the package (or do not want to depend on the package) then we can implement^[see [stackoverflow](https://stackoverflow.com/questions/12688717/round-up-from-5/12688836#12688836)
 
 ## Assignment operators `<-` vs `=`
 
@@ -227,9 +237,10 @@ typeof(v4)
 ```
 
 As well as the atomic vector types you will often encounter two other vector
-types; **factor** and **Date**. As well as some notes here this book also contains fuller sections on both
-- Chapter 6 [Working with factors]
+types; **Date** and **factor** . As well as some notes here this book also contains fuller sections on both
+
 - Chapter 5 [Working with dates and times]
+- Chapter 6 [Working with factors]
 
 Factor vectors are used to represent categorical data. They are actually integer vectors with two additional attributes, levels and class. At this stage it is not worth worrying too much about what attributes are, but is suffiecient to understand that, for factors, the levels attribute gives the possible categories, and combined with the integer values works much like a lookup table.  The `class` attribute is just "factor".
 
