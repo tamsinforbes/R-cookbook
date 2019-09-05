@@ -32,7 +32,9 @@ mtcars <- tibble::as.tibble(mtcars) %>%
 ```
 
 
-```{r}
+# {-}
+
+```{r echo=FALSE}
 knitr::include_graphics(path = "image/book_image_smaller.png")
 ```
 
