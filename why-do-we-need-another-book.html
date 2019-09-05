@@ -308,11 +308,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 1</span> Why do we need <em>another</em> book?</h1>
 <p><code>R</code> is a very flexible programming language, which inevitably means there are lots of ways to achieve the same result. This is true of all programming languages, but is particularly exaggerated in <code>R</code> which makes use of <a href="http://adv-r.had.co.nz/">‘meta-programming’</a>.</p>
 <p>For example, here is how to calculate a new variable using standard R and filter on a variable:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Calculate kilometers per litre from miles per gallon</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">mtcars<span class="op">$</span>kpl &lt;-<span class="st"> </span>mtcars<span class="op">$</span>mpg <span class="op">*</span><span class="st"> </span><span class="fl">0.425144</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># Select cars with a horsepower greater than 250 &amp; show only mpg and kpl columns</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">mtcars[mtcars<span class="op">$</span>hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">250</span>, <span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;kpl&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Calculate kilometers per litre from miles per gallon</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">mtcars<span class="op">$</span>kpl &lt;-<span class="st"> </span>mtcars<span class="op">$</span>mpg <span class="op">*</span><span class="st"> </span><span class="fl">0.425144</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Select cars with a horsepower greater than 250 &amp; show only mpg and kpl columns</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">mtcars[mtcars<span class="op">$</span>hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">250</span>, <span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;kpl&quot;</span>)]</a></code></pre></div>
 <div class="kable-table">
 
 <table>
@@ -356,17 +356,17 @@ kpl
 </table>
 </div>
 <p>Here’s the same thing using {tidyverse} style R:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="co"># Calculate kilometers per litre</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="dt">kpl =</span> mpg <span class="op">*</span><span class="st"> </span><span class="fl">0.425144</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="co"># Filter cars with a horsepower greater than 250</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">    hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">250</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">  </span><span class="co"># Take only the car, mpg, and newly created kpl columns</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(car, mpg, kpl)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="co"># Calculate kilometers per litre</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="dt">kpl =</span> mpg <span class="op">*</span><span class="st"> </span><span class="fl">0.425144</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  </span><span class="co"># Filter cars with a horsepower greater than 250</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">    hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">250</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">  </span><span class="co"># Take only the car, mpg, and newly created kpl columns</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(car, mpg, kpl)</a></code></pre></div>
 <div class="kable-table">
 
 <table>
