@@ -390,7 +390,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-note-on-rounding" class="section level2">
 <h2><span class="header-section-number">2.6</span> A note on rounding</h2>
 <p>For rounding numerical values we have the base function <code>round(x, digits = 0)</code>. This rounds the value of the first argument to the specified number of decimal places (default 0).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">round</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">round</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</a></code></pre></div>
 <pre><code>## [1] -2  0  0  2  2  4  4</code></pre>
 <p>For example, note that 1.5 and 2.5 both round to 2, which is probably not what you were expecting, this is generally referred to as ‘round half to even’. The <code>round()</code> documentation explains all (<code>?round</code>)</p>
 <blockquote>
@@ -402,25 +402,25 @@ rounding rule applies to the represented number and not to the printed number,
 and so <code>round(0.15, 1)</code> could be either <code>0.1</code> or <code>0.2</code>).</p>
 </blockquote>
 <p>To implement what we consider normal rounding we can use the {janitor} package and the function <code>round_half_up</code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(janitor)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(janitor)</a></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;janitor&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
 ## 
 ##     chisq.test, fisher.test</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">janitor<span class="op">::</span><span class="kw">round_half_up</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">janitor<span class="op">::</span><span class="kw">round_half_up</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</a></code></pre></div>
 <pre><code>## [1] -2 -1  1  2  3  4  5</code></pre>
 <p>If we do not have access to the package (or do not want to depend on the package) then we can implement^[see <a href="https://stackoverflow.com/questions/12688717/round-up-from-5/12688836#12688836">stackoverflow</a></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">round_half_up_v2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">digits =</span> <span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">  posneg &lt;-<span class="st"> </span><span class="kw">sign</span>(x)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">  z &lt;-<span class="st"> </span><span class="kw">abs</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">  z &lt;-<span class="st"> </span>z <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">  z &lt;-<span class="st"> </span><span class="kw">trunc</span>(z)</a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">  z &lt;-<span class="st"> </span>z <span class="op">/</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">  z <span class="op">*</span><span class="st"> </span>posneg</a>
-<a class="sourceLine" id="cb10-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="kw">round_half_up_v2</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">round_half_up_v2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">digits =</span> <span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">  posneg &lt;-<span class="st"> </span><span class="kw">sign</span>(x)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">  z &lt;-<span class="st"> </span><span class="kw">abs</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">  z &lt;-<span class="st"> </span>z <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">  z &lt;-<span class="st"> </span><span class="kw">trunc</span>(z)</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">  z &lt;-<span class="st"> </span>z <span class="op">/</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span>digits</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">  z <span class="op">*</span><span class="st"> </span>posneg</a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">}</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="kw">round_half_up_v2</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span>))</a></code></pre></div>
 <pre><code>## [1] -2 -1  1  2  3  4  5</code></pre>
 </div>
 <div id="assignment-operators---vs" class="section level2">
@@ -432,37 +432,37 @@ and so <code>round(0.15, 1)</code> could be either <code>0.1</code> or <code>0.2
 <ul>
 <li>addition</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <ul>
 <li>subtraction</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="dv">5</span> <span class="op">-</span><span class="st"> </span><span class="dv">4</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="dv">5</span> <span class="op">-</span><span class="st"> </span><span class="dv">4</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <ul>
 <li>multiplication</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <ul>
 <li>division</li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="dv">3</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="dv">3</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 1.5</code></pre>
 <ul>
 <li>exponent</li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="dv">3</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="dv">3</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <ul>
 <li>modulus (remainder on divsion)</li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="dv">14</span> <span class="op">%%</span><span class="st"> </span><span class="dv">6</span> </a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="dv">14</span> <span class="op">%%</span><span class="st"> </span><span class="dv">6</span> </a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <ul>
 <li>integer division</li>
 </ul>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="dv">50</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">8</span></a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="dv">50</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">8</span></a></code></pre></div>
 <pre><code>## [1] 6</code></pre>
 </div>
 <div id="relational-operators" class="section level2">
@@ -470,36 +470,36 @@ and so <code>round(0.15, 1)</code> could be either <code>0.1</code> or <code>0.2
 <ul>
 <li>less than</li>
 </ul>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">3.142</span></a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&lt;</span><span class="st"> </span><span class="fl">3.142</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>greater than</li>
 </ul>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="fl">3.14159</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="fl">3.14159</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>less than or equal to</li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="dv">3</span> <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="dv">3</span> <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>greater than or equal to</li>
 </ul>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="dv">3</span> <span class="op">&gt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="dv">3</span> <span class="op">&gt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&gt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="fl">3.14</span> <span class="op">&gt;=</span><span class="st"> </span><span class="fl">3.14</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>equal to</li>
 </ul>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="fl">3.14159</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="fl">3.14159</span></a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <ul>
 <li>not equal to</li>
 </ul>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="dv">3</span> <span class="op">!=</span><span class="st"> </span><span class="fl">3.14159</span></a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="dv">3</span> <span class="op">!=</span><span class="st"> </span><span class="fl">3.14159</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="logical-operators" class="section level2">
@@ -508,30 +508,30 @@ and so <code>round(0.15, 1)</code> could be either <code>0.1</code> or <code>0.2
 <ul>
 <li>not <code>!</code></li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="dv">0</span>, <span class="ot">FALSE</span>, <span class="dv">-4</span>)</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="op">!</span>x</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="dv">0</span>, <span class="ot">FALSE</span>, <span class="dv">-4</span>)</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="op">!</span>x</a></code></pre></div>
 <pre><code>## [1] FALSE  TRUE  TRUE FALSE</code></pre>
 <ul>
 <li>element-wise and <code>&amp;</code></li>
 </ul>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">3.14</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">x <span class="op">&amp;</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">3.14</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">x <span class="op">&amp;</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE FALSE</code></pre>
 <ul>
 <li>first element and <code>&amp;&amp;</code></li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">x <span class="op">&amp;&amp;</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">x <span class="op">&amp;&amp;</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>element-wise or <code>|</code></li>
 </ul>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">x <span class="op">|</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">x <span class="op">|</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE  TRUE</code></pre>
 <ul>
 <li>first element or <code>||</code></li>
 </ul>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">FALSE</span>, <span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb50-2" data-line-number="2">y <span class="op">||</span><span class="st"> </span>z</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">FALSE</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">y <span class="op">||</span><span class="st"> </span>z</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="vectors" class="section level2">
@@ -541,27 +541,27 @@ and so <code>round(0.15, 1)</code> could be either <code>0.1</code> or <code>0.2
 <p>There are four main atomic vector types that you are likely to come across
 when using R<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>; <strong>logical</strong> (<code>TRUE</code>
 or <code>FALSE</code>), <em>double</em> (<code>3.142</code>), <em>integer</em> (<code>2L</code>) and <em>character</em> (<code>&quot;Awesome&quot;</code>)</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">v1 &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">typeof</span>(v1)</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">v1 &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw">typeof</span>(v1)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">v1 &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="kw">typeof</span>(v1)</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">v1 &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw">typeof</span>(v1)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">v2 &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
-<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="kw">typeof</span>(v2)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">v2 &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">typeof</span>(v2)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">v2 &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">typeof</span>(v2)</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">v2 &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="kw">typeof</span>(v2)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># integer values must be followed by an L to be stored as integers</span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2">v3 &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb60-3" data-line-number="3"><span class="kw">typeof</span>(v3)</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="co"># integer values must be followed by an L to be stored as integers</span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2">v3 &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb61-3" data-line-number="3"><span class="kw">typeof</span>(v3)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1">v3 &lt;-<span class="st"> </span>2L</a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="kw">typeof</span>(v3)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">v3 &lt;-<span class="st"> </span>2L</a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="kw">typeof</span>(v3)</a></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">v4 &lt;-<span class="st"> &quot;Awesome&quot;</span></a>
-<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="kw">typeof</span>(v4)</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">v4 &lt;-<span class="st"> &quot;Awesome&quot;</span></a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="kw">typeof</span>(v4)</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>As well as the atomic vector types you will often encounter two other vector
 types; <strong>Date</strong> and <strong>factor</strong> . As well as some notes here this book also contains fuller sections on both</p>
@@ -570,50 +570,50 @@ types; <strong>Date</strong> and <strong>factor</strong> . As well as some notes
 <li>Chapter 6 <a href="factors.html#factors">Working with factors</a></li>
 </ul>
 <p>Factor vectors are used to represent categorical data. They are actually integer vectors with two additional attributes, levels and class. At this stage it is not worth worrying too much about what attributes are, but is suffiecient to understand that, for factors, the levels attribute gives the possible categories, and combined with the integer values works much like a lookup table. The <code>class</code> attribute is just “factor”.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">ratings &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;amazing&quot;</span>))</a>
-<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="kw">typeof</span>(ratings)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">ratings &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;amazing&quot;</span>))</a>
+<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="kw">typeof</span>(ratings)</a></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">attributes</span>(ratings)</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">attributes</span>(ratings)</a></code></pre></div>
 <pre><code>## $levels
 ## [1] &quot;amazing&quot; &quot;bad&quot;     &quot;good&quot;   
 ## 
 ## $class
 ## [1] &quot;factor&quot;</code></pre>
 <p>Date vectors are just vectors of class double with an additional class attribute set as “Date”.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">DfT_birthday &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">as_date</span>(<span class="st">&quot;1919-08-14&quot;</span>)</a>
-<a class="sourceLine" id="cb70-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb70-3" data-line-number="3"><span class="kw">typeof</span>(DfT_birthday)</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">DfT_birthday &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">as_date</span>(<span class="st">&quot;1919-08-14&quot;</span>)</a>
+<a class="sourceLine" id="cb71-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb71-3" data-line-number="3"><span class="kw">typeof</span>(DfT_birthday)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw">attributes</span>(DfT_birthday)</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">attributes</span>(DfT_birthday)</a></code></pre></div>
 <pre><code>## $class
 ## [1] &quot;Date&quot;</code></pre>
 <p>If we remove the class using <code>unclass()</code> we can reveal the value of the double, which is the number of days since “1970-01-01”<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, since DfT’s birthday is before this date, the double is negative.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">unclass</span>(DfT_birthday)</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="kw">unclass</span>(DfT_birthday)</a></code></pre></div>
 <pre><code>## [1] -18403</code></pre>
 </div>
 <div id="conversion-between-atomic-vector-types" class="section level3">
 <h3><span class="header-section-number">2.11.2</span> Conversion between atomic vector types</h3>
 <p>Converting between the atomic vector types is done using the <code>as.character</code>, <code>as.integer</code>, <code>as.logical</code> and <code>as.double</code> functions.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">value &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
-<a class="sourceLine" id="cb76-2" data-line-number="2"><span class="kw">as.integer</span>(value)</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">value &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
+<a class="sourceLine" id="cb77-2" data-line-number="2"><span class="kw">as.integer</span>(value)</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">as.character</span>(value)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">as.character</span>(value)</a></code></pre></div>
 <pre><code>## [1] &quot;1.5&quot;</code></pre>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">as.logical</span>(value)</a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">as.logical</span>(value)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Where it is not possible to convert a value you will get a warning message</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1">value &lt;-<span class="st"> &quot;z&quot;</span></a>
-<a class="sourceLine" id="cb82-2" data-line-number="2"><span class="kw">as.integer</span>(value)</a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">value &lt;-<span class="st"> &quot;z&quot;</span></a>
+<a class="sourceLine" id="cb83-2" data-line-number="2"><span class="kw">as.integer</span>(value)</a></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1] NA</code></pre>
 <p>When combining different vector types, coercion will obey the following hierarchy: character, double, integer, logical.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="st">&quot;pop&quot;</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="st">&quot;pop&quot;</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(<span class="fl">9.9</span>, 3L, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(3L, <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">c</span>(3L, <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
 
 </div>
