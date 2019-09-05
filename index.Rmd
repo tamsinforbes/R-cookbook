@@ -32,7 +32,7 @@ mtcars <- tibble::as.tibble(mtcars) %>%
 ```
 
 
-![](image/book_image.png)
+![](image/book_image_smaller.png)
 
 # Why do we need _another_ book?
 
