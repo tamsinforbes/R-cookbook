@@ -13,7 +13,6 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: departmentfortransport/R-cookbook
-cover-image: "image/book_image_small.png"
 description: "Guidance and code examples for R usage for DfT and beyond"
 
 ---
@@ -32,6 +31,11 @@ mtcars <- tibble::as.tibble(mtcars) %>%
   # Add rows for dplyr example
   tibble::rownames_to_column(var = "car")
 ```
+
+
+# {-}
+
+![](image/book_image_small.png)
 
 # Why do we need _another_ book?
 
