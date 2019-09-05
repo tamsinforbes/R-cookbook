@@ -32,10 +32,10 @@ mtcars <- tibble::as.tibble(mtcars) %>%
 ```
 
 
-![](image/book_image_smaller.png)
+```{r}
+knitr::include_graphics(path = "image/book_image_smaller.png")
+```
 
-
-![test pic](image/pet_form.png)
 
 # Why do we need _another_ book?
 
