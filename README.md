@@ -11,7 +11,8 @@ If you'd like to make a suggestion on what else should be included, or if you ha
 1. Clone or fork the repository
 2. Make a new branch for your chapter or changes `git checkout -b name_of_branch`
 3. Add/edit content in the `.Rmd` files. 
-4. Create a pull request, get someone to review the content, and merge into master (merging into master will trigger the book website to be updated automatically).  Please do not include built files in your pull request.
+4. Create a pull request. Please do not include built files in your pull request.
+5. An admin will then review the content and either request changes or merge into master (merging into master will trigger the book website to be updated automatically).  
 
 ### Using additional packages
 
