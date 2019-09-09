@@ -6,7 +6,9 @@ https://departmentfortransport.github.io/R-cookbook/
 
 ## To contribute
 
-1. Clone the repository
+If you'd like to make a suggestion on what else should be included, or if you have a better solution to share with us, please raise an issue [here](https://github.com/departmentfortransport/R-cookbook/issues). Alternatively, 
+
+1. Clone or fork the repository
 2. Make a new branch for your chapter or changes `git checkout -b name_of_branch`
 3. Add/edit content in the `.Rmd` files. 
 4. Create a pull request, get someone to review the content, and merge into master (merging into master will trigger the book website to be updated automatically).  Please do not include built files in your pull request.
