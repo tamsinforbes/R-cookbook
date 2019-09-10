@@ -24,7 +24,7 @@
 <meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Tim Taylor" />
 
 
-<meta name="date" content="2019-09-09" />
+<meta name="date" content="2019-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -309,21 +309,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This chapter provides an overview of working with dates and times, for example extracting year or month from a date, and converting characters to a date.</p>
 <p>One of the main packages used to work with dates is <strong>{lubridate}</strong>.</p>
 <p>More information can be found on the {lubridate} cheatsheet at the following link: <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></p>
-<p>Date vectors are just double vectors with an additional class attribute set as
-“Date”.</p>
-<p><strong>Note - The following borrows directly from Hadley’s Advanced R site
-so we need to attribute appropriately and use correct licence</strong></p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1">today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()</a>
-<a class="sourceLine" id="cb160-2" data-line-number="2"><span class="kw">typeof</span>(today)</a>
+<p>Date vectors are just vectors of class double with an additional class attribute set as “Date”.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1">DfT_birthday &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">as_date</span>(<span class="st">&quot;1919-08-14&quot;</span>)</a>
+<a class="sourceLine" id="cb160-2" data-line-number="2"><span class="kw">typeof</span>(DfT_birthday)</a>
 <a class="sourceLine" id="cb160-3" data-line-number="3"><span class="co">#&gt; [1] &quot;double&quot;</span></a>
-<a class="sourceLine" id="cb160-4" data-line-number="4"><span class="kw">attributes</span>(today)</a>
+<a class="sourceLine" id="cb160-4" data-line-number="4"><span class="kw">attributes</span>(DfT_birthday)</a>
 <a class="sourceLine" id="cb160-5" data-line-number="5"><span class="co">#&gt; $class</span></a>
 <a class="sourceLine" id="cb160-6" data-line-number="6"><span class="co">#&gt; [1] &quot;Date&quot;</span></a></code></pre></div>
-<p>The value of the double (which can be seen by stripping the class), represents
-the number of days since “1970-01-01”<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>:</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1">date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1970-02-01&quot;</span>)</a>
-<a class="sourceLine" id="cb161-2" data-line-number="2"><span class="kw">unclass</span>(date)</a>
-<a class="sourceLine" id="cb161-3" data-line-number="3"><span class="co">#&gt; [1] 31</span></a></code></pre></div>
+<p>If we remove the class using <code>unclass()</code> we can reveal the value of the double, which is the number of days since “1970-01-01”<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, since DfT’s birthday is before this date, the double is negative.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1"><span class="kw">unclass</span>(DfT_birthday)</a>
+<a class="sourceLine" id="cb161-2" data-line-number="2"><span class="co">#&gt; [1] -18403</span></a></code></pre></div>
 <p>This chapter will be using the road accident data set:</p>
 <table>
 <caption>
@@ -1609,8 +1604,7 @@ time3
 <div class="footnotes">
 <hr />
 <ol start="3">
-<li id="fn3"><p>This special date is known as the Unix
-Epoch<a href="dates-times.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>a special date known as the Unix Epoch<a href="dates-times.html#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
