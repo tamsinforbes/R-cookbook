@@ -30,25 +30,18 @@ One of the main packages used to work with dates is **{lubridate}**.
 
 More information can be found on the {lubridate} cheatsheet at the following link: https://www.rstudio.com/resources/cheatsheets/
 
-Date vectors are just double vectors with an additional class attribute set as
-"Date".  
-
-**Note - The following borrows directly from Hadley's Advanced R site
-so we need to attribute appropriately and use correct licence**
+Date vectors are just vectors of class double with an additional class attribute set as "Date".  
 
 ```{r}
-today <- Sys.Date()
-typeof(today)
-attributes(today)
+DfT_birthday <- lubridate::as_date("1919-08-14")
+typeof(DfT_birthday)
+attributes(DfT_birthday)
 ```
 
-The value of the double (which can be seen by stripping the class), represents
-the number of days since "1970-01-01"^[This special date is known as the Unix 
-Epoch]:
+If we remove the class using `unclass()` we can reveal the value of the double, which is the number of days since "1970-01-01"^[a special date known as the Unix Epoch], since DfT's birthday is before this date, the double is negative.
 
 ```{r}
-date <- as.Date("1970-02-01")
-unclass(date)
+unclass(DfT_birthday)
 ```
 
 This chapter will be using the road accident data set:
