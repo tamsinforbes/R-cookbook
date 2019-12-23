@@ -317,7 +317,7 @@ The scatter plot example will plot the number of accidents in 2017 for each poli
 
 Note that to draw out a colour for the points, the code specifies which colour in the list of DfT colours the points will be. In this case, the third colour in the list will be the colour of the points.
 
-Labels are added to the scatter plot using "geom_text". 
+Labels are added to the scatter plot using **geom_text**. 
 
 ```{r}
 # First get total number of accidents for each police force
@@ -347,7 +347,7 @@ For the horizontal bar chart, bars will be shown in descending order, with the p
 
 Police force is made a factor, with each police force made a separate level.
 
-To make a bar chart horizontal, the command "coord_flip" is included in the ggplot arguments.
+To make a bar chart horizontal, the command **coord_flip** is included in the ggplot arguments.
 
 
 ```{r}
@@ -380,6 +380,37 @@ The chart shows that police force 98 (Dumfries and Galloway) recorded the lowest
 
 ### Stacked bar chart
 
+This example will create a stacked bar chart showing the percentage of road accidents in each accident severity category, for each year.
+
+This requires using the **geom_bar** command in ggplot2 and setting the position to **stack**.
+
+```{r}
+# Make accident year a factor so year on x-axis is labelled individually (otherwise axis will be continuous)
+road_acc$accident_year <- as.factor(road_acc$accident_year)
+
+# use the DfT colours and the DfT theme for the accidents by police force scatter chart
+ggplot(data = road_acc, aes(fill = name, y=total, x= accident_year)) +
+  geom_bar(position="fill", stat="identity") +
+  labs(title = "Percentage Accident Severity, by Year", 
+       x = "Accident Year", 
+       y = "% Accident Severity")+ 
+   scale_fill_manual(values = dft_colour) +
+  theme_dft 
+```
+
+If you want the stacked bar chart to show numbers instead of percentages use **position = "stack"** instead.
+
+```{r}
+
+# use the DfT colours and the DfT theme for the accidents by police force scatter chart
+ggplot(data = road_acc, aes(fill = name, y=total, x= accident_year)) +
+  geom_bar(position="stack", stat="identity") +
+  labs(title = "Number of accidents by severity, by Year", 
+       x = "Accident Year", 
+       y = "% Accident Severity")+ 
+   scale_fill_manual(values = dft_colour) +
+  theme_dft 
+```
 
 ## Interactive charts with {plotly}
 
