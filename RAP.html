@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>DfT R Cookbook</title>
+  <title>Chapter 8 DfT RAP guidance | DfT R Cookbook</title>
   <meta name="description" content="Guidance and code examples for R usage for DfT and beyond" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="DfT R Cookbook" />
+  <meta property="og:title" content="Chapter 8 DfT RAP guidance | DfT R Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="departmentfortransport/R-cookbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="DfT R Cookbook" />
+  <meta name="twitter:title" content="Chapter 8 DfT RAP guidance | DfT R Cookbook" />
   
   <meta name="twitter:description" content="Guidance and code examples for R usage for DfT and beyond" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="plots.html"/>
 
-<link rel="next" href="why-do-we-need-another-book.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -319,22 +319,82 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">DfT R Cookbook</h1>
-<p class="author"><em>Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Tim Taylor</em></p>
-<p class="date"><em>2019-12-23</em></p>
+<div id="RAP" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> DfT RAP guidance</h1>
+<p>This section provides a condensed version of the DfT RAP guidance written and amended by the DfT RAP committee.</p>
+<p>A more in-depth guide is available internally, please ask the DfT RAP committee for the file path.</p>
+<div id="what" class="section level2">
+<h2><span class="header-section-number">8.1</span> What</h2>
+<p>This sub-chapter explains what a RAP project is using RAP levels amended from NHS Scotland RAP levels.</p>
+<p>Use the DfT RAP levels to ensure your DfT RAP project includes everything it should. A project is considered a RAP project at level 4a and above.</p>
+<p>These RAP levels have been amended from the original <a href="https://www.isdscotland.org/About-ISD/Methodologies/_docs/Reproducible_Analytical_Pipelines_paper_v1.4.pdf">NHS Scotland RAP levels</a> to reflect DfT processes and software capabilities. There is guidance for the descriptors below the RAP levels.</p>
+<div class="figure">
+<img src="image/levels_key.png" alt="RAP levels key" />
+<p class="caption">RAP levels key</p>
 </div>
-<div id="section" class="section level1 unnumbered">
-<h1></h1>
-<p><img src="image/book_image_short.png" width="266" /></p>
+<p><img src="image/rap_levels.png" alt="RAP levels" />
+DfT RAP levels guidance</p>
+<p><strong>Data file produced by code</strong>
+Your code will produce the required data. This may involve some or all of cleaning, tidying, wrangling, analysing.</p>
+<p><strong>Outputs produced by code</strong>
+Your code will automate the production of publication ready outputs, for example formatted excel publication tables or reports.</p>
+<p><strong>QA of code</strong>
+Your code has been quality assured by someone else, and all comments implemented. Your manager should sign off on the code at this point.</p>
+<p><strong>Documentation so others can independently run the code</strong>
+Your code should be documented so that someone else can independently run the code. This could be through comments in the code, or a separate document, such as a README.md, providing guidance.</p>
+<p><strong>Well-structured data storage</strong>
+Your project should have an organised hierarchy of files and folders (we recommend using an R project), with data and outputs stored appropriately.</p>
+<p><strong>Create versions of code when milestones reached</strong>
+You should create versions of your code whenever key milestones or sections have been completed. This will allow you to find previous versions of code if something goes wrong, or the code breaks. If version control is available (e.g. Github) then this could be implemented for more advanced version control.</p>
+<p><strong>R packages and versions documented</strong>
+R packages and the versions used should be documented so that if other people use your code they can ensure they have the right packages and versions to run your code. Running sessionInfo() and RStudio.Version() after loading all libraries at the start of your code will output information about the packages and RStudio versions used. See the R-Cookbook for how to capture and print this information to a file.</p>
+<p><strong>Peer review of code</strong>
+Your code will need to be peer reviewed. This is less in depth than QA’ing the code but will need to be done by an experienced R user or RAP champion. NOTE: it is part of the RAP champion role to peer review RAP projects.</p>
+<p><strong>Automated quality assurance of data</strong>
+Your RAP project should include automated quality assurance of data, this could be an automated QA note, or tests and checks within the code.</p>
+<p><strong>Unit testing of functions and/or stress testing across all code</strong>
+Where user defined functions are created, these should be unit tested – functions written to pass tests. Where functions are not used the code must stress tested and risks documented. For example, does the code work with previous years? Are the figures at the end as expected? What happens if the data fed into the code is different? What if there are columns missing?</p>
+<p><strong>All processes RAPped</strong>
+All processes that make up the pipeline are RAPped. For example, for a publication this could include automation of processes such as data collection, data tidying, data wrangling, quality assurance, producing publication ready table, charts, dashboards etc.</p>
+<p><strong>Reproducible computing environment</strong>
+Using a system like docker to create a reproducible computing environment.</p>
 </div>
+<div id="when" class="section level2">
+<h2><span class="header-section-number">8.2</span> When</h2>
+<p>Whilst incredibly powerful, RAP should not be seen as a solution for all the difficulties of statistics production. However, implementing even a few of the techniques can drive benefits in auditability, speed, quality, and knowledge transfer. There is a balance to be struck between ease of maintenance and the level of automation, and this is likely to differ for every publication or team.</p>
+<p>Sometimes it is difficult to decide if you should a RAP project or not. The following table should help you identify the benefits and risks for your individual problem:</p>
+<div class="figure">
+<img src="image/adv_disadv.png" alt="advantages and disadvantages of RAP" />
+<p class="caption">advantages and disadvantages of RAP</p>
+</div>
+</div>
+<div id="additional-resources" class="section level2">
+<h2><span class="header-section-number">8.3</span> Additional resources</h2>
+<p>There is are also quite a few links and resources which can help with a RAP project:</p>
+<p><a href="https://ukgovdatascience.github.io/rap-website/resource-nhs-nss-transforming-publications-toolkit.html">RAP govdown website</a> is a central repository for all things RAP across government, including lots of links.</p>
+<p><a href="https://ukgovdatascience.github.io/rap_companion/">RAP companion</a> comprehensive RAP guide.</p>
+<p><a href="https://govdatascience.slack.com/messages/C6H22U3H9/convo/C17V1PCCX-1560436755.005800/">RAP collaboration slack channel</a>
+Contact the wider RAP community for help on more complex issues through the GovDataScience slack domain (you need to be signed in for this link to work).</p>
+<p><a href="https://gss.civilservice.gov.uk/about-us/champion-networks/reproducible-analytical-pipeline-rap-champions/">GSS RAP champions page</a>. Get in contact with RAP champions from DfT and across government.</p>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
+<a href="plots.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="why-do-we-need-another-book.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
