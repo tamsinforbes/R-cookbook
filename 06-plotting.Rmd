@@ -229,7 +229,7 @@ Here we map the name variable to the fill argument within the aesthetic.
 
 
 
-## Themes
+## DfT Theme
 
 We mentioned themes earlier. Themes are used to set the style of your plot and can give your plots a consistent customized look. You can customise things such as titles, labels, fonts, background, gridlines, and legends. We have been using theme_classic() so far but {ggplot2} has a number of built-in themes that you can use for your plots available here: [https://ggplot2.tidyverse.org/reference/ggtheme.html](https://ggplot2.tidyverse.org/reference/ggtheme.html)
 
@@ -295,6 +295,90 @@ ggplot(data = road_acc) +
 
 ```
 
+
+## More {ggplot2} charts with DfT theme
+
+This section provides more code examples for creating {ggplot2} themes, including the DfT theme code.
+
+First, some more record-level road accident data is read in which can be used with the charts. Note that the data is being read in as a .rds object. A .rds object is an R data object which can be read in as a data frame:
+
+```{r}
+
+# read in road accident data
+road_acc_data <- readr::read_rds("data/road_accidents_2017.RDS")
+
+head(road_acc_data)
+
+```
+
+### Scatter plots
+
+The scatter plot example will plot the number of accidents in 2017 for each police force.
+
+Note that to draw out a colour for the points, the code specifies which colour in the list of DfT colours the points will be. In this case, the third colour in the list will be the colour of the points.
+
+Labels are added to the scatter plot using "geom_text". 
+
+```{r}
+# First get total number of accidents for each police force
+accident_pf <- road_acc_data %>%
+  dplyr::group_by(Police_Force) %>%
+  dplyr::tally()
+
+
+# use the DfT colours and the DfT theme for the accidents by police force scatter chart
+ggplot(data = accident_pf, aes(x = Police_Force, y = n)) +
+  geom_point(color = dft_colour[3], size = 1.5) +
+  labs(title = "Reported Road Accidents by Police Force", 
+       x = "Police Force", 
+       y = "Number of Accidents")+ 
+  scale_y_continuous(breaks = seq(0, 30000, 2000))+
+  geom_text(aes(label=Police_Force), size=3, hjust = 0, vjust = 0) +
+  theme_dft #here we specify our custom theme
+```
+
+The police forces are labelled with numbers, but the chart shows that police force 1 (Metropolitan Police) has the highest number of road accidents in 2017.
+
+### Horizontal bar chart
+
+The scatter plot showing the number of accidents by police force could also be shown in a horizontal bar chart.
+
+For the horizontal bar chart, bars will be shown in descending order, with the police force with the largest value at the top of the chart. This is done by ensuring the data is arranged by the number of accidents ("n").
+
+Police force is made a factor, with each police force made a separate level.
+
+To make a bar chart horizontal, the command "coord_flip" is included in the ggplot arguments.
+
+
+```{r}
+# Arrange police force data by size
+accident_pf <- arrange(accident_pf, n)
+
+# take a subset for charting purposes
+accident_pf_small <- dplyr::filter(accident_pf, n < 600)
+
+# Make police force a factor
+accident_pf_small$Police_Force <- factor(accident_pf_small$Police_Force, levels = accident_pf_small$Police_Force)
+
+
+# use the DfT colours and the DfT theme for the accidents by police force scatter chart
+ggplot(data = accident_pf_small) +
+  geom_col(mapping = aes(x = Police_Force, y = n, fill = Police_Force), col = "black") +
+  coord_flip() +
+  labs(title = "Reported Road Accidents by Police Force, 2017", 
+       x = "Police Force", 
+       y = "Number of Accidents")+ 
+  scale_y_continuous(breaks = seq(0, 500, 50)) +
+   scale_fill_manual(values = dft_colour) +
+  theme_dft +
+  theme(legend.position = "none")#here we specify our custom theme
+
+```
+
+
+The chart shows that police force 98 (Dumfries and Galloway) recorded the lowest number of accidents in 2017.
+
+### Stacked bar chart
 
 
 ## Interactive charts with {plotly}
