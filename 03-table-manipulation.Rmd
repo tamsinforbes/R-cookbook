@@ -213,6 +213,20 @@ caption = "Three columns from road accidents 2017")
 ```
  
 
+## Rename variables
+
+Use the **rename** function from {dplyr} to rename variables where the new variable name is on the left hand side of the **=** equals sign, and the old variable name is on the right hand.
+
+```{r}
+road_accidents_rename <- road_accidents_4_cols %>%
+  dplyr::rename(Date_of_Accident = Date)
+
+```
+
+```{r, echo = FALSE, results='asis'}
+knitr::kable(head(road_accidents_rename),
+caption = "Rename date column to Date_of_Accident")
+```
 
 ## Filtering data
 
