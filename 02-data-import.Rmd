@@ -505,3 +505,19 @@ Below are links to DfT Coffee and Coding materials on the subject of connecting 
 Link below to DfT Coffee and Coding materials on how to use {bigrquery} to interact with GCP's BigQuery
 
 [20190403_bigrquery](https://github.com/departmentfortransport/coffee-and-coding/tree/master/20190403_bigrquery)
+
+
+## Copy data to clipboard
+
+Normally when you have a table in a data frame in R, if you want to get this into a spreadsheet you will need to use functions like `writexl::write_xlsx` or the base `write.csv` to do so. Wouldn’t it be easier to simply copy the entire data frame to the clipboard, so that you can paste it in the spreadsheet yourself? Well try this:
+
+`write.table(df, "clipboard", sep="\t", col.names=TRUE)`
+
+**df** = data frame you want to copy
+**col.names** = if you want the column headers leave as TRUE. Just the data, change to FALSE
+
+If you get warnings about “too big for clipboard”, you can even specify what size of clipboard you want to copy to, such as:
+
+`write.table(df, "clipboard-16384", sep="\t", col.names=TRUE)`
+
+This tells the write.table to copy df to a clipboard with size 2^14.
