@@ -296,7 +296,7 @@ ggplot(data = road_acc) +
 ```
 
 
-## More {ggplot2} charts with DfT theme
+## More {ggplot2} charts 
 
 This section provides more code examples for creating {ggplot2} themes, including the DfT theme code.
 
@@ -315,7 +315,9 @@ head(road_acc_data)
 
 The scatter plot example will plot the number of accidents in 2017 for each police force.
 
-Note that to draw out a colour for the points, the code specifies which colour in the list of DfT colours the points will be. In this case, the third colour in the list will be the colour of the points.
+To create a scatter plot use **geom_point** in the ggplot2 code.
+
+Note that to draw out a colour for the points, the code specifies which colour in the list of DfT colours (see DfT colours sub-chapter 7.4) the points will be. In this case, the third colour in the list will be the colour of the points.
 
 Labels are added to the scatter plot using **geom_text**. 
 
@@ -332,8 +334,8 @@ ggplot(data = accident_pf, aes(x = Police_Force, y = n)) +
   labs(title = "Reported Road Accidents by Police Force", 
        x = "Police Force", 
        y = "Number of Accidents")+ 
-  scale_y_continuous(breaks = seq(0, 30000, 2000))+
-  geom_text(aes(label=Police_Force), size=3, hjust = 0, vjust = 0) +
+  scale_y_continuous(breaks = seq(0, 30000, 2000)) +     # set y axis to go from 0 to 30,000
+  geom_text(aes(label=Police_Force), size=3, hjust = 0, vjust = 0) +   # amend hjust and vjust to change position
   theme_dft #here we specify our custom theme
 ```
 
@@ -343,11 +345,12 @@ The police forces are labelled with numbers, but the chart shows that police for
 
 The scatter plot showing the number of accidents by police force could also be shown in a horizontal bar chart.
 
+Use **geom_col** plus **coord_flip** to create a horizontal bar chart.
+
 For the horizontal bar chart, bars will be shown in descending order, with the police force with the largest value at the top of the chart. This is done by ensuring the data is arranged by the number of accidents ("n").
 
-Police force is made a factor, with each police force made a separate level.
+As this is categorical data, police force is made a factor, with each police force made a separate level.
 
-To make a bar chart horizontal, the command **coord_flip** is included in the ggplot arguments.
 
 
 ```{r}
@@ -358,20 +361,21 @@ accident_pf <- arrange(accident_pf, n)
 accident_pf_small <- dplyr::filter(accident_pf, n < 600)
 
 # Make police force a factor
-accident_pf_small$Police_Force <- factor(accident_pf_small$Police_Force, levels = accident_pf_small$Police_Force)
+accident_pf_small$Police_Force <- 
+  factor(accident_pf_small$Police_Force, levels = accident_pf_small$Police_Force)
 
 
 # use the DfT colours and the DfT theme for the accidents by police force scatter chart
 ggplot(data = accident_pf_small) +
   geom_col(mapping = aes(x = Police_Force, y = n, fill = Police_Force), col = "black") +
-  coord_flip() +
+  coord_flip() +         # make bar chart horizontal
   labs(title = "Reported Road Accidents by Police Force, 2017", 
        x = "Police Force", 
        y = "Number of Accidents")+ 
-  scale_y_continuous(breaks = seq(0, 500, 50)) +
+  scale_y_continuous(breaks = seq(0, 500, 50)) + # set y axis running from 0 to 500
    scale_fill_manual(values = dft_colour) +
-  theme_dft +
-  theme(legend.position = "none")#here we specify our custom theme
+  theme_dft +  #here we specify our custom theme
+  theme(legend.position = "none") # command to remove legends
 
 ```
 
@@ -382,19 +386,19 @@ The chart shows that police force 98 (Dumfries and Galloway) recorded the lowest
 
 This example will create a stacked bar chart showing the percentage of road accidents in each accident severity category, for each year.
 
-This requires using the **geom_bar** command in ggplot2 and setting the position to **stack**.
+Creating a **percentage stacked bar** requires using the **geom_bar** command in ggplot2 and setting the position to **fill**.
 
 ```{r}
-# Make accident year a factor so year on x-axis is labelled individually (otherwise axis will be continuous)
-
+# Make accident year a factor so year on x-axis is labelled individually
+#(otherwise axis will be continuous)
 road_acc_year <- road_acc
 
+# make year a factor
 road_acc_year$accident_year <- as.factor(road_acc_year$accident_year)
 
 # use the DfT colours and the DfT theme for the accidents by police force scatter chart
 ggplot(data = road_acc_year, aes(fill = name, y=total, x= accident_year)) +
-
-  geom_bar(position="fill", stat="identity") +
+  geom_bar(position="fill", stat="identity") +  # geom bar with position fill makes stacked bar
   labs(title = "Percentage Accident Severity, by Year", 
        x = "Accident Year", 
        y = "% Accident Severity")+ 
@@ -407,9 +411,7 @@ If you want the stacked bar chart to show numbers instead of percentages use **p
 ```{r}
 
 # use the DfT colours and the DfT theme for the accidents by police force scatter chart
-
 ggplot(data = road_acc_year, aes(fill = name, y=total, x= accident_year)) +
-
   geom_bar(position="stack", stat="identity") +
   labs(title = "Number of accidents by severity, by Year", 
        x = "Accident Year", 
