@@ -386,10 +386,14 @@ This requires using the **geom_bar** command in ggplot2 and setting the position
 
 ```{r}
 # Make accident year a factor so year on x-axis is labelled individually (otherwise axis will be continuous)
-road_acc$accident_year <- as.factor(road_acc$accident_year)
+
+road_acc_year <- road_acc
+
+road_acc_year$accident_year <- as.factor(road_acc_year$accident_year)
 
 # use the DfT colours and the DfT theme for the accidents by police force scatter chart
-ggplot(data = road_acc, aes(fill = name, y=total, x= accident_year)) +
+ggplot(data = road_acc_year, aes(fill = name, y=total, x= accident_year)) +
+
   geom_bar(position="fill", stat="identity") +
   labs(title = "Percentage Accident Severity, by Year", 
        x = "Accident Year", 
@@ -403,7 +407,9 @@ If you want the stacked bar chart to show numbers instead of percentages use **p
 ```{r}
 
 # use the DfT colours and the DfT theme for the accidents by police force scatter chart
-ggplot(data = road_acc, aes(fill = name, y=total, x= accident_year)) +
+
+ggplot(data = road_acc_year, aes(fill = name, y=total, x= accident_year)) +
+
   geom_bar(position="stack", stat="identity") +
   labs(title = "Number of accidents by severity, by Year", 
        x = "Accident Year", 
@@ -435,8 +441,7 @@ road_acc_chart <- ggplot(data = road_acc) +
   scale_x_continuous(breaks = seq(2005, 2017, 2))+
   scale_colour_manual(values = dft_colour) + 
   theme_dft 
-
-plotly::ggplotly(road_acc_chart)
+#plotly::ggplotly(road_acc_chart)
 
 ```
 Since we set our legend to be horizontal in our DfT theme, we get a warning message as plotly.js does not support horizontal legend items yet.
