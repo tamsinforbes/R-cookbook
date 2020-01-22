@@ -132,7 +132,7 @@ Let's look at some data representing the coordinates of road traffic accidents i
 *Read in csv*
 ```{r, echo = FALSE, eval = TRUE, error = FALSE, warning = FALSE}
 
-crash_data <- read.csv("Data/road_traffic_accidents.csv")
+crash_data <- read.csv("data/road_traffic_accidents.csv")
 
 crash_data <- crash_data %>% select(-Longitude, -Latitude, -Local_Authority_.District., -Local_Authority_.Highway.)
 
