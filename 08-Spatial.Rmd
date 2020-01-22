@@ -1,4 +1,4 @@
-#Spatial Analysis in R {#spatial}
+# Spatial Analysis in R {#spatial}
 
 ```{r setup and read in zapmap, echo=FALSE, include=FALSE}
 #library(dplyr) #manipulating data
