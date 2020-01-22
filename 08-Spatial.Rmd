@@ -36,6 +36,7 @@ Let's have a look at some data. We can read in our data as a spatial object usin
 ```{r read in data, echo = TRUE, eval = TRUE, error = FALSE}
 LAs <- st_read("data/Shapefiles/ONS Geography")
 
+
 head(LAs)
 ```
 
