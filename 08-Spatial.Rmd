@@ -3,7 +3,7 @@
 ```{r setup and read in zapmap, echo=FALSE, include=FALSE}
 library(dplyr) #manipulating data
 library(readr) #reading in data
-library(tmap) ## mapping software
+#library(tmap) ## mapping software
 library(sf) 
 
 knitr::opts_chunk$set(echo = FALSE)
