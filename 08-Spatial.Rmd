@@ -1,10 +1,10 @@
 # Spatial Analysis in R {#spatial}
 
 ```{r setup and read in zapmap, echo=FALSE, include=FALSE}
-#library(dplyr) #manipulating data
-#library(readr) #reading in data
-#library(tmap) ## mapping software
-#ibrary(sf) 
+library(dplyr) #manipulating data
+library(readr) #reading in data
+library(tmap) ## mapping software
+library(sf) 
 
 knitr::opts_chunk$set(echo = FALSE)
 
@@ -30,7 +30,7 @@ Let's have a look at some data. We can read in our data as a spatial object usin
 
 *Reading in Spatial Data*
 ```{r read in data, echo = TRUE, eval = TRUE, error = FALSE}
-#LAs <- st_read("data/ONS Geography")
+LAs <- st_read("data/ONS Geography")
 
 
 #head(LAs)
