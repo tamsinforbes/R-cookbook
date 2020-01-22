@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Working with factors | DfT R Cookbook</title>
+  <meta name="description" content="Guidance and code examples for R usage for DfT and beyond" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Working with factors | DfT R Cookbook" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Guidance and code examples for R usage for DfT and beyond" />
+  <meta name="github-repo" content="departmentfortransport/R-cookbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Working with factors | DfT R Cookbook" />
+  
+  <meta name="twitter:description" content="Guidance and code examples for R usage for DfT and beyond" />
+  
+
+<meta name="author" content="Isi Avbulimen, Hannah Bougdah, Tamsin Forbes, Tim Taylor" />
+
+
+<meta name="date" content="2020-01-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dates-times.html"/>
+<link rel="next" href="plots.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.11/datatables.js"></script>
+<link href="libs/dt-core-1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.19/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.19/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/plotly-binding-4.9.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.49.4/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.49.4/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="index.html#section"></a></li>
+<li class="chapter" data-level="1" data-path="why-do-we-need-another-book.html"><a href="why-do-we-need-another-book.html"><i class="fa fa-check"></i><b>1</b> Why do we need <em>another</em> book?</a><ul>
+<li class="chapter" data-level="1.1" data-path="why-do-we-need-another-book.html"><a href="why-do-we-need-another-book.html#coding-standards"><i class="fa fa-check"></i><b>1.1</b> Coding standards</a></li>
+<li class="chapter" data-level="1.2" data-path="why-do-we-need-another-book.html"><a href="why-do-we-need-another-book.html#data"><i class="fa fa-check"></i><b>1.2</b> Data</a></li>
+<li class="chapter" data-level="1.3" data-path="why-do-we-need-another-book.html"><a href="why-do-we-need-another-book.html#work-in-progress"><i class="fa fa-check"></i><b>1.3</b> Work in progress</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> The basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="basics.html"><a href="basics.html#r-family"><i class="fa fa-check"></i><b>2.1</b> R family</a></li>
+<li class="chapter" data-level="2.2" data-path="basics.html"><a href="basics.html#dft-rrstudio---subject-to-change"><i class="fa fa-check"></i><b>2.2</b> DfT R/RStudio - subject to change</a></li>
+<li class="chapter" data-level="2.3" data-path="basics.html"><a href="basics.html#rstudio-ide"><i class="fa fa-check"></i><b>2.3</b> RStudio IDE</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="basics.html"><a href="basics.html#left-bottom-left-if-you-have-scripts-open"><i class="fa fa-check"></i><b>2.3.1</b> Left (bottom left if you have scripts open)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basics.html"><a href="basics.html#top-right-environment-and-other-tabs"><i class="fa fa-check"></i><b>2.3.2</b> Top right; <strong>Environment</strong>, and other tabs</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basics.html"><a href="basics.html#bottom-right"><i class="fa fa-check"></i><b>2.3.3</b> Bottom right</a></li>
+<li class="chapter" data-level="2.3.4" data-path="basics.html"><a href="basics.html#other-handy-buttons-in-rstudio-ide"><i class="fa fa-check"></i><b>2.3.4</b> Other handy buttons in RStudio IDE</a></li>
+<li class="chapter" data-level="2.3.5" data-path="basics.html"><a href="basics.html#rstudio-menu-bar-a-few-pointers"><i class="fa fa-check"></i><b>2.3.5</b> RStudio menu bar a few pointers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basics.html"><a href="basics.html#projects"><i class="fa fa-check"></i><b>2.4</b> Projects</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="basics.html"><a href="basics.html#folders"><i class="fa fa-check"></i><b>2.4.1</b> Folders</a></li>
+<li class="chapter" data-level="2.4.2" data-path="basics.html"><a href="basics.html#sessioninfo"><i class="fa fa-check"></i><b>2.4.2</b> sessionInfo()</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="basics.html"><a href="basics.html#r-memory"><i class="fa fa-check"></i><b>2.5</b> R memory</a></li>
+<li class="chapter" data-level="2.6" data-path="basics.html"><a href="basics.html#a-note-on-rounding"><i class="fa fa-check"></i><b>2.6</b> A note on rounding</a></li>
+<li class="chapter" data-level="2.7" data-path="basics.html"><a href="basics.html#assignment-operators---vs"><i class="fa fa-check"></i><b>2.7</b> Assignment operators <code>&lt;-</code> vs <code>=</code></a></li>
+<li class="chapter" data-level="2.8" data-path="basics.html"><a href="basics.html#arithmetic-operators"><i class="fa fa-check"></i><b>2.8</b> Arithmetic operators</a></li>
+<li class="chapter" data-level="2.9" data-path="basics.html"><a href="basics.html#relational-operators"><i class="fa fa-check"></i><b>2.9</b> Relational operators</a></li>
+<li class="chapter" data-level="2.10" data-path="basics.html"><a href="basics.html#logical-operators"><i class="fa fa-check"></i><b>2.10</b> Logical operators</a></li>
+<li class="chapter" data-level="2.11" data-path="basics.html"><a href="basics.html#vectors"><i class="fa fa-check"></i><b>2.11</b> Vectors</a><ul>
+<li class="chapter" data-level="2.11.1" data-path="basics.html"><a href="basics.html#vector-types"><i class="fa fa-check"></i><b>2.11.1</b> Types</a></li>
+<li class="chapter" data-level="2.11.2" data-path="basics.html"><a href="basics.html#conversion-between-atomic-vector-types"><i class="fa fa-check"></i><b>2.11.2</b> Conversion between atomic vector types</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>3</b> Data Importing/Exporting and interaction with other programmes</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-import.html"><a href="data-import.html#libraries"><i class="fa fa-check"></i><b>3.1</b> Libraries</a></li>
+<li class="chapter" data-level="3.2" data-path="data-import.html"><a href="data-import.html#star-functions"><i class="fa fa-check"></i><b>3.2</b> Star functions</a></li>
+<li class="chapter" data-level="3.3" data-path="data-import.html"><a href="data-import.html#navigating-folders"><i class="fa fa-check"></i><b>3.3</b> Navigating folders</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-import.html"><a href="data-import.html#up"><i class="fa fa-check"></i><b>3.3.1</b> Up</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-import.html"><a href="data-import.html#rds"><i class="fa fa-check"></i><b>3.4</b> .rds</a></li>
+<li class="chapter" data-level="3.5" data-path="data-import.html"><a href="data-import.html#csv"><i class="fa fa-check"></i><b>3.5</b> .csv</a></li>
+<li class="chapter" data-level="3.6" data-path="data-import.html"><a href="data-import.html#xlsx-and-.xls"><i class="fa fa-check"></i><b>3.6</b> .xlsx and .xls</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="data-import.html"><a href="data-import.html#single-worksheet---single-workbook"><i class="fa fa-check"></i><b>3.6.1</b> Single worksheet - single workbook</a></li>
+<li class="chapter" data-level="3.6.2" data-path="data-import.html"><a href="data-import.html#single-worksheet---many-workbooks"><i class="fa fa-check"></i><b>3.6.2</b> Single worksheet - many workbooks</a></li>
+<li class="chapter" data-level="3.6.3" data-path="data-import.html"><a href="data-import.html#many-worksheets---single-workbook"><i class="fa fa-check"></i><b>3.6.3</b> Many worksheets - single workbook</a></li>
+<li class="chapter" data-level="3.6.4" data-path="data-import.html"><a href="data-import.html#many-worksheets---many-workbooks"><i class="fa fa-check"></i><b>3.6.4</b> Many worksheets - many workbooks</a></li>
+<li class="chapter" data-level="3.6.5" data-path="data-import.html"><a href="data-import.html#non-rectangular-data---single-worksheet---single-workbook"><i class="fa fa-check"></i><b>3.6.5</b> Non-rectangular data - single worksheet - single workbook</a></li>
+<li class="chapter" data-level="3.6.6" data-path="data-import.html"><a href="data-import.html#non-rectangular-data---single-worksheet---many-workbooks"><i class="fa fa-check"></i><b>3.6.6</b> Non-rectangular data - single worksheet - many workbooks</a></li>
+<li class="chapter" data-level="3.6.7" data-path="data-import.html"><a href="data-import.html#non-rectangular-data---many-worksheets---single-workbook"><i class="fa fa-check"></i><b>3.6.7</b> Non-rectangular data - many worksheets - single workbook</a></li>
+<li class="chapter" data-level="3.6.8" data-path="data-import.html"><a href="data-import.html#non-rectangular-data---many-worksheets---many-workbooks"><i class="fa fa-check"></i><b>3.6.8</b> Non-rectangular data - many worksheets - many workbooks</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="data-import.html"><a href="data-import.html#exporting-to-.xlsx"><i class="fa fa-check"></i><b>3.7</b> Exporting to .xlsx</a></li>
+<li class="chapter" data-level="3.8" data-path="data-import.html"><a href="data-import.html#sav"><i class="fa fa-check"></i><b>3.8</b> .sav</a></li>
+<li class="chapter" data-level="3.9" data-path="data-import.html"><a href="data-import.html#sql"><i class="fa fa-check"></i><b>3.9</b> SQL</a></li>
+<li class="chapter" data-level="3.10" data-path="data-import.html"><a href="data-import.html#gcp"><i class="fa fa-check"></i><b>3.10</b> GCP</a><ul>
+<li class="chapter" data-level="3.10.1" data-path="data-import.html"><a href="data-import.html#bigquery"><i class="fa fa-check"></i><b>3.10.1</b> BigQuery</a></li>
+</ul></li>
+<li class="chapter" data-level="3.11" data-path="data-import.html"><a href="data-import.html#copy-data-to-clipboard"><i class="fa fa-check"></i><b>3.11</b> Copy data to clipboard</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>4</b> Table/Data Frame manipulation</a><ul>
+<li class="chapter" data-level="4.1" data-path="tables.html"><a href="tables.html#pivot-and-reshape-tables"><i class="fa fa-check"></i><b>4.1</b> Pivot and reshape tables</a></li>
+<li class="chapter" data-level="4.2" data-path="tables.html"><a href="tables.html#dropping-and-selecting-columns"><i class="fa fa-check"></i><b>4.2</b> Dropping and selecting columns</a></li>
+<li class="chapter" data-level="4.3" data-path="tables.html"><a href="tables.html#rename-variables"><i class="fa fa-check"></i><b>4.3</b> Rename variables</a></li>
+<li class="chapter" data-level="4.4" data-path="tables.html"><a href="tables.html#filtering-data"><i class="fa fa-check"></i><b>4.4</b> Filtering data</a></li>
+<li class="chapter" data-level="4.5" data-path="tables.html"><a href="tables.html#group-data"><i class="fa fa-check"></i><b>4.5</b> Group data</a></li>
+<li class="chapter" data-level="4.6" data-path="tables.html"><a href="tables.html#order-data"><i class="fa fa-check"></i><b>4.6</b> Order data</a></li>
+<li class="chapter" data-level="4.7" data-path="tables.html"><a href="tables.html#get-counts-of-data"><i class="fa fa-check"></i><b>4.7</b> Get counts of data</a></li>
+<li class="chapter" data-level="4.8" data-path="tables.html"><a href="tables.html#combine-tables"><i class="fa fa-check"></i><b>4.8</b> Combine tables</a></li>
+<li class="chapter" data-level="4.9" data-path="tables.html"><a href="tables.html#joining-tables"><i class="fa fa-check"></i><b>4.9</b> Joining tables</a></li>
+<li class="chapter" data-level="4.10" data-path="tables.html"><a href="tables.html#select-specific-columns-in-a-join"><i class="fa fa-check"></i><b>4.10</b> Select specific columns in a join</a></li>
+<li class="chapter" data-level="4.11" data-path="tables.html"><a href="tables.html#sum-rows-or-columns"><i class="fa fa-check"></i><b>4.11</b> Sum rows or columns</a><ul>
+<li class="chapter" data-level="4.11.1" data-path="tables.html"><a href="tables.html#sum-rows"><i class="fa fa-check"></i><b>4.11.1</b> Sum rows</a></li>
+<li class="chapter" data-level="4.11.2" data-path="tables.html"><a href="tables.html#sum-columns"><i class="fa fa-check"></i><b>4.11.2</b> Sum columns</a></li>
+</ul></li>
+<li class="chapter" data-level="4.12" data-path="tables.html"><a href="tables.html#replace-nas-or-other-values"><i class="fa fa-check"></i><b>4.12</b> Replace NAs or other values</a></li>
+<li class="chapter" data-level="4.13" data-path="tables.html"><a href="tables.html#reordering-rowscolumns"><i class="fa fa-check"></i><b>4.13</b> Reordering rows/columns</a><ul>
+<li class="chapter" data-level="4.13.1" data-path="tables.html"><a href="tables.html#reordering-rows"><i class="fa fa-check"></i><b>4.13.1</b> Reordering rows</a></li>
+<li class="chapter" data-level="4.13.2" data-path="tables.html"><a href="tables.html#reordering-columns"><i class="fa fa-check"></i><b>4.13.2</b> Reordering columns</a></li>
+</ul></li>
+<li class="chapter" data-level="4.14" data-path="tables.html"><a href="tables.html#creating-new-variables"><i class="fa fa-check"></i><b>4.14</b> Creating new variables</a></li>
+<li class="chapter" data-level="4.15" data-path="tables.html"><a href="tables.html#summarising-data"><i class="fa fa-check"></i><b>4.15</b> Summarising data</a></li>
+<li class="chapter" data-level="4.16" data-path="tables.html"><a href="tables.html#look-up-tables"><i class="fa fa-check"></i><b>4.16</b> Look up tables</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="dates-times.html"><a href="dates-times.html"><i class="fa fa-check"></i><b>5</b> Working with dates and times</a><ul>
+<li class="chapter" data-level="5.1" data-path="dates-times.html"><a href="dates-times.html#working-with-dates"><i class="fa fa-check"></i><b>5.1</b> Working with dates</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="dates-times.html"><a href="dates-times.html#converting-a-character-to-a-date"><i class="fa fa-check"></i><b>5.1.1</b> Converting a character to a date</a></li>
+<li class="chapter" data-level="5.1.2" data-path="dates-times.html"><a href="dates-times.html#get-year-from-date"><i class="fa fa-check"></i><b>5.1.2</b> Get year from date</a></li>
+<li class="chapter" data-level="5.1.3" data-path="dates-times.html"><a href="dates-times.html#get-month-from-date"><i class="fa fa-check"></i><b>5.1.3</b> Get month from date</a></li>
+<li class="chapter" data-level="5.1.4" data-path="dates-times.html"><a href="dates-times.html#get-day-from-date"><i class="fa fa-check"></i><b>5.1.4</b> Get day from date</a></li>
+<li class="chapter" data-level="5.1.5" data-path="dates-times.html"><a href="dates-times.html#get-weekday-from-date"><i class="fa fa-check"></i><b>5.1.5</b> Get weekday from date</a></li>
+<li class="chapter" data-level="5.1.6" data-path="dates-times.html"><a href="dates-times.html#get-quarter-from-date"><i class="fa fa-check"></i><b>5.1.6</b> Get quarter from date</a></li>
+<li class="chapter" data-level="5.1.7" data-path="dates-times.html"><a href="dates-times.html#find-difference-between-two-dates"><i class="fa fa-check"></i><b>5.1.7</b> Find difference between two dates</a></li>
+<li class="chapter" data-level="5.1.8" data-path="dates-times.html"><a href="dates-times.html#convert-month-integer-to-character"><i class="fa fa-check"></i><b>5.1.8</b> Convert month (integer to character)</a></li>
+<li class="chapter" data-level="5.1.9" data-path="dates-times.html"><a href="dates-times.html#convert-month-character-to-integer"><i class="fa fa-check"></i><b>5.1.9</b> Convert month (character to integer)</a></li>
+<li class="chapter" data-level="5.1.10" data-path="dates-times.html"><a href="dates-times.html#merge-separate-date-information-into-a-date"><i class="fa fa-check"></i><b>5.1.10</b> Merge separate date information into a date</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="dates-times.html"><a href="dates-times.html#working-with-date-times"><i class="fa fa-check"></i><b>5.2</b> Working with date-times</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="dates-times.html"><a href="dates-times.html#converting-a-character-to-a-date-time"><i class="fa fa-check"></i><b>5.2.1</b> Converting a character to a date-time</a></li>
+<li class="chapter" data-level="5.2.2" data-path="dates-times.html"><a href="dates-times.html#extract-date-from-date-time-variable"><i class="fa fa-check"></i><b>5.2.2</b> Extract date from date time variable</a></li>
+<li class="chapter" data-level="5.2.3" data-path="dates-times.html"><a href="dates-times.html#convert-character-to-hms-time-variable"><i class="fa fa-check"></i><b>5.2.3</b> Convert character to hms (time) variable</a></li>
+<li class="chapter" data-level="5.2.4" data-path="dates-times.html"><a href="dates-times.html#extract-hour-from-time"><i class="fa fa-check"></i><b>5.2.4</b> Extract hour from time</a></li>
+<li class="chapter" data-level="5.2.5" data-path="dates-times.html"><a href="dates-times.html#extract-minute-from-time"><i class="fa fa-check"></i><b>5.2.5</b> Extract minute from time</a></li>
+<li class="chapter" data-level="5.2.6" data-path="dates-times.html"><a href="dates-times.html#extract-second-from-time"><i class="fa fa-check"></i><b>5.2.6</b> Extract second from time</a></li>
+<li class="chapter" data-level="5.2.7" data-path="dates-times.html"><a href="dates-times.html#merge-separate-time-information-into-one-variable"><i class="fa fa-check"></i><b>5.2.7</b> Merge separate time information into one variable</a></li>
+<li class="chapter" data-level="5.2.8" data-path="dates-times.html"><a href="dates-times.html#find-the-difference-between-two-times"><i class="fa fa-check"></i><b>5.2.8</b> find the difference between two times</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>6</b> Working with factors</a><ul>
+<li class="chapter" data-level="6.1" data-path="factors.html"><a href="factors.html#common-uses"><i class="fa fa-check"></i><b>6.1</b> Common uses</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="factors.html"><a href="factors.html#tabulation-of-data"><i class="fa fa-check"></i><b>6.1.1</b> Tabulation of data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="factors.html"><a href="factors.html#ordering-of-data-for-output"><i class="fa fa-check"></i><b>6.1.2</b> Ordering of data for output</a></li>
+<li class="chapter" data-level="6.1.3" data-path="factors.html"><a href="factors.html#statistical-models"><i class="fa fa-check"></i><b>6.1.3</b> Statistical models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="factors.html"><a href="factors.html#other-things-to-know-about-factors"><i class="fa fa-check"></i><b>6.2</b> Other things to know about factors</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="factors.html"><a href="factors.html#renaming-factor-levels"><i class="fa fa-check"></i><b>6.2.1</b> Renaming factor levels</a></li>
+<li class="chapter" data-level="6.2.2" data-path="factors.html"><a href="factors.html#combining-factors-does-not-result-in-a-factor"><i class="fa fa-check"></i><b>6.2.2</b> Combining factors does not result in a factor</a></li>
+<li class="chapter" data-level="6.2.3" data-path="factors.html"><a href="factors.html#numeric-vectors-that-have-been-read-as-factors"><i class="fa fa-check"></i><b>6.2.3</b> Numeric vectors that have been read as factors</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="factors.html"><a href="factors.html#helpful-packages"><i class="fa fa-check"></i><b>6.3</b> Helpful packages</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plotting and Data Visualisations</a><ul>
+<li class="chapter" data-level="7.1" data-path="plots.html"><a href="plots.html#plotting-in-base-r"><i class="fa fa-check"></i><b>7.1</b> Plotting in base R</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="plots.html"><a href="plots.html#line-charts-in-base-r"><i class="fa fa-check"></i><b>7.1.1</b> Line charts in base R</a></li>
+<li class="chapter" data-level="7.1.2" data-path="plots.html"><a href="plots.html#bar-charts-in-base-r"><i class="fa fa-check"></i><b>7.1.2</b> Bar charts in base R</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="plots.html"><a href="plots.html#plotting-withh-ggplot2"><i class="fa fa-check"></i><b>7.2</b> Plotting withh {ggplot2}</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="plots.html"><a href="plots.html#line-charts-with-ggplot2"><i class="fa fa-check"></i><b>7.2.1</b> Line charts with {ggplot2}</a></li>
+<li class="chapter" data-level="7.2.2" data-path="plots.html"><a href="plots.html#aesthetic-mappings"><i class="fa fa-check"></i><b>7.2.2</b> Aesthetic mappings</a></li>
+<li class="chapter" data-level="7.2.3" data-path="plots.html"><a href="plots.html#bar-charts-with-ggplot2"><i class="fa fa-check"></i><b>7.2.3</b> Bar charts with {ggplot2}</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="plots.html"><a href="plots.html#dft-colours"><i class="fa fa-check"></i><b>7.3</b> DfT colours</a></li>
+<li class="chapter" data-level="7.4" data-path="plots.html"><a href="plots.html#dft-theme"><i class="fa fa-check"></i><b>7.4</b> DfT Theme</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="plots.html"><a href="plots.html#custom-dft-theme"><i class="fa fa-check"></i><b>7.4.1</b> Custom DfT Theme</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="plots.html"><a href="plots.html#more-ggplot2-charts"><i class="fa fa-check"></i><b>7.5</b> More {ggplot2} charts</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="plots.html"><a href="plots.html#scatter-plots"><i class="fa fa-check"></i><b>7.5.1</b> Scatter plots</a></li>
+<li class="chapter" data-level="7.5.2" data-path="plots.html"><a href="plots.html#horizontal-bar-chart"><i class="fa fa-check"></i><b>7.5.2</b> Horizontal bar chart</a></li>
+<li class="chapter" data-level="7.5.3" data-path="plots.html"><a href="plots.html#stacked-bar-chart"><i class="fa fa-check"></i><b>7.5.3</b> Stacked bar chart</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="plots.html"><a href="plots.html#interactive-charts-with-plotly"><i class="fa fa-check"></i><b>7.6</b> Interactive charts with {plotly}</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="plots.html"><a href="plots.html#plotly-with-ggplot2"><i class="fa fa-check"></i><b>7.6.1</b> {plotly} with {ggplot2}</a></li>
+<li class="chapter" data-level="7.6.2" data-path="plots.html"><a href="plots.html#plot_ly"><i class="fa fa-check"></i><b>7.6.2</b> plot_ly()</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="plots.html"><a href="plots.html#mapping-in-r"><i class="fa fa-check"></i><b>7.7</b> Mapping in R</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="plots.html"><a href="plots.html#mapping-with-ggplot2"><i class="fa fa-check"></i><b>7.7.1</b> Mapping with {ggplot2}</a></li>
+<li class="chapter" data-level="7.7.2" data-path="plots.html"><a href="plots.html#mapping-with-leaflet"><i class="fa fa-check"></i><b>7.7.2</b> Mapping with {leaflet}</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="RAP.html"><a href="RAP.html"><i class="fa fa-check"></i><b>8</b> DfT RAP guidance</a><ul>
+<li class="chapter" data-level="8.1" data-path="RAP.html"><a href="RAP.html#what"><i class="fa fa-check"></i><b>8.1</b> What</a></li>
+<li class="chapter" data-level="8.2" data-path="RAP.html"><a href="RAP.html#when"><i class="fa fa-check"></i><b>8.2</b> When</a></li>
+<li class="chapter" data-level="8.3" data-path="RAP.html"><a href="RAP.html#additional-resources"><i class="fa fa-check"></i><b>8.3</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="spatial.html"><a href="spatial.html"><i class="fa fa-check"></i><b>9</b> Spatial Analysis in R</a><ul>
+<li class="chapter" data-level="9.1" data-path="spatial.html"><a href="spatial.html#what-is-spatial-data"><i class="fa fa-check"></i><b>9.1</b> What is Spatial Data?</a></li>
+<li class="chapter" data-level="9.2" data-path="spatial.html"><a href="spatial.html#packages"><i class="fa fa-check"></i><b>9.2</b> Packages</a></li>
+<li class="chapter" data-level="9.3" data-path="spatial.html"><a href="spatial.html#reading-in-spatial-data"><i class="fa fa-check"></i><b>9.3</b> Reading in Spatial Data</a></li>
+<li class="chapter" data-level="9.4" data-path="spatial.html"><a href="spatial.html#crs-projections"><i class="fa fa-check"></i><b>9.4</b> CRS Projections</a></li>
+<li class="chapter" data-level="9.5" data-path="spatial.html"><a href="spatial.html#manipulating-spatial-data"><i class="fa fa-check"></i><b>9.5</b> Manipulating Spatial Data</a></li>
+<li class="chapter" data-level="9.6" data-path="spatial.html"><a href="spatial.html#spatial-analysis---joins"><i class="fa fa-check"></i><b>9.6</b> Spatial Analysis - Joins</a></li>
+<li class="chapter" data-level="9.7" data-path="spatial.html"><a href="spatial.html#plotting-and-simplifying"><i class="fa fa-check"></i><b>9.7</b> Plotting and simplifying</a></li>
+<li class="chapter" data-level="9.8" data-path="spatial.html"><a href="spatial.html#mapping-spatial-data"><i class="fa fa-check"></i><b>9.8</b> Mapping Spatial Data</a></li>
+<li class="chapter" data-level="9.9" data-path="spatial.html"><a href="spatial.html#other-spatial-types"><i class="fa fa-check"></i><b>9.9</b> Other Spatial Types</a></li>
+<li class="chapter" data-level="9.10" data-path="spatial.html"><a href="spatial.html#further-resources"><i class="fa fa-check"></i><b>9.10</b> Further Resources</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">DfT R Cookbook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="factors" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Working with factors</h1>
+<div id="common-uses" class="section level2">
+<h2><span class="header-section-number">6.1</span> Common uses</h2>
+<p>Within the department there are three main ways you are likely to make use of
+factors:</p>
+<ul>
+<li>Tabulation of data (in particular when you want to illustrate zero occurences
+of a particular value)</li>
+<li>Ordering of data for output (e.g. bars in a graph)</li>
+<li>Statistical models (e.g. in conjunction with <code>contrasts</code> when encoding
+categorical data in formulae)</li>
+</ul>
+<div id="tabulation-of-data" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Tabulation of data</h3>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="co"># define a simple character vector</span></a>
+<a class="sourceLine" id="cb182-2" data-line-number="2">vehicles_observed &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;car&quot;</span>)</a>
+<a class="sourceLine" id="cb182-3" data-line-number="3"><span class="kw">class</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb182-4" data-line-number="4"><span class="co">#&gt; [1] &quot;character&quot;</span></a>
+<a class="sourceLine" id="cb182-5" data-line-number="5"><span class="kw">table</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb182-6" data-line-number="6"><span class="co">#&gt; vehicles_observed</span></a>
+<a class="sourceLine" id="cb182-7" data-line-number="7"><span class="co">#&gt; bus car </span></a>
+<a class="sourceLine" id="cb182-8" data-line-number="8"><span class="co">#&gt;   1   3</span></a>
+<a class="sourceLine" id="cb182-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb182-10" data-line-number="10"><span class="co"># convert to factor with possible levels</span></a>
+<a class="sourceLine" id="cb182-11" data-line-number="11">possible_vehicles &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;motorbike&quot;</span>, <span class="st">&quot;bicycle&quot;</span>)</a>
+<a class="sourceLine" id="cb182-12" data-line-number="12">vehicles_observed &lt;-<span class="st"> </span><span class="kw">factor</span>(vehicles_observed, <span class="dt">levels =</span> possible_vehicles)</a>
+<a class="sourceLine" id="cb182-13" data-line-number="13"><span class="kw">class</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb182-14" data-line-number="14"><span class="co">#&gt; [1] &quot;factor&quot;</span></a>
+<a class="sourceLine" id="cb182-15" data-line-number="15"><span class="kw">table</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb182-16" data-line-number="16"><span class="co">#&gt; vehicles_observed</span></a>
+<a class="sourceLine" id="cb182-17" data-line-number="17"><span class="co">#&gt;       car       bus motorbike   bicycle </span></a>
+<a class="sourceLine" id="cb182-18" data-line-number="18"><span class="co">#&gt;         3         1         0         0</span></a></code></pre></div>
+</div>
+<div id="ordering-of-data-for-output" class="section level3">
+<h3><span class="header-section-number">6.1.2</span> Ordering of data for output</h3>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1"><span class="co"># example 1</span></a>
+<a class="sourceLine" id="cb183-2" data-line-number="2">vehicles_observed &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;car&quot;</span>)</a>
+<a class="sourceLine" id="cb183-3" data-line-number="3">possible_vehicles &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;car&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;motorbike&quot;</span>, <span class="st">&quot;bicycle&quot;</span>)</a>
+<a class="sourceLine" id="cb183-4" data-line-number="4">vehicles_observed &lt;-<span class="st"> </span><span class="kw">factor</span>(vehicles_observed, <span class="dt">levels =</span> possible_vehicles)</a>
+<a class="sourceLine" id="cb183-5" data-line-number="5"><span class="kw">table</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb183-6" data-line-number="6"><span class="co">#&gt; vehicles_observed</span></a>
+<a class="sourceLine" id="cb183-7" data-line-number="7"><span class="co">#&gt;       car       bus motorbike   bicycle </span></a>
+<a class="sourceLine" id="cb183-8" data-line-number="8"><span class="co">#&gt;         3         1         0         0</span></a>
+<a class="sourceLine" id="cb183-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb183-10" data-line-number="10">possible_vehicles &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;bicycle&quot;</span>, <span class="st">&quot;bus&quot;</span>, <span class="st">&quot;car&quot;</span>, <span class="st">&quot;motorbike&quot;</span>)</a>
+<a class="sourceLine" id="cb183-11" data-line-number="11">vehicles_observed &lt;-<span class="st"> </span><span class="kw">factor</span>(vehicles_observed, <span class="dt">levels =</span> possible_vehicles)</a>
+<a class="sourceLine" id="cb183-12" data-line-number="12"><span class="kw">table</span>(vehicles_observed)</a>
+<a class="sourceLine" id="cb183-13" data-line-number="13"><span class="co">#&gt; vehicles_observed</span></a>
+<a class="sourceLine" id="cb183-14" data-line-number="14"><span class="co">#&gt;   bicycle       bus       car motorbike </span></a>
+<a class="sourceLine" id="cb183-15" data-line-number="15"><span class="co">#&gt;         0         1         3         0</span></a>
+<a class="sourceLine" id="cb183-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb183-17" data-line-number="17"><span class="co"># example 2</span></a>
+<a class="sourceLine" id="cb183-18" data-line-number="18">df &lt;-<span class="st"> </span>iris[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(iris), <span class="dv">100</span>), ]</a>
+<a class="sourceLine" id="cb183-19" data-line-number="19"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(Species)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-171-1.png" width="672" /></p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb184-2" data-line-number="2">df<span class="op">$</span>Species &lt;-<span class="st"> </span><span class="kw">factor</span>(df<span class="op">$</span>Species, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;versicolor&quot;</span>, <span class="st">&quot;virginica&quot;</span>, <span class="st">&quot;setosa&quot;</span>))</a>
+<a class="sourceLine" id="cb184-3" data-line-number="3"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(Species)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-171-2.png" width="672" /></p>
+</div>
+<div id="statistical-models" class="section level3">
+<h3><span class="header-section-number">6.1.3</span> Statistical models</h3>
+<p>When building a regression model, R will automatically encode your independent
+character variables using <code>contr.treatment</code> contrasts. This means that each
+level of the vector is contrasted with a baseline level (by default the first
+level once the vector has been converted to a factor). If you want to change
+the baseline level or use a different encoding methodology then you need to
+work with factors. To illustrate this we use the <code>Titanic</code> dataset.</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="co"># load data and convert to one observation per row</span></a>
+<a class="sourceLine" id="cb185-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&quot;Titanic&quot;</span>)</a>
+<a class="sourceLine" id="cb185-3" data-line-number="3">df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(Titanic)</a>
+<a class="sourceLine" id="cb185-4" data-line-number="4">df &lt;-<span class="st"> </span>df[<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df), df[ ,<span class="dv">5</span>]), <span class="dv">-5</span>]</a>
+<a class="sourceLine" id="cb185-5" data-line-number="5"><span class="kw">rownames</span>(df) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb185-6" data-line-number="6"><span class="kw">head</span>(df)</a></code></pre></div>
+<div class="kable-table">
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Class
+</th>
+<th style="text-align:left;">
+Sex
+</th>
+<th style="text-align:left;">
+Age
+</th>
+<th style="text-align:left;">
+Survived
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3rd
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+Child
+</td>
+<td style="text-align:left;">
+No
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb186-2" data-line-number="2"><span class="co"># For this example we convert all variables to characters</span></a>
+<a class="sourceLine" id="cb186-3" data-line-number="3">df[] &lt;-<span class="st"> </span><span class="kw">lapply</span>(df, as.character)</a>
+<a class="sourceLine" id="cb186-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb186-5" data-line-number="5"><span class="co"># save to temporary folder</span></a>
+<a class="sourceLine" id="cb186-6" data-line-number="6">filename &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb186-7" data-line-number="7"><span class="kw">write.csv</span>(df, filename, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb186-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb186-9" data-line-number="9"><span class="co"># reload data with stringsAsFactors = FALSE</span></a>
+<a class="sourceLine" id="cb186-10" data-line-number="10">new_df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(filename, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb186-11" data-line-number="11"><span class="kw">str</span>(new_df)</a>
+<a class="sourceLine" id="cb186-12" data-line-number="12"><span class="co">#&gt; &#39;data.frame&#39;:    2201 obs. of  4 variables:</span></a>
+<a class="sourceLine" id="cb186-13" data-line-number="13"><span class="co">#&gt;  $ Class   : chr  &quot;3rd&quot; &quot;3rd&quot; &quot;3rd&quot; &quot;3rd&quot; ...</span></a>
+<a class="sourceLine" id="cb186-14" data-line-number="14"><span class="co">#&gt;  $ Sex     : chr  &quot;Male&quot; &quot;Male&quot; &quot;Male&quot; &quot;Male&quot; ...</span></a>
+<a class="sourceLine" id="cb186-15" data-line-number="15"><span class="co">#&gt;  $ Age     : chr  &quot;Child&quot; &quot;Child&quot; &quot;Child&quot; &quot;Child&quot; ...</span></a>
+<a class="sourceLine" id="cb186-16" data-line-number="16"><span class="co">#&gt;  $ Survived: chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...</span></a></code></pre></div>
+<p>First lets see what happens if we try and build a logistic regression model for
+survivals but using our newly loaded dataframe</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1">model_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>., <span class="dt">family =</span> binomial, <span class="dt">data =</span> new_df)</a>
+<a class="sourceLine" id="cb187-2" data-line-number="2"><span class="co">#&gt; Error in eval(family$initialize): y values must be 0 &lt;= y &lt;= 1</span></a></code></pre></div>
+<p>This errors due to the <strong>Survived</strong> variable being a character vector. Let’s
+convert it to a factor.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" data-line-number="1">new_df<span class="op">$</span>Survived &lt;-<span class="st"> </span><span class="kw">factor</span>(new_df<span class="op">$</span>Survived)</a>
+<a class="sourceLine" id="cb188-2" data-line-number="2">model_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>., <span class="dt">family =</span> binomial, <span class="dt">data =</span> new_df)</a>
+<a class="sourceLine" id="cb188-3" data-line-number="3"><span class="kw">summary</span>(model_<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb188-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb188-5" data-line-number="5"><span class="co">#&gt; Call:</span></a>
+<a class="sourceLine" id="cb188-6" data-line-number="6"><span class="co">#&gt; glm(formula = Survived ~ ., family = binomial, data = new_df)</span></a>
+<a class="sourceLine" id="cb188-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb188-8" data-line-number="8"><span class="co">#&gt; Deviance Residuals: </span></a>
+<a class="sourceLine" id="cb188-9" data-line-number="9"><span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span></a>
+<a class="sourceLine" id="cb188-10" data-line-number="10"><span class="co">#&gt; -2.0812  -0.7149  -0.6656   0.6858   2.1278  </span></a>
+<a class="sourceLine" id="cb188-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb188-12" data-line-number="12"><span class="co">#&gt; Coefficients:</span></a>
+<a class="sourceLine" id="cb188-13" data-line-number="13"><span class="co">#&gt;             Estimate Std. Error z value Pr(&gt;|z|)    </span></a>
+<a class="sourceLine" id="cb188-14" data-line-number="14"><span class="co">#&gt; (Intercept)   2.0438     0.1679  12.171  &lt; 2e-16 ***</span></a>
+<a class="sourceLine" id="cb188-15" data-line-number="15"><span class="co">#&gt; Class2nd     -1.0181     0.1960  -5.194 2.05e-07 ***</span></a>
+<a class="sourceLine" id="cb188-16" data-line-number="16"><span class="co">#&gt; Class3rd     -1.7778     0.1716 -10.362  &lt; 2e-16 ***</span></a>
+<a class="sourceLine" id="cb188-17" data-line-number="17"><span class="co">#&gt; ClassCrew    -0.8577     0.1573  -5.451 5.00e-08 ***</span></a>
+<a class="sourceLine" id="cb188-18" data-line-number="18"><span class="co">#&gt; SexMale      -2.4201     0.1404 -17.236  &lt; 2e-16 ***</span></a>
+<a class="sourceLine" id="cb188-19" data-line-number="19"><span class="co">#&gt; AgeChild      1.0615     0.2440   4.350 1.36e-05 ***</span></a>
+<a class="sourceLine" id="cb188-20" data-line-number="20"><span class="co">#&gt; ---</span></a>
+<a class="sourceLine" id="cb188-21" data-line-number="21"><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></a>
+<a class="sourceLine" id="cb188-22" data-line-number="22"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb188-23" data-line-number="23"><span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span></a>
+<a class="sourceLine" id="cb188-24" data-line-number="24"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb188-25" data-line-number="25"><span class="co">#&gt;     Null deviance: 2769.5  on 2200  degrees of freedom</span></a>
+<a class="sourceLine" id="cb188-26" data-line-number="26"><span class="co">#&gt; Residual deviance: 2210.1  on 2195  degrees of freedom</span></a>
+<a class="sourceLine" id="cb188-27" data-line-number="27"><span class="co">#&gt; AIC: 2222.1</span></a>
+<a class="sourceLine" id="cb188-28" data-line-number="28"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb188-29" data-line-number="29"><span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></a></code></pre></div>
+<p>This works, but the baseline case for <strong>Class</strong> is <code>1st</code>. What if we wanted it
+to be <code>3rd</code>. We would first need to convert the variable to a factor and choose
+the appropriate level as a baseline</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1">new_df<span class="op">$</span>Class &lt;-<span class="st"> </span><span class="kw">factor</span>(new_df<span class="op">$</span>Class)</a>
+<a class="sourceLine" id="cb189-2" data-line-number="2"><span class="kw">levels</span>(new_df<span class="op">$</span>Class)</a>
+<a class="sourceLine" id="cb189-3" data-line-number="3"><span class="co">#&gt; [1] &quot;1st&quot;  &quot;2nd&quot;  &quot;3rd&quot;  &quot;Crew&quot;</span></a>
+<a class="sourceLine" id="cb189-4" data-line-number="4"><span class="kw">contrasts</span>(new_df<span class="op">$</span>Class) &lt;-<span class="st"> </span><span class="kw">contr.treatment</span>(<span class="kw">levels</span>(new_df<span class="op">$</span>Class), <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb189-5" data-line-number="5">model_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>., <span class="dt">family =</span> binomial, <span class="dt">data =</span> new_df)</a>
+<a class="sourceLine" id="cb189-6" data-line-number="6"><span class="kw">summary</span>(model_<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb189-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb189-8" data-line-number="8"><span class="co">#&gt; Call:</span></a>
+<a class="sourceLine" id="cb189-9" data-line-number="9"><span class="co">#&gt; glm(formula = Survived ~ ., family = binomial, data = new_df)</span></a>
+<a class="sourceLine" id="cb189-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb189-11" data-line-number="11"><span class="co">#&gt; Deviance Residuals: </span></a>
+<a class="sourceLine" id="cb189-12" data-line-number="12"><span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span></a>
+<a class="sourceLine" id="cb189-13" data-line-number="13"><span class="co">#&gt; -2.0812  -0.7149  -0.6656   0.6858   2.1278  </span></a>
+<a class="sourceLine" id="cb189-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb189-15" data-line-number="15"><span class="co">#&gt; Coefficients:</span></a>
+<a class="sourceLine" id="cb189-16" data-line-number="16"><span class="co">#&gt;             Estimate Std. Error z value Pr(&gt;|z|)    </span></a>
+<a class="sourceLine" id="cb189-17" data-line-number="17"><span class="co">#&gt; (Intercept)   0.2661     0.1293   2.058   0.0396 *  </span></a>
+<a class="sourceLine" id="cb189-18" data-line-number="18"><span class="co">#&gt; Class1st      1.7778     0.1716  10.362  &lt; 2e-16 ***</span></a>
+<a class="sourceLine" id="cb189-19" data-line-number="19"><span class="co">#&gt; Class2nd      0.7597     0.1764   4.308 1.65e-05 ***</span></a>
+<a class="sourceLine" id="cb189-20" data-line-number="20"><span class="co">#&gt; ClassCrew     0.9201     0.1486   6.192 5.93e-10 ***</span></a>
+<a class="sourceLine" id="cb189-21" data-line-number="21"><span class="co">#&gt; SexMale      -2.4201     0.1404 -17.236  &lt; 2e-16 ***</span></a>
+<a class="sourceLine" id="cb189-22" data-line-number="22"><span class="co">#&gt; AgeChild      1.0615     0.2440   4.350 1.36e-05 ***</span></a>
+<a class="sourceLine" id="cb189-23" data-line-number="23"><span class="co">#&gt; ---</span></a>
+<a class="sourceLine" id="cb189-24" data-line-number="24"><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></a>
+<a class="sourceLine" id="cb189-25" data-line-number="25"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb189-26" data-line-number="26"><span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span></a>
+<a class="sourceLine" id="cb189-27" data-line-number="27"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb189-28" data-line-number="28"><span class="co">#&gt;     Null deviance: 2769.5  on 2200  degrees of freedom</span></a>
+<a class="sourceLine" id="cb189-29" data-line-number="29"><span class="co">#&gt; Residual deviance: 2210.1  on 2195  degrees of freedom</span></a>
+<a class="sourceLine" id="cb189-30" data-line-number="30"><span class="co">#&gt; AIC: 2222.1</span></a>
+<a class="sourceLine" id="cb189-31" data-line-number="31"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb189-32" data-line-number="32"><span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></a></code></pre></div>
+</div>
+</div>
+<div id="other-things-to-know-about-factors" class="section level2">
+<h2><span class="header-section-number">6.2</span> Other things to know about factors</h2>
+<p>Working with factors can be tricky to both the new, and the experienced <code>R</code>
+user. This is as their behaviour is not always intuitive. Below we illustrate
+three common areas of confusion</p>
+<div id="renaming-factor-levels" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Renaming factor levels</h3>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1">my_factor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Dog&quot;</span>, <span class="st">&quot;Cat&quot;</span>, <span class="st">&quot;Hippo&quot;</span>, <span class="st">&quot;Hippo&quot;</span>, <span class="st">&quot;Monkey&quot;</span>, <span class="st">&quot;Hippo&quot;</span>))</a>
+<a class="sourceLine" id="cb190-2" data-line-number="2">my_factor</a>
+<a class="sourceLine" id="cb190-3" data-line-number="3"><span class="co">#&gt; [1] Dog    Cat    Hippo  Hippo  Monkey Hippo </span></a>
+<a class="sourceLine" id="cb190-4" data-line-number="4"><span class="co">#&gt; Levels: Cat Dog Hippo Monkey</span></a>
+<a class="sourceLine" id="cb190-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb190-6" data-line-number="6"><span class="co"># change Hippo to Giraffe</span></a>
+<a class="sourceLine" id="cb190-7" data-line-number="7">## DO NOT DO THIS</a>
+<a class="sourceLine" id="cb190-8" data-line-number="8">my_factor[my_factor <span class="op">==</span><span class="st"> &quot;Hippo&quot;</span>] &lt;-<span class="st"> &quot;Giraffe&quot;</span></a>
+<a class="sourceLine" id="cb190-9" data-line-number="9"><span class="co">#&gt; Warning in `[&lt;-.factor`(`*tmp*`, my_factor == &quot;Hippo&quot;, value = &quot;Giraffe&quot;):</span></a>
+<a class="sourceLine" id="cb190-10" data-line-number="10"><span class="co">#&gt; invalid factor level, NA generated</span></a>
+<a class="sourceLine" id="cb190-11" data-line-number="11">my_factor</a>
+<a class="sourceLine" id="cb190-12" data-line-number="12"><span class="co">#&gt; [1] Dog    Cat    &lt;NA&gt;   &lt;NA&gt;   Monkey &lt;NA&gt;  </span></a>
+<a class="sourceLine" id="cb190-13" data-line-number="13"><span class="co">#&gt; Levels: Cat Dog Hippo Monkey</span></a>
+<a class="sourceLine" id="cb190-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb190-15" data-line-number="15">## reset factor</a>
+<a class="sourceLine" id="cb190-16" data-line-number="16">my_factor &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Dog&quot;</span>, <span class="st">&quot;Cat&quot;</span>, <span class="st">&quot;Hippo&quot;</span>, <span class="st">&quot;Hippo&quot;</span>, <span class="st">&quot;Monkey&quot;</span>, <span class="st">&quot;Hippo&quot;</span>))</a>
+<a class="sourceLine" id="cb190-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb190-18" data-line-number="18"><span class="co"># change Hippo to Giraffe</span></a>
+<a class="sourceLine" id="cb190-19" data-line-number="19">## DO THIS</a>
+<a class="sourceLine" id="cb190-20" data-line-number="20"><span class="kw">levels</span>(my_factor)[<span class="kw">levels</span>(my_factor) <span class="op">==</span><span class="st"> &quot;Hippo&quot;</span>] &lt;-<span class="st"> &quot;Giraffe&quot;</span></a>
+<a class="sourceLine" id="cb190-21" data-line-number="21">my_factor</a>
+<a class="sourceLine" id="cb190-22" data-line-number="22"><span class="co">#&gt; [1] Dog     Cat     Giraffe Giraffe Monkey  Giraffe</span></a>
+<a class="sourceLine" id="cb190-23" data-line-number="23"><span class="co">#&gt; Levels: Cat Dog Giraffe Monkey</span></a></code></pre></div>
+</div>
+<div id="combining-factors-does-not-result-in-a-factor" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Combining factors does not result in a factor</h3>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1">names_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;jon&quot;</span>, <span class="st">&quot;george&quot;</span>, <span class="st">&quot;bobby&quot;</span>))</a>
+<a class="sourceLine" id="cb191-2" data-line-number="2">names_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;laura&quot;</span>, <span class="st">&quot;claire&quot;</span>, <span class="st">&quot;laura&quot;</span>))</a>
+<a class="sourceLine" id="cb191-3" data-line-number="3"><span class="kw">c</span>(names_<span class="dv">1</span>, names_<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb191-4" data-line-number="4"><span class="co">#&gt; [1] 3 2 1 2 1 2</span></a>
+<a class="sourceLine" id="cb191-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb191-6" data-line-number="6"><span class="co"># if you want concatenation of factors to give a factor than the help page for</span></a>
+<a class="sourceLine" id="cb191-7" data-line-number="7"><span class="co"># c() suggest the following method is used:</span></a>
+<a class="sourceLine" id="cb191-8" data-line-number="8">c.factor &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">recursive=</span><span class="ot">TRUE</span>) <span class="kw">unlist</span>(<span class="kw">list</span>(...), <span class="dt">recursive=</span>recursive)</a>
+<a class="sourceLine" id="cb191-9" data-line-number="9"><span class="kw">c</span>(names_<span class="dv">1</span>, names_<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb191-10" data-line-number="10"><span class="co">#&gt; [1] jon    george bobby  laura  claire laura </span></a>
+<a class="sourceLine" id="cb191-11" data-line-number="11"><span class="co">#&gt; Levels: bobby george jon claire laura</span></a>
+<a class="sourceLine" id="cb191-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb191-13" data-line-number="13"><span class="co"># if you only wanted the result to be a character vector then you could also use</span></a>
+<a class="sourceLine" id="cb191-14" data-line-number="14"><span class="kw">c</span>(<span class="kw">as.character</span>(names_<span class="dv">1</span>), <span class="kw">as.character</span>(names_<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb191-15" data-line-number="15"><span class="co">#&gt; [1] &quot;jon&quot;    &quot;george&quot; &quot;bobby&quot;  &quot;laura&quot;  &quot;claire&quot; &quot;laura&quot;</span></a></code></pre></div>
+</div>
+<div id="numeric-vectors-that-have-been-read-as-factors" class="section level3">
+<h3><span class="header-section-number">6.2.3</span> Numeric vectors that have been read as factors</h3>
+<p>Sometimes we find a numeric vector is being stored as a factor
+(a common occurence when reading a csv from Excel with #N/A values)</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1"><span class="co"># example data set</span></a>
+<a class="sourceLine" id="cb192-2" data-line-number="2">pseudo_excel_csv &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">names =</span> <span class="kw">c</span>(<span class="st">&quot;jon&quot;</span>, <span class="st">&quot;laura&quot;</span>, <span class="st">&quot;ivy&quot;</span>, <span class="st">&quot;george&quot;</span>),</a>
+<a class="sourceLine" id="cb192-3" data-line-number="3">                               <span class="dt">ages =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">22</span>, <span class="st">&quot;#N/A&quot;</span>, <span class="st">&quot;#N/A&quot;</span>))</a>
+<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="co"># save to temporary file</span></a>
+<a class="sourceLine" id="cb192-5" data-line-number="5">filename &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb192-6" data-line-number="6"><span class="kw">write.csv</span>(pseudo_excel_csv, filename, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb192-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb192-8" data-line-number="8"><span class="co"># reload data</span></a>
+<a class="sourceLine" id="cb192-9" data-line-number="9">df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(filename)</a>
+<a class="sourceLine" id="cb192-10" data-line-number="10"><span class="kw">str</span>(df)</a>
+<a class="sourceLine" id="cb192-11" data-line-number="11"><span class="co">#&gt; &#39;data.frame&#39;:    4 obs. of  2 variables:</span></a>
+<a class="sourceLine" id="cb192-12" data-line-number="12"><span class="co">#&gt;  $ names: Factor w/ 4 levels &quot;george&quot;,&quot;ivy&quot;,..: 3 4 2 1</span></a>
+<a class="sourceLine" id="cb192-13" data-line-number="13"><span class="co">#&gt;  $ ages : Factor w/ 3 levels &quot;#N/A&quot;,&quot;20&quot;,&quot;22&quot;: 2 3 1 1</span></a></code></pre></div>
+<p>to transform this to a numeric variable we can proceed as follows</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1">df<span class="op">$</span>ages &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">levels</span>(df<span class="op">$</span>ages)[df<span class="op">$</span>ages])</a>
+<a class="sourceLine" id="cb193-2" data-line-number="2"><span class="co">#&gt; Warning: NAs introduced by coercion</span></a>
+<a class="sourceLine" id="cb193-3" data-line-number="3"><span class="kw">str</span>(df)</a>
+<a class="sourceLine" id="cb193-4" data-line-number="4"><span class="co">#&gt; &#39;data.frame&#39;:    4 obs. of  2 variables:</span></a>
+<a class="sourceLine" id="cb193-5" data-line-number="5"><span class="co">#&gt;  $ names: Factor w/ 4 levels &quot;george&quot;,&quot;ivy&quot;,..: 3 4 2 1</span></a>
+<a class="sourceLine" id="cb193-6" data-line-number="6"><span class="co">#&gt;  $ ages : num  20 22 NA NA</span></a></code></pre></div>
+</div>
+</div>
+<div id="helpful-packages" class="section level2">
+<h2><span class="header-section-number">6.3</span> Helpful packages</h2>
+<p>If you find yourself having to manipulate factors often, then it may be worth
+spending some time with the tidyverse package
+<a href="https://forcats.tidyverse.org">forcats</a>. This was designed to make working
+with factors simpler. There are many tutorials available online but a good
+place to start is the official
+<a href="https://forcats.tidyverse.org/articles/forcats.html">vignette</a>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dates-times.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plots.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
