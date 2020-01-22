@@ -14,5 +14,7 @@ addons:
             - gdal-bin
             - libgdal1-dev
             - libproj-dev
+            - libudunits2-dev
+            
 install:
   - R -e "install.packages('sf')"
