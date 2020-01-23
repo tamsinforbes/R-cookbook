@@ -5,7 +5,7 @@ library(dplyr) #manipulating data
 library(readr) #reading in data
 library(tmap) ## mapping software
 library(sf) 
-library(rmapshaper)
+#library(rmapshaper)
 
 knitr::opts_chunk$set(echo = FALSE)
 
@@ -210,7 +210,7 @@ We can see that our polygon is quite detailed. While this detail is desirable fo
 To alleviate this, we can simplify our geometry features before plotting. For this, we will use the function **ms_simplify** from the package {rmapshaper}. This function simplifies spatial data while maintaining key topology. Simplifying functions in other packages can do funny things such leave gaps between polygons with internal borders when simplifying. **ms_simplify** doesn't do this.
 
 *Simplifying Spatial Data*
-```{r 9, echo = TRUE, eval = TRUE, error = FALSE}
+```{r 9, echo = TRUE, eval = FALSE, error = FALSE}
 LAs_simp <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE)
 ```
 
@@ -218,7 +218,7 @@ This command creates a new sf data frame called "LAs_simp", which has all the sa
 
 Let's have a look at the difference between our original and our simplified polygon:
 
-```{r 8, echo = FALSE, eval = TRUE}
+```{r 8, echo = FALSE, eval = FALSE}
 Cornwall1 <- LAs %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm(title = "Original")
 Cornwall2 <- LAs_simp %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm(title = "5%")
 
@@ -243,7 +243,7 @@ Similar to using {ggplot2}, the first layer of a tmap defines the spatial object
 Let's see this in action, and map our local authorities based on how many road traffic casualties there were in each.
 
 *Create static map in tmap*
-```{r 7, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+```{r 7, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
 
 LAs <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE) # Simplifying polygons. Remember to only do this after you've finished your spatial analysis, or to save the simplified version as a different name.
 
@@ -263,7 +263,7 @@ tmap::tm_shape(LAs) + # defining what shapefile to use
 
 One problem with this plot is that we still have Northern Ireland in the plot, and we only have NAs for northern Ireland (as our casualties dataset didn't have accidents which happened there). To fix this, we can utilise a simple {dplyr} filter to remove features which have an *NA* value for casualties. We can then pipe a filtered sf dataframe into the **tm_shape** function.
 
-```{r 6, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+```{r 6, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
 LAs %>%
  dplyr::filter(!is.na(casualties)) %>%
 tm_shape() + # defining what shapefile to use
@@ -283,7 +283,7 @@ tm_shape() + # defining what shapefile to use
 Though this plot is useful, and gives us a sense of the distribution of accidents, it's difficult to make out values of smaller local authorities. What would make this easier is if we changed our map to an interactive map. We can do this very easily, using the same chunk of code, by simply setting the **tmap_mode** to "view".
 
 *Create interactive map in tmap*
-```{r 5, echo = TRUE, eval = TRUE, error = FALSE, warning = TRUE}
+```{r 5, echo = TRUE, eval = FALSE, error = FALSE, warning = TRUE}
 tmap_mode("view")
 
 LAs %>%
@@ -314,7 +314,7 @@ We can also make the map look a bit nicer by increasing the transparency of the 
 Finally we can pick from any number of basemaps. {tmap} leverages the {leaflet} package for basemaps, and you can find a list of available basemaps [here](https://leaflet-extras.github.io/leaflet-providers/preview/).
 
 *Improving Interactive Map*
-```{r 4, echo = TRUE, eval = TRUE, error = FALSE, warning = TRUE}
+```{r 4, echo = TRUE, eval = FALSE, error = FALSE, warning = TRUE}
 
 tm_basemap(server = "CartoDB.Positron") + # defining basemap
 LAs %>%
@@ -336,7 +336,7 @@ There are myriad aesthetic possibilities in {tmap} and related packages. It's no
 Let's see this in action, adding a layer to our map with the worst car accidents in our dataset (accidents with over 10 casualties).
 
 *Mapping multiple spatial objects*
-```{r 3, echo = TRUE, eval = TRUE, error = FALSE, warning = TRUE}
+```{r 3, echo = TRUE, eval = FALSE, error = FALSE, warning = TRUE}
 
 tm_basemap(server = "CartoDB.Positron") + # defining basemap
 LAs %>%
