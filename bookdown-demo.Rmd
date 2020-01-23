@@ -84,6 +84,7 @@ Placeholder
 ## SQL
 ## GCP
 ### BigQuery
+## Copy data to clipboard
 
 <!--chapter:end:02-data-import.Rmd-->
 
@@ -95,6 +96,7 @@ Placeholder
 
 ## Pivot and reshape tables
 ## Dropping and selecting columns
+## Rename variables
 ## Filtering data
 ## Group data 
 ## Order data
@@ -162,386 +164,433 @@ Placeholder
 
 <!--chapter:end:05-factors.Rmd-->
 
+
 # Plotting and Data Visualisations {#plots}
 
-This chapter provides some examples of how to visualise data in R.
-
-For charts, we'll look at a few examples of how to create simple charts in base R but this chapter will focus mainly in using {ggplot2} to plot charts. For maps, we'll look at how to produce static choropleth maps using {ggplot2} and how to produce interactive maps using {leaflet}. 
+Placeholder
 
 
-```{r include=FALSE}
-# Every file must contain at least one R chunk due to the linting process.
-library(readr)
-library(ggplot2)
-library(dplyr)
-library(plotly)
-library(leaflet)
-```
 ## Plotting in base R
-
-Before we look at using {ggplot2}, we'll look at how to plot simple charts using functions in base R. We'll use road accident data from 2005 to 2017 to demonstrate how to create line and bar charts.
-
-```{r}
-
-# read in road accident data
-road_acc <- readr::read_csv(
-  file = "data/road_accidents_by_year_and_severity.csv")
-
-head(road_acc)
-
-```
-
-
 ### Line charts in base R ###
-
-We want to plot a line chart of total road accidents against year. First we need to group our data by accident year and summarise to get a total sum of accidents for each year:
-```{r}
-road_acc_total <- road_acc %>%
-  dplyr::group_by(accident_year) %>%
-  dplyr::summarise(total = sum(total))
-```
-
-We'll now use the base R function 'plot', specifying the x and y axis and well as the plot type 'l' for line charts:
-```{r}
-plot(
-  x = road_acc_total$accident_year,
-  y = road_acc_total$total,
-  type = "l"
-)
-
-```
-
-We can make our plot look better by specifying a colour, labelling the axes and giving our plot a title:
-```{r}
-plot(
-  x = road_acc_total$accident_year,
-  y = road_acc_total$total,
-  type = "l",
-  col = "red",
-  xlab = "Year",
-  ylab = "Total",
-  main = "Total road accidents per year, 2005 - 2017"
-)
-```
-
-We can also force our plot to start at 0:
-
-```{r}
-plot(
-  x = road_acc_total$accident_year,
-  y = road_acc_total$total,
-  type = "l",
-  col = "red",
-  xlab = "Year",
-  ylab = "Total",
-  main = "Total road accidents per year, 2005 - 2017",
-  ylim=c(0, max(road_acc_total$total))
-)
-```
-
-
 ### Bar charts in base R ###
-
-We want to plot a bar chart showing the total number of accidents of each severity in 2017. First let's filter the road accidents data for 2017:
-
-```{r}
-road_acc_2017 <- road_acc %>%
-  dplyr::filter(accident_year == 2017)
-
-road_acc_2017
-```
-
-To create a bar chart, we use the base R function 'barplot' and then specify the variable we want to plot as the height argument:
-```{r, echo=FALSE}
-options(scipen=999)
-```
-
-
-```{r, message=FALSE}
-barplot(height = road_acc_2017$total)
-```
-
-This isn't very useful as we can't see what the different severity types are. So we can specify these in the names.arg argument, as well as add a few extra features to make the plot look better:
-
-```{r}
-barplot(height = road_acc_2017$total,
-        names.arg = c("Fatal", "Serious", "Slight"),
-        width = 2, #width of the bars
-        col = "lightblue",
-        xlab = "Severity",
-        ylab = "Total accidents",
-        main = "Total accidents by severity, 2017")
-```
-
-
-
 ## Plotting withh {ggplot2}
-
-**What is {ggplot2}?**
-
-The 'gg' in {ggplot2} stands for 'grammar of graphics'. This is a way of thinking about plotting as having grammar elements that can be applied in succession to create a plot. This is the idea that you can build every graph from the same few components: a dataset, geoms (marks representing data points), a co-ordinate system and some other things.
-
-The ggplot() function from the {ggplot2} package is how you create these plots. You build up the graphical elements using the + symbol. Think about it as placing down a canvas and then adding layers on top.
-
-**Why should I use {ggplot2} instead of the plot functions in base R?**
-
-
-As with most things in R, there are multiple ways to do the same thing. This applies to creating visualisations as well. As will be demonstrated below we can replicate the graphs we have created above using {ggplot2} instead, pretty well. 
-
-One method is not necessarily better than the other, but at DfT we advocate using {ggplot2} when plotting charts. There is consistency in the way that {ggplot2} works which makes it easier to get to grips with for beginners. It is also part of the {tidyverse} which we have used earlier on in this cookbook so it shares the underlying design philosophy, grammar, and data structures. 
-
 ### Line charts with {ggplot2}
-
-When plotting with {ggplot2}, we start with the ggplot() function which creates a blank canvas, then the next layer we add is the plot type. For line charts, this would be ggplot() + geom_line(). Within these functions, we specify our data and our aesthetic mappings i.e. what variables to map to the x and y axes from the specified data. If we were create a simple line chart for total accidents against year, the code would read as follows:
-
-```{r}
-ggplot(data = road_acc_total) +
-  geom_line(mapping = aes(x = accident_year, y = total))
-```
-
-So a reusuable template for making graphs would be as below, with the bracketed sections in the code replaced with a dataset, a geom function and a collection of mappings:
-
-ggplot(data = name_of_dataset) +
-  geom_function(mapping = aes())
-
-
-You can find a range of different plot types available in {ggplot2}, as well as tips on how to use them in the {ggplot2} cheatsheet (https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf).
-
-Let's create the same the line chart we created with base R, showing total road accidents against year:
-
-```{r}
-ggplot(data = road_acc_total) +
-  geom_line(aes(x = accident_year, y = total), col = "red") +
-  xlab("Year") +
-  ylab("Total") +
-  ggtitle("Total road accidents per year, 2005 - 2017") +
-  scale_x_continuous(breaks = seq(2000, 2017, 2)) +
-  expand_limits(y=0) +
-  theme_classic()
-```
-
-Here we have specified the colour of the line (notice this is outside of the aes() function). We have also labelled the x and y axes and given the plot a title.
-We have used scale_x_continuous() function to specify the intervals in the year variable and have used a theme to set the style of our plot (more on this later).
-
 ### Aesthetic mappings
-
-To get more insight into our data, we can add a third variable to our plot by mapping it to an aesthetic. This is a visual property of the objects in our plot such as the size, the shape or the colour of our points. For example, if we want to see the total number of road accidents by severity type against year, we can map the 'name' variable to the colour aesthetic:
-
-```{r}
-ggplot(data = road_acc) +
-  geom_line(mapping = aes(x = accident_year, y = total, colour = name)) +
-  scale_x_continuous(breaks = seq(2000, 2017, 2))
-```
-
-So unlike before, we specify the colour within the aes() function, rather than outside of it.
-
 ### Bar charts with {ggplot2}
-
-When creating bar charts with {ggplot2}, we can use geom_bar() or geom_col(). geom_bar() makes the height of the bar proportional to the number of cases in each group while geom_col() enables the heights of the bars to represent values in the data. So if your data is not already grouped you can use geom_bar() like so:
-
-```{r, message=FALSE}
-messy_pokemon <- readr::read_csv(
-  file = "data/messy_pokemon_data.csv")
-
-head(messy_pokemon)
-ggplot(data = messy_pokemon) +
-  geom_bar(mapping = aes(x = weight_bin))
-```
-
-This has grouped our data by weight_bin with the height of the bars representing the number of pokemon in each weight bin.
-
-Let's recreate the total accidents by severity chart, now using {ggplot2} instead:
-
-```{r}
-ggplot(data = road_acc_2017) +
-  geom_col(mapping = aes(x = name, y = total), fill = "lightblue", col = "black")+
-  xlab("Severity") +
-  ylab("Total accidents") +
-  ggtitle("Total accidents by severity, 2017")+
-  theme_classic()
-```
-
-Here we have used geom_col() instead but our data is already grouped so we simply want the height of the bars to represent the values in the data i.e. the number of accidents of each type of severity.
-
-You could also use geom_bar() in this situation but you would need to add an extra argument: stat = "identity".
-
-
-```{r}
-ggplot(data = road_acc_2017) +
-  geom_bar(mapping = aes(x = name, y = total),  fill = "lightblue", col = "black", stat = "identity")+
-  xlab("Severity") +
-  ylab("Total accidents") +
-  ggtitle("Total accidents by severity, 2017") +
-  theme_classic()
-```
-
 ## DfT colours
-
-So far we've used colours built into R and referred to them by name e.g. red, lightlue etc. In order to make charts using DfT colours, we can specify what colours we want using hexcodes. For example, for the previous bar chart we can set the levels of severity to different DfT colours.
-
-```{r}
-ggplot(data = road_acc_2017) +
-  geom_col(mapping = aes(x = name, y = total, fill = name), col = "black")+
-  xlab("Severity") +
-  ylab("Total accidents") +
-  ggtitle("Total accidents by severity, 2017") +
-  theme_classic() +
-  scale_fill_manual(values = c("#C99212", "#D25F15", "#006853"))
-```
-
-Here we map the name variable to the fill argument within the aesthetic.
-
-
-
-## Themes
-
-We mentioned themes earlier. Themes are used to set the style of your plot and can give your plots a consistent customized look. You can customise things such as titles, labels, fonts, background, gridlines, and legends. We have been using theme_classic() so far but {ggplot2} has a number of built-in themes that you can use for your plots available here: [https://ggplot2.tidyverse.org/reference/ggtheme.html](https://ggplot2.tidyverse.org/reference/ggtheme.html)
-
-You can modify aspects of a theme using the theme() function. For example, for our previous accidents plot, we can remove the legend title and move the position of the plot title.
-
-```{r}
-ggplot(data = road_acc_2017) +
-  geom_col(mapping = aes(x = name, y = total, fill = name), col = "black")+
-  xlab("Severity") +
-  ylab("Total accidents") +
-  ggtitle("Total accidents by severity, 2017") +
-  theme_classic() +
-  scale_fill_manual(values = c("#C99212", "#D25F15", "#006853"))+
-  theme(legend.title = element_blank(),
-        plot.title = element_text(hjust = 0.5))
-```
-
+## DfT Theme
 ### Custom DfT Theme
-
-Instead of using the built-in themes, we can create our own theme to apply to our plots. Below I have created a 'DfT theme' for line charts which sets things such as the font types, sizes, axes lines and title positions to make the plot consistent with what we might put in a DfT publication.
-
-You can adjust and tweak this theme and the colours to create plots in the correct style for your own publications. 
-
-```{r}
-# set DfT colours
-dft_colour <- c("#006853", # dark green
-                    "#66A498", # light green
-                    "#D25F15", # orange
-                    "#E49F73", # light orange
-                    "#C99212", # yellow
-                    "#E9D3A0", # pale yellow
-                    "#0099A9", # blue
-                    "#99D6DD") # light blue
-
-# create theme
-# note: 'sans' in R refers to the font 'Arial' in Windows
-theme_dft <- ggplot2::theme(axis.text = element_text(family = "sans", size = 10, colour = "black"), # axis text
-                            axis.title.x = element_text(family = "sans", size = 13, colour = "black", # x axis title
-                                                        margin = margin(t = 10)),
-                            axis.title.y = element_blank(),
-                            plot.title = element_text(size = 16, family = "sans", hjust = 0.5),
-                            plot.subtitle = element_text(size = 13, colour = "black", hjust = -0.05,
-                                                         margin = margin(t = 10)),
-                            legend.key = element_blank(), # make the legend background blank
-                            legend.position = "bottom", # legend at the bottom
-                            legend.direction = "horizontal", # legend horizontal
-                            legend.title = element_blank(), # remove legend title
-                            legend.text = element_text(size = 9, family = "sans"),
-                            axis.ticks = element_blank(), # remove tick marks
-                            panel.grid = element_blank(), # remove grid lines
-                            panel.background = element_blank(), # remove background
-                            axis.line.x = element_line(size = 0.5, colour = "black"))  
-
-# use the DfT colours and the DfT theme for the accidents by severity line chart
-ggplot(data = road_acc) +
-  geom_line(mapping = aes(x = accident_year, y = total, colour = name), size = 1.5) +
-  labs(title = "Accidents by severity, 2005 to 2017", 
-       x = "Accident Year", 
-       y = "")+
-  scale_x_continuous(breaks = seq(2005, 2017, 2))+
-  scale_colour_manual(values = dft_colour) + #here is where you apply the dft colours
-  theme_dft #here we specify our custom theme
-
-```
-
-
-
+## More {ggplot2} charts 
+### Scatter plots
+### Horizontal bar chart
+### Stacked bar chart
 ## Interactive charts with {plotly}
-
-{plotly} is a graphing library which makes interactive html graphs. It uses the open source JavaScript graphing library plotly.js. It is great for building dashboards or allowing the user to interact with the data themselves.
-
-{plotly} is not necessarily good for publications as the charts are html but can be useful for exploratory analysis or QA notes. It allows you to zoom into certain parts of the chart and toggle between different categories.
-
-It can be used in two ways - either with {ggplot2} (easier option) or using the plot_ly() wrapper directly which gives you more control.
-
 ### {plotly} with {ggplot2}
-
-Taking our previous accidents by severity plot, we can simply assign this to an object and use the ggplotly() function to make it interactive.
-
-```{r, message=FALSE}
-library(plotly)
-
-road_acc_chart <- ggplot(data = road_acc) +
-  geom_line(mapping = aes(x = accident_year, y = total, colour = name), size = 1.5) +
-  labs(title = "Accidents by severity, 2005 to 2017", 
-       x = "Accident Year", 
-       y = "")+
-  scale_x_continuous(breaks = seq(2005, 2017, 2))+
-  scale_colour_manual(values = dft_colour) + 
-  theme_dft 
-
-#plotly::ggplotly(road_acc_chart)
-
-```
-Since we set our legend to be horizontal in our DfT theme, we get a warning message as plotly.js does not support horizontal legend items yet.
-
 ### plot_ly()
-
-Using plot_ly() is similar to {ggplot2} in some ways as we build the plot in layers but we use the pipe operator rather than a plus sign, and the ~ sign before the variables in our data:
-
-```{r}
-plotly::plot_ly(road_acc, x = ~accident_year, y = ~total) %>% # specify the data and x and y axes
-  plotly::add_lines(color = ~name, colors = dft_colour[1:3]) %>% # colour lines by severity
-  plotly::layout(title = "Accidents by severity, 2005 to 2017",
-         xaxis = list(title = "Accident Year"),
-         yaxis = list(title = ""))
-```
-
-
-You can find more information about using {plotly} in R from the following websites:
-
-* Graphing library with example code: [https://plot.ly/r/](https://plot.ly/r/)
-
-* Cheat sheet: [https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf](https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf)
-
-* E-book: [https://plotly-r.com/index.html](https://plotly-r.com/index.html)
-
 ## Mapping in R
-
-There are a wide range of packages you can use to produce maps in R. For static choropleth maps, we're going to focus on using {ggplot2} which we are now familiar with.
-
 ### Mapping with {ggplot2}
-
-To complete.
-
 ### Mapping with {leaflet}
 
-The {leaflet} package can be used to create interactive maps in R. Similar to {ggplot2}, you start with a base map and then add layers (i.e. features). We're going to map some search and rescue helicopter data, using the longitude and latitude.
+<!--chapter:end:06-plotting.Rmd-->
 
-```{r}
-library(leaflet)
 
-sarh <- readr::read_csv(file = "data/SARH_spatial.csv")
+# DfT RAP guidance {#RAP}
 
-head(sarh)
+Placeholder
 
-#plot the interactive map using leaflet
-leaflet::leaflet(data = sarh) %>% 
-  leaflet::addProviderTiles(provider = providers$Esri.NatGeoWorldMap) %>%  #select the type of map you want to plot
-  leaflet::addMarkers(lng = ~longitude_new, 
-                      lat = ~ latitude_new, 
-                      popup = ~ htmltools::htmlEscape(Base), # what appears when you click on a data point
-                      label = ~ htmltools::htmlEscape(Domain) # what appears when you hover over a data point
-  )
+
+## What
+## When
+## Additional resources
+
+<!--chapter:end:07-RAP.Rmd-->
+
+# Spatial Analysis in R {#spatial}
+
+```{r setup and read in zapmap, echo=FALSE, include=FALSE}
+library(dplyr) #manipulating data
+library(readr) #reading in data
+library(tmap) ## mapping software
+library(sf) 
+#library(rmapshaper)
+
+knitr::opts_chunk$set(echo = FALSE)
+
+Sys.setenv(TZ='UTC')
+```
+
+
+
+## What is Spatial Data?
+
+For most work in R we work with flat data, i.e. data that is only 1 or 2 dimensions. A data frame, for example, has two dimensions (rows representing observations and columns representing variables), and no other information outside of that two dimensional array. Spatial data however needs some extra information for it to accurately represent actual locations on the Earth: the coordinates of the object; and a system of reference for how the coordinates relate to a physical location on Earth.
+
+## Packages
+
+To hold spatial data, we need to leverage packages which exist outside of Base R. We will be using the {sf} package for these example, but note that it is common to see spatial data held in the {sp}, {geojson}, and {raster} packages as well, all of which have their own advantages and disadvantages (it is not uncommon to have to switch from one to another to leverage these advantages - more on that later).
+
+The advantage of using the {sf} package is that data is kept in as similar a format to a flat data frame as possible. This makes it easier to work with our data for two reasons. First, it lets us use {dplyr} data manipulations or join our spatial data with non-spatial data (some spatial data formats don't let you do this). Second, it's just simplier to wrap your head around.
+
+## Reading in Spatial Data
+
+Let's have a look at some data. We can read in our data as a spatial object using the **st_read** funciton from the {sf} package (if it is saved in an .shp format and has necessary metadata). We'll be working with some shapefiles which represent local authorities which are sourced from the ONS.
+
+
+*Reading in Spatial Data*
+```{r read in data, echo = TRUE, eval = TRUE, error = FALSE}
+LAs <- sf::st_read("data/ONS Geography")
+
+
+head(LAs)
+```
+
+Looking at the message we get when we load in our data, we can find out some basic information about our sf dataframe:
+
+* It tells us that it is a "Simple feature collection with 391 features and 10 fields". In other words, this is telling us that it is an sf dataframe of 391 observations (features) and 10 variables (fields).
+* The geometry type is "MULTIPOLYGON". To break this down, the "POLYGON" is telling us we're dealing with distinct shapes for each observation (as opposed to lines or dots), and the "MULTI" is telling us that one observation can be represented by multiple polygons. An example of this would be the Shetland Islands, a single local authority made up of many small polygons.
+* The "bbox"" gives us the coordinates of a bounding box which will contain all the features of the sf data frame.
+* The "epsg" and "proj4string" gives us the coordinate reference system. The most common code you will see is 4326 which refers to the "World Geodetic System 1984". This is the coordinate reference system you are probably most familiar with (without realising it), as it is used in most GPS and mapping software. Points in the WGS system are referred to by their "latitude" and "longitude". In this case, the epsg code is "NA", in which case we will have to refer to the documentation to discern the correct epsg code to apply to the data.
+
+We can also ask R to give us all of this info with the **st_geometry** function.
+
+*Inspect spatial data*
+```{r echo = TRUE, eval = TRUE, error = FALSE}
+sf::st_geometry(LAs)
+```
+
+## CRS Projections
+
+[There's a lot that can be said](https://www.axismaps.com/guide/general/map-projections/) about the utlity of different Coordinate Reference Systems, but long-story-short they all have unique advantages and disadvantages as they distort shape, distance, or size in different ways. In our day-to-day work, you're most likely to encounter two coordinate reference systems: the World Geodatic System (WGS84 - EPSG code: 4326), or the Ordance Survey Great Britain 1936 system (OSGB36 - EPSG code: 27700).
+
+The WGS84 system is best suited to global data - for example plotting international ports or a world map of countries. It is a geodatic system, which means the points it defines refer to a point on a 3d elipsoid which represents the earth.
+
+The OSGB1936 system is best suited to mapping the UK or areas within it. It is a projected system, which means it projects the 3d curve of the earth into a 2d object. An advantage of this is that eastings (the x-axis of this projection) remains consistent at all northings (the y-axis). For example, a 1000 unit change in eastings is a 1km change *anywhere*, whereas a 1 unit change in longitude is a different distance depending on the latitude, as the earth gets narrower the further away you get from the equator. 
+
+Complexities aside, practically what this means is that you will always want *all* of you're spatial data to be in the same CRS, otherwise spatial joins and mapping functions will start throwing up errors. We can change the crs projection very easily with the {sf} function **st_transform**.
+
+*Changing Coordinate Reference System*
+```{r echo = TRUE, eval = TRUE, error = FALSE}
+LAs <- sf::st_transform(LAs, crs = 27700)
+
+sf::st_crs(LAs)
+```
+
+This changes the CRS projection from the WGS84 system to the OSGB1936 system, converting all of the coordinates to the new system. We can use the crs argument to change to any number of different projections.
+Note that this only works if the spatial object has data on the coordinate reference system already. If your data is missing *all* of this information, you will have to set the crs manually (if you know what the CRS projection *should be*):
+
+*Setting Coordinate Reference System*
+```{r echo = TRUE, eval = FALSE, error = FALSE}
+sf::st_crs(sf_object) <- 27700
+```
+
+
+## Manipulating Spatial Data
+
+As mentiond above, one of the key advantages of working with spatial data in {sf} format is that we can use tidyverse functions to manipulate our data. Let's show this in action by creating a new variable.
+
+The variable "lad19cd" has a unique code for each local authority. All codes begin with a letter, followed by a numeric series. The letter refers to the country ("E" for England, "W" for Wales, "S" for Scotland, and "N" for Northern Ireland). We can use this to create a new variable called "country" for each feature.
+
+*Manipulating {sf} data with dplyr*
+```{r, echo = TRUE, eval = TRUE, error = FALSE}
+LAs <- LAs %>% dplyr::mutate(country = dplyr::case_when(stringr::str_detect(lad19cd, "W") ~ "Wales",
+                             stringr::str_detect(lad19cd, "S") ~ "Scotland",
+                             stringr::str_detect(lad19cd, "N") ~ "Northern Ireland",
+                             stringr::str_detect(lad19cd, "E") ~ "England"))
+
+LAs %>% dplyr::group_by(country) %>% dplyr::tally()
+```
+
+As we can see, we've manipulated our data in exactly the same way as we would have with a flat dataframe.We can also join spatial and non-spatial data together in the same way we normally would with dataframes.
+Let's take some population data and join it to our Local Authorities. 
+
+*Joining Spatial and non-spatial data*
+```{r, echo = FALSE, eval = TRUE, error = FALSE, warning = FALSE, message = FALSE}
+LAs_pop <- read_csv("data/LAs_Populations.csv")
+
+LAs_pop <- LAs_pop %>%
+  dplyr::rename(lad19cd = Code, population = `All ages`, LA_name = Name)
+
+LAs_pop <- LAs_pop %>%
+  dplyr::select(lad19cd, population)
+```
+```{r, echo = TRUE, eval = TRUE, error = FALSE, message = FALSE}
+summary(LAs_pop)
+```
+
+This dataframe of local authority populations has 2 variables, local authority code (lad19cd) and population. We can use a {dplyr} **left_join** to join this to our {sf} dataframe as we would with a flat dataframe.
+
+```{r, echo = TRUE, eval = TRUE, error = FALSE}
+
+names(LAs_pop)
+names(LAs)
+
+LAs <- dplyr::left_join(LAs, LAs_pop, by = "lad19cd")
+```
+```{r, echo = FALSE, eval = TRUE, error = FALSE}
+LAs$population <- as.numeric(LAs$population)
 
 ```
 
-If you want to save this as a static map, you could simply export is an image. More information on using {leaflet} in R can be found here: [https://rstudio.github.io/leaflet/](https://rstudio.github.io/leaflet/)
+## Spatial Analysis - Joins
 
-<!--chapter:end:06-plotting.Rmd-->
+A common task we might want to conduct is to manipulated a spatial object based on a relationship with another spatial object. To do this, we will use the **st_join** function from the {sf} package. The **st_join** allows us to join data on a number of different relationships, the simplest of which examines whether an object intersects another object - i.e. if there is any point where the geometries of both objects are identical. This could be where two lines cross, where two different spatial points objects have the same gemoetry, or it could be a point falling within the bounds of a polygon.
+
+Let's look at some data representing the coordinates of road traffic accidents in Great Britain.
+
+*Read in csv*
+```{r, echo = FALSE, eval = TRUE, error = FALSE, warning = FALSE}
+
+crash_data <- read.csv("data/road_traffic_accidents.csv")
+
+crash_data <- crash_data %>% dplyr::select(-Longitude, -Latitude, -Local_Authority_.District., -Local_Authority_.Highway.)
+
+crash_data$Date <- as.Date(crash_data$Date)
+
+
+crash_data <- crash_data %>% dplyr::filter(Date >= as.Date("01/01/2018"))
+```
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+class(crash_data)
+names(crash_data)
+```
+
+Our crash data is in a flat csv format, BUT it has variables representing the easting and northing of where each acccident took place. We can use this to turn our crash data into an sf object with the function **st_as_sf**. We take our dataset, define which variables R should use to define coordinates in the "coords" argument, and define the "crs" that those coordinates are plotted in.
+
+*Transforming flat data frames to spatial data*
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+crashes <- crash_data %>% dplyr::filter(!is.na(Location_Easting_OSGR) & !is.na(Location_Northing_OSGR)) %>%
+sf::st_as_sf(coords = c("Location_Easting_OSGR","Location_Northing_OSGR"), crs = 27700)
+
+sf::st_geometry(crashes)
+```
+
+The crashes sf dataframe holds information on all reported road traffic accidents in the UK since 2005. It has a number of variables for each accident, such as the accident severity, number of vehicles, number of casualties, time of day, and road and weather conditions.
+
+Let's have a look at the most severe accidents (accidents with 5 or more casualties).
+
+*Quick map of spatial data*
+``` {r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+
+crashes %>% dplyr::filter(Number_of_Casualties == 5) %>% tmap::qtm()
+```
+
+The **qtm** function is a useful function from {tmap} that let's us quickly create maps with a minimum number of arguments. This is often useful for sense-checking data and can help you spot errors in data manipulation when working with spatial data. Here, for example, we can see that our data largely makes sense, so our conversion to {sf} was likely correct. We can (roughly) make out the shape of Great Britain, and we see some clusters around major cities (London, Birmingham, Manchester etc.). We can also see that we don't appear to have data for Northern Ireland in this dataset (either that or Northern Irish drivers are much safer drivers).
+
+Let's see can we work out which Local Authority has had the most road traffic casualties in this period.
+We can use a **spatial join** to assign a local authority to each road traffic accident. This works similarly to a {dplyr} left_join, with all of the variables from the **y** table being added to each observation of the **x** table which match eachother by a defined variable. The difference here is that the two tables are joined based on a shared **geometry**, rather than a shared value of a variable. The shared geometry here being whether a point intersects with a polygon (in other words, whether the point falls within a polygon). 
+
+*Joining spatial data*
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+
+crashes_join <- sf::st_join(crashes, LAs, join = st_intersects) # essentially a left_join of LAs to crashes
+crashes_join$lad19nm <- as.character(crashes_join$lad19nm)
+
+LAs_casualties <- crashes_join %>% dplyr::group_by(lad19nm) %>% dplyr::summarise(casualties = sum(Number_of_Casualties)) # making an sf data frame called LAs_casualties which is the result of a simple group_by and summarise.
+
+LAs_casualties %>% dplyr::arrange(desc(casualties))
+
+```
+
+We can see that Birmingham has had more casualties in this period than any other local authority.
+
+The *LAs_casualties* dataset that we created above has the same local authorities names as our original *LAs* sf dataframe, meaning we can easily left_join this table to our original LAs_shapefile. But first, we will turn it into a flat dataframe (ie, with no geographic information) with the **st_set_geometry** function. If we did not get rid of the geometry before left_joining, we would create a "geometry_collection" object for each local authority, which would be a mess of polygons and points within those polygons for each feature. This is because our **group_by** function above also grouped together the geometries of the observations it was grouping together. If we look at the outout above, we can see that the geometry type of LAs_casualties is "MULTIPOINT", so the "Birmingham" observation has 3,532 points representing where each road accident happened, rather than outlining the polygon of Birmingham in any meaningful way.
+
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+LAs_casualties <- LAs_casualties %>% sf::st_set_geometry(NULL)
+
+LAs <- dplyr::left_join(LAs, LAs_casualties, by = "lad19nm")
+
+```
+
+We now have our casualties data joined to our original local authorities shapefile. We can now use this to make graphical representations of our data.
+
+## Plotting and simplifying
+
+Let's have a look at one of our Local Authorities in isolation, Cornwall.
+
+```{r, echo = FALSE, eval = TRUE, error = FALSE}
+LAs %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm()
+```
+
+We can see that our polygon is quite detailed. While this detail is desirable for when we conduct our spatial analysis, if we want to plot all of our local authorities at the same time, it can be better to plot simplified polygons. This is for 3 reasons. First, simplification means that R can create and output plots quicker; Second, outputs will have a smaller file size (particularly useful for interactive plots or when we share our outputs); and third, sometimes simplified polygons actually look better in plots as too-detailed borders can come out looking murky due to over-plotting, particularly in static plots.
+
+To alleviate this, we can simplify our geometry features before plotting. For this, we will use the function **ms_simplify** from the package {rmapshaper}. This function simplifies spatial data while maintaining key topology. Simplifying functions in other packages can do funny things such leave gaps between polygons with internal borders when simplifying. **ms_simplify** doesn't do this.
+
+*Simplifying Spatial Data*
+```{r, echo = TRUE, eval = TRUE, error = FALSE}
+#LAs_simp <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE)
+```
+
+This command creates a new sf data frame called "LAs_simp", which has all the same information as the original LAs sf dataframe, but has a simplified geometry with fewer points. The "keep" argument specifies how much geographic information we want to hold onto. Here we only keep 5% of the original points. The "keep_shapes" argument specifies whether or not we want to allow the function to delete some features entirely for simplification purposes. This can be useful for polygons with lots of small islands as individual entries (where you are indifferent to whether or not you keep all islands in your dataset), BUT use with caution, as if you simplify too much R might delete entire features (observations) to fulfill the simplification. Here we set "keep_shapes = TRUE"" so we don't lose any features.
+
+Let's have a look at the difference between our original and our simplified polygon:
+
+```{r, echo = FALSE, eval = TRUE}
+Cornwall1 <- LAs %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm(title = "Original")
+#Cornwall2 <- LAs_simp %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm(title = "5%")
+
+#tmap::tmap_arrange(Cornwall1, Cornwall2)
+```
+
+Even with only 5% of the original points, we can see that we've held onto a lot of the information that we'd want if we were plotting these polygons.
+
+However, we should always use simplification with caution, and only simplify our spatial objects *after* we've carried out spatial analysis. Note that we can also simplify spatial data which are lines, reducing the number of vertices in lines, but we cannot simplify spatial points data, as their geometries (a single point for each entry) is already as small as it can be.
+
+
+## Mapping Spatial Data
+
+There are a number of packages that you can use to make maps with spatial data in R, including {leaflet}, {ggmap}, {mapdeck}, and {ggplot2}. Here, we will be using the package {tmap}. {tmap} is a highly versatile package for mapping spatial data, with a number of advantages over other packages:
+
+* {tmap} uses a similar grammar to {ggplot2}, where aesthetic layers are layered on top of each other;
+* the same piece of {tmap} code can be used to make either static or interactive maps, and;
+* {tmap} can work with spatial data in a number of different formats, including {sp}, {raster}, {geojson} and {sf}.
+
+Similar to using {ggplot2}, the first layer of a tmap defines the spatial object that we wish to plot in the function **tm_shape**. We then add (+) an aesthetic element based on this spatial object Most often this aesthetic element will be one of type **tm_polygons**, **tm_line**, or **tm_dots**, depending on the spatial data type.
+
+Let's see this in action, and map our local authorities based on how many road traffic casualties there were in each.
+
+*Create static map in tmap*
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+
+#LAs <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE) # Simplifying polygons. Remember to only do this after you've finished your spatial analysis, or to save the simplified version as a different name.
+
+tmap::tm_shape(LAs) + # defining what shapefile to use
+  tmap::tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks
+              style = "quantile", # the style option lets us define how we want the variable split
+             n = 5, # number of quantiles
+              pal = "YlGnBu" # choose from a number of palettes available from rcolorbrewer, or define your own
+              ) +
+  tmap::tm_borders(col = "#000000", # defining polygon border as black
+           lwd = 0.3 # setting border width
+  ) +
+  tmap::tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
+            )
+
+```
+
+One problem with this plot is that we still have Northern Ireland in the plot, and we only have NAs for northern Ireland (as our casualties dataset didn't have accidents which happened there). To fix this, we can utilise a simple {dplyr} filter to remove features which have an *NA* value for casualties. We can then pipe a filtered sf dataframe into the **tm_shape** function.
+
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+LAs %>%
+ dplyr::filter(!is.na(casualties)) %>%
+tm_shape() + # defining what shapefile to use
+  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks
+              style = "quantile", # the style option lets us define how we want the variable split
+              n = 5, # number of quantiles
+              pal = "YlGnBu" # choose from a number of palettes available from rcolorbrewer, or define your own
+             ) +
+  tm_borders(col = "#000000", # defining polygon border as black
+           lwd = 0.3 # setting border width
+  ) +
+  tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
+           )
+
+```
+
+Though this plot is useful, and gives us a sense of the distribution of accidents, it's difficult to make out values of smaller local authorities. What would make this easier is if we changed our map to an interactive map. We can do this very easily, using the same chunk of code, by simply setting the **tmap_mode** to "view".
+
+*Create interactive map in tmap*
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = TRUE}
+tmap_mode("view")
+
+LAs %>%
+ filter(!is.na(casualties)) %>%
+tm_shape() + # defining what shapefile to use
+  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks.
+              style = "quantile", # the style option lets us define how we want the variable split
+              n = 5, # number of quantiles
+             pal = "YlGnBu" # choose from a number of palettes available from rcolorbrewer, or define your own
+              ) +
+ LAs %>%
+  filter(!is.na(casualties)) %>%
+tm_shape() +
+  tm_borders(col = "#000000", # defining polygon border as black
+            lwd = 0.3 # setting border width
+  ) +
+  tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
+            )
+
+```
+
+It's worth noting that some arguments in {tmap} are only availble in static plots, and some only available in interactive maps. However, R will just skip the arguments that don't apply, so it wont break your code to leave them in. Here, the "legend.outside" argument is meaningless in an interactive plot, so is skipped by R when creating this interactive plot.
+
+A problem with this interact plot is that when you click on a local authority, you can't find out it's name. The default popup variable is the object id, because it's the first variable in the sf dataframe, which isn't very useful. We can manually set the popup variables instead.
+
+We can also make the map look a bit nicer by increasing the transparency of the polygons with the "alpha" argument.
+
+Finally we can pick from any number of basemaps. {tmap} leverages the {leaflet} package for basemaps, and you can find a list of available basemaps [here](https://leaflet-extras.github.io/leaflet-providers/preview/).
+
+*Improving Interactive Map*
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = TRUE}
+
+tm_basemap(server = "CartoDB.Positron") + # defining basemap
+LAs %>%
+  filter(!is.na(casualties)) %>%
+tm_shape() + # defining what shapefile to use
+  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks.
+              style = "quantile", # the style option lets us define how we want the variable split
+              n = 5, # number of quantiles
+              pal = "YlGnBu", # choose from a number of palettes available from rcolorbrewer, or define your own
+              alpha = 0.4, # setting transparency
+             popup.vars = c("Local Authority" = "lad19nm", "casualties"), # setting variables to be seen on click
+              id = "lad19nm" # Setting a variable to display when hovered over
+              ) 
+
+```
+
+There are myriad aesthetic possibilities in {tmap} and related packages. It's not uncommon for a map to be built first in {tmap}, before exported as {leaflet} map and further edited in the {leaflet} package, though we wont cover that here. It's also possible to plot more than one spatial object at the same time. For example, layering polygons, points and lines from various shapefiles. Simply define the new spatial object with **tm_shape** and add aesthetics as before.
+
+Let's see this in action, adding a layer to our map with the worst car accidents in our dataset (accidents with over 10 casualties).
+
+*Mapping multiple spatial objects*
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = TRUE}
+
+tm_basemap(server = "CartoDB.Positron") + # defining basemap
+LAs %>%
+  filter(!is.na(casualties)) %>%
+tm_shape() + # defining what shapefile to use
+  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks.
+              style = "quantile", # the style option lets us define how we want the variable split
+              n = 5, # number of quantiles
+              pal = "YlGnBu", # choose from a number of palettes available from rcolorbrewer, or define your own
+              alpha = 0.4, # setting transparency
+              popup.vars = c("Local Authority" = "lad19nm", "casualties"),
+              id = "lad19nm") +
+crashes %>% filter(Number_of_Casualties == 10) %>%
+tm_shape() + # defining our second shapefile to use and plot in the same output as above
+  tm_dots(col = "red", # calling tm_dots on point objects
+          alpha = 0.7, # making the dots partially transparent
+          jitter = 0.05,  # adding a small amount of random jittering to points so overlayed points are visible
+          id = "Number_of_Casualties"
+  ) 
+
+```
+
+
+## Other Spatial Types
+We have worked only with the {sf} package here, but it's important to be aware of different types of spatial data formats that exist in R.
+
+Most similar to the {sf} package is {sp}. sp objects hold the different spatial and non-spatial components of a dataset in different "slots", creating a hierarchical data structure, where an observation in one slot is linked to an observation in another slot. This works similarly to a relational database in SQL. For example, if our local authorities were in sp format, we would access names of local authorities by calling something like "LAs_sp@data$lad19nm". The "@" symbol specifies we want the dataframe "slot", and then we call the variable with the "$" as usual. Other slots in an sp object are the bounding box, the proj4string (a way of defining the projection, essentially a long-form crs), and the spatial data (points, polygons etc.). A drawback of holding data like this is that you have to use base R to manipulate data. {dplyr} will not work with sp objects, making sp objects more cumbersome to work with.
+
+{sf} was  developed to replace {sp}, but as {sf} is a relatively new package, there may be times when you encounter a function you need that only works on an {sp} object. When this happens, we can quickly convert objects back and forth between *sf* and *sp* with the following commands:
+
+*Converting data from sf to sp objects*
+```{r, echo = TRUE, eval = FALSE, error = FALSE, warning = TRUE}
+object_sp <- as(object_sf, class = "SPATIAL") # sf to sp object
+object_sf <- st_as_sf(object_sp) # sp to sf object
+```
+
+Another type of spatial data package to be aware of is the {raster} package. Raster objects are in a gridded data format: they define a rectangle, with a point of origin and an end point, and then define the number of rows and columns to split that rectangle into, making a grid of equal cell sizes. This format spares R from having to plot a polygon for every single grid square. It's often used for altitude or temperature data, but can be used for a wide range of data (eg emissions, or calculating distance from features of interest across a defined spatial area). Raster objects are held in the {raster} package, though plotting can be done with {tmap}, {leaflet}, and a range of mapping packages.
+
+## Further Resources
+
+For a range of shapefiles, the [ONS data portal](http://geoportal.statistics.gov.uk/) is a good place to look. It has local authorities with joinable data on average wages, populations, etc. as well as a number of other shapefiles for points/areas of interest such as national parks, hospitals, output areas of different sizes, and rural/urban areas.
+
+For resources on using tmap and other mapping functions, see [this online workshop](http://www.seascapemodels.org/data/data-wrangling-spatial-course.html) which covers a range of topics. It should take about 4 hours to do everything in the workshop (but also good to just find individual bits of code). It mostly uses {ggplot2} but it finishes with some work with {raster} and {tmap}.
+
+There's also [this very good blog post](https://www.jessesadler.com/post/gis-with-r-intro/), which does a good job of peaking under the hood of how sf and sp objects work without getting *too* technical.
+
+For a more detailed overview of mapping in R, see [this amazing online book](https://geocompr.robinlovelace.net/) from Robin Lovelace. Of particular interest are Chapters 5 and 8, but the whole book is useful.
+
+<!--chapter:end:08-spatial.Rmd-->
 
