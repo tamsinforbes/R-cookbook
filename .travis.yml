@@ -16,9 +16,7 @@ addons:
             - libproj-dev
             - libudunits2-dev
             - libprotobuf-dev
-            - protobuf-devel
-            - protobuf_dev
-            - protobuf
+            - protobuf-compiler
             
 install:
   - R -e "install.packages('sf')"
