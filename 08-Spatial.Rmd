@@ -97,7 +97,7 @@ Let's take some population data and join it to our Local Authorities.
 
 *Joining Spatial and non-spatial data*
 ```{r, echo = FALSE, eval = TRUE, error = FALSE, warning = FALSE, message = FALSE}
-LAs_pop <- read_csv("Data/LAs_Populations.csv")
+LAs_pop <- read_csv("data/LAs_Populations.csv")
 
 LAs_pop <- LAs_pop %>%
   rename(lad19cd = Code, population = `All ages`, LA_name = Name)
