@@ -19,8 +19,11 @@ addons:
             - protobuf-compiler
             - libv8-dev
             - libjq-dev
+            - libgeos-dev
+            - libprotoc-dev
+            - libnetcdf-dev
             
 install:
   - R -e "install.packages('sf')"
   - R -e "install.packages('tmap')"
-    - R -e "install.packages('rmapshaper')"
+  - R -e "install.packages('rmapshaper')"
