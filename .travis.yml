@@ -15,6 +15,10 @@ addons:
             - libgdal1-dev
             - libproj-dev
             - libudunits2-dev
+            - libprotobuf-dev
+            - protobuf-devel
+            - protobuf_dev
+            - protobuf
             
 install:
   - R -e "install.packages('sf')"
