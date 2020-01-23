@@ -18,3 +18,4 @@ addons:
             
 install:
   - R -e "install.packages('sf')"
+  - R -e "install.packages('tmap')"

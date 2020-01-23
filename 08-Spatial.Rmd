@@ -3,7 +3,7 @@
 ```{r setup and read in zapmap, echo=FALSE, include=FALSE}
 library(dplyr) #manipulating data
 library(readr) #reading in data
-#library(tmap) ## mapping software
+library(tmap) ## mapping software
 library(sf) 
 
 knitr::opts_chunk$set(echo = FALSE)
@@ -33,7 +33,7 @@ Let's have a look at some data. We can read in our data as a spatial object usin
 LAs <- st_read("data/ONS Geography")
 
 
-#head(LAs)
+head(LAs)
 ```
 
 Looking at the message we get when we load in our data, we can find out some basic information about our sf dataframe:
@@ -47,7 +47,7 @@ We can also ask R to give us all of this info with the **st_geometry** function.
 
 *Inspect spatial data*
 ```{r echo = TRUE, eval = TRUE, error = FALSE}
-#st_geometry(LAs)
+st_geometry(LAs)
 ```
 
 ## CRS Projections
@@ -62,9 +62,9 @@ Complexities aside, practically what this means is that you will always want *al
 
 *Changing Coordinate Reference System*
 ```{r echo = TRUE, eval = TRUE, error = FALSE}
-#LAs <- st_transform(LAs, crs = 27700)
+LAs <- st_transform(LAs, crs = 27700)
 
-#st_crs(LAs)
+st_crs(LAs)
 ```
 
 This changes the CRS projection from the WGS84 system to the OSGB1936 system, converting all of the coordinates to the new system. We can use the crs argument to change to any number of different projections.
@@ -72,7 +72,7 @@ Note that this only works if the spatial object has data on the coordinate refer
 
 *Setting Coordinate Reference System*
 ```{r echo = TRUE, eval = FALSE, error = FALSE}
-#st_crs(sf_object) <- 27700
+st_crs(sf_object) <- 27700
 ```
 
 
@@ -84,12 +84,12 @@ The variable "lad19cd" has a unique code for each local authority. All codes beg
 
 *Manipulating {sf} data with dplyr*
 ```{r, echo = TRUE, eval = TRUE, error = FALSE}
-#LAs <- LAs %>% mutate(country = case_when(stringr::str_detect(lad19cd, "W") ~ "Wales",
- #                            stringr::str_detect(lad19cd, "S") ~ "Scotland",
-  #                           stringr::str_detect(lad19cd, "N") ~ "Northern Ireland",
-   #                          stringr::str_detect(lad19cd, "E") ~ "England"))
+LAs <- LAs %>% mutate(country = case_when(stringr::str_detect(lad19cd, "W") ~ "Wales",
+                             stringr::str_detect(lad19cd, "S") ~ "Scotland",
+                             stringr::str_detect(lad19cd, "N") ~ "Northern Ireland",
+                             stringr::str_detect(lad19cd, "E") ~ "England"))
 
-#LAs %>% group_by(country) %>% tally()
+LAs %>% group_by(country) %>% tally()
 ```
 
 As we can see, we've manipulated our data in exactly the same way as we would have with a flat dataframe.We can also join spatial and non-spatial data together in the same way we normally would with dataframes.
@@ -97,29 +97,29 @@ Let's take some population data and join it to our Local Authorities.
 
 *Joining Spatial and non-spatial data*
 ```{r, echo = FALSE, eval = TRUE, error = FALSE, warning = FALSE, message = FALSE}
-#LAs_pop <- read_csv("Data/LAs_Populations.csv")
+LAs_pop <- read_csv("Data/LAs_Populations.csv")
 
-#LAs_pop <- LAs_pop %>%
- # rename(lad19cd = Code, population = `All ages`, LA_name = Name)
+LAs_pop <- LAs_pop %>%
+  rename(lad19cd = Code, population = `All ages`, LA_name = Name)
 
-#LAs_pop <- LAs_pop %>%
- # select(lad19cd, population)
+LAs_pop <- LAs_pop %>%
+  select(lad19cd, population)
 ```
 ```{r, echo = TRUE, eval = TRUE, error = FALSE, message = FALSE}
-#summary(LAs_pop)
+summary(LAs_pop)
 ```
 
 This dataframe of local authority populations has 2 variables, local authority code (lad19cd) and population. We can use a {dplyr} **left_join** to join this to our {sf} dataframe as we would with a flat dataframe.
 
 ```{r, echo = TRUE, eval = TRUE, error = FALSE}
 
-#names(LAs_pop)
-#names(LAs)
+names(LAs_pop)
+names(LAs)
 
-#LAs <- left_join(LAs, LAs_pop, by = "lad19cd")
+LAs <- left_join(LAs, LAs_pop, by = "lad19cd")
 ```
 ```{r, echo = FALSE, eval = TRUE, error = FALSE}
-#LAs$population <- as.numeric(LAs$population)
+LAs$population <- as.numeric(LAs$population)
 
 ```
 
@@ -150,10 +150,10 @@ Our crash data is in a flat csv format, BUT it has variables representing the ea
 
 *Transforming flat data frames to spatial data*
 ```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
-#crashes <- crash_data %>% filter(!is.na(Location_Easting_OSGR) & !is.na(Location_Northing_OSGR)) %>%
-#st_as_sf(coords = c("Location_Easting_OSGR","Location_Northing_OSGR"), crs = 27700)
+crashes <- crash_data %>% filter(!is.na(Location_Easting_OSGR) & !is.na(Location_Northing_OSGR)) %>%
+st_as_sf(coords = c("Location_Easting_OSGR","Location_Northing_OSGR"), crs = 27700)
 
-#st_geometry(crashes)
+st_geometry(crashes)
 ```
 
 The crashes sf dataframe holds information on all reported road traffic accidents in the UK since 2005. It has a number of variables for each accident, such as the accident severity, number of vehicles, number of casualties, time of day, and road and weather conditions.
@@ -163,7 +163,7 @@ Let's have a look at the most severe accidents (accidents with 5 or more casualt
 *Quick map of spatial data*
 ``` {r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
 
-#crashes %>% filter(Number_of_Casualties == 5) %>% tmap::qtm()
+crashes %>% filter(Number_of_Casualties == 5) %>% tmap::qtm()
 ```
 
 The **qtm** function is a useful function from {tmap} that let's us quickly create maps with a minimum number of arguments. This is often useful for sense-checking data and can help you spot errors in data manipulation when working with spatial data. Here, for example, we can see that our data largely makes sense, so our conversion to {sf} was likely correct. We can (roughly) make out the shape of Great Britain, and we see some clusters around major cities (London, Birmingham, Manchester etc.). We can also see that we don't appear to have data for Northern Ireland in this dataset (either that or Northern Irish drivers are much safer drivers).
@@ -174,12 +174,12 @@ We can use a **spatial join** to assign a local authority to each road traffic a
 *Joining spatial data*
 ```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
 
-#crashes_join <- st_join(crashes, LAs, join = st_intersects) # essentially a left_join of LAs to crashes
-#crashes_join$lad19nm <- as.character(crashes_join$lad19nm)
+crashes_join <- st_join(crashes, LAs, join = st_intersects) # essentially a left_join of LAs to crashes
+crashes_join$lad19nm <- as.character(crashes_join$lad19nm)
 
-#LAs_casualties <- crashes_join %>% group_by(lad19nm) %>% summarise(casualties = sum(Number_of_Casualties)) # making an sf data frame called LAs_casualties which is the result of a simple group_by and summarise.
+LAs_casualties <- crashes_join %>% group_by(lad19nm) %>% summarise(casualties = sum(Number_of_Casualties)) # making an sf data frame called LAs_casualties which is the result of a simple group_by and summarise.
 
-#LAs_casualties %>% arrange(desc(casualties))
+LAs_casualties %>% arrange(desc(casualties))
 
 ```
 
@@ -188,9 +188,9 @@ We can see that Birmingham has had more casualties in this period than any other
 The *LAs_casualties* dataset that we created above has the same local authorities names as our original *LAs* sf dataframe, meaning we can easily left_join this table to our original LAs_shapefile. But first, we will turn it into a flat dataframe (ie, with no geographic information) with the **st_set_geometry** function. If we did not get rid of the geometry before left_joining, we would create a "geometry_collection" object for each local authority, which would be a mess of polygons and points within those polygons for each feature. This is because our **group_by** function above also grouped together the geometries of the observations it was grouping together. If we look at the outout above, we can see that the geometry type of LAs_casualties is "MULTIPOINT", so the "Birmingham" observation has 3,532 points representing where each road accident happened, rather than outlining the polygon of Birmingham in any meaningful way.
 
 ```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
-#LAs_casualties <- LAs_casualties %>% st_set_geometry(NULL)
+LAs_casualties <- LAs_casualties %>% st_set_geometry(NULL)
 
-#LAs <- left_join(LAs, LAs_casualties, by = "lad19nm")
+LAs <- left_join(LAs, LAs_casualties, by = "lad19nm")
 
 ```
 
@@ -201,7 +201,7 @@ We now have our casualties data joined to our original local authorities shapefi
 Let's have a look at one of our Local Authorities in isolation, Cornwall.
 
 ```{r, echo = FALSE, eval = TRUE, error = FALSE}
-#LAs %>% filter(lad19nm == "Cornwall") %>% qtm()
+LAs %>% filter(lad19nm == "Cornwall") %>% qtm()
 ```
 
 We can see that our polygon is quite detailed. While this detail is desirable for when we conduct our spatial analysis, if we want to plot all of our local authorities at the same time, it can be better to plot simplified polygons. This is for 3 reasons. First, simplification means that R can create and output plots quicker; Second, outputs will have a smaller file size (particularly useful for interactive plots or when we share our outputs); and third, sometimes simplified polygons actually look better in plots as too-detailed borders can come out looking murky due to over-plotting, particularly in static plots.
@@ -210,7 +210,7 @@ To alleviate this, we can simplify our geometry features before plotting. For th
 
 *Simplifying Spatial Data*
 ```{r, echo = TRUE, eval = TRUE, error = FALSE}
-#LAs_simp <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE)
+LAs_simp <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE)
 ```
 
 This command creates a new sf data frame called "LAs_simp", which has all the same information as the original LAs sf dataframe, but has a simplified geometry with fewer points. The "keep" argument specifies how much geographic information we want to hold onto. Here we only keep 5% of the original points. The "keep_shapes" argument specifies whether or not we want to allow the function to delete some features entirely for simplification purposes. This can be useful for polygons with lots of small islands as individual entries (where you are indifferent to whether or not you keep all islands in your dataset), BUT use with caution, as if you simplify too much R might delete entire features (observations) to fulfill the simplification. Here we set "keep_shapes = TRUE"" so we don't lose any features.
@@ -218,10 +218,10 @@ This command creates a new sf data frame called "LAs_simp", which has all the sa
 Let's have a look at the difference between our original and our simplified polygon:
 
 ```{r, echo = FALSE, eval = TRUE}
-#Cornwall1 <- LAs %>% filter(lad19nm == "Cornwall") %>% qtm(title = "Original")
-#Cornwall2 <- LAs_simp %>% filter(lad19nm == "Cornwall") %>% qtm(title = "5%")
+Cornwall1 <- LAs %>% filter(lad19nm == "Cornwall") %>% qtm(title = "Original")
+Cornwall2 <- LAs_simp %>% filter(lad19nm == "Cornwall") %>% qtm(title = "5%")
 
-#tmap_arrange(Cornwall1, Cornwall2)
+tmap_arrange(Cornwall1, Cornwall2)
 ```
 
 Even with only 5% of the original points, we can see that we've held onto a lot of the information that we'd want if we were plotting these polygons.
@@ -244,38 +244,38 @@ Let's see this in action, and map our local authorities based on how many road t
 *Create static map in tmap*
 ```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
 
-#LAs <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE) # Simplifying polygons. Remember to only do this after you've finished your spatial analysis, or to save the simplified version as a different name.
+LAs <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE) # Simplifying polygons. Remember to only do this after you've finished your spatial analysis, or to save the simplified version as a different name.
 
-#tm_shape(LAs) + # defining what shapefile to use
- # tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks
- #             style = "quantile", # the style option lets us define how we want the variable split
-  #            n = 5, # number of quantiles
-   #           pal = "YlGnBu" # choose from a number of palettes available from rcolorbrewer, or define your own
-    #          ) +
-  #tm_borders(col = "#000000", # defining polygon border as black
-   #         lwd = 0.3 # setting border width
- # ) +
- # tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
-  #          )
+tm_shape(LAs) + # defining what shapefile to use
+  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks
+              style = "quantile", # the style option lets us define how we want the variable split
+             n = 5, # number of quantiles
+              pal = "YlGnBu" # choose from a number of palettes available from rcolorbrewer, or define your own
+              ) +
+  tm_borders(col = "#000000", # defining polygon border as black
+           lwd = 0.3 # setting border width
+  ) +
+  tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
+            )
 
 ```
 
 One problem with this plot is that we still have Northern Ireland in the plot, and we only have NAs for northern Ireland (as our casualties dataset didn't have accidents which happened there). To fix this, we can utilise a simple {dplyr} filter to remove features which have an *NA* value for casualties. We can then pipe a filtered sf dataframe into the **tm_shape** function.
 
 ```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
-#LAs %>%
- # filter(!is.na(casualties)) %>%
-#tm_shape() + # defining what shapefile to use
- # tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks
-  #            style = "quantile", # the style option lets us define how we want the variable split
-   #           n = 5, # number of quantiles
-    #          pal = "YlGnBu" # choose from a number of palettes available from rcolorbrewer, or define your own
-     #         ) +
-  #tm_borders(col = "#000000", # defining polygon border as black
-   #         lwd = 0.3 # setting border width
-  #) +
-  #tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
-    #        )
+LAs %>%
+ filter(!is.na(casualties)) %>%
+tm_shape() + # defining what shapefile to use
+  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks
+              style = "quantile", # the style option lets us define how we want the variable split
+              n = 5, # number of quantiles
+              pal = "YlGnBu" # choose from a number of palettes available from rcolorbrewer, or define your own
+             ) +
+  tm_borders(col = "#000000", # defining polygon border as black
+           lwd = 0.3 # setting border width
+  ) +
+  tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
+           )
 
 ```
 
@@ -283,24 +283,24 @@ Though this plot is useful, and gives us a sense of the distribution of accident
 
 *Create interactive map in tmap*
 ```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = TRUE}
-#tmap_mode("view")
+tmap_mode("view")
 
-#LAs %>%
-#  filter(!is.na(casualties)) %>%
-#tm_shape() + # defining what shapefile to use
-#  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks.
- #             style = "quantile", # the style option lets us define how we want the variable split
-  #            n = 5, # number of quantiles
-   #           pal = "YlGnBu" # choose from a number of palettes available from rcolorbrewer, or define your own
-    #          ) +
- #LAs %>%
-  #filter(!is.na(casualties)) %>%
-#tm_shape() +
- # tm_borders(col = "#000000", # defining polygon border as black
-  #          lwd = 0.3 # setting border width
-  #) +
-  #tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
-   #         )
+LAs %>%
+ filter(!is.na(casualties)) %>%
+tm_shape() + # defining what shapefile to use
+  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks.
+              style = "quantile", # the style option lets us define how we want the variable split
+              n = 5, # number of quantiles
+             pal = "YlGnBu" # choose from a number of palettes available from rcolorbrewer, or define your own
+              ) +
+ LAs %>%
+  filter(!is.na(casualties)) %>%
+tm_shape() +
+  tm_borders(col = "#000000", # defining polygon border as black
+            lwd = 0.3 # setting border width
+  ) +
+  tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
+            )
 
 ```
 
@@ -315,18 +315,18 @@ Finally we can pick from any number of basemaps. {tmap} leverages the {leaflet} 
 *Improving Interactive Map*
 ```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = TRUE}
 
-#tm_basemap(server = "CartoDB.Positron") + # defining basemap
-#LAs %>%
-#  filter(!is.na(casualties)) %>%
-#tm_shape() + # defining what shapefile to use
-#  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks.
- #             style = "quantile", # the style option lets us define how we want the variable split
-  #            n = 5, # number of quantiles
-   #           pal = "YlGnBu", # choose from a number of palettes available from rcolorbrewer, or define your own
-    #          alpha = 0.4, # setting transparency
-     #         popup.vars = c("Local Authority" = "lad19nm", "casualties"), # setting variables to be seen on click
-      #        id = "lad19nm" # Setting a variable to display when hovered over
-       #       ) 
+tm_basemap(server = "CartoDB.Positron") + # defining basemap
+LAs %>%
+  filter(!is.na(casualties)) %>%
+tm_shape() + # defining what shapefile to use
+  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks.
+              style = "quantile", # the style option lets us define how we want the variable split
+              n = 5, # number of quantiles
+              pal = "YlGnBu", # choose from a number of palettes available from rcolorbrewer, or define your own
+              alpha = 0.4, # setting transparency
+             popup.vars = c("Local Authority" = "lad19nm", "casualties"), # setting variables to be seen on click
+              id = "lad19nm" # Setting a variable to display when hovered over
+              ) 
 
 ```
 
@@ -337,24 +337,24 @@ Let's see this in action, adding a layer to our map with the worst car accidents
 *Mapping multiple spatial objects*
 ```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = TRUE}
 
-#tm_basemap(server = "CartoDB.Positron") + # defining basemap
-#LAs %>%
-#  filter(!is.na(casualties)) %>%
-#tm_shape() + # defining what shapefile to use
- # tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks.
-  #            style = "quantile", # the style option lets us define how we want the variable split
-   #           n = 5, # number of quantiles
-    #          pal = "YlGnBu", # choose from a number of palettes available from rcolorbrewer, or define your own
-     #         alpha = 0.4, # setting transparency
-      #        popup.vars = c("Local Authority" = "lad19nm", "casualties"),
-       #       id = "lad19nm") +
-#crashes %>% filter(Number_of_Casualties == 10) %>%
-#tm_shape() + # defining our second shapefile to use and plot in the same output as above
-#  tm_dots(col = "red", # calling tm_dots on point objects
- #         alpha = 0.7, # making the dots partially transparent
-  #        jitter = 0.05,  # adding a small amount of random jittering to points so overlayed points are visible
-   #       id = "Number_of_Casualties"
-  #) 
+tm_basemap(server = "CartoDB.Positron") + # defining basemap
+LAs %>%
+  filter(!is.na(casualties)) %>%
+tm_shape() + # defining what shapefile to use
+  tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks.
+              style = "quantile", # the style option lets us define how we want the variable split
+              n = 5, # number of quantiles
+              pal = "YlGnBu", # choose from a number of palettes available from rcolorbrewer, or define your own
+              alpha = 0.4, # setting transparency
+              popup.vars = c("Local Authority" = "lad19nm", "casualties"),
+              id = "lad19nm") +
+crashes %>% filter(Number_of_Casualties == 10) %>%
+tm_shape() + # defining our second shapefile to use and plot in the same output as above
+  tm_dots(col = "red", # calling tm_dots on point objects
+          alpha = 0.7, # making the dots partially transparent
+          jitter = 0.05,  # adding a small amount of random jittering to points so overlayed points are visible
+          id = "Number_of_Casualties"
+  ) 
 
 ```
 
@@ -368,8 +368,8 @@ Most similar to the {sf} package is {sp}. sp objects hold the different spatial 
 
 *Converting data from sf to sp objects*
 ```{r, echo = TRUE, eval = FALSE, error = FALSE, warning = TRUE}
-#object_sp <- as(object_sf, class = "SPATIAL") # sf to sp object
-#object_sf <- st_as_sf(object_sp) # sp to sf object
+object_sp <- as(object_sf, class = "SPATIAL") # sf to sp object
+object_sf <- st_as_sf(object_sp) # sp to sf object
 ```
 
 Another type of spatial data package to be aware of is the {raster} package. Raster objects are in a gridded data format: they define a rectangle, with a point of origin and an end point, and then define the number of rows and columns to split that rectangle into, making a grid of equal cell sizes. This format spares R from having to plot a polygon for every single grid square. It's often used for altitude or temperature data, but can be used for a wide range of data (eg emissions, or calculating distance from features of interest across a defined spatial area). Raster objects are held in the {raster} package, though plotting can be done with {tmap}, {leaflet}, and a range of mapping packages.
