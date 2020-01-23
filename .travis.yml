@@ -18,6 +18,7 @@ addons:
             - libprotobuf-dev
             - protobuf-compiler
             - libv8-dev
+            - libjq-dev
             
 install:
   - R -e "install.packages('sf')"
