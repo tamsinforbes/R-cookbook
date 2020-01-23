@@ -5,7 +5,7 @@ library(dplyr) #manipulating data
 library(readr) #reading in data
 library(tmap) ## mapping software
 library(sf) 
-#library(rmapshaper)
+library(rmapshaper)
 
 knitr::opts_chunk$set(echo = FALSE)
 
@@ -211,7 +211,7 @@ To alleviate this, we can simplify our geometry features before plotting. For th
 
 *Simplifying Spatial Data*
 ```{r 9, echo = TRUE, eval = TRUE, error = FALSE}
-#LAs_simp <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE)
+LAs_simp <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE)
 ```
 
 This command creates a new sf data frame called "LAs_simp", which has all the same information as the original LAs sf dataframe, but has a simplified geometry with fewer points. The "keep" argument specifies how much geographic information we want to hold onto. Here we only keep 5% of the original points. The "keep_shapes" argument specifies whether or not we want to allow the function to delete some features entirely for simplification purposes. This can be useful for polygons with lots of small islands as individual entries (where you are indifferent to whether or not you keep all islands in your dataset), BUT use with caution, as if you simplify too much R might delete entire features (observations) to fulfill the simplification. Here we set "keep_shapes = TRUE"" so we don't lose any features.
@@ -220,9 +220,9 @@ Let's have a look at the difference between our original and our simplified poly
 
 ```{r 8, echo = FALSE, eval = TRUE}
 Cornwall1 <- LAs %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm(title = "Original")
-#Cornwall2 <- LAs_simp %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm(title = "5%")
+Cornwall2 <- LAs_simp %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm(title = "5%")
 
-#tmap::tmap_arrange(Cornwall1, Cornwall2)
+tmap::tmap_arrange(Cornwall1, Cornwall2)
 ```
 
 Even with only 5% of the original points, we can see that we've held onto a lot of the information that we'd want if we were plotting these polygons.
@@ -245,7 +245,7 @@ Let's see this in action, and map our local authorities based on how many road t
 *Create static map in tmap*
 ```{r 7, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
 
-#LAs <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE) # Simplifying polygons. Remember to only do this after you've finished your spatial analysis, or to save the simplified version as a different name.
+LAs <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE) # Simplifying polygons. Remember to only do this after you've finished your spatial analysis, or to save the simplified version as a different name.
 
 tmap::tm_shape(LAs) + # defining what shapefile to use
   tmap::tm_polygons(col = "casualties", # setting the variable to map the colour aesthetic to. tmap takes variable names in quotation marks
