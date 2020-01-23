@@ -19,3 +19,4 @@ addons:
 install:
   - R -e "install.packages('sf')"
   - R -e "install.packages('tmap')"
+    - R -e "install.packages('rmapshaper')"

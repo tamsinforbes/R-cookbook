@@ -5,6 +5,7 @@ library(dplyr) #manipulating data
 library(readr) #reading in data
 library(tmap) ## mapping software
 library(sf) 
+library(rmapshaper)
 
 knitr::opts_chunk$set(echo = FALSE)
 
