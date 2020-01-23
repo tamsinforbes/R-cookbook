@@ -72,7 +72,7 @@ This changes the CRS projection from the WGS84 system to the OSGB1936 system, co
 Note that this only works if the spatial object has data on the coordinate reference system already. If your data is missing *all* of this information, you will have to set the crs manually (if you know what the CRS projection *should be*):
 
 *Setting Coordinate Reference System*
-```{r echo = TRUE, eval = FALSE, error = FALSE}
+```{r echo = TRUE, eval = TRUE, error = FALSE}
 sf::st_crs(sf_object) <- 27700
 ```
 

@@ -23,7 +23,7 @@ addons:
             - libprotoc-dev
             - libnetcdf-dev
             
-install:
+install: travis_wait mvn install
   - R -e "install.packages('sf')"
   - R -e "install.packages('tmap')"
   - R -e "install.packages('rmapshaper')"
