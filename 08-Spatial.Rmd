@@ -4,12 +4,12 @@
 library(dplyr) #manipulating data
 library(readr) #reading in data
 library(tmap) ## mapping software
-library(sf) 
-#library(rmapshaper)
+library(sf)
+
 
 knitr::opts_chunk$set(echo = FALSE)
 
-Sys.setenv(TZ='UTC')
+Sys.setenv(TZ = "UTC")
 ```
 
 
@@ -32,9 +32,6 @@ Let's have a look at some data. We can read in our data as a spatial object usin
 *Reading in Spatial Data*
 ```{r read in data, echo = TRUE, eval = TRUE, error = FALSE}
 LAs <- sf::st_read("data/ONS Geography")
-
-
-head(LAs)
 ```
 
 Looking at the message we get when we load in our data, we can find out some basic information about our sf dataframe:
@@ -47,7 +44,7 @@ Looking at the message we get when we load in our data, we can find out some bas
 We can also ask R to give us all of this info with the **st_geometry** function.
 
 *Inspect spatial data*
-```{r echo = TRUE, eval = FALSE, error = FALSE}
+```{r echo = TRUE, eval = TRUE, error = FALSE}
 sf::st_geometry(LAs)
 ```
 
@@ -62,7 +59,7 @@ The OSGB1936 system is best suited to mapping the UK or areas within it. It is a
 Complexities aside, practically what this means is that you will always want *all* of you're spatial data to be in the same CRS, otherwise spatial joins and mapping functions will start throwing up errors. We can change the crs projection very easily with the {sf} function **st_transform**.
 
 *Changing Coordinate Reference System*
-```{r echo = TRUE, eval = FALSE, error = FALSE}
+```{r echo = TRUE, eval = TRUE, error = FALSE}
 LAs <- sf::st_transform(LAs, crs = 27700)
 
 sf::st_crs(LAs)
@@ -84,20 +81,20 @@ As mentiond above, one of the key advantages of working with spatial data in {sf
 The variable "lad19cd" has a unique code for each local authority. All codes begin with a letter, followed by a numeric series. The letter refers to the country ("E" for England, "W" for Wales, "S" for Scotland, and "N" for Northern Ireland). We can use this to create a new variable called "country" for each feature.
 
 *Manipulating {sf} data with dplyr*
-```{r, echo = TRUE, eval = FALSE, error = FALSE}
+```{r, echo = TRUE, eval = TRUE, error = FALSE}
 LAs <- LAs %>% dplyr::mutate(country = dplyr::case_when(stringr::str_detect(lad19cd, "W") ~ "Wales",
                              stringr::str_detect(lad19cd, "S") ~ "Scotland",
                              stringr::str_detect(lad19cd, "N") ~ "Northern Ireland",
                              stringr::str_detect(lad19cd, "E") ~ "England"))
 
-LAs %>% dplyr::group_by(country) %>% dplyr::tally()
+LAs %>% as.data.frame() %>% dplyr::group_by(country) %>% dplyr::tally()
 ```
 
 As we can see, we've manipulated our data in exactly the same way as we would have with a flat dataframe.We can also join spatial and non-spatial data together in the same way we normally would with dataframes.
 Let's take some population data and join it to our Local Authorities. 
 
 *Joining Spatial and non-spatial data*
-```{r, echo = FALSE, eval = FALSE, error = FALSE, warning = FALSE, message = FALSE}
+```{r, echo = FALSE, eval = TRUE, error = FALSE, warning = FALSE, message = FALSE}
 LAs_pop <- read_csv("data/LAs_Populations.csv")
 
 LAs_pop <- LAs_pop %>%
@@ -106,20 +103,16 @@ LAs_pop <- LAs_pop %>%
 LAs_pop <- LAs_pop %>%
   dplyr::select(lad19cd, population)
 ```
-```{r, echo = TRUE, eval = FALSE, error = FALSE, message = FALSE}
+```{r, echo = TRUE, eval = TRUE, error = FALSE, message = FALSE}
 summary(LAs_pop)
 ```
 
 This dataframe of local authority populations has 2 variables, local authority code (lad19cd) and population. We can use a {dplyr} **left_join** to join this to our {sf} dataframe as we would with a flat dataframe.
 
-```{r, echo = TRUE, eval = FALSE, error = FALSE}
-
-names(LAs_pop)
-names(LAs)
+```{r, echo = TRUE, eval = TRUE, error = FALSE}
 
 LAs <- dplyr::left_join(LAs, LAs_pop, by = "lad19cd")
-```
-```{r, echo = FALSE, eval = FALSE, error = FALSE}
+
 LAs$population <- as.numeric(LAs$population)
 
 ```
@@ -131,7 +124,7 @@ A common task we might want to conduct is to manipulated a spatial object based 
 Let's look at some data representing the coordinates of road traffic accidents in Great Britain.
 
 *Read in csv*
-```{r, echo = FALSE, eval = FALSE, error = FALSE, warning = FALSE}
+```{r, echo = FALSE, eval = TRUE, error = FALSE, warning = FALSE}
 
 crash_data <- read.csv("data/road_traffic_accidents.csv")
 
@@ -150,7 +143,7 @@ names(crash_data)
 Our crash data is in a flat csv format, BUT it has variables representing the easting and northing of where each acccident took place. We can use this to turn our crash data into an sf object with the function **st_as_sf**. We take our dataset, define which variables R should use to define coordinates in the "coords" argument, and define the "crs" that those coordinates are plotted in.
 
 *Transforming flat data frames to spatial data*
-```{r, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
 crashes <- crash_data %>% dplyr::filter(!is.na(Location_Easting_OSGR) & !is.na(Location_Northing_OSGR)) %>%
 sf::st_as_sf(coords = c("Location_Easting_OSGR","Location_Northing_OSGR"), crs = 27700)
 
@@ -166,6 +159,7 @@ Let's have a look at the most severe accidents (accidents with 5 or more casualt
 
 crashes %>% dplyr::filter(Number_of_Casualties == 5) %>% tmap::qtm()
 ```
+![](image/crashesq.png)
 
 The **qtm** function is a useful function from {tmap} that let's us quickly create maps with a minimum number of arguments. This is often useful for sense-checking data and can help you spot errors in data manipulation when working with spatial data. Here, for example, we can see that our data largely makes sense, so our conversion to {sf} was likely correct. We can (roughly) make out the shape of Great Britain, and we see some clusters around major cities (London, Birmingham, Manchester etc.). We can also see that we don't appear to have data for Northern Ireland in this dataset (either that or Northern Irish drivers are much safer drivers).
 
@@ -173,14 +167,14 @@ Let's see can we work out which Local Authority has had the most road traffic ca
 We can use a **spatial join** to assign a local authority to each road traffic accident. This works similarly to a {dplyr} left_join, with all of the variables from the **y** table being added to each observation of the **x** table which match eachother by a defined variable. The difference here is that the two tables are joined based on a shared **geometry**, rather than a shared value of a variable. The shared geometry here being whether a point intersects with a polygon (in other words, whether the point falls within a polygon). 
 
 *Joining spatial data*
-```{r, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
 
 crashes_join <- sf::st_join(crashes, LAs, join = st_intersects) # essentially a left_join of LAs to crashes
 crashes_join$lad19nm <- as.character(crashes_join$lad19nm)
 
 LAs_casualties <- crashes_join %>% dplyr::group_by(lad19nm) %>% dplyr::summarise(casualties = sum(Number_of_Casualties)) # making an sf data frame called LAs_casualties which is the result of a simple group_by and summarise.
 
-LAs_casualties %>% dplyr::arrange(desc(casualties))
+LAs_casualties %>% as.data.frame() %>% dplyr::arrange(desc(casualties)) %>% head()
 
 ```
 
@@ -188,7 +182,7 @@ We can see that Birmingham has had more casualties in this period than any other
 
 The *LAs_casualties* dataset that we created above has the same local authorities names as our original *LAs* sf dataframe, meaning we can easily left_join this table to our original LAs_shapefile. But first, we will turn it into a flat dataframe (ie, with no geographic information) with the **st_set_geometry** function. If we did not get rid of the geometry before left_joining, we would create a "geometry_collection" object for each local authority, which would be a mess of polygons and points within those polygons for each feature. This is because our **group_by** function above also grouped together the geometries of the observations it was grouping together. If we look at the outout above, we can see that the geometry type of LAs_casualties is "MULTIPOINT", so the "Birmingham" observation has 3,532 points representing where each road accident happened, rather than outlining the polygon of Birmingham in any meaningful way.
 
-```{r, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
+```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
 LAs_casualties <- LAs_casualties %>% sf::st_set_geometry(NULL)
 
 LAs <- dplyr::left_join(LAs, LAs_casualties, by = "lad19nm")
@@ -201,9 +195,7 @@ We now have our casualties data joined to our original local authorities shapefi
 
 Let's have a look at one of our Local Authorities in isolation, Cornwall.
 
-```{r 10, echo = FALSE, eval = FALSE, error = FALSE}
-LAs %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm()
-```
+![](image/Cornwall1.png)
 
 We can see that our polygon is quite detailed. While this detail is desirable for when we conduct our spatial analysis, if we want to plot all of our local authorities at the same time, it can be better to plot simplified polygons. This is for 3 reasons. First, simplification means that R can create and output plots quicker; Second, outputs will have a smaller file size (particularly useful for interactive plots or when we share our outputs); and third, sometimes simplified polygons actually look better in plots as too-detailed borders can come out looking murky due to over-plotting, particularly in static plots.
 
@@ -218,12 +210,7 @@ This command creates a new sf data frame called "LAs_simp", which has all the sa
 
 Let's have a look at the difference between our original and our simplified polygon:
 
-```{r 8, echo = FALSE, eval = FALSE}
-Cornwall1 <- LAs %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm(title = "Original")
-Cornwall2 <- LAs_simp %>% dplyr::filter(lad19nm == "Cornwall") %>% tmap::qtm(title = "5%")
-
-tmap::tmap_arrange(Cornwall1, Cornwall2)
-```
+![](image/CornwallCompare.png)
 
 Even with only 5% of the original points, we can see that we've held onto a lot of the information that we'd want if we were plotting these polygons.
 
@@ -243,7 +230,7 @@ Similar to using {ggplot2}, the first layer of a tmap defines the spatial object
 Let's see this in action, and map our local authorities based on how many road traffic casualties there were in each.
 
 *Create static map in tmap*
-```{r 7, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
+```{r 8, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
 
 LAs <- rmapshaper::ms_simplify(LAs, keep = 0.05, keep_shapes = TRUE) # Simplifying polygons. Remember to only do this after you've finished your spatial analysis, or to save the simplified version as a different name.
 
@@ -261,9 +248,11 @@ tmap::tm_shape(LAs) + # defining what shapefile to use
 
 ```
 
+![](image/static1.png)
+
 One problem with this plot is that we still have Northern Ireland in the plot, and we only have NAs for northern Ireland (as our casualties dataset didn't have accidents which happened there). To fix this, we can utilise a simple {dplyr} filter to remove features which have an *NA* value for casualties. We can then pipe a filtered sf dataframe into the **tm_shape** function.
 
-```{r 6, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
+```{r 7, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
 LAs %>%
  dplyr::filter(!is.na(casualties)) %>%
 tm_shape() + # defining what shapefile to use
@@ -280,10 +269,12 @@ tm_shape() + # defining what shapefile to use
 
 ```
 
+![](image/static2.png)
+
 Though this plot is useful, and gives us a sense of the distribution of accidents, it's difficult to make out values of smaller local authorities. What would make this easier is if we changed our map to an interactive map. We can do this very easily, using the same chunk of code, by simply setting the **tmap_mode** to "view".
 
 *Create interactive map in tmap*
-```{r 5, echo = TRUE, eval = FALSE, error = FALSE, warning = TRUE}
+```{r 6, echo = TRUE, eval = FALSE, error = FALSE, warning = TRUE}
 tmap_mode("view")
 
 LAs %>%
@@ -303,6 +294,9 @@ tm_shape() +
   tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
             )
 
+```
+``` {r 5, echo = FALSE, eval = TRUE, error = FALSE, warning = TRUE}
+htmltools::includeHTML("interactive1.html")
 ```
 
 It's worth noting that some arguments in {tmap} are only availble in static plots, and some only available in interactive maps. However, R will just skip the arguments that don't apply, so it wont break your code to leave them in. Here, the "legend.outside" argument is meaningless in an interactive plot, so is skipped by R when creating this interactive plot.
@@ -329,6 +323,9 @@ tm_shape() + # defining what shapefile to use
               id = "lad19nm" # Setting a variable to display when hovered over
               ) 
 
+```
+``` {r 5, echo = FALSE, eval = TRUE, error = FALSE, warning = TRUE}
+htmltools::includeHTML("interactive2.html")
 ```
 
 There are myriad aesthetic possibilities in {tmap} and related packages. It's not uncommon for a map to be built first in {tmap}, before exported as {leaflet} map and further edited in the {leaflet} package, though we wont cover that here. It's also possible to plot more than one spatial object at the same time. For example, layering polygons, points and lines from various shapefiles. Simply define the new spatial object with **tm_shape** and add aesthetics as before.
@@ -358,7 +355,9 @@ tm_shape() + # defining our second shapefile to use and plot in the same output 
   ) 
 
 ```
-
+``` {r 5, echo = FALSE, eval = TRUE, error = FALSE, warning = TRUE}
+htmltools::includeHTML("interactive3.html")
+```
 
 ## Other Spatial Types
 We have worked only with the {sf} package here, but it's important to be aware of different types of spatial data formats that exist in R.
