@@ -3,7 +3,6 @@
 ```{r setup and read in zapmap, echo=FALSE, include=FALSE}
 library(dplyr) #manipulating data
 library(readr) #reading in data
-library(tmap) ## mapping software
 library(sf)
 library(htmltools) # for embedding html docs
 library(base64enc) # for embedding html docs
