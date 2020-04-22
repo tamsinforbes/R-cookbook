@@ -158,7 +158,7 @@ The crashes sf dataframe holds information on all reported road traffic accident
 Let's have a look at the most severe accidents (accidents with 5 or more casualties).
 
 *Quick map of spatial data*
-``` {r 13, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
+``` {r 13i, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
 crashes %>% dplyr::filter(Number_of_Casualties == 5) %>% tmap::qtm()
 ```
 ![](image/crashesq.png)
