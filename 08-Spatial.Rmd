@@ -290,7 +290,7 @@ tm_shape() +
   tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
             )
 ```
-``` {r 6, echo = FALSE, eval = FALSE, error = FALSE, warning = TRUE}
+``` {r 6, echo = FALSE, eval = TRUE, error = FALSE, warning = TRUE}
 xfun::embed_file("image/interactive1.html")
 ```
 
@@ -318,7 +318,7 @@ tm_shape() + # defining what shapefile to use
               id = "lad19nm" # Setting a variable to display when hovered over
               ) 
 ```
-``` {r 4, echo = FALSE, eval = FALSE, error = FALSE, warning = TRUE}
+``` {r 4, echo = FALSE, eval = TRUE, error = FALSE, warning = TRUE}
 xfun::embed_file("image/interactive2.html")
 ```
 
@@ -347,7 +347,7 @@ tm_shape() + # defining our second shapefile to use and plot in the same output 
           id = "Number_of_Casualties"
   ) 
 ```
-``` {r 2, echo = FALSE, eval = FALSE, error = FALSE, warning = TRUE}
+``` {r 2, echo = FALSE, eval = TRUE, error = FALSE, warning = TRUE}
 xfun::embed_file("image/interactive3.html")
 ```
 
