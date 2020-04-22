@@ -27,4 +27,4 @@ install:
   - R -e "install.packages('sf')"
   - R -e "install.packages('tmap')"
   - R -e "install.packages('rmapshaper')"
-    - R -e "install.packages('bookdown')"
+  - R -e "install.packages('bookdown')"
