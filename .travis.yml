@@ -29,3 +29,4 @@ install:
   - R -e "install.packages('rmapshaper')"
   - R -e "install.packages('bookdown')"
   - R -e "install.packages('dplyr')"
+  - R -e "install.packages('janitor')"
