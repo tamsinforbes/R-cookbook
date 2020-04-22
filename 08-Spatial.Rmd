@@ -32,7 +32,7 @@ Let's have a look at some data. We can read in our data as a spatial object usin
 
 
 *Reading in Spatial Data*
-```{r read in data, echo = TRUE, eval = TRUE, error = FALSE}
+```{r read in data, echo = TRUE, eval = FALSE, error = FALSE}
 LAs <- sf::st_read("data/ONS Geography")
 ```
 
@@ -46,7 +46,7 @@ Looking at the message we get when we load in our data, we can find out some bas
 We can also ask R to give us all of this info with the **st_geometry** function.
 
 *Inspect spatial data*
-```{r 21, echo = TRUE, eval = TRUE, error = FALSE}
+```{r 21, echo = TRUE, eval = FALSE, error = FALSE}
 sf::st_geometry(LAs)
 ```
 
@@ -61,7 +61,7 @@ The OSGB1936 system is best suited to mapping the UK or areas within it. It is a
 Complexities aside, practically what this means is that you will always want *all* of you're spatial data to be in the same CRS, otherwise spatial joins and mapping functions will start throwing up errors. We can change the crs projection very easily with the {sf} function **st_transform**.
 
 *Changing Coordinate Reference System*
-```{r 20, echo = TRUE, eval = TRUE, error = FALSE}
+```{r 20, echo = TRUE, eval = FALSE, error = FALSE}
 LAs <- sf::st_transform(LAs, crs = 27700)
 
 sf::st_crs(LAs)
@@ -83,7 +83,7 @@ As mentiond above, one of the key advantages of working with spatial data in {sf
 The variable "lad19cd" has a unique code for each local authority. All codes begin with a letter, followed by a numeric series. The letter refers to the country ("E" for England, "W" for Wales, "S" for Scotland, and "N" for Northern Ireland). We can use this to create a new variable called "country" for each feature.
 
 *Manipulating {sf} data with dplyr*
-```{r 18, echo = TRUE, eval = TRUE, error = FALSE}
+```{r 18, echo = TRUE, eval = FALSE, error = FALSE}
 LAs <- LAs %>% dplyr::mutate(country = dplyr::case_when(stringr::str_detect(lad19cd, "W") ~ "Wales",
                              stringr::str_detect(lad19cd, "S") ~ "Scotland",
                              stringr::str_detect(lad19cd, "N") ~ "Northern Ireland",
@@ -96,7 +96,7 @@ As we can see, we've manipulated our data in exactly the same way as we would ha
 Let's take some population data and join it to our Local Authorities. 
 
 *Joining Spatial and non-spatial data*
-```{r 17, echo = FALSE, eval = TRUE, error = FALSE, warning = FALSE, message = FALSE}
+```{r 17, echo = FALSE, eval = FALSE, error = FALSE, warning = FALSE, message = FALSE}
 LAs_pop <- read_csv("data/LAs_Populations.csv")
 
 LAs_pop <- LAs_pop %>%
@@ -105,13 +105,13 @@ LAs_pop <- LAs_pop %>%
 LAs_pop <- LAs_pop %>%
   dplyr::select(lad19cd, population)
 ```
-```{r 16, echo = TRUE, eval = TRUE, error = FALSE, message = FALSE}
+```{r 16, echo = TRUE, eval = FALSE, error = FALSE, message = FALSE}
 summary(LAs_pop)
 ```
 
 This dataframe of local authority populations has 2 variables, local authority code (lad19cd) and population. We can use a {dplyr} **left_join** to join this to our {sf} dataframe as we would with a flat dataframe.
 
-```{r 15, echo = TRUE, eval = TRUE, error = FALSE}
+```{r 15, echo = TRUE, eval = FALSE, error = FALSE}
 
 LAs <- dplyr::left_join(LAs, LAs_pop, by = "lad19cd")
 
@@ -126,7 +126,7 @@ A common task we might want to conduct is to manipulated a spatial object based 
 Let's look at some data representing the coordinates of road traffic accidents in Great Britain.
 
 *Read in csv*
-```{r 14, echo = FALSE, eval = TRUE, error = FALSE, warning = FALSE}
+```{r 14, echo = FALSE, eval = FALSE, error = FALSE, warning = FALSE}
 
 crash_data <- read.csv("data/road_traffic_accidents.csv")
 
@@ -145,7 +145,7 @@ names(crash_data)
 Our crash data is in a flat csv format, BUT it has variables representing the easting and northing of where each acccident took place. We can use this to turn our crash data into an sf object with the function **st_as_sf**. We take our dataset, define which variables R should use to define coordinates in the "coords" argument, and define the "crs" that those coordinates are plotted in.
 
 *Transforming flat data frames to spatial data*
-```{r 13, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+```{r 13, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
 crashes <- crash_data %>% dplyr::filter(!is.na(Location_Easting_OSGR) & !is.na(Location_Northing_OSGR)) %>%
 sf::st_as_sf(coords = c("Location_Easting_OSGR","Location_Northing_OSGR"), crs = 27700)
 
@@ -168,7 +168,7 @@ Let's see can we work out which Local Authority has had the most road traffic ca
 We can use a **spatial join** to assign a local authority to each road traffic accident. This works similarly to a {dplyr} left_join, with all of the variables from the **y** table being added to each observation of the **x** table which match eachother by a defined variable. The difference here is that the two tables are joined based on a shared **geometry**, rather than a shared value of a variable. The shared geometry here being whether a point intersects with a polygon (in other words, whether the point falls within a polygon). 
 
 *Joining spatial data*
-```{r 12, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+```{r 12, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
 crashes_join <- sf::st_join(crashes, LAs, join = st_intersects) # essentially a left_join of LAs to crashes
 crashes_join$lad19nm <- as.character(crashes_join$lad19nm)
 
@@ -181,7 +181,7 @@ We can see that Birmingham has had more casualties in this period than any other
 
 The *LAs_casualties* dataset that we created above has the same local authorities names as our original *LAs* sf dataframe, meaning we can easily left_join this table to our original LAs_shapefile. But first, we will turn it into a flat dataframe (ie, with no geographic information) with the **st_set_geometry** function. If we did not get rid of the geometry before left_joining, we would create a "geometry_collection" object for each local authority, which would be a mess of polygons and points within those polygons for each feature. This is because our **group_by** function above also grouped together the geometries of the observations it was grouping together. If we look at the outout above, we can see that the geometry type of LAs_casualties is "MULTIPOINT", so the "Birmingham" observation has 3,532 points representing where each road accident happened, rather than outlining the polygon of Birmingham in any meaningful way.
 
-```{r 11, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
+```{r 11, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
 LAs_casualties <- LAs_casualties %>% sf::st_set_geometry(NULL)
 
 LAs <- dplyr::left_join(LAs, LAs_casualties, by = "lad19nm")
