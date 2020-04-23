@@ -3,12 +3,8 @@
 ```{r setup and read in zapmap, echo=FALSE, include=FALSE}
 library(dplyr) #manipulating data
 library(readr) #reading in data
-library(sf)
+library(sf) # storing and manipulating spatial data
 library(htmltools) # for embedding html docs
-library(base64enc) # for embedding html docs
-library(mime) # for embedding html docs
-library(xfun) # for embedding html docs
-
 knitr::opts_chunk$set(echo = FALSE)
 
 Sys.setenv(TZ = "UTC")
@@ -33,7 +29,7 @@ Let's have a look at some data. We can read in our data as a spatial object usin
 
 *Reading in Spatial Data*
 ```{r read in data, echo = TRUE, eval = TRUE, error = FALSE}
-LAs <- sf::st_read("data/ONS Geography")
+LAs <- sf::st_read("data/LAs")
 ```
 
 Looking at the message we get when we load in our data, we can find out some basic information about our sf dataframe:
@@ -98,12 +94,6 @@ Let's take some population data and join it to our Local Authorities.
 *Joining Spatial and non-spatial data*
 ```{r 17, echo = FALSE, eval = TRUE, error = FALSE, warning = FALSE, message = FALSE}
 LAs_pop <- read_csv("data/LAs_Populations.csv")
-
-LAs_pop <- LAs_pop %>%
-  dplyr::rename(lad19cd = Code, population = `All ages`, LA_name = Name)
-
-LAs_pop <- LAs_pop %>%
-  dplyr::select(lad19cd, population)
 ```
 ```{r 16, echo = TRUE, eval = TRUE, error = FALSE, message = FALSE}
 summary(LAs_pop)
@@ -112,11 +102,9 @@ summary(LAs_pop)
 This dataframe of local authority populations has 2 variables, local authority code (lad19cd) and population. We can use a {dplyr} **left_join** to join this to our {sf} dataframe as we would with a flat dataframe.
 
 ```{r 15, echo = TRUE, eval = TRUE, error = FALSE}
-
 LAs <- dplyr::left_join(LAs, LAs_pop, by = "lad19cd")
 
 LAs$population <- as.numeric(LAs$population)
-
 ```
 
 ## Spatial Analysis - Joins
@@ -130,12 +118,6 @@ Let's look at some data representing the coordinates of road traffic accidents i
 
 crash_data <- read.csv("data/road_traffic_accidents.csv")
 
-crash_data <- crash_data %>% dplyr::select(-Longitude, -Latitude, -Local_Authority_.District., -Local_Authority_.Highway.)
-
-crash_data$Date <- as.Date(crash_data$Date)
-
-
-crash_data <- crash_data %>% dplyr::filter(Date >= as.Date("01/01/2018"))
 ```
 ```{r, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
 class(crash_data)
@@ -158,7 +140,7 @@ Let's have a look at the most severe accidents (accidents with 5 or more casualt
 
 *Quick map of spatial data*
 ``` {r 13i, echo = TRUE, eval = FALSE, error = FALSE, warning = FALSE}
-crashes %>% dplyr::filter(Number_of_Casualties == 5) %>% tmap::qtm()
+crashes %>% dplyr::filter(Number_of_Casualties >= 5) %>% tmap::qtm()
 ```
 ![](image/crashesq.png)
 
@@ -170,11 +152,11 @@ We can use a **spatial join** to assign a local authority to each road traffic a
 *Joining spatial data*
 ```{r 12, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
 crashes_join <- sf::st_join(crashes, LAs, join = st_intersects) # essentially a left_join of LAs to crashes
-crashes_join$lad19nm <- as.character(crashes_join$lad19nm)
+crashes_join$LA_name <- as.character(crashes_join$LA_name)
 
-LAs_casualties <- crashes_join %>% dplyr::group_by(lad19nm) %>% dplyr::summarise(casualties = sum(Number_of_Casualties)) # making an sf data frame called LAs_casualties which is the result of a simple group_by and summarise.
+LAs_casualties <- crashes_join %>% dplyr::group_by(LA_name) %>% dplyr::summarise(casualties = sum(Number_of_Casualties)) # making an sf data frame called LAs_casualties which is the result of a simple group_by and summarise.
 
-LAs_casualties %>% as.data.frame() %>% dplyr::arrange(desc(casualties)) %>% head()
+LAs_casualties %>% as.data.frame() %>% dplyr::arrange(desc(casualties)) %>% select(LA_name, casualties) %>% head()
 ```
 
 We can see that Birmingham has had more casualties in this period than any other local authority.
@@ -184,7 +166,7 @@ The *LAs_casualties* dataset that we created above has the same local authoritie
 ```{r 11, echo = TRUE, eval = TRUE, error = FALSE, warning = FALSE}
 LAs_casualties <- LAs_casualties %>% sf::st_set_geometry(NULL)
 
-LAs <- dplyr::left_join(LAs, LAs_casualties, by = "lad19nm")
+LAs <- dplyr::left_join(LAs, LAs_casualties, by = "LA_name")
 
 ```
 
@@ -290,8 +272,8 @@ tm_shape() +
   tm_layout(legend.outside = TRUE # putting the legend outside the plot rather than inside
             )
 ```
-``` {r 6, echo = FALSE, eval = FALSE, error = FALSE, warning = TRUE}
-xfun::embed_file("image/interactive1.html")
+``` {r 6, echo = FALSE, eval = TRUE, error = FALSE, verbose = TRUE, warning = TRUE}
+knitr::include_url("image/interactive1.html")
 ```
 
 It's worth noting that some arguments in {tmap} are only availble in static plots, and some only available in interactive maps. However, R will just skip the arguments that don't apply, so it wont break your code to leave them in. Here, the "legend.outside" argument is meaningless in an interactive plot, so is skipped by R when creating this interactive plot.
@@ -318,8 +300,8 @@ tm_shape() + # defining what shapefile to use
               id = "lad19nm" # Setting a variable to display when hovered over
               ) 
 ```
-``` {r 4, echo = FALSE, eval = FALSE, error = FALSE, warning = TRUE}
-xfun::embed_file("image/interactive2.html")
+``` {r 4, echo = FALSE, eval = TRUE, error = FALSE, verbose = TRUE, warning = TRUE}
+knitr::include_url("image/interactive2.html")
 ```
 
 There are myriad aesthetic possibilities in {tmap} and related packages. It's not uncommon for a map to be built first in {tmap}, before exported as {leaflet} map and further edited in the {leaflet} package, though we wont cover that here. It's also possible to plot more than one spatial object at the same time. For example, layering polygons, points and lines from various shapefiles. Simply define the new spatial object with **tm_shape** and add aesthetics as before.
@@ -347,8 +329,8 @@ tm_shape() + # defining our second shapefile to use and plot in the same output 
           id = "Number_of_Casualties"
   ) 
 ```
-``` {r 2, echo = FALSE, eval = FALSE, error = FALSE, warning = TRUE}
-xfun::embed_file("image/interactive3.html")
+``` {r 2, echo = FALSE, eval = TRUE, error = FALSE, verbose = TRUE, warning = TRUE}
+knitr::include_url("image/interactive3.html")
 ```
 
 ## Other Spatial Types
