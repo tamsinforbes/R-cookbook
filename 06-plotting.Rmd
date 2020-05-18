@@ -215,9 +215,9 @@ ggplot(data = road_acc_2017) +
 
 So far we've used colours built into R and referred to them by name e.g. red, lightlue etc. In order to make charts using DfT colours, we can specify what colours we want using hexcodes. For example, for the previous bar chart we can set the levels of severity to different DfT colours.
 
-```{r}
-ggplot(data = road_acc_2017) +
-  geom_col(mapping = aes(x = name, y = total, fill = name))+
+```{r, 1}
+ggplot(data = road_acc_2017, aes(fill = name, y = total, x = name)) +
+  geom_col()+
   xlab("Severity") +
   ylab("Total accidents") +
   ggtitle("Total accidents by severity, 2017") +
@@ -235,9 +235,9 @@ We mentioned themes earlier. Themes are used to set the style of your plot and c
 
 You can modify aspects of a theme using the theme() function. For example, for our previous accidents plot, we can remove the legend title and move the position of the plot title.
 
-```{r}
-ggplot(data = road_acc_2017) +
-  geom_col(mapping = aes(x = name, y = total, fill = name))+
+```{r, 2}
+ggplot(data = road_acc_2017, aes(fill = name, x = name, y = total)) +
+  geom_col()+
   xlab("Severity") +
   ylab("Total accidents") +
   ggtitle("Total accidents by severity, 2017") +
