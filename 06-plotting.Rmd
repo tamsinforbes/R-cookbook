@@ -217,7 +217,7 @@ So far we've used colours built into R and referred to them by name e.g. red, li
 
 ```{r}
 ggplot(data = road_acc_2017) +
-  geom_col(mapping = aes(x = name, y = total, fill = name), col = "black")+
+  geom_col(mapping = aes(x = name, y = total, fill = name))+
   xlab("Severity") +
   ylab("Total accidents") +
   ggtitle("Total accidents by severity, 2017") +
@@ -237,7 +237,7 @@ You can modify aspects of a theme using the theme() function. For example, for o
 
 ```{r}
 ggplot(data = road_acc_2017) +
-  geom_col(mapping = aes(x = name, y = total, fill = name), col = "black")+
+  geom_col(mapping = aes(x = name, y = total, fill = name))+
   xlab("Severity") +
   ylab("Total accidents") +
   ggtitle("Total accidents by severity, 2017") +
@@ -367,7 +367,7 @@ accident_pf_small$Police_Force <-
 
 # use the DfT colours and the DfT theme for the accidents by police force scatter chart
 ggplot(data = accident_pf_small) +
-  geom_col(mapping = aes(x = Police_Force, y = n, fill = Police_Force), col = "black") +
+  geom_col(mapping = aes(x = Police_Force, y = n, fill = Police_Force)) +
   coord_flip() +         # make bar chart horizontal
   labs(title = "Reported Road Accidents by Police Force, 2017", 
        x = "Police Force", 
