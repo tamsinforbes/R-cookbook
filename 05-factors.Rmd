@@ -166,7 +166,7 @@ str(df)
 ```
 
 to transform this to a numeric variable we can proceed as follows
-```{r}
+```{r check1234, error = TRUE}
 df$ages <- as.numeric(levels(df$ages)[df$ages])
 str(df)
 ```
